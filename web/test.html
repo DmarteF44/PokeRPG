@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PokeRPG UI Test</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body {
+      min-height: 100%;
+      margin: 0;
+      background: #15191f;
+      font-family: Arial, Helvetica, sans-serif;
+      overflow: hidden;
+    }
+    body {
+      display: grid;
+      place-items: center;
+    }
+    #phone {
+      position: relative;
+      width: 360px;
+      height: 640px;
+      overflow: hidden;
+      color: white;
+      background: url("../assets/backgrounds/gray_texture_360x640.png") center / cover no-repeat;
+      image-rendering: pixelated;
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+    }
+    .screen, .overlay {
+      position: absolute;
+      inset: 0;
+    }
+    .topbar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 360px;
+      height: 44px;
+      background: url("../assets/ui/topbar_360x44.png") center / 100% 100% no-repeat;
+    }
+    .logo {
+      position: absolute;
+      object-fit: contain;
+      image-rendering: auto;
+    }
+    .label {
+      position: absolute;
+      margin: 0;
+      text-align: center;
+      line-height: 1.25;
+      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.65);
+      overflow-wrap: break-word;
+    }
+    button {
+      border: 0;
+      padding: 0;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .orange {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      color: white;
+      font: 700 16px Arial, Helvetica, sans-serif;
+      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.52);
+      background: url("../assets/ui/button_orange_220x48.png") center / 100% 100% no-repeat;
+    }
+    .orange.big {
+      background-image: url("../assets/ui/button_orange_250x52.png");
+    }
+    .orange.small {
+      background-image: url("../assets/ui/button_orange_180x40.png");
+      font-size: 13px;
+    }
+    .orange:active {
+      transform: translateY(1px);
+      filter: brightness(0.92);
+    }
+    .icon-btn {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      background: transparent;
+    }
+    .icon-btn img {
+      width: 32px;
+      height: 32px;
+      pointer-events: none;
+    }
+    .actions {
+      position: absolute;
+      left: 42px;
+      top: 312px;
+      width: 276px;
+      height: 306px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+    }
+    .actions-inner {
+      position: relative;
+      height: 472px;
+    }
+    .shade {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.42);
+    }
+    .panel {
+      position: absolute;
+      left: 15px;
+      background: url("../assets/ui/popup_panel_blue_330x520.png") center / 100% 100% no-repeat;
+    }
+    .close {
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      background: url("../assets/icons/icon_close_32.png") center / 32px 32px no-repeat;
+    }
+    .tab {
+      position: absolute;
+      width: 76px;
+      height: 32px;
+      border: 2px solid #5b7f9e;
+      border-radius: 6px;
+      color: #0c1d31;
+      background: #d3e1ee;
+      font: 700 11px Arial, Helvetica, sans-serif;
+    }
+    .tab.active {
+      border-color: #e87512;
+      background: #f2c650;
+    }
+    .scroll {
+      position: absolute;
+      overflow-y: auto;
+      scrollbar-width: thin;
+    }
+    .row {
+      position: relative;
+      width: 296px;
+      min-height: 52px;
+      margin: 0 0 8px;
+      border: 2px solid #567f9d;
+      border-radius: 6px;
+      color: #0c1d31;
+      background: #dbeaf5;
+      font-size: 13px;
+    }
+    .row.muted {
+      opacity: 0.62;
+    }
+    .row.locked {
+      background: #c2cad3;
+    }
+    .row-title {
+      position: absolute;
+      left: 54px;
+      top: 6px;
+      width: 164px;
+      font-weight: 700;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .row-sub {
+      position: absolute;
+      left: 54px;
+      top: 28px;
+      width: 164px;
+      font-size: 12px;
+    }
+    .placeholder {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      border-radius: 4px;
+      color: white;
+      background: #557995;
+      font-weight: 700;
+    }
+    .desc {
+      position: absolute;
+      left: 28px;
+      top: 410px;
+      width: 304px;
+      height: 84px;
+      padding: 9px 12px;
+      border: 2px solid #567f9d;
+      border-radius: 6px;
+      color: #0c1d31;
+      background: #e3eef7;
+      font-size: 13px;
+      line-height: 1.25;
+    }
+    .buy {
+      position: absolute;
+      right: 10px;
+      top: 26px;
+      width: 64px;
+      height: 32px;
+      border: 2px solid #e87512;
+      border-radius: 6px;
+      color: #0c1d31;
+      background: #f2c650;
+      font: 700 11px Arial, Helvetica, sans-serif;
+    }
+    .buy:disabled {
+      cursor: default;
+      filter: grayscale(1);
+      opacity: 0.6;
+    }
+    .notice {
+      position: absolute;
+      left: 42px;
+      bottom: 26px;
+      width: 276px;
+      min-height: 34px;
+      padding: 8px;
+      border-radius: 6px;
+      color: #0c1d31;
+      background: #f2c650;
+      text-align: center;
+      font-weight: 700;
+      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.25);
+    }
+  </style>
+</head>
+<body>
+  <main id="phone"></main>
+
+  <script>
+    const A = "../assets/";
+    const defaultInventory = { poke_ball: 5, potion: 3, town_map: 1 };
+    const categories = ["pokeballs", "potions", "evolution", "key_items"];
+    const text = {
+      en: {
+        load_game: "Load Game", new_game: "New Game", options: "Options", about: "About",
+        about_message: "PokeRPG private remake", hello: "Hello {name},", welcome_to: "Welcome to",
+        tutorial_prompt: "New here? See the tutorial:", tutorial: "Tutorial / Web Page",
+        tutorial_soon: "Tutorial page coming soon.", money: "Money", level: "Lv.", badges: "{n} badges",
+        explore_world: "Explore World", my_pokemon: "My Pokemon", bag: "Bag", shop: "Shop",
+        pokedex: "PokeDex", tournament: "Tournament", exit: "Exit", profile: "Profile",
+        my_pokemon_soon: "My Pokemon coming soon", pokedex_soon: "PokeDex coming soon",
+        world_map: "World Map", available: "Available", coming_soon: "Coming soon", type: "Type",
+        forest: "Forest Map", fire: "Fire Map", water: "Water Map", cave: "Cave Map", ice: "Ice Map",
+        mansion: "Mansion Map", factory: "Factory Map", electric: "Electric Map", desert: "Desert Map",
+        ghost: "Ghost Tower", dragon: "Dragon Valley", safari: "Safari Zone",
+        pokeballs: "Pokeballs", potions: "Potions", evolution: "Evolution", key_items: "Key Items",
+        qty: "Qty", use: "Use", buy: "Buy", price: "Price", locked: "Locked",
+        requires: "Requires Lv. {level} and {badges} badges.", not_enough_money: "Not enough money.",
+        bought: "Bought {item}!", select_item: "Select an item to see details.",
+        pokeball_use: "Pokeballs are used during wild battles.",
+        potion_use: "Healing items will be usable in battle soon.",
+        evolution_use: "Evolution system coming soon.", fishing_soon: "Fishing coming soon.",
+        tournament_soon: "Battle tournaments will be available soon.", return_menu: "Return to Main Menu?",
+        yes: "Yes", no: "No", music: "Music", sfx: "Sound Effects", language: "Language", apply: "Apply",
+        beginner_cup: "Beginner Cup", forest_cup: "Forest Cup", master_league: "Master League"
+      },
+      pt: {
+        load_game: "Carregar Jogo", new_game: "Novo Jogo", options: "Opções", about: "Sobre",
+        about_message: "PokeRPG private remake", hello: "Olá {name},", welcome_to: "Bem-vindo ao",
+        tutorial_prompt: "Novo aqui? Veja o tutorial:", tutorial: "Tutorial / Web Page",
+        tutorial_soon: "Página de tutorial em breve.", money: "Dinheiro", level: "Nv.", badges: "{n} insígnias",
+        explore_world: "Explorar Mundo", my_pokemon: "Meus Pokémon", bag: "Mochila", shop: "Loja",
+        pokedex: "PokéDex", tournament: "Torneio", exit: "Sair", profile: "Perfil",
+        my_pokemon_soon: "Meus Pokémon em breve", pokedex_soon: "PokéDex em breve",
+        world_map: "Mapa do Mundo", available: "Disponível", coming_soon: "Em breve", type: "Tipo",
+        forest: "Floresta", fire: "Mapa de Fogo", water: "Mapa de Água", cave: "Caverna", ice: "Mapa de Gelo",
+        mansion: "Mansão", factory: "Fábrica", electric: "Mapa Elétrico", desert: "Deserto",
+        ghost: "Torre Fantasma", dragon: "Vale dos Dragões", safari: "Zona Safari",
+        pokeballs: "Pokébolas", potions: "Poções", evolution: "Evolução", key_items: "Itens-chave",
+        qty: "Qtd", use: "Usar", buy: "Comprar", price: "Preço", locked: "Bloqueado",
+        requires: "Requer Nv. {level} e {badges} insígnias.", not_enough_money: "Dinheiro insuficiente.",
+        bought: "{item} comprado!", select_item: "Selecione um item para ver detalhes.",
+        pokeball_use: "Pokébolas são usadas em batalhas selvagens.",
+        potion_use: "Itens de cura poderão ser usados em batalha em breve.",
+        evolution_use: "Sistema de evolução em breve.", fishing_soon: "Pescaria em breve.",
+        tournament_soon: "Torneios de batalha estarão disponíveis em breve.", return_menu: "Voltar ao Menu Principal?",
+        yes: "Sim", no: "Não", music: "Música", sfx: "Efeitos Sonoros", language: "Idioma", apply: "Aplicar",
+        beginner_cup: "Beginner Cup", forest_cup: "Forest Cup", master_league: "Master League"
+      }
+    };
+    const items = [
+      ["poke_ball", "Poke Ball", "Pokébola", "pokeballs", 200, 0, 0, "A basic ball used to catch wild Pokemon.", "Uma bola básica usada para capturar Pokémon selvagens."],
+      ["great_ball", "Great Ball", "Great Ball", "pokeballs", 600, 5, 1, "A stronger ball with a better catch rate.", "Uma bola melhor, com chance maior de captura."],
+      ["ultra_ball", "Ultra Ball", "Ultra Ball", "pokeballs", 1200, 15, 3, "A high-performance ball for tougher Pokemon.", "Uma bola de alto desempenho para Pokémon difíceis."],
+      ["master_ball", "Master Ball", "Master Ball", "pokeballs", 50000, 50, 8, "The ultimate ball. Extremely rare and expensive.", "A bola definitiva. Extremamente rara e cara."],
+      ["potion", "Potion", "Poção", "potions", 300, 0, 0, "A simple healing item for battle preparation.", "Um item simples de cura para preparar batalhas."],
+      ["super_potion", "Super Potion", "Super Poção", "potions", 700, 8, 1, "A stronger healing item for longer journeys.", "Um item de cura mais forte para jornadas longas."],
+      ["hyper_potion", "Hyper Potion", "Hiper Poção", "potions", 1200, 18, 3, "A powerful potion for difficult fights.", "Uma poção poderosa para lutas difíceis."],
+      ["max_potion", "Max Potion", "Max Potion", "potions", 2500, 30, 5, "A premium potion for late-game battles.", "Uma poção premium para batalhas avançadas."],
+      ["revive", "Revive", "Reviver", "potions", 1500, 12, 2, "Helps a fainted Pokemon return to battle soon.", "Ajuda um Pokémon nocauteado a voltar à batalha em breve."],
+      ["max_revive", "Max Revive", "Max Revive", "potions", 4000, 35, 6, "A rare revive item for advanced trainers.", "Um item raro de reviver para treinadores avançados."],
+      ["fire_stone", "Fire Stone", "Pedra de Fogo", "evolution", 2100, 15, 2, "A stone connected to fiery evolutions.", "Uma pedra ligada a evoluções de fogo."],
+      ["water_stone", "Water Stone", "Pedra de Água", "evolution", 2100, 15, 2, "A stone connected to water evolutions.", "Uma pedra ligada a evoluções de água."],
+      ["thunder_stone", "Thunder Stone", "Pedra do Trovão", "evolution", 2100, 15, 2, "A stone connected to electric evolutions.", "Uma pedra ligada a evoluções elétricas."],
+      ["leaf_stone", "Leaf Stone", "Pedra da Folha", "evolution", 2100, 15, 2, "A stone connected to grass evolutions.", "Uma pedra ligada a evoluções de grama."],
+      ["moon_stone", "Moon Stone", "Pedra da Lua", "evolution", 3500, 20, 3, "A mysterious stone connected to moonlight.", "Uma pedra misteriosa ligada ao luar."],
+      ["sun_stone", "Sun Stone", "Pedra do Sol", "evolution", 3500, 20, 3, "A bright stone connected to sunlight.", "Uma pedra brilhante ligada à luz do sol."],
+      ["town_map", "Town Map", "Mapa da Cidade", "key_items", 0, 0, 0, "A useful map for checking nearby regions.", "Um mapa útil para consultar regiões próximas."],
+      ["old_rod", "Old Rod", "Vara Velha", "key_items", 500, 3, 0, "A simple fishing rod for future fishing spots.", "Uma vara simples para futuros pontos de pescaria."],
+      ["good_rod", "Good Rod", "Vara Boa", "key_items", 2500, 15, 2, "A better rod for future fishing features.", "Uma vara melhor para recursos futuros de pescaria."],
+      ["super_rod", "Super Rod", "Super Vara", "key_items", 7000, 30, 5, "A high-quality rod for future rare fishing.", "Uma vara de alta qualidade para futuras pescarias raras."]
+    ].map(([id, name_en, name_pt, category, price, min_level, min_badges, description_en, description_pt]) => ({
+      id, name_en, name_pt, category, price, min_level, min_badges, description_en, description_pt
+    }));
+    const maps = [
+      ["forest", "Grass", "maps/map_forest_64.png", true],
+      ["fire", "Fire", "maps/map_fire_64.png", false],
+      ["water", "Water", "", false],
+      ["cave", "Rock", "maps/map_cave_64.png", false],
+      ["ice", "Ice", "maps/map_ice_64.png", false],
+      ["mansion", "Mystery", "maps/map_mansion_64.png", false],
+      ["factory", "Steel", "maps/map_factory_64.png", false],
+      ["electric", "Electric", "", false],
+      ["desert", "Ground", "", false],
+      ["ghost", "Ghost", "", false],
+      ["dragon", "Dragon", "", false],
+      ["safari", "Mixed", "", false]
+    ];
+    const phone = document.getElementById("phone");
+    let settings = JSON.parse(localStorage.getItem("pokerpg_settings") || "{\"language\":\"en\",\"music\":true,\"sfx\":true}");
+    let save = JSON.parse(localStorage.getItem("pokerpg_save") || "null");
+    let bagCategory = "pokeballs";
+    let shopCategory = "pokeballs";
+    let selectedItemId = "";
+    let currentBase = "main";
+
+    function t(key, vars = {}) {
+      let value = (text[settings.language] || text.en)[key] || text.en[key] || key;
+      for (const [name, data] of Object.entries(vars)) value = value.replaceAll(`{${name}}`, data);
+      return value;
+    }
+    function defaultSave() {
+      return { player_name: "KaiPlayz", money: 3000, level: 0, badges: 0, inventory: { ...defaultInventory } };
+    }
+    function ensureSave() {
+      if (!save) save = defaultSave();
+      save.inventory ||= {};
+      if (Object.keys(save.inventory).length === 0) save.inventory = { ...defaultInventory };
+      save.money ??= 3000;
+      save.level ??= 0;
+      save.badges ??= 0;
+      save.player_name ||= "KaiPlayz";
+      persist();
+    }
+    function persist() {
+      if (save) localStorage.setItem("pokerpg_save", JSON.stringify(save));
+      localStorage.setItem("pokerpg_settings", JSON.stringify(settings));
+    }
+    function itemName(item) { return settings.language === "pt" ? item.name_pt : item.name_en; }
+    function itemDesc(item) { return settings.language === "pt" ? item.description_pt : item.description_en; }
+    function stats() {
+      return `${t("money")}: $${save.money}  |  ${t("level")} ${save.level}  |  ${t("badges", { n: save.badges })}`;
+    }
+    function orange(text, left, top, width, height, action, extra = "") {
+      return `<button class="orange ${extra}" style="left:${left}px;top:${top}px;width:${width}px;height:${height}px" onclick="${action}">${text}</button>`;
+    }
+    function topbar() {
+      return `
+        <div class="topbar"></div>
+        ${icon("icons/icon_map_32.png", 12, 6, "showWorldMap()")}
+        ${icon("icons/icon_trophy_32.png", 66, 6, "showTournament()")}
+        ${icon("icons/icon_ball_32.png", 120, 6, "message(t('my_pokemon'), t('my_pokemon_soon'))")}
+        ${icon("icons/icon_bag_32.png", 174, 6, "showBag()")}
+        ${icon("icons/icon_user_32.png", 228, 6, "showProfile()")}
+        ${icon("icons/icon_gear_32.png", 316, 6, "showOptions()")}
+      `;
+    }
+    function icon(path, left, top, action) {
+      return `<button class="icon-btn" style="left:${left}px;top:${top}px" onclick="${action}"><img src="${A}${path}" alt=""></button>`;
+    }
+    function itemIcon(item, left = 10, top = 8, size = 36) {
+      const letter = itemName(item).charAt(0) || "?";
+      return `<div class="placeholder" style="left:${left}px;top:${top}px;width:${size}px;height:${size}px">${letter}</div>`;
+    }
+    function showMainMenu() {
+      currentBase = "main";
+      phone.innerHTML = `
+        <section class="screen">
+          <img class="logo" src="${A}ui/logo_pokerpg_512x200.png" style="left:36px;top:70px;width:288px;height:112px" alt="PokeRPG">
+          ${orange(t("load_game"), 70, 250, 220, 48, "loadGame()")}
+          ${orange(t("new_game"), 70, 310, 220, 48, "newGame()")}
+          ${orange(t("options"), 70, 370, 220, 48, "showOptions()")}
+          ${orange(t("about"), 70, 430, 220, 48, "message(t('about'), t('about_message'))")}
+          <p class="label" style="left:20px;top:594px;width:320px;font-size:13px">Private remake prototype</p>
+        </section>
+      `;
+    }
+    function newGame() {
+      save = defaultSave();
+      persist();
+      showHome();
+    }
+    function loadGame() {
+      ensureSave();
+      showHome();
+    }
+    function showHome() {
+      ensureSave();
+      currentBase = "home";
+      const actions = [
+        [t("explore_world"), "showWorldMap()"], [t("my_pokemon"), "message(t('my_pokemon'), t('my_pokemon_soon'))"],
+        [t("bag"), "showBag()"], [t("shop"), "showShop()"], [t("pokedex"), "message(t('pokedex'), t('pokedex_soon'))"],
+        [t("tournament"), "showTournament()"], [t("options"), "showOptions()"], [t("exit"), "confirmExit()"]
+      ];
+      phone.innerHTML = `
+        <section class="screen">
+          ${topbar()}
+          <p class="label" style="left:20px;top:54px;width:320px;font-size:18px">${t("hello", { name: save.player_name })}</p>
+          <p class="label" style="left:20px;top:82px;width:320px;font-size:16px">${t("welcome_to")}</p>
+          <img class="logo" src="${A}ui/logo_pokerpg_512x200.png" style="left:82px;top:108px;width:196px;height:76px" alt="PokeRPG">
+          <p class="label" style="left:16px;top:188px;width:328px;font-size:13px">${stats()}</p>
+          <p class="label" style="left:20px;top:220px;width:320px;font-size:14px">${t("tutorial_prompt")}</p>
+          ${orange(t("tutorial"), 70, 248, 220, 48, "message(t('tutorial'), t('tutorial_soon'))")}
+          <div class="actions"><div class="actions-inner">
+            ${actions.map(([label, action], i) => orange(label, 13, i * 58, 250, 52, action, "big")).join("")}
+          </div></div>
+        </section>
+      `;
+    }
+    function overlay(title, top = 42, height = 560) {
+      return `<div class="overlay"><div class="shade"></div><div class="panel" style="top:${top}px;height:${height}px;width:330px"></div>
+        <p class="label" style="left:50px;top:${top + 26}px;width:260px;font-size:23px;color:#0c1d31;text-shadow:none">${title}</p>
+        <button class="close" style="left:298px;top:${top + 20}px" onclick="closeOverlay()"></button>`;
+    }
+    function closeOverlay() {
+      if (currentBase === "main") showMainMenu();
+      else showHome();
+    }
+    function redrawBase() {
+      if (currentBase === "main") showMainMenu();
+      else showHome();
+    }
+    function showProfile() {
+      ensureSave();
+      message(t("profile"), `${save.player_name}<br>${stats()}`);
+    }
+    function showWorldMap() {
+      ensureSave();
+      phone.innerHTML = phone.innerHTML + overlay(t("world_map"), 34, 580) + `
+        <div class="scroll" style="left:28px;top:104px;width:304px;height:468px">
+          ${maps.map(([key, type, img, open]) => `
+            <button class="row" style="height:66px" onclick="${open ? "showForestMap()" : "message(t('world_map'), t('coming_soon'))"}">
+              ${img ? `<img src="${A}${img}" style="position:absolute;left:10px;top:7px;width:52px;height:52px;object-fit:contain" alt="">` : `<div class="placeholder" style="left:12px;top:9px;width:48px;height:48px">?</div>`}
+              <span class="row-title" style="top:8px">${t(key)}</span>
+              <span class="row-sub" style="top:31px">${t("type")}: ${type}<br>${open ? t("available") : t("coming_soon")}</span>
+            </button>`).join("")}
+        </div></div>`;
+    }
+    function showForestMap() {
+      ensureSave();
+      phone.innerHTML = `
+        <section class="screen">
+          ${topbar()}
+          <p class="label" style="left:60px;top:7px;width:240px;font-size:20px">Forest Map</p>
+          <p class="label" style="left:20px;top:54px;width:320px;font-size:22px">Forest Map</p>
+          <img src="${A}maps/map_forest_64.png" style="position:absolute;left:148px;top:88px;width:64px;height:64px;object-fit:contain" alt="">
+          <p class="label" style="left:28px;top:158px;width:304px;font-size:15px">Explore this map to find rare Pokemon in the forest map exists several types of Pokemon.</p>
+          <p class="label" style="left:24px;top:232px;width:312px;font-size:15px">On this map you can find Pokemon types:</p>
+          ${["type_grass", "type_normal", "type_ground", "type_flying", "type_water", "type_poison", "type_bug"].map((name, i) => {
+            const pos = [[20,274],[102,274],[184,274],[266,274],[61,308],[143,308],[225,308]][i];
+            return `<img src="${A}badges/${name}.png" style="position:absolute;left:${pos[0]}px;top:${pos[1]}px;width:78px;height:24px;object-fit:contain" alt="">`;
+          }).join("")}
+          ${orange("Explore Map", 70, 358, 220, 48, "message('Forest Map', 'Encounter prototype stays in Godot for now.')")}
+          ${orange("Back", 110, 552, 140, 44, "showHome()", "small")}
+        </section>`;
+      currentBase = "home";
+    }
+    function showBag() {
+      ensureSave();
+      const list = items.filter(item => item.category === bagCategory);
+      const selected = items.find(item => item.id === selectedItemId);
+      const desc = selected ? `${itemName(selected)}<br>${t("qty")}: ${save.inventory[selected.id] || 0}<br>${itemDesc(selected)}` : t("select_item");
+      phone.innerHTML = phone.innerHTML + overlay(t("bag"), 42, 560) + `
+        ${categoryTabs("bag")}
+        <div class="scroll" style="left:28px;top:146px;width:304px;height:250px">
+          ${list.map(item => {
+            const amount = save.inventory[item.id] || 0;
+            return `<button class="row ${amount ? "" : "muted"}" onclick="selectBagItem('${item.id}')">
+              ${itemIcon(item)}
+              <span class="row-title">${itemName(item)}</span>
+              <span class="row-sub">${t("qty")}: ${amount}</span>
+              <span style="position:absolute;right:20px;top:16px;font-weight:700">></span>
+            </button>`;
+          }).join("")}
+        </div>
+        <div class="desc">${desc}</div>
+        ${orange(t("use"), 110, 512, 140, 44, "useBagItem()", "small")}
+      </div>`;
+    }
+    function categoryTabs(kind) {
+      return categories.map((cat, i) => {
+        const active = (kind === "bag" ? bagCategory : shopCategory) === cat ? "active" : "";
+        const action = kind === "bag" ? `chooseBagCategory('${cat}')` : `chooseShopCategory('${cat}')`;
+        return `<button class="tab ${active}" style="left:${20 + i * 80}px;top:${kind === "bag" ? 102 : 126}px" onclick="${action}">${t(cat)}</button>`;
+      }).join("");
+    }
+    function chooseBagCategory(category) {
+      bagCategory = category;
+      selectedItemId = "";
+      showHome();
+      showBag();
+    }
+    function chooseShopCategory(category) {
+      shopCategory = category;
+      showHome();
+      showShop();
+    }
+    function selectBagItem(id) {
+      selectedItemId = id;
+      showHome();
+      showBag();
+    }
+    function useBagItem() {
+      const item = items.find(data => data.id === selectedItemId);
+      if (!item) return;
+      if (item.id === "town_map") { showHome(); showWorldMap(); return; }
+      if (item.id.endsWith("_rod")) { message(itemName(item), t("fishing_soon")); return; }
+      if (item.category === "pokeballs") message(itemName(item), t("pokeball_use"));
+      else if (item.category === "potions") message(itemName(item), t("potion_use"));
+      else if (item.category === "evolution") message(itemName(item), t("evolution_use"));
+      else message(itemName(item), t("coming_soon"));
+    }
+    function showShop(notice = "") {
+      ensureSave();
+      const list = items.filter(item => item.category === shopCategory && item.price > 0);
+      phone.innerHTML = phone.innerHTML + overlay(t("shop"), 34, 580) + `
+        <p class="label" style="left:42px;top:92px;width:276px;color:#0c1d31;text-shadow:none;font-size:16px">${t("money")}: $${save.money}</p>
+        ${categoryTabs("shop")}
+        <div class="scroll" style="left:28px;top:170px;width:304px;height:402px">
+          ${list.map(item => {
+            const locked = item.min_level > save.level || item.min_badges > save.badges;
+            const req = t("requires", { level: item.min_level, badges: item.min_badges });
+            return `<div class="row ${locked ? "locked" : ""}" style="height:84px">
+              ${itemIcon(item, 10, 10, 38)}
+              <span class="row-title">${itemName(item)}</span>
+              <span class="row-sub">${t("price")}: $${item.price}</span>
+              <span style="position:absolute;left:54px;top:48px;width:166px;font-size:11px">${locked ? t("locked") : t("available")}<br>${req}</span>
+              <button class="buy" ${locked ? "disabled" : ""} onclick="buyItem('${item.id}')">${t("buy")}</button>
+            </div>`;
+          }).join("")}
+        </div>
+        ${notice ? `<div class="notice">${notice}</div>` : ""}
+      </div>`;
+    }
+    function buyItem(id) {
+      const item = items.find(data => data.id === id);
+      if (!item) return;
+      if (save.money < item.price) { showHome(); showShop(t("not_enough_money")); return; }
+      save.money -= item.price;
+      save.inventory[id] = (save.inventory[id] || 0) + 1;
+      persist();
+      showHome();
+      showShop(t("bought", { item: itemName(item) }));
+    }
+    function showTournament() {
+      phone.innerHTML = phone.innerHTML + overlay(t("tournament"), 92, 420) + `
+        <p class="label" style="left:42px;top:162px;width:276px;color:#0c1d31;text-shadow:none;font-size:15px">${t("tournament_soon")}</p>
+        ${["beginner_cup", "forest_cup", "master_league"].map((key, i) => `
+          <div class="row" style="position:absolute;left:42px;top:${230 + i * 66}px;width:276px;height:54px">
+            <span class="row-title" style="left:12px">${t(key)}</span>
+            <span class="row-sub" style="left:12px">${t("coming_soon")}</span>
+            <img src="${A}icons/icon_trophy_32.png" style="position:absolute;right:18px;top:10px;width:32px;height:32px" alt="">
+          </div>`).join("")}
+      </div>`;
+    }
+    function showOptions() {
+      phone.innerHTML = phone.innerHTML + overlay(t("options"), 110, 360) + `
+        <p class="label" style="left:46px;top:180px;width:268px;color:#0c1d31;text-shadow:none;font-size:16px">${t("music")}: ON</p>
+        <p class="label" style="left:46px;top:224px;width:268px;color:#0c1d31;text-shadow:none;font-size:16px">${t("sfx")}: ON</p>
+        <button class="tab active" style="left:78px;top:286px;width:96px" onclick="setLanguage('en')">English</button>
+        <button class="tab active" style="left:186px;top:286px;width:96px" onclick="setLanguage('pt')">Português</button>
+        ${orange(t("apply"), 110, 370, 140, 44, "closeOverlay()", "small")}
+      </div>`;
+    }
+    function setLanguage(language) {
+      settings.language = language;
+      persist();
+      redrawBase();
+      showOptions();
+    }
+    function message(title, body) {
+      phone.innerHTML = phone.innerHTML + `<div class="overlay"><div class="shade"></div><div class="panel" style="top:110px;height:360px;width:330px"></div>
+        <p class="label" style="left:44px;top:140px;width:272px;color:#0c1d31;text-shadow:none;font-size:22px">${title}</p>
+        <p class="label" style="left:42px;top:205px;width:276px;color:#0c1d31;text-shadow:none;font-size:18px">${body}</p>
+        <button class="close" style="left:298px;top:128px" onclick="closeOverlay()"></button>
+        ${orange("OK", 70, 370, 220, 48, "closeOverlay()")}
+      </div>`;
+    }
+    function confirmExit() {
+      phone.innerHTML = phone.innerHTML + `<div class="overlay"><div class="shade"></div><div class="panel" style="top:150px;height:300px;width:330px"></div>
+        <p class="label" style="left:44px;top:184px;width:272px;color:#0c1d31;text-shadow:none;font-size:22px">${t("exit")}</p>
+        <p class="label" style="left:42px;top:246px;width:276px;color:#0c1d31;text-shadow:none;font-size:18px">${t("return_menu")}</p>
+        ${orange(t("yes"), 38, 356, 140, 44, "showMainMenu()", "small")}
+        ${orange(t("no"), 182, 356, 140, 44, "closeOverlay()", "small")}
+      </div>`;
+    }
+    window.t = t;
+    window.stats = stats;
+    window.loadGame = loadGame;
+    window.newGame = newGame;
+    window.showHome = showHome;
+    window.showMainMenu = showMainMenu;
+    window.showWorldMap = showWorldMap;
+    window.showForestMap = showForestMap;
+    window.showBag = showBag;
+    window.showShop = showShop;
+    window.showTournament = showTournament;
+    window.showOptions = showOptions;
+    window.showProfile = showProfile;
+    window.message = message;
+    window.confirmExit = confirmExit;
+    window.closeOverlay = closeOverlay;
+    window.redrawBase = redrawBase;
+    window.chooseBagCategory = chooseBagCategory;
+    window.chooseShopCategory = chooseShopCategory;
+    window.selectBagItem = selectBagItem;
+    window.setLanguage = setLanguage;
+    window.useBagItem = useBagItem;
+    window.buyItem = buyItem;
+    window.settings = settings;
+    Object.defineProperty(window, "bagCategory", { get: () => bagCategory, set: value => { bagCategory = value; } });
+    Object.defineProperty(window, "shopCategory", { get: () => shopCategory, set: value => { shopCategory = value; } });
+    Object.defineProperty(window, "selectedItemId", { get: () => selectedItemId, set: value => { selectedItemId = value; } });
+    showMainMenu();
+  </script>
+</body>
+</html>
