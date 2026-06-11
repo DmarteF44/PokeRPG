@@ -1,0 +1,38 @@
+{
+  "bulbasaur": {
+    "back_frame_count": 45,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_1/back/bulbasaur/",
+    "dex_number": 1,
+    "front_frame_count": 41,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_1/front/bulbasaur/",
+    "generation": 1,
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/bulbasaur.png",
+    "id": "bulbasaur",
+    "name": "Bulbasaur"
+  },
+  "charmander": {
+    "back_frame_count": 38,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_1/back/charmander/",
+    "dex_number": 4,
+    "front_frame_count": 69,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_1/front/charmander/",
+    "generation": 1,
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/charmander.png",
+    "id": "charmander",
+    "name": "Charmander"
+  },
+  "squirtle": {
+    "back_frame_count": 33,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_1/back/squirtle/",
+    "dex_number": 7,
+    "front_frame_count": 29,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_1/front/squirtle/",
+    "generation": 1,
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/squirtle.png",
+    "id": "squirtle",
+    "name": "Squirtle"
+  }
+}

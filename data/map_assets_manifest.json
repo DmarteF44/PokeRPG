@@ -1,0 +1,86 @@
+[
+  {
+    "id": "water",
+    "name_pt": "Mapa de Água",
+    "thumbnail_path": "res://assets/maps/thumbnails/map_water_96x64.png",
+    "thumbnail_square_path": "res://assets/maps/thumbnails/map_water_64x64.png",
+    "background_path": "res://assets/maps/backgrounds/bg_water_360x640.png"
+  },
+  {
+    "id": "electric",
+    "name_pt": "Mapa Elétrico",
+    "thumbnail_path": "res://assets/maps/thumbnails/map_electric_96x64.png",
+    "thumbnail_square_path": "res://assets/maps/thumbnails/map_electric_64x64.png",
+    "background_path": "res://assets/maps/backgrounds/bg_electric_360x640.png"
+  },
+  {
+    "id": "desert",
+    "name_pt": "Deserto",
+    "thumbnail_path": "res://assets/maps/thumbnails/map_desert_96x64.png",
+    "thumbnail_square_path": "res://assets/maps/thumbnails/map_desert_64x64.png",
+    "background_path": "res://assets/maps/backgrounds/bg_desert_360x640.png"
+  },
+  {
+    "id": "ghost_tower",
+    "name_pt": "Torre Fantasma",
+    "thumbnail_path": "res://assets/maps/thumbnails/map_ghost_tower_96x64.png",
+    "thumbnail_square_path": "res://assets/maps/thumbnails/map_ghost_tower_64x64.png",
+    "background_path": "res://assets/maps/backgrounds/bg_ghost_tower_360x640.png"
+  },
+  {
+    "id": "dragon_valley",
+    "name_pt": "Vale dos Dragões",
+    "thumbnail_path": "res://assets/maps/thumbnails/map_dragon_valley_96x64.png",
+    "thumbnail_square_path": "res://assets/maps/thumbnails/map_dragon_valley_64x64.png",
+    "background_path": "res://assets/maps/backgrounds/bg_dragon_valley_360x640.png"
+  },
+  {
+    "id": "safari_zone",
+    "name_pt": "Zona Safari",
+    "thumbnail_path": "res://assets/maps/thumbnails/map_safari_zone_96x64.png",
+    "thumbnail_square_path": "res://assets/maps/thumbnails/map_safari_zone_64x64.png",
+    "background_path": "res://assets/maps/backgrounds/bg_safari_zone_360x640.png"
+  },
+  {
+    "id": "forest",
+    "name_pt": "Floresta",
+    "thumbnail_path": "res://assets/maps/thumbnails/map_forest_96x64.png",
+    "thumbnail_square_path": "res://assets/maps/thumbnails/map_forest_64x64.png",
+    "background_path": "res://assets/maps/backgrounds/bg_forest_360x640.png"
+  },
+  {
+    "id": "fire",
+    "name_pt": "Mapa de Fogo",
+    "thumbnail_path": "res://assets/maps/thumbnails/map_fire_96x64.png",
+    "thumbnail_square_path": "res://assets/maps/thumbnails/map_fire_64x64.png",
+    "background_path": "res://assets/maps/backgrounds/bg_fire_360x640.png"
+  },
+  {
+    "id": "cave",
+    "name_pt": "Caverna",
+    "thumbnail_path": "res://assets/maps/thumbnails/map_cave_96x64.png",
+    "thumbnail_square_path": "res://assets/maps/thumbnails/map_cave_64x64.png",
+    "background_path": "res://assets/maps/backgrounds/bg_cave_360x640.png"
+  },
+  {
+    "id": "ice",
+    "name_pt": "Mapa de Gelo",
+    "thumbnail_path": "res://assets/maps/thumbnails/map_ice_96x64.png",
+    "thumbnail_square_path": "res://assets/maps/thumbnails/map_ice_64x64.png",
+    "background_path": "res://assets/maps/backgrounds/bg_ice_360x640.png"
+  },
+  {
+    "id": "mansion",
+    "name_pt": "Mansão",
+    "thumbnail_path": "res://assets/maps/thumbnails/map_mansion_96x64.png",
+    "thumbnail_square_path": "res://assets/maps/thumbnails/map_mansion_64x64.png",
+    "background_path": "res://assets/maps/backgrounds/bg_mansion_360x640.png"
+  },
+  {
+    "id": "factory",
+    "name_pt": "Fábrica",
+    "thumbnail_path": "res://assets/maps/thumbnails/map_factory_96x64.png",
+    "thumbnail_square_path": "res://assets/maps/thumbnails/map_factory_64x64.png",
+    "background_path": "res://assets/maps/backgrounds/bg_factory_360x640.png"
+  }
+]

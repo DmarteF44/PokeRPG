@@ -1,6 +1,7 @@
 extends Control
 
 const UI = preload("res://scripts/ui_factory.gd")
+const PokemonHelpers = preload("res://scripts/pokemon_helpers.gd")
 
 const CUSTOM_AVATAR_PATH = "user://custom_avatar.png"
 const AVATAR_ASSETS = [
@@ -28,9 +29,9 @@ const AVATAR_COLORS = [
 	Color(0.12, 0.15, 0.20),
 ]
 const STARTERS = [
-	{"name": "Bulbasaur", "dex": 1, "sprite": "res://assets/sprites/sprite_bulbasaur_96.png", "available": false},
-	{"name": "Charmander", "dex": 4, "sprite": "res://assets/sprites/sprite_charmander_96.png", "available": true},
-	{"name": "Squirtle", "dex": 7, "sprite": "", "available": false},
+	{"id": "bulbasaur", "name": "Bulbasaur", "dex": 1, "sprite": "res://assets/pokemon/icons/bulbasaur.png", "available": true},
+	{"id": "charmander", "name": "Charmander", "dex": 4, "sprite": "res://assets/pokemon/icons/charmander.png", "available": true},
+	{"id": "squirtle", "name": "Squirtle", "dex": 7, "sprite": "res://assets/pokemon/icons/squirtle.png", "available": true},
 ]
 const TEXT = {
 	"en": {
@@ -68,7 +69,7 @@ const TEXT = {
 		"badges": "Badges",
 		"avatar": "Avatar",
 		"starter": "Starter",
-		"coming_starter": "Coming soon. Charmander is available for now.",
+			"coming_starter": "Coming soon. Gen 1 starters are available for now.",
 		"coming_generation": "Coming soon. Gen 1 is available for now.",
 		"player_default": "Player",
 	},
@@ -107,7 +108,7 @@ const TEXT = {
 		"badges": "Insígnias",
 		"avatar": "Avatar",
 		"starter": "Inicial",
-		"coming_starter": "Em breve. Charmander está disponível por enquanto.",
+			"coming_starter": "Em breve. Os iniciais da Gen 1 estão disponíveis por enquanto.",
 		"coming_generation": "Em breve. A Gen 1 está disponível por enquanto.",
 		"player_default": "Jogador",
 	},
@@ -119,6 +120,7 @@ var selected_avatar_id := 1
 var selected_avatar_type := "preset"
 var selected_generation := 1
 var selected_starter_name := "Charmander"
+var selected_starter_id := "charmander"
 var selected_starter_dex := 4
 var avatar_buttons: Array = []
 var custom_avatar_button: Button
@@ -263,6 +265,7 @@ func _show_new_game() -> void:
 	selected_avatar_type = "preset"
 	selected_generation = 1
 	selected_starter_name = "Charmander"
+	selected_starter_id = "charmander"
 	selected_starter_dex = 4
 	avatar_buttons.clear()
 	custom_avatar_button = null
@@ -432,9 +435,11 @@ func _select_generation(generation: int) -> void:
 	selected_generation = generation
 	if generation == 1:
 		selected_starter_name = "Charmander"
+		selected_starter_id = "charmander"
 		selected_starter_dex = 4
 	else:
 		selected_starter_name = ""
+		selected_starter_id = ""
 		selected_starter_dex = 0
 		UI.show_message_popup(self, "Gen %d" % generation, _text("coming_generation"))
 	_update_new_game_selection_styles()
@@ -446,9 +451,17 @@ func _select_starter(starter: Dictionary) -> void:
 		return
 
 	selected_generation = 1
+	selected_starter_id = str(starter.get("id", PokemonHelpers.id_from_name(str(starter["name"]))))
 	selected_starter_name = str(starter["name"])
 	selected_starter_dex = int(starter["dex"])
 	_update_new_game_selection_styles()
+
+
+func _starter_is_available(starter_name: String) -> bool:
+	for starter in STARTERS:
+		if str(starter.get("name", "")) == starter_name:
+			return bool(starter.get("available", false))
+	return false
 
 
 func _update_new_game_selection_styles() -> void:
@@ -469,14 +482,14 @@ func _update_new_game_selection_styles() -> void:
 	for button: Button in starter_buttons:
 		var starter_name: String = button.name
 		var selected: bool = selected_generation == 1 and selected_starter_name == starter_name
-		var available: bool = starter_name == "Charmander"
+		var available := _starter_is_available(starter_name)
 		var fill := Color(0.95, 0.78, 0.32) if selected else Color(0.82, 0.88, 0.94)
 		if not available:
 			fill = Color(0.72, 0.76, 0.80)
 		UI.style_panel_button(button, fill, Color(0.92, 0.46, 0.08) if selected else Color(0.36, 0.50, 0.62), 3 if selected else 2)
 
 	if start_game_button != null and is_instance_valid(start_game_button):
-		var can_start := selected_generation == 1 and selected_starter_name == "Charmander"
+		var can_start := selected_generation == 1 and PokemonHelpers.is_starter_id(selected_starter_id)
 		start_game_button.disabled = not can_start
 		start_game_button.modulate = Color(1, 1, 1, 1) if can_start else Color(0.62, 0.62, 0.62, 0.88)
 
@@ -486,7 +499,7 @@ func _update_new_game_selection_styles() -> void:
 
 
 func _try_start_new_game() -> void:
-	if selected_generation != 1 or selected_starter_name != "Charmander":
+	if selected_generation != 1 or not PokemonHelpers.is_starter_id(selected_starter_id):
 		UI.show_message_popup(self, _text("new_game"), _text("coming_starter"))
 		return
 
@@ -504,12 +517,14 @@ func _create_save_and_start() -> void:
 	if player_name == "":
 		player_name = _text("player_default")
 
+	var starter_pokemon := PokemonHelpers.starter_save_data(selected_starter_id)
 	var save_data := SaveManager.create_save(1, {
 		"player_name": player_name,
 		"avatar_id": selected_avatar_id,
 		"avatar_type": selected_avatar_type,
 		"avatar_custom_path": CUSTOM_AVATAR_PATH if selected_avatar_type == "custom" else "",
 		"starter_generation": selected_generation,
+		"starter_id": selected_starter_id,
 		"starter_name": selected_starter_name,
 		"starter_dex_number": selected_starter_dex,
 		"money": 3000,
@@ -520,6 +535,9 @@ func _create_save_and_start() -> void:
 			"potion": 3,
 			"town_map": 1,
 		},
+		"team": [starter_pokemon],
+		"seen_pokemon": PokemonHelpers.starter_ids(),
+		"owned_pokemon": [selected_starter_id],
 		"current_scene": "HomeScreen",
 		"current_map": "",
 	})

@@ -78,6 +78,12 @@
       transform: translateY(1px);
       filter: brightness(0.92);
     }
+    .orange:disabled {
+      cursor: default;
+      filter: grayscale(1);
+      opacity: 0.64;
+      transform: none;
+    }
     .icon-btn {
       position: absolute;
       width: 32px;
@@ -156,6 +162,7 @@
       color: #0c1d31;
       background: #dbeaf5;
       font-size: 13px;
+      overflow: hidden;
     }
     .row.muted {
       opacity: 0.62;
@@ -179,6 +186,35 @@
       top: 28px;
       width: 164px;
       font-size: 12px;
+      line-height: 1.18;
+      overflow: hidden;
+    }
+    .pokemon-anim {
+      image-rendering: pixelated;
+      pointer-events: none;
+    }
+    .dex-desc {
+      position: absolute;
+      left: 12px;
+      top: 84px;
+      width: 272px;
+      height: 62px;
+      font-size: 10px;
+      line-height: 1.18;
+      overflow: hidden;
+    }
+    .center-status {
+      position: absolute;
+      left: 42px;
+      top: 500px;
+      width: 276px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      color: #0c1d31;
+      font: 700 11px Arial, Helvetica, sans-serif;
+      text-align: center;
+      overflow: hidden;
     }
     .placeholder {
       position: absolute;
@@ -295,6 +331,16 @@
       font-weight: 700;
       box-shadow: 0 5px 18px rgba(0, 0, 0, 0.25);
     }
+    .debug-secret {
+      position: absolute;
+      left: 332px;
+      top: 606px;
+      width: 22px;
+      height: 22px;
+      color: rgba(255, 255, 255, 0.52);
+      background: transparent;
+      font: 700 12px Arial, Helvetica, sans-serif;
+    }
   </style>
 </head>
 <body>
@@ -304,15 +350,26 @@
     const A = "../assets/";
     const defaultInventory = { poke_ball: 5, potion: 3, town_map: 1 };
     const categories = ["pokeballs", "potions", "evolution", "key_items"];
+    const pokemonCenterCost = 250;
+    const pokemonCenterSeconds = 3;
     const text = {
       en: {
         load_game: "Load Game", new_game: "New Game", options: "Options", about: "About",
         about_message: "PokeRPG private remake", hello: "Hello {name},", welcome_to: "Welcome to",
         tutorial_prompt: "New here? See the tutorial:", tutorial: "Tutorial / Web Page",
-        tutorial_soon: "Tutorial page coming soon.", money: "Money", level: "Lv.", badges: "{n} badges",
+        tutorial_soon: "Tutorial page coming soon.", money: "Money", level: "Lv.", energy: "Energy", badges: "{n} badges",
         explore_world: "Explore World", my_pokemon: "My Pokemon", bag: "Bag", shop: "Shop",
-        pokedex: "PokeDex", tournament: "Tournament", pokemon_menu: "Pokemon",
+	        pokedex: "PokeDex", tournament: "Tournament", pokemon_menu: "Pokemon", pokemon: "Pokemon",
         my_team_pokemon: "My Team Pokemon", pokemon_center: "Pokemon Center",
+        heal_team: "Heal Team", healed_team: "Your Pokemon were healed!",
+        center_cost_time: "Cost: {cost} | Time: {seconds}s",
+        healing_started: "Healing... {seconds}s",
+        not_enough_money_center: "Not enough money to heal.",
+        hp: "HP", xp: "XP", status: "Status", seen_owned: "Seen / Owned",
+        owned: "Owned", seen: "Seen", unknown: "Unknown",
+        debug_menu: "Debug Menu", close: "Close", no_active_save: "No active save.",
+        debug_money: "+ $10,000", debug_level: "+ 1 Level", debug_xp: "+ 100 XP",
+        debug_badge: "+ 1 Badge", debug_items: "Add Basic Items",
         exit: "Exit", exit_to_main_menu: "Exit to Main Menu", profile: "Profile", starter: "Starter", player_name: "Player Name",
         choose_avatar: "Choose your avatar", custom_image: "Custom Image",
         custom_help: "Place your image at user://custom_avatar.png and reload the profile.",
@@ -327,29 +384,43 @@
         forest: "Forest Map", fire: "Fire Map", water: "Water Map", cave: "Cave Map", ice: "Ice Map",
         mansion: "Mansion Map", factory: "Factory Map", electric: "Electric Map", desert: "Desert Map",
         ghost: "Ghost Tower", dragon: "Dragon Valley", safari: "Safari Zone",
-        type_grass: "Grass", type_fire: "Fire", type_water: "Water", type_rock: "Rock",
+        type_grass: "Grass", type_fire: "Fire", type_water: "Water", type_poison: "Poison", type_normal: "Normal", type_bug: "Bug", type_flying: "Flying", type_rock: "Rock",
         type_ice: "Ice", type_mystery: "Mystery", type_steel: "Steel",
         type_electric: "Electric", type_ground: "Ground", type_ghost: "Ghost",
         type_dragon: "Dragon", type_mixed: "Mixed",
         pokeballs: "Pokeballs", potions: "Potions", evolution: "Evolution", key_items: "Key Items",
         qty: "Qty", use: "Use", buy: "Buy", price: "Price", locked: "Locked",
-        requires: "Requires Lv. {level} and {badges} badges.", not_enough_money: "Not enough money.",
+        requires: "Requires Lv. {level} and {badges} badges.", no_energy: "Your energy has been depleted for today.",
+        none_found: "None pokemon found", found_pokemon: "Pokemon {name} found!", click_fight: "Click here to fight",
+        not_enough_money: "Not enough money.",
         bought: "Bought {item}!", select_item: "Select an item to see details.",
         pokeball_use: "Pokeballs are used during wild battles.",
         potion_use: "Healing items will be usable in battle soon.",
         evolution_use: "Evolution system coming soon.", fishing_soon: "Fishing coming soon.",
         tournament_soon: "Battle tournaments will be available soon.", return_menu: "Return to Main Menu?",
         yes: "Yes", no: "No", music: "Music", sfx: "Sound Effects", language: "Language", apply: "Apply",
-        beginner_cup: "Beginner Cup", forest_cup: "Forest Cup", master_league: "Master League"
+        beginner_cup: "Beginner Cup", forest_cup: "Forest Cup", master_league: "Master League",
+        battle: "Battle", attack: "Attack", run: "Run", enemy_fainted: "Enemy fainted!", your_fainted: "Your Pokemon fainted!",
+        battle_bag_soon: "Battle Bag coming soon.", switch_soon: "Switching Pokemon coming soon.",
+        return_home: "Return Home", damage: "Damage"
       },
       pt: {
         load_game: "Carregar Jogo", new_game: "Novo Jogo", options: "Opções", about: "Sobre",
         about_message: "PokeRPG private remake", hello: "Olá {name},", welcome_to: "Bem-vindo ao",
         tutorial_prompt: "Novo por aqui? Veja o tutorial:", tutorial: "Tutorial / Página Web",
-        tutorial_soon: "Página de tutorial em breve.", money: "Dinheiro", level: "Nv.", badges: "{n} insígnias",
+        tutorial_soon: "Página de tutorial em breve.", money: "Dinheiro", level: "Nv.", energy: "Energia", badges: "{n} insígnias",
         explore_world: "Explorar Mundo", my_pokemon: "Meus Pokémon", bag: "Mochila", shop: "Loja",
-        pokedex: "PokéDex", tournament: "Torneio", pokemon_menu: "Pokémon",
+	        pokedex: "PokéDex", tournament: "Torneio", pokemon_menu: "Pokémon", pokemon: "Pokémon",
         my_team_pokemon: "Meu Time Pokémon", pokemon_center: "Centro Pokémon",
+        heal_team: "Curar Time", healed_team: "Seus Pokémon foram curados!",
+        center_cost_time: "Custo: {cost} | Tempo: {seconds}s",
+        healing_started: "Curando... {seconds}s",
+        not_enough_money_center: "Dinheiro insuficiente para curar.",
+        hp: "HP", xp: "XP", status: "Status", seen_owned: "Visto / Obtido",
+        owned: "Obtido", seen: "Visto", unknown: "Desconhecido",
+        debug_menu: "Menu Debug", close: "Fechar", no_active_save: "Nenhum save ativo.",
+        debug_money: "+ $10.000", debug_level: "+ 1 Nível", debug_xp: "+ 100 XP",
+        debug_badge: "+ 1 Insígnia", debug_items: "Adicionar Itens Básicos",
         exit: "Sair", exit_to_main_menu: "Sair para o Menu", profile: "Perfil", starter: "Inicial", player_name: "Nome do jogador",
         choose_avatar: "Escolha seu avatar", custom_image: "Imagem própria",
         custom_help: "Coloque sua imagem em user://custom_avatar.png e recarregue o perfil.",
@@ -364,20 +435,25 @@
         forest: "Floresta", fire: "Mapa de Fogo", water: "Mapa de Água", cave: "Caverna", ice: "Mapa de Gelo",
         mansion: "Mansão", factory: "Fábrica", electric: "Mapa Elétrico", desert: "Deserto",
         ghost: "Torre Fantasma", dragon: "Vale dos Dragões", safari: "Zona Safari",
-        type_grass: "Grama", type_fire: "Fogo", type_water: "Água", type_rock: "Pedra",
+        type_grass: "Grama", type_fire: "Fogo", type_water: "Água", type_poison: "Veneno", type_normal: "Normal", type_bug: "Inseto", type_flying: "Voador", type_rock: "Pedra",
         type_ice: "Gelo", type_mystery: "Mistério", type_steel: "Aço",
         type_electric: "Elétrico", type_ground: "Terra", type_ghost: "Fantasma",
         type_dragon: "Dragão", type_mixed: "Misto",
         pokeballs: "Pokébolas", potions: "Poções", evolution: "Evolução", key_items: "Itens-chave",
         qty: "Qtd", use: "Usar", buy: "Comprar", price: "Preço", locked: "Bloqueado",
-        requires: "Requer Nv. {level} e {badges} insígnias.", not_enough_money: "Dinheiro insuficiente.",
+        requires: "Requer Nv. {level} e {badges} insígnias.", no_energy: "Você está sem energia para explorar hoje.",
+        none_found: "None pokemon found", found_pokemon: "Pokemon {name} found!", click_fight: "Click here to fight",
+        not_enough_money: "Dinheiro insuficiente.",
         bought: "{item} comprado!", select_item: "Selecione um item para ver detalhes.",
         pokeball_use: "Pokébolas são usadas em batalhas selvagens.",
         potion_use: "Itens de cura poderão ser usados em batalha em breve.",
         evolution_use: "Sistema de evolução em breve.", fishing_soon: "Pescaria em breve.",
         tournament_soon: "Torneios de batalha estarão disponíveis em breve.", return_menu: "Voltar ao Menu Principal?",
         yes: "Sim", no: "Não", music: "Música", sfx: "Efeitos Sonoros", language: "Idioma", apply: "Aplicar",
-        beginner_cup: "Beginner Cup", forest_cup: "Forest Cup", master_league: "Master League"
+        beginner_cup: "Beginner Cup", forest_cup: "Forest Cup", master_league: "Master League",
+        battle: "Batalha", attack: "Atacar", run: "Fugir", enemy_fainted: "O inimigo desmaiou!", your_fainted: "Seu Pokémon desmaiou!",
+        battle_bag_soon: "Mochila em batalha em breve.", switch_soon: "Troca de Pokémon em breve.",
+        return_home: "Voltar para Home", damage: "Dano"
       }
     };
     const items = [
@@ -404,20 +480,42 @@
     ].map(([id, name_en, name_pt, category, price, min_level, min_badges, description_en, description_pt]) => ({
       id, name_en, name_pt, category, price, min_level, min_badges, description_en, description_pt
     }));
-    const maps = [
-      ["forest", "type_grass", "maps/map_forest_64.png", true],
-      ["fire", "type_fire", "maps/map_fire_64.png", false],
-      ["water", "type_water", "", false],
-      ["cave", "type_rock", "maps/map_cave_64.png", false],
-      ["ice", "type_ice", "maps/map_ice_64.png", false],
-      ["mansion", "type_mystery", "maps/map_mansion_64.png", false],
-      ["factory", "type_steel", "maps/map_factory_64.png", false],
-      ["electric", "type_electric", "", false],
-      ["desert", "type_ground", "", false],
-      ["ghost", "type_ghost", "", false],
-      ["dragon", "type_dragon", "", false],
-      ["safari", "type_mixed", "", false]
-    ];
+	    const maps = [
+	      ["forest", "type_grass", "maps/thumbnails/map_forest_96x64.png", 1, 0],
+      ["fire", "type_fire", "maps/thumbnails/map_fire_96x64.png", 3, 0],
+      ["cave", "type_rock", "maps/thumbnails/map_cave_96x64.png", 5, 1],
+      ["ice", "type_ice", "maps/thumbnails/map_ice_96x64.png", 8, 2],
+      ["factory", "type_steel", "maps/thumbnails/map_factory_96x64.png", 10, 2],
+      ["water", "type_water", "maps/thumbnails/map_water_96x64.png", 12, 3],
+      ["electric", "type_electric", "maps/thumbnails/map_electric_96x64.png", 15, 4],
+      ["desert", "type_ground", "maps/thumbnails/map_desert_96x64.png", 18, 5],
+      ["ghost", "type_ghost", "maps/thumbnails/map_ghost_tower_96x64.png", 22, 6],
+      ["dragon", "type_dragon", "maps/thumbnails/map_dragon_valley_96x64.png", 28, 7],
+	      ["safari", "type_mixed", "maps/thumbnails/map_safari_zone_96x64.png", 35, 8]
+	    ];
+	    const starterDefs = {
+	      bulbasaur: {
+	        id: "bulbasaur", dex_number: 1, name: "Bulbasaur", level: 5, xp: 0, hp: 45, max_hp: 45,
+	        attack: 49, defense: 49, speed: 45, types: ["Grass", "Poison"], frameCount: 41, backFrameCount: 45,
+	        description_en: "A small seed Pokemon that stores energy in the bulb on its back. Its body combines natural endurance with grass attacks.",
+	        description_pt: "Um pequeno Pokémon de semente que guarda energia no bulbo em suas costas. Seu corpo mistura resistência natural e ataques de planta.",
+	        moves: [{ name: "Tackle", power: 40, type: "Normal" }, { name: "Vine Whip", power: 45, type: "Grass" }]
+	      },
+	      charmander: {
+	        id: "charmander", dex_number: 4, name: "Charmander", level: 5, xp: 0, hp: 39, max_hp: 39,
+	        attack: 52, defense: 43, speed: 65, types: ["Fire"], frameCount: 69, backFrameCount: 38,
+	        description_en: "A fire lizard Pokemon with a burning tail. Its flame represents its vitality and battle spirit.",
+	        description_pt: "Um Pokémon lagarto de fogo com uma chama na cauda. Sua chama representa sua vitalidade e seu espírito de batalha.",
+	        moves: [{ name: "Scratch", power: 40, type: "Normal" }, { name: "Ember", power: 45, type: "Fire" }]
+	      },
+	      squirtle: {
+	        id: "squirtle", dex_number: 7, name: "Squirtle", level: 5, xp: 0, hp: 44, max_hp: 44,
+	        attack: 48, defense: 65, speed: 43, types: ["Water"], frameCount: 29, backFrameCount: 33,
+	        description_en: "A tiny turtle Pokemon protected by a sturdy shell. It uses water attacks and solid defense to win battles.",
+	        description_pt: "Um pequeno Pokémon tartaruga protegido por um casco resistente. Usa ataques de água e defesa firme para vencer combates.",
+	        moves: [{ name: "Tackle", power: 40, type: "Normal" }, { name: "Water Gun", power: 45, type: "Water" }]
+	      }
+	    };
     const avatarPaths = [
       "avatars/96/avatar_01_trainer_red_96.png",
       "avatars/96/avatar_02_trainer_blue_96.png",
@@ -440,33 +538,101 @@
     let bagCategory = "pokeballs";
     let shopCategory = "pokeballs";
     let selectedItemId = "";
-    let currentBase = "main";
+	    let currentBase = "main";
+	    let debugClicks = 0;
+	    let debugDeadline = 0;
+	    let battle = null;
+	    let pokemonAnimationFrameId = 0;
+	    let healingInProgress = false;
+	    let currentMapKey = "forest";
+	    const pokemonFrameCache = new Map();
+	    const encounterTables = Object.fromEntries(maps.map(([key]) => [key, [
+	      { rarity: "none", weight: 25 },
+	      { rarity: "common", weight: 50, pokemon: placeholderEncounter(key, "Common", 5) },
+	      { rarity: "uncommon", weight: 20, pokemon: placeholderEncounter(key, "Uncommon", 8) },
+	      { rarity: "rare", weight: 4, pokemon: placeholderEncounter(key, "Rare", 12) },
+	      { rarity: "very_rare", weight: 1, pokemon: placeholderEncounter(key, "Very Rare", 16) }
+	    ]]));
+	    encounterTables.forest = [
+	      { rarity: "none", weight: 25 },
+	      { rarity: "common", weight: 50, pokemon: { id: "wurmple", name: "Wurmple", level: 3, hp: 25, max_hp: 25, attack: 8, defense: 5, speed: 30, icon_path: "sprites/sprite_wurmple_96.png" } },
+	      { rarity: "uncommon", weight: 20, pokemon: { ...starterPokemon("bulbasaur"), level: 5, icon_path: "pokemon/icons/bulbasaur.png" } },
+	      { rarity: "rare", weight: 4, pokemon: { ...starterPokemon("charmander"), level: 6, icon_path: "pokemon/icons/charmander.png" } },
+	      { rarity: "very_rare", weight: 1, pokemon: { ...starterPokemon("squirtle"), level: 7, icon_path: "pokemon/icons/squirtle.png" } }
+	    ];
 
     function t(key, vars = {}) {
       let value = (text[settings.language] || text.en)[key] || text.en[key] || key;
       for (const [name, data] of Object.entries(vars)) value = value.replaceAll(`{${name}}`, data);
       return value;
     }
-    function defaultSave(playerName = "KaiPlayz", avatarId = 1, avatarType = "preset") {
-      return {
-        slot: 1, player_name: playerName, avatar_id: avatarId, avatar_type: avatarType,
-        avatar_custom_path: avatarType === "custom" ? "user://custom_avatar.png" : "",
-        money: 3000, level: 0, badges: 0,
-        starter_generation: 1, starter_name: "Charmander", starter_dex_number: 4,
-        inventory: { ...defaultInventory }
-      };
-    }
-    function ensureSave() {
-      if (!save) save = defaultSave();
+	    function todayString() {
+	      return new Date().toISOString().slice(0, 10);
+	    }
+	    function normalizeEnergy() {
+	      save.energy_max = Math.max(1, Number(save.energy_max || 30));
+	      save.energy_current = Math.max(0, Math.min(save.energy_max, Number(save.energy_current ?? save.energy_max)));
+	      const today = todayString();
+	      if (save.last_energy_reset !== today) {
+	        save.energy_current = save.energy_max;
+	        save.last_energy_reset = today;
+	      }
+	    }
+	    function placeholderEncounter(mapKey, rarity, level) {
+	      return {
+	        id: `${mapKey}_placeholder`,
+	        name: `${t(mapKey)} ${rarity}`,
+	        level,
+	        hp: 30 + level,
+	        max_hp: 30 + level,
+	        attack: 10 + level,
+	        defense: 8 + level,
+	        speed: 8 + level,
+	        icon_path: "sprites/sprite_wurmple_96.png"
+	      };
+	    }
+	    function defaultSave(playerName = "KaiPlayz", avatarId = 1, avatarType = "preset", starterId = "charmander") {
+	      const starter = starterPokemon(starterId);
+	      return {
+	        slot: 1, player_name: playerName, avatar_id: avatarId, avatar_type: avatarType,
+	        avatar_custom_path: avatarType === "custom" ? "user://custom_avatar.png" : "",
+	        money: 3000, level: 0, badges: 0,
+	        energy_current: 30, energy_max: 30, last_energy_reset: todayString(),
+	        starter_generation: 1, starter_id: starter.id, starter_name: starter.name, starter_dex_number: starter.dex_number,
+	        inventory: { ...defaultInventory },
+	        seen_pokemon: Object.keys(starterDefs),
+	        owned_pokemon: [starter.id],
+	        team: [starter]
+	      };
+	    }
+	    function starterPokemon(id = "charmander") {
+	      const data = starterDefs[id] || starterDefs.charmander;
+	      return {
+	        id: data.id, dex_number: data.dex_number, name: data.name, level: 5, xp: 0,
+	        hp: data.max_hp, max_hp: data.max_hp, attack: data.attack, defense: data.defense,
+	        speed: data.speed, types: [...data.types], starter: true
+	      };
+	    }
+	    function ensureSave() {
+	      if (!save) save = defaultSave();
       save.inventory ||= {};
       if (Object.keys(save.inventory).length === 0) save.inventory = { ...defaultInventory };
       save.money ??= 3000;
       save.level ??= 0;
       save.badges ??= 0;
-      save.starter_name ||= "Charmander";
-      save.player_name ||= "KaiPlayz";
-      persist();
-    }
+	      normalizeEnergy();
+	      save.starter_id ||= Object.keys(starterDefs).find(id => starterDefs[id].name === save.starter_name) || "charmander";
+	      const starter = starterPokemon(save.starter_id);
+	      save.starter_name ||= starter.name;
+	      save.starter_dex_number ||= starter.dex_number;
+	      if (!Array.isArray(save.team) || save.team.length === 0) save.team = [starter];
+	      save.team = save.team.slice(0, 5).map(pokemon => ({ ...starterPokemon(pokemon.id || save.starter_id), ...pokemon }));
+	      save.seen_pokemon = Array.isArray(save.seen_pokemon) ? [...new Set([...save.seen_pokemon, ...Object.keys(starterDefs)])] : Object.keys(starterDefs);
+	      save.owned_pokemon = Array.isArray(save.owned_pokemon) ? save.owned_pokemon : [save.starter_id];
+	      for (const pokemon of save.team) if (!save.owned_pokemon.includes(pokemon.id)) save.owned_pokemon.push(pokemon.id);
+	      save.player_name ||= "KaiPlayz";
+	      persist();
+	    }
     function persist() {
       if (save) {
         localStorage.setItem("pokerpg_current_save", JSON.stringify(save));
@@ -490,7 +656,7 @@
     function itemName(item) { return settings.language === "pt" ? item.name_pt : item.name_en; }
     function itemDesc(item) { return settings.language === "pt" ? item.description_pt : item.description_en; }
     function stats() {
-      return `${t("money")}: $${save.money}  |  ${t("level")} ${save.level}  |  ${t("badges", { n: save.badges })}`;
+      return `${t("money")}: $${save.money}  |  ${t("level")} ${save.level}  |  ${t("badges", { n: save.badges })}  |  ${t("energy")} ${save.energy_current}/${save.energy_max}`;
     }
     function orange(text, left, top, width, height, action, extra = "") {
       return `<button class="orange ${extra}" style="left:${left}px;top:${top}px;width:${width}px;height:${height}px" onclick="${action}">${text}</button>`;
@@ -544,12 +710,101 @@
       const hint = document.getElementById("customAvatarHint");
       if (hint) hint.style.display = "block";
     }
-    function mapThumb(key, img) {
-      const [color, code] = mapFallbacks[key] || ["#557995", "MAP"];
-      if (!img) return `<div class="map-thumb" style="background:${color}">${code}</div>`;
-      return `<img src="${A}${img}" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'" style="position:absolute;left:10px;top:7px;width:52px;height:52px;object-fit:contain" alt=""><div class="map-thumb" style="display:none;background:${color}">${code}</div>`;
-    }
+	    function mapThumb(key, img) {
+	      const [color, code] = mapFallbacks[key] || ["#557995", "MAP"];
+	      if (!img) return `<div class="map-thumb" style="background:${color}">${code}</div>`;
+	      return `<img src="${A}${img}" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'" style="position:absolute;left:10px;top:7px;width:52px;height:52px;object-fit:contain" alt=""><div class="map-thumb" style="display:none;background:${color}">${code}</div>`;
+	    }
+	    function mapData(key) {
+	      return maps.find(([mapKey]) => mapKey === key) || maps[0];
+	    }
+	    function canExploreMap(map) {
+	      return Number(save.level || 0) >= map[3] && Number(save.badges || 0) >= map[4];
+	    }
+	    function mapRequirement(map) {
+	      return t("requires", { level: map[3], badges: map[4] });
+	    }
+	    function rollEncounter(mapKey) {
+	      const table = encounterTables[mapKey] || encounterTables.forest;
+	      const total = table.reduce((sum, row) => sum + row.weight, 0);
+	      let roll = Math.random() * total;
+	      for (const row of table) {
+	        roll -= row.weight;
+	        if (roll <= 0) return row.rarity === "none" ? null : { ...row.pokemon };
+	      }
+	      return null;
+	    }
+	    function pokemonTypes(pokemon) {
+	      return (pokemon.types || ["Fire"]).map(type => t(`type_${String(type).toLowerCase()}`)).join(", ");
+	    }
+	    function pokemonSprite(pokemon, left, top, size = 64, back = false) {
+	      const data = starterDefs[pokemon.id] || starterDefs.charmander;
+	      const dir = back ? "back" : "front";
+	      const frameCount = back ? (data.backFrameCount || data.frameCount || 1) : (data.frameCount || 1);
+	      return `<img class="pokemon-anim" data-path="${A}pokemon/battle/animated/gen_1/${dir}/${data.id}/" data-count="${frameCount}" data-fps="30" src="${A}pokemon/battle/animated/gen_1/${dir}/${data.id}/000.png" onerror="this.src='${A}pokemon/icons/${data.id}.png'" style="position:absolute;left:${left}px;top:${top}px;width:${size}px;height:${size}px;object-fit:contain" alt="">`;
+	    }
+	    function startAnimations() {
+	      stopAnimations();
+	      const sprites = [...document.querySelectorAll(".pokemon-anim")].map(img => {
+	        const count = Number(img.dataset.count || 1);
+	        const fps = Number(img.dataset.fps || 12);
+	        return {
+	          img,
+	          count,
+	          fps,
+	          frame: 0,
+	          elapsed: 0,
+	          last: performance.now(),
+	          frames: preloadPokemonFrames(img.dataset.path, count, img.src)
+	        };
+	      });
+	      if (sprites.length === 0) return;
+	      const tick = now => {
+	        for (const sprite of sprites) {
+	          if (!sprite.img.isConnected || sprite.count <= 1) continue;
+	          sprite.elapsed += Math.min(100, now - sprite.last);
+	          sprite.last = now;
+	          const frameTime = 1000 / Math.max(1, sprite.fps);
+	          while (sprite.elapsed >= frameTime) {
+	            sprite.elapsed -= frameTime;
+	            sprite.frame = (sprite.frame + 1) % sprite.count;
+	            sprite.img.src = sprite.frames[sprite.frame].src;
+	          }
+	        }
+	        pokemonAnimationFrameId = requestAnimationFrame(tick);
+	      };
+	      pokemonAnimationFrameId = requestAnimationFrame(tick);
+	    }
+	    function stopAnimations() {
+	      if (!pokemonAnimationFrameId) return;
+	      cancelAnimationFrame(pokemonAnimationFrameId);
+	      pokemonAnimationFrameId = 0;
+	    }
+	    function preloadPokemonFrames(path, count, firstSrc) {
+	      const key = `${path}|${count}`;
+	      if (pokemonFrameCache.has(key)) return pokemonFrameCache.get(key);
+	      const frames = [];
+	      for (let frame = 0; frame < count; frame += 1) {
+	        const image = new Image();
+	        image.src = frame === 0 && firstSrc ? firstSrc : `${path}${String(frame).padStart(3, "0")}.png`;
+	        frames.push(image);
+	      }
+	      pokemonFrameCache.set(key, frames);
+	      return frames;
+	    }
+	    function pokemonCard(pokemon, left, top, width = 276, height = 112, showDex = false) {
+	      const compact = height < 90;
+	      const infoText = compact
+	        ? `${t("hp")}: ${pokemon.hp}/${pokemon.max_hp}   ${t("xp")}: ${pokemon.xp}<br>${pokemonTypes(pokemon)}`
+	        : `${t("type")}: ${pokemonTypes(pokemon)}<br>${t("hp")}: ${pokemon.hp}/${pokemon.max_hp}   ${t("xp")}: ${pokemon.xp}`;
+	      return `<div class="row" style="position:absolute;left:${left}px;top:${top}px;width:${width}px;height:${height}px">
+	        ${pokemonSprite(pokemon, 12, 10, compact ? 48 : 64)}
+	        <span class="row-title" style="left:76px;top:8px;width:190px;font-size:${compact ? 13 : 14}px">${showDex ? `#${String(pokemon.dex_number).padStart(3, "0")} ` : ""}${pokemon.name} ${t("level")} ${pokemon.level}</span>
+	        <span class="row-sub" style="left:76px;top:${compact ? 31 : 36}px;width:190px;height:${compact ? height - 36 : height - 44}px;font-size:${compact ? 10 : 11}px">${infoText}</span>
+	      </div>`;
+	    }
     function showMainMenu() {
+      stopAnimations();
       currentBase = "main";
       phone.innerHTML = `
         <section class="screen">
@@ -562,10 +817,11 @@
         </section>
       `;
     }
-    function showNewGamePopup() {
-      window.previewAvatar = 1;
-      window.previewAvatarType = "preset";
-      phone.innerHTML = phone.innerHTML + overlay(t("new_game"), 42, 560) + `
+	    function showNewGamePopup() {
+	      window.previewAvatar = 1;
+	      window.previewAvatarType = "preset";
+	      window.previewStarter = "charmander";
+	      phone.innerHTML = phone.innerHTML + overlay(t("new_game"), 42, 560) + `
         <div class="scroll" style="left:28px;top:112px;width:304px;height:420px">
           <div class="newgame-content">
             <p class="label" style="left:0;top:0;width:296px;color:#0c1d31;text-shadow:none;text-align:left;font-size:15px">${t("player_name")}</p>
@@ -581,20 +837,25 @@
             <p class="label" style="left:0;top:466px;width:296px;color:#0c1d31;text-shadow:none;font-size:16px">${t("choose_generation")}</p>
             ${[1,2,3,4,5,6,7,8].map((id, i) => `<button class="tab ${id === 1 ? "active" : ""}" style="left:${(i % 4) * 74}px;top:${502 + Math.floor(i / 4) * 42}px;width:68px" onclick="${id === 1 ? "" : "message('Gen " + id + "', t('coming_soon'))"}">Gen ${id}</button>`).join("")}
             <p class="label" style="left:0;top:600px;width:296px;color:#0c1d31;text-shadow:none;font-size:16px">${t("choose_starter")}</p>
-            ${["Bulbasaur", "Charmander", "Squirtle"].map((name, i) => `<button class="tab ${name === "Charmander" ? "active" : ""}" style="left:${i * 102}px;top:636px;width:92px;height:42px" onclick="${name === "Charmander" ? "" : "message('" + name + "', t('coming_soon'))"}">${name}</button>`).join("")}
+	            ${Object.values(starterDefs).map((starter, i) => `<button id="starter_${starter.id}" class="tab ${starter.id === "charmander" ? "active" : ""}" style="left:${i * 102}px;top:636px;width:92px;height:42px" onclick="selectStarter('${starter.id}')">${starter.name}</button>`).join("")}
           </div>
         </div>
         ${orange(t("cancel"), 36, 546, 140, 44, "closeOverlay()", "small")}
         ${orange(t("start_game"), 184, 546, 140, 44, "startNewGame()", "small")}
-      </div>`;
-    }
-    function startNewGame() {
-      const input = document.getElementById("playerNameInput");
-      const fallbackName = settings.language === "pt" ? "Jogador" : "Player";
-      const name = (input?.value || "").trim() || fallbackName;
-      writeSaveSlot(1, defaultSave(name, window.previewAvatar || 1, window.previewAvatarType || "preset"));
-      showHome();
-    }
+	      </div>`;
+	    }
+	    function selectStarter(id) {
+	      window.previewStarter = id;
+	      document.querySelectorAll("[id^='starter_']").forEach(button => button.classList.remove("active"));
+	      document.getElementById(`starter_${id}`)?.classList.add("active");
+	    }
+	    function startNewGame() {
+	      const input = document.getElementById("playerNameInput");
+	      const fallbackName = settings.language === "pt" ? "Jogador" : "Player";
+	      const name = (input?.value || "").trim() || fallbackName;
+	      writeSaveSlot(1, defaultSave(name, window.previewAvatar || 1, window.previewAvatarType || "preset", window.previewStarter || "charmander"));
+	      showHome();
+	    }
     function showLoadGamePopup() {
       phone.innerHTML = phone.innerHTML + overlay(t("load_game"), 60, 520) + `
         ${[1,2,3].map(slot => {
@@ -624,6 +885,7 @@
     }
     function showHome() {
       ensureSave();
+      stopAnimations();
       currentBase = "home";
       phone.innerHTML = `
         <section class="screen">
@@ -634,6 +896,7 @@
           <p class="label" style="left:16px;top:188px;width:328px;font-size:13px">${stats()}</p>
           <p class="label" style="left:20px;top:220px;width:320px;font-size:14px">${t("tutorial_prompt")}</p>
           ${orange(t("tutorial"), 70, 248, 220, 48, "message(t('tutorial'), t('tutorial_soon'))")}
+          <button class="debug-secret" onclick="secretDebugClick()">✨</button>
         </section>
       `;
     }
@@ -656,43 +919,256 @@
     }
     function showPokemonMenu() {
       phone.innerHTML = phone.innerHTML + overlay(t("pokemon_menu"), 92, 420) + `
-        ${orange(t("my_pokemon"), 70, 168, 220, 48, "message(t('my_pokemon'), t('my_pokemon_soon'))")}
-        ${orange(t("my_team_pokemon"), 70, 228, 220, 48, "message(t('my_team_pokemon'), t('my_team_pokemon_soon'))")}
-        ${orange(t("pokedex"), 70, 288, 220, 48, "message(t('pokedex'), t('pokedex_soon'))")}
-        ${orange(t("pokemon_center"), 70, 348, 220, 48, "message(t('pokemon_center'), t('pokemon_center_soon'))")}
+        ${orange(t("my_pokemon"), 70, 168, 220, 48, "showMyPokemon()")}
+        ${orange(t("my_team_pokemon"), 70, 228, 220, 48, "showMyTeamPokemon()")}
+        ${orange(t("pokedex"), 70, 288, 220, 48, "showPokedex()")}
+        ${orange(t("pokemon_center"), 70, 348, 220, 48, "showPokemonCenter()")}
       </div>`;
+    }
+	    function showMyPokemon() {
+	      ensureSave();
+	      const pokemon = save.team[0] || starterPokemon(save.starter_id);
+	      showHome();
+	      phone.innerHTML += overlay(t("my_pokemon"), 72, 480) + `
+	        ${pokemonCard(pokemon, 42, 150, 276, 148, true)}
+	      </div>`;
+	      startAnimations();
+	    }
+	    function showMyTeamPokemon() {
+	      ensureSave();
+	      showHome();
+	      phone.innerHTML += overlay(t("my_team_pokemon"), 34, 580) + `
+	        ${[0,1,2,3,4].map(slot => save.team[slot]
+	          ? pokemonCard(save.team[slot], 42, 112 + slot * 82, 276, 74)
+	          : `<div class="row" style="position:absolute;left:42px;top:${112 + slot * 82}px;width:276px;height:74px;display:grid;place-items:center">${t("empty_slot")} ${slot + 1}</div>`
+	        ).join("")}
+	      </div>`;
+	      startAnimations();
+	    }
+	    function showPokedex() {
+	      ensureSave();
+	      showHome();
+	      phone.innerHTML += overlay(t("pokedex"), 34, 580) + `
+	        <div class="scroll" style="left:28px;top:104px;width:304px;height:468px">
+	          ${Object.values(starterDefs).map((pokemon, i) => `
+	            <div class="row" style="height:158px">
+	              ${pokemonSprite(pokemon, 12, 18, 58)}
+	              <span class="row-title" style="left:84px;top:12px;width:190px">#${String(pokemon.dex_number).padStart(3, "0")} ${pokemon.name}</span>
+	              <span class="row-sub" style="left:84px;top:38px;width:190px">${t("type")}: ${pokemonTypes(pokemon)}<br>${t("status")}: ${pokedexStatus(pokemon.id)}</span>
+	              <span class="dex-desc">${settings.language === "pt" ? pokemon.description_pt : pokemon.description_en}</span>
+	            </div>`).join("")}
+	        </div>
+	      </div>`;
+	      startAnimations();
+	    }
+	    function pokedexStatus(id) {
+	      if ((save.owned_pokemon || []).includes(id)) return t("owned");
+	      if ((save.seen_pokemon || []).includes(id)) return t("seen");
+	      return t("unknown");
+	    }
+	    function showPokemonCenter() {
+	      ensureSave();
+	      showHome();
+	      phone.innerHTML += overlay(t("pokemon_center"), 34, 580) + `
+	        ${[0,1,2,3,4].map(slot => save.team[slot]
+	          ? pokemonCard(save.team[slot], 42, 112 + slot * 78, 276, 70)
+	          : `<div class="row" style="position:absolute;left:42px;top:${112 + slot * 78}px;width:276px;height:70px;display:grid;place-items:center">${t("empty_slot")} ${slot + 1}</div>`
+	        ).join("")}
+	        <div id="centerStatus" class="center-status">${t("center_cost_time", { cost: pokemonCenterCost, seconds: pokemonCenterSeconds })}</div>
+	        ${orange(t("heal_team"), 70, 552, 220, 48, "healTeam()", healingInProgress ? "disabled" : "")}
+	      </div>`;
+	      const button = document.querySelector(".orange.disabled");
+	      if (button) button.disabled = true;
+	      startAnimations();
+	    }
+    function healTeam() {
+      ensureSave();
+      if (healingInProgress) return;
+      const status = document.getElementById("centerStatus");
+      if ((save.money || 0) < pokemonCenterCost) {
+        if (status) status.textContent = t("not_enough_money_center");
+        return;
+      }
+      healingInProgress = true;
+      save.money -= pokemonCenterCost;
+      persist();
+      const button = document.querySelector(".orange[onclick='healTeam()']");
+      if (button) button.disabled = true;
+      let remaining = pokemonCenterSeconds;
+      const updateStatus = () => {
+        const currentStatus = document.getElementById("centerStatus");
+        if (currentStatus) currentStatus.textContent = t("healing_started", { seconds: remaining });
+      };
+      updateStatus();
+      const timer = setInterval(() => {
+        remaining -= 1;
+        if (remaining > 0) {
+          updateStatus();
+          return;
+        }
+        clearInterval(timer);
+        save.team = save.team.map(pokemon => ({ ...pokemon, hp: pokemon.max_hp || 39 }));
+        healingInProgress = false;
+        persist();
+        if (document.getElementById("centerStatus")) {
+          showPokemonCenter();
+          const doneStatus = document.getElementById("centerStatus");
+          if (doneStatus) doneStatus.textContent = t("healed_team");
+        } else {
+          showHome();
+        }
+      }, 1000);
     }
     function showWorldMap() {
       ensureSave();
       phone.innerHTML = phone.innerHTML + overlay(t("world_map"), 34, 580) + `
         <div class="scroll" style="left:28px;top:104px;width:304px;height:468px">
-          ${maps.map(([key, typeKey, img, open]) => `
-            <button class="row" style="height:66px" onclick="${open ? "showForestMap()" : "message(t('world_map'), t('coming_soon'))"}">
+          ${maps.map(map => {
+            const [key, typeKey, img] = map;
+            const open = canExploreMap(map);
+            return `
+            <button class="row ${open ? "" : "muted"}" style="height:66px" ${open ? `onclick="showForestMap('${key}')"` : "disabled"}>
               ${mapThumb(key, img)}
               <span class="row-title" style="top:8px">${t(key)}</span>
-              <span class="row-sub" style="top:31px">${t("type")}: ${t(typeKey)}<br>${open ? t("available") : t("coming_soon")}</span>
-            </button>`).join("")}
+              <span class="row-sub" style="top:31px;width:210px">${t("type")}: ${t(typeKey)}<br>${open ? t("available") : mapRequirement(map)}</span>
+            </button>`;
+          }).join("")}
         </div></div>`;
     }
-    function showForestMap() {
+    function showForestMap(key = "forest") {
       ensureSave();
+      currentMapKey = key;
+      save.current_map = key;
+      persist();
+      const map = mapData(key);
+      const open = canExploreMap(map);
       phone.innerHTML = `
         <section class="screen">
           ${topbar()}
-          <p class="label" style="left:60px;top:7px;width:240px;font-size:20px">Forest Map</p>
-          <p class="label" style="left:20px;top:54px;width:320px;font-size:22px">Forest Map</p>
-          <img src="${A}maps/map_forest_64.png" style="position:absolute;left:148px;top:88px;width:64px;height:64px;object-fit:contain" alt="">
-          <p class="label" style="left:28px;top:158px;width:304px;font-size:15px">Explore this map to find rare Pokemon in the forest map exists several types of Pokemon.</p>
-          <p class="label" style="left:24px;top:232px;width:312px;font-size:15px">On this map you can find Pokemon types:</p>
+          <p class="label" style="left:60px;top:7px;width:240px;height:32px;font-size:20px;overflow:hidden">${t(key)}</p>
+          <p class="label" style="left:20px;top:54px;width:320px;height:30px;font-size:22px;overflow:hidden">${t(key)}</p>
+          <img src="${A}${map[2]}" style="position:absolute;left:142px;top:88px;width:76px;height:58px;object-fit:contain" alt="">
+          <p id="mapRequirement" class="label" style="left:28px;top:154px;width:304px;height:32px;font-size:14px;overflow:hidden">${mapRequirement(map)}</p>
+          <p id="mapEnergy" class="label" style="left:28px;top:190px;width:304px;height:28px;font-size:15px;overflow:hidden">${t("energy")} ${save.energy_current}/${save.energy_max}</p>
+          <p class="label" style="left:24px;top:232px;width:312px;height:28px;font-size:15px;overflow:hidden">${t("type")}: ${t(map[1])}</p>
           ${["type_grass", "type_normal", "type_ground", "type_flying", "type_water", "type_poison", "type_bug"].map((name, i) => {
             const pos = [[20,274],[102,274],[184,274],[266,274],[61,308],[143,308],[225,308]][i];
             return `<img src="${A}badges/${name}.png" style="position:absolute;left:${pos[0]}px;top:${pos[1]}px;width:78px;height:24px;object-fit:contain" alt="">`;
           }).join("")}
-          ${orange("Explore Map", 70, 358, 220, 48, "message('Forest Map', 'Encounter prototype stays in Godot for now.')")}
-          ${orange("Back", 110, 552, 140, 44, "showHome()", "small")}
-        </section>`;
-      currentBase = "home";
-    }
+	          ${orange(t("explore_world"), 70, 358, 220, 48, "exploreMap()", open ? "" : "disabled")}
+	          <div id="exploreResult" style="position:absolute;left:0;top:412px;width:360px;height:110px"></div>
+	          ${orange("Back", 110, 552, 140, 44, "showHome()", "small")}
+	        </section>`;
+	      document.querySelector(".orange.disabled")?.setAttribute("disabled", "disabled");
+	      currentBase = "home";
+	    }
+	    function exploreMap() {
+	      ensureSave();
+	      const map = mapData(currentMapKey);
+	      const result = document.getElementById("exploreResult");
+	      if (!canExploreMap(map)) {
+	        if (result) result.innerHTML = `<p class="label" style="left:20px;top:28px;width:320px;height:70px;font-size:18px">${mapRequirement(map)}</p>`;
+	        return;
+	      }
+	      if (save.energy_current <= 0) {
+	        if (result) result.innerHTML = `<p class="label" style="left:20px;top:28px;width:320px;height:70px;font-size:18px">${t("no_energy")}</p>`;
+	        return;
+	      }
+	      save.energy_current = Math.max(0, save.energy_current - 1);
+	      const encounter = rollEncounter(currentMapKey);
+	      save.pending_encounter = encounter || null;
+	      persist();
+	      const energy = document.getElementById("mapEnergy");
+	      if (energy) energy.textContent = `${t("energy")} ${save.energy_current}/${save.energy_max}`;
+	      if (!encounter) {
+	        if (result) result.innerHTML = `<p class="label" style="left:20px;top:28px;width:320px;height:70px;font-size:20px">${t("none_found")}</p>`;
+	        return;
+	      }
+	      if (result) result.innerHTML = `
+	        <img src="${A}${encounter.icon_path || "sprites/sprite_wurmple_96.png"}" style="position:absolute;left:28px;top:0;width:96px;height:96px;object-fit:contain" alt="">
+	        <p class="label" style="left:128px;top:0;width:204px;height:42px;font-size:16px;color:#42a2ff">${t("found_pokemon", { name: encounter.name })}</p>
+	        <p class="label" style="left:128px;top:46px;width:204px;height:28px;font-size:15px">${t("level")}: ${encounter.level}</p>
+	        ${orange(t("click_fight"), 55, 80, 250, 52, "showBattle()")}
+	      `;
+	    }
+	    function showBattle() {
+	      ensureSave();
+	      const player = { ...(save.team[0] || starterPokemon(save.starter_id)) };
+	      const data = starterDefs[player.id] || starterDefs.charmander;
+	      const enemy = save.pending_encounter || { id: "wurmple", name: "Wurmple", level: 3, hp: 25, max_hp: 25, attack: 8, defense: 5, speed: 30, icon_path: "sprites/sprite_wurmple_96.png" };
+	      battle = {
+	        player,
+	        enemy,
+	        moves: data.moves,
+	        movesOpen: false,
+	        over: false
+	      };
+	      renderBattle(`Wild ${enemy.name} appeared!<br>Go! ${player.name}!<br>What will ${player.name} do?`);
+	    }
+	    function renderBattle(messageText) {
+	      const player = battle.player;
+	      const enemy = battle.enemy;
+	      phone.innerHTML = `
+	        <section class="screen">
+	          ${topbar()}
+	          <p class="label" style="left:60px;top:7px;width:240px;font-size:20px">${t("battle") || "Battle"}</p>
+	          <p class="label" style="left:18px;top:62px;width:180px;text-align:left;font-size:16px">${enemy.name} ${t("level")} ${enemy.level}</p>
+	          <div style="position:absolute;left:18px;top:92px;width:146px;height:12px;background:#050505;border-radius:3px"><div style="margin:2px;width:${Math.max(0, enemy.hp / enemy.max_hp * 142)}px;height:8px;background:#3bd83b"></div></div>
+	          <p class="label" style="left:18px;top:108px;width:146px;text-align:left;font-size:13px">${t("hp")} ${enemy.hp}/${enemy.max_hp}</p>
+	          <img src="${A}${enemy.icon_path || "sprites/sprite_wurmple_96.png"}" style="position:absolute;left:226px;top:70px;width:96px;height:96px;object-fit:contain" alt="">
+	          ${pokemonSprite(player, 36, 266, 112, true)}
+	          <p class="label" style="left:166px;top:278px;width:178px;text-align:right;font-size:16px">${player.name} ${t("level")} ${player.level}</p>
+	          <div style="position:absolute;left:198px;top:310px;width:146px;height:12px;background:#050505;border-radius:3px"><div style="margin:2px;width:${Math.max(0, player.hp / player.max_hp * 142)}px;height:8px;background:#3bd83b"></div></div>
+	          <p class="label" style="left:198px;top:326px;width:146px;text-align:right;font-size:13px">${t("hp")} ${player.hp}/${player.max_hp}</p>
+	          <div style="position:absolute;left:16px;top:404px;width:328px;height:92px;background:rgba(8,18,32,.9);border-radius:8px"></div>
+	          <p class="label" style="left:32px;top:414px;width:296px;height:72px;text-align:left;font-size:15px">${messageText}</p>
+	          ${battle.over ? orange(t("return_home"), 70, 540, 220, 48, "showHome()") : battle.movesOpen
+	            ? battle.moves.map((move, i) => orange(move.name, 28 + (i % 2) * 164, 516 + Math.floor(i / 2) * 54, 140, 44, `battleMove(${i})`, "small")).join("")
+	            : `${orange(t("attack"), 28, 512, 140, 44, "openBattleMoves()", "small")}
+	               ${orange(t("bag"), 192, 512, 140, 44, "message(t('bag'), t('battle_bag_soon'))", "small")}
+	               ${orange(t("pokemon"), 28, 570, 140, 44, "message(t('pokemon'), t('switch_soon'))", "small")}
+	               ${orange(t("run"), 192, 570, 140, 44, "showForestMap(currentMapKey)", "small")}`}
+	        </section>`;
+	      startAnimations();
+	    }
+	    function openBattleMoves() {
+	      battle.movesOpen = true;
+	      renderBattle(`What will ${battle.player.name} do?`);
+	    }
+	    function battleMove(index) {
+	      const move = battle.moves[index];
+	      const damage = Math.max(1, Math.floor((battle.player.attack + move.power) / 4) - Math.floor(battle.enemy.defense / 6) + Math.floor(Math.random() * 5) - 2);
+	      battle.enemy.hp = Math.max(0, battle.enemy.hp - damage);
+	      let lines = [`${battle.player.name} used ${move.name}!`, `${t("damage")}: ${damage}`];
+	      if (battle.enemy.hp <= 0) {
+	        battle.player.xp = (battle.player.xp || 0) + 25;
+	        if (battle.player.xp >= 100) {
+	          battle.player.xp -= 100;
+	          battle.player.level += 1;
+	          battle.player.max_hp += 3;
+	          battle.player.hp = battle.player.max_hp;
+	          battle.player.attack += 1;
+	          battle.player.defense += 1;
+	          battle.player.speed += 1;
+	        }
+	        save.team[0] = battle.player;
+	        persist();
+	        battle.over = true;
+	        renderBattle([...lines, t("enemy_fainted"), `${battle.player.name} +25 XP`].join("<br>"));
+	        return;
+	      }
+	      const enemyDamage = Math.max(1, Math.floor((battle.enemy.attack + 35) / 4) - Math.floor(battle.player.defense / 6) + Math.floor(Math.random() * 5) - 2);
+	      battle.player.hp = Math.max(0, battle.player.hp - enemyDamage);
+	      save.team[0] = battle.player;
+	      persist();
+	      lines.push(`${battle.enemy.name} used Tackle!`, `${t("damage")}: ${enemyDamage}`);
+	      if (battle.player.hp <= 0) {
+	        battle.over = true;
+	        lines.push(t("your_fainted"));
+	      }
+	      battle.movesOpen = false;
+	      renderBattle(lines.join("<br>"));
+	    }
     function showBag() {
       ensureSave();
       const list = items.filter(item => item.category === bagCategory);
@@ -820,27 +1296,98 @@
         ${orange(t("no"), 182, 356, 140, 44, "closeOverlay()", "small")}
       </div>`;
     }
+    function secretDebugClick() {
+      const now = Date.now();
+      if (now > debugDeadline) debugClicks = 0;
+      debugClicks += 1;
+      debugDeadline = now + 5000;
+      if (debugClicks >= 4) {
+        debugClicks = 0;
+        debugDeadline = 0;
+        showDebugMenu();
+      }
+    }
+    function showDebugMenu() {
+      if (!save) { message(t("debug_menu"), t("no_active_save")); return; }
+      phone.innerHTML += overlay(t("debug_menu"), 72, 480) + `
+        ${orange(t("debug_money"), 70, 148, 220, 48, "debugMoney()")}
+        ${orange(t("debug_level"), 70, 204, 220, 48, "debugLevel()")}
+        ${orange(t("debug_xp"), 70, 260, 220, 48, "debugXP()")}
+        ${orange(t("debug_badge"), 70, 316, 220, 48, "debugBadge()")}
+        ${orange(t("heal_team"), 70, 372, 220, 48, "debugHeal()")}
+        <button class="tab" style="left:42px;top:430px;width:132px;height:34px" onclick="debugItems()">${t("debug_items")}</button>
+        <button class="tab" style="left:186px;top:430px;width:132px;height:34px" onclick="closeOverlay()">${t("close")}</button>
+      </div>`;
+    }
+    function saveDebug() {
+      persist();
+      showHome();
+      showDebugMenu();
+    }
+    function debugMoney() { ensureSave(); save.money += 10000; saveDebug(); }
+    function debugLevel() {
+      ensureSave();
+      save.level += 1;
+      save.team = save.team.map(pokemon => ({ ...pokemon, level: (pokemon.level || 5) + 1 }));
+      saveDebug();
+    }
+    function debugXP() {
+      ensureSave();
+      save.xp = (save.xp || 0) + 100;
+      save.team = save.team.map(pokemon => ({ ...pokemon, xp: (pokemon.xp || 0) + 100 }));
+      saveDebug();
+    }
+    function debugBadge() { ensureSave(); save.badges = Math.min(8, save.badges + 1); saveDebug(); }
+    function debugHeal() {
+      ensureSave();
+      save.team = save.team.map(pokemon => ({ ...pokemon, hp: pokemon.max_hp || 39 }));
+      saveDebug();
+    }
+    function debugItems() {
+      ensureSave();
+      save.inventory.poke_ball = (save.inventory.poke_ball || 0) + 10;
+      save.inventory.potion = (save.inventory.potion || 0) + 10;
+      save.inventory.great_ball = (save.inventory.great_ball || 0) + 5;
+      saveDebug();
+    }
     window.t = t;
     window.stats = stats;
     window.loadGame = showLoadGamePopup;
     window.newGame = showNewGamePopup;
     window.showLoadGamePopup = showLoadGamePopup;
-    window.showNewGamePopup = showNewGamePopup;
-    window.startNewGame = startNewGame;
+	    window.showNewGamePopup = showNewGamePopup;
+	    window.selectStarter = selectStarter;
+	    window.startNewGame = startNewGame;
     window.loadSlot = loadSlot;
     window.deleteSlot = deleteSlot;
     window.showHome = showHome;
     window.showMainMenu = showMainMenu;
-    window.showWorldMap = showWorldMap;
-    window.showForestMap = showForestMap;
+	    window.showWorldMap = showWorldMap;
+	    window.showForestMap = showForestMap;
+	    window.showBattle = showBattle;
+	    window.openBattleMoves = openBattleMoves;
+	    window.battleMove = battleMove;
     window.showBag = showBag;
     window.showShop = showShop;
     window.showTournament = showTournament;
     window.showPokemonMenu = showPokemonMenu;
     window.showOptions = showOptions;
     window.showProfile = showProfile;
+    window.showMyPokemon = showMyPokemon;
+    window.showMyTeamPokemon = showMyTeamPokemon;
+    window.showPokedex = showPokedex;
+    window.showPokemonCenter = showPokemonCenter;
+    window.healTeam = healTeam;
     window.message = message;
     window.confirmExit = confirmExit;
+    window.secretDebugClick = secretDebugClick;
+    window.showDebugMenu = showDebugMenu;
+    window.debugMoney = debugMoney;
+    window.debugLevel = debugLevel;
+    window.debugXP = debugXP;
+    window.debugBadge = debugBadge;
+    window.debugHeal = debugHeal;
+    window.debugItems = debugItems;
     window.closeOverlay = closeOverlay;
     window.redrawBase = redrawBase;
     window.chooseBagCategory = chooseBagCategory;
