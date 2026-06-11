@@ -1,5 +1,7 @@
 extends Node
 
+const PokemonHelpers = preload("res://scripts/pokemon_helpers.gd")
+
 const SETTINGS_PATH = "user://settings.json"
 const SAVES_DIR = "user://saves"
 const MAX_SAVE_SLOTS = 3
@@ -13,6 +15,7 @@ const DEFAULT_INVENTORY = {
 	"potion": 3,
 	"town_map": 1,
 }
+const DEFAULT_ENERGY_MAX = 30
 
 var _settings: Dictionary = DEFAULT_SETTINGS.duplicate(true)
 var _current_save: Dictionary = {}
@@ -61,6 +64,8 @@ func create_save(slot: int, data: Dictionary) -> Dictionary:
 
 	var save_slot := clampi(slot, 1, MAX_SAVE_SLOTS)
 	var now := Time.get_datetime_string_from_system()
+	var starter_id := _starter_id_from_data(data)
+	var starter_definition := PokemonHelpers.get_definition(starter_id)
 	var save_data := {
 		"slot": save_slot,
 		"player_name": str(data.get("player_name", _default_player_name())).strip_edges(),
@@ -68,12 +73,19 @@ func create_save(slot: int, data: Dictionary) -> Dictionary:
 		"avatar_type": str(data.get("avatar_type", "preset")),
 		"avatar_custom_path": str(data.get("avatar_custom_path", "")),
 		"starter_generation": int(data.get("starter_generation", 1)),
-		"starter_name": str(data.get("starter_name", "Charmander")),
-		"starter_dex_number": int(data.get("starter_dex_number", 4)),
+		"starter_id": starter_id,
+		"starter_name": str(data.get("starter_name", starter_definition.get("name", "Charmander"))),
+		"starter_dex_number": int(data.get("starter_dex_number", starter_definition.get("dex_number", 4))),
 		"money": int(data.get("money", 3000)),
 		"badges": int(data.get("badges", 0)),
 		"level": int(data.get("level", 0)),
+		"energy_current": int(data.get("energy_current", DEFAULT_ENERGY_MAX)),
+		"energy_max": int(data.get("energy_max", DEFAULT_ENERGY_MAX)),
+		"last_energy_reset": str(data.get("last_energy_reset", _today_string())),
 		"inventory": _normalized_inventory(data.get("inventory", DEFAULT_INVENTORY)),
+		"team": _normalized_team(data.get("team", []), starter_id),
+		"seen_pokemon": _normalized_seen_pokemon(data.get("seen_pokemon", [])),
+		"owned_pokemon": _normalized_owned_pokemon(data.get("owned_pokemon", []), data.get("team", []), starter_id),
 		"current_scene": str(data.get("current_scene", "HomeScreen")),
 		"current_map": str(data.get("current_map", "")),
 		"settings_language": str(_settings.get("language", "en")),
@@ -141,6 +153,11 @@ func has_save(slot: int) -> bool:
 
 
 func get_current_save() -> Dictionary:
+	if not _current_save.is_empty():
+		var normalized := _normalized_save(_current_save)
+		if normalized != _current_save:
+			_current_save = normalized
+			_write_save(int(_current_save.get("slot", 1)), _current_save)
 	return _current_save.duplicate(true)
 
 
@@ -157,6 +174,7 @@ func update_current_save(changes: Dictionary) -> Dictionary:
 		updated[key] = changes[key]
 
 	updated["updated_at"] = Time.get_datetime_string_from_system()
+	updated = _normalized_save(updated)
 	_write_save(int(updated.get("slot", 1)), updated)
 	set_current_save(updated)
 	return _current_save.duplicate(true)
@@ -184,12 +202,19 @@ func _normalized_save(save_data: Dictionary) -> Dictionary:
 	normalized["avatar_type"] = str(normalized.get("avatar_type", "preset"))
 	normalized["avatar_custom_path"] = str(normalized.get("avatar_custom_path", ""))
 	normalized["starter_generation"] = int(normalized.get("starter_generation", 1))
-	normalized["starter_name"] = str(normalized.get("starter_name", "Charmander"))
-	normalized["starter_dex_number"] = int(normalized.get("starter_dex_number", 4))
+	var starter_id := _starter_id_from_data(normalized)
+	var starter_definition := PokemonHelpers.get_definition(starter_id)
+	normalized["starter_id"] = starter_id
+	normalized["starter_name"] = str(normalized.get("starter_name", starter_definition.get("name", "Charmander")))
+	normalized["starter_dex_number"] = int(normalized.get("starter_dex_number", starter_definition.get("dex_number", 4)))
 	normalized["money"] = int(normalized.get("money", 3000))
 	normalized["badges"] = int(normalized.get("badges", 0))
 	normalized["level"] = int(normalized.get("level", 0))
+	_apply_daily_energy_reset(normalized)
 	normalized["inventory"] = _normalized_inventory(normalized.get("inventory", DEFAULT_INVENTORY))
+	normalized["team"] = _normalized_team(normalized.get("team", []), starter_id)
+	normalized["seen_pokemon"] = _normalized_seen_pokemon(normalized.get("seen_pokemon", []))
+	normalized["owned_pokemon"] = _normalized_owned_pokemon(normalized.get("owned_pokemon", []), normalized["team"], starter_id)
 	normalized["current_scene"] = str(normalized.get("current_scene", "HomeScreen"))
 	normalized["current_map"] = str(normalized.get("current_map", ""))
 	normalized["settings_language"] = str(normalized.get("settings_language", _settings.get("language", "en")))
@@ -223,6 +248,26 @@ func _default_player_name() -> String:
 	return "Jogador" if str(_settings.get("language", "en")) == "pt" else "Player"
 
 
+func _apply_daily_energy_reset(save_data: Dictionary) -> void:
+	var energy_max: int = max(1, int(save_data.get("energy_max", DEFAULT_ENERGY_MAX)))
+	var energy_current: int = clampi(int(save_data.get("energy_current", energy_max)), 0, energy_max)
+	var today := _today_string()
+	var last_reset := str(save_data.get("last_energy_reset", ""))
+
+	if last_reset != today:
+		energy_current = energy_max
+		last_reset = today
+
+	save_data["energy_max"] = energy_max
+	save_data["energy_current"] = energy_current
+	save_data["last_energy_reset"] = last_reset
+
+
+func _today_string() -> String:
+	var date := Time.get_datetime_dict_from_system()
+	return "%04d-%02d-%02d" % [int(date["year"]), int(date["month"]), int(date["day"])]
+
+
 func _normalized_inventory(value) -> Dictionary:
 	var inventory := {}
 	if typeof(value) == TYPE_DICTIONARY:
@@ -234,3 +279,68 @@ func _normalized_inventory(value) -> Dictionary:
 		return DEFAULT_INVENTORY.duplicate(true)
 
 	return inventory
+
+
+func _normalized_team(value, starter_id: String = PokemonHelpers.DEFAULT_STARTER_ID) -> Array:
+	var team := []
+	if typeof(value) == TYPE_ARRAY:
+		for entry in value:
+			if typeof(entry) == TYPE_DICTIONARY:
+				team.append(PokemonHelpers.normalize_pokemon(entry, starter_id))
+				if team.size() >= 5:
+					break
+
+	if team.is_empty():
+		team.append(PokemonHelpers.starter_save_data(starter_id))
+
+	return team
+
+
+func _normalized_seen_pokemon(value) -> Array:
+	var seen := []
+	if typeof(value) == TYPE_ARRAY:
+		for entry in value:
+			var pokemon_id := str(entry)
+			if PokemonHelpers.is_starter_id(pokemon_id) and not seen.has(pokemon_id):
+				seen.append(pokemon_id)
+
+	for pokemon_id in PokemonHelpers.starter_ids():
+		if not seen.has(pokemon_id):
+			seen.append(pokemon_id)
+	return seen
+
+
+func _normalized_owned_pokemon(value, team_value, starter_id: String) -> Array:
+	var owned := []
+	if typeof(value) == TYPE_ARRAY:
+		for entry in value:
+			var pokemon_id := str(entry)
+			if PokemonHelpers.is_starter_id(pokemon_id) and not owned.has(pokemon_id):
+				owned.append(pokemon_id)
+
+	if typeof(team_value) == TYPE_ARRAY:
+		for entry in team_value:
+			if typeof(entry) == TYPE_DICTIONARY:
+				var team_id := str(entry.get("id", ""))
+				if PokemonHelpers.is_starter_id(team_id) and not owned.has(team_id):
+					owned.append(team_id)
+
+	if owned.is_empty() and PokemonHelpers.is_starter_id(starter_id):
+		owned.append(starter_id)
+	return owned
+
+
+func _starter_id_from_data(data: Dictionary) -> String:
+	var starter_id := str(data.get("starter_id", ""))
+	if PokemonHelpers.is_starter_id(starter_id):
+		return starter_id
+
+	var starter_name := str(data.get("starter_name", ""))
+	if starter_name != "":
+		return PokemonHelpers.id_from_name(starter_name)
+
+	var starter_dex := int(data.get("starter_dex_number", 0))
+	if starter_dex > 0:
+		return PokemonHelpers.id_from_dex(starter_dex)
+
+	return PokemonHelpers.DEFAULT_STARTER_ID
