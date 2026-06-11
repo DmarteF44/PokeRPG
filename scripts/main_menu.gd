@@ -205,7 +205,7 @@ func _add_save_slot(parent: Control, slot: int, y: float) -> void:
 		_text("money"),
 		int(save_data.get("money", 3000)),
 		_text("level"),
-		int(save_data.get("level", 0)),
+		max(1, int(save_data.get("level", 1))),
 		_text("badges"),
 		int(save_data.get("badges", 0)),
 	], Vector2(66, 7), Vector2(132, 68), 11, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "SaveText")
@@ -528,7 +528,7 @@ func _create_save_and_start() -> void:
 		"starter_name": selected_starter_name,
 		"starter_dex_number": selected_starter_dex,
 		"money": 3000,
-		"level": 0,
+		"level": 1,
 		"badges": 0,
 		"inventory": {
 			"poke_ball": 5,

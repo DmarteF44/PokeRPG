@@ -35,6 +35,23 @@ const TEXT = {
 		"center_cost_time": "Cost: $%d | Time: %ds",
 		"healing_started": "Healing... %ds",
 		"not_enough_money_center": "Not enough money to heal.",
+		"storage": "Storage",
+		"active": "Active",
+		"set_active": "Active",
+		"move_up": "Up",
+		"move_down": "Down",
+		"deposit": "Deposit",
+		"withdraw": "Withdraw",
+		"search": "Search",
+		"sort_level": "Level",
+		"sort_name": "Name",
+		"sort_dex": "Dex",
+		"sort_date": "Date",
+		"sort_generation": "Gen",
+		"team_full": "Your team is full.",
+		"last_pokemon": "You must keep at least one Pokemon in your team.",
+		"storage_full": "Storage is full.",
+		"storage_empty": "Storage is empty.",
 		"empty_slot": "Empty Slot",
 		"hp": "HP",
 		"xp": "XP",
@@ -112,8 +129,19 @@ const TEXT = {
 		"requires": "Requires Lv. %d and %d badges.",
 		"available_status": "Available",
 		"locked": "Locked",
-		"not_enough_money": "Not enough money.",
+		"not_enough_money": "Not enough Gold.",
 		"bought": "Bought %s!",
+		"energy_full": "Your energy is already full.",
+		"energy_restored": "Energy restored by %d.",
+		"choose_pokemon": "Choose Pokemon",
+		"stat_boosted": "%s gained +%d %s!",
+		"stat_at_cap": "%s cannot raise %s anymore.",
+		"stat_max_hp": "HP",
+		"stat_attack": "Attack",
+		"stat_defense": "Defense",
+		"stat_sp_attack": "Sp. Attack",
+		"stat_sp_defense": "Sp. Defense",
+		"stat_speed": "Speed",
 		"select_item": "Select an item to see details.",
 		"items_use_hint": "Items can be used during battles, events, or specific menus.",
 		"pokeball_use": "Pokeballs are used during wild battles.",
@@ -150,6 +178,23 @@ const TEXT = {
 		"center_cost_time": "Custo: $%d | Tempo: %ds",
 		"healing_started": "Curando... %ds",
 		"not_enough_money_center": "Dinheiro insuficiente para curar.",
+		"storage": "Storage",
+		"active": "Ativo",
+		"set_active": "Ativo",
+		"move_up": "Subir",
+		"move_down": "Descer",
+		"deposit": "Depositar",
+		"withdraw": "Retirar",
+		"search": "Buscar",
+		"sort_level": "Nível",
+		"sort_name": "Nome",
+		"sort_dex": "Dex",
+		"sort_date": "Data",
+		"sort_generation": "Gen",
+		"team_full": "Seu time está cheio.",
+		"last_pokemon": "Você deve manter pelo menos um Pokémon no time.",
+		"storage_full": "Storage cheio.",
+		"storage_empty": "Storage vazio.",
 		"empty_slot": "Slot Vazio",
 		"hp": "HP",
 		"xp": "XP",
@@ -227,8 +272,19 @@ const TEXT = {
 		"requires": "Requer Nv. %d e %d insígnias.",
 		"available_status": "Disponível",
 		"locked": "Bloqueado",
-		"not_enough_money": "Dinheiro insuficiente.",
+		"not_enough_money": "Gold insuficiente.",
 		"bought": "%s comprado!",
+		"energy_full": "Sua energia já está completa.",
+		"energy_restored": "Energia restaurada em %d.",
+		"choose_pokemon": "Escolha o Pokemon",
+		"stat_boosted": "%s ganhou +%d em %s!",
+		"stat_at_cap": "%s nao pode aumentar mais %s.",
+		"stat_max_hp": "HP",
+		"stat_attack": "Ataque",
+		"stat_defense": "Defesa",
+		"stat_sp_attack": "Ataque Esp.",
+		"stat_sp_defense": "Defesa Esp.",
+		"stat_speed": "Velocidade",
 		"select_item": "Selecione um item para ver detalhes.",
 		"items_use_hint": "Itens poderão ser usados em batalhas, eventos ou menus específicos.",
 		"pokeball_use": "Pokébolas são usadas em batalhas selvagens.",
@@ -251,6 +307,7 @@ var shop_popup: Control
 var tournament_popup: Control
 var pokemon_popup: Control
 var pokemon_center_popup: Control
+var storage_popup: Control
 var pokemon_center_status_label: Label
 var pokemon_center_heal_button: TextureButton
 var stats_label: Label
@@ -259,6 +316,8 @@ var selected_bag_item: Dictionary = {}
 var selected_shop_category := "pokeballs"
 var bag_description_label: Label
 var bag_use_button: TextureButton
+var storage_search_text := ""
+var storage_sort_mode := "level"
 var debug_click_count := 0
 var debug_click_deadline_msec := 0
 var debug_popup: Control
@@ -284,7 +343,7 @@ func _refresh_save_data() -> void:
 		save_data = {
 			"player_name": _text("player_default"),
 			"money": 3000,
-			"level": 0,
+			"level": 1,
 			"badges": 0,
 			"energy_current": 30,
 			"energy_max": 30,
@@ -352,7 +411,7 @@ func _stats_text() -> String:
 		_text("money"),
 		int(save_data.get("money", 3000)),
 		_text("level"),
-		int(save_data.get("level", 0)),
+		max(1, int(save_data.get("level", 1))),
 		_text("badges_short") % int(save_data.get("badges", 0)),
 		_text("energy"),
 		int(save_data.get("energy_current", 30)),
@@ -379,7 +438,7 @@ func _show_profile() -> void:
 		_text("money"),
 		int(save_data.get("money", 3000)),
 		_text("level"),
-		int(save_data.get("level", 0)),
+		max(1, int(save_data.get("level", 1))),
 		_text("badges_short") % int(save_data.get("badges", 0)),
 	]
 	UI.show_message_popup(self, _text("profile"), profile_text)
@@ -527,8 +586,8 @@ func _add_bag_description() -> void:
 
 func _select_bag_item(item: Dictionary) -> void:
 	selected_bag_item = item.duplicate(true)
+	var amount := InventoryManager.get_item_amount(str(item.get("id", "")))
 	if bag_description_label != null and is_instance_valid(bag_description_label):
-		var amount := InventoryManager.get_item_amount(str(item.get("id", "")))
 		bag_description_label.text = "%s\n%s: %d | %s: %s\n%s\n%s" % [
 			_item_name(item),
 			_text("quantity"),
@@ -539,12 +598,25 @@ func _select_bag_item(item: Dictionary) -> void:
 			_text("items_use_hint"),
 		]
 	if bag_use_button != null and is_instance_valid(bag_use_button):
-		bag_use_button.disabled = false
-		bag_use_button.modulate = Color.WHITE
+		var effect_type := str(item.get("effect_type", ""))
+		var is_usable_item := effect_type == "restore_energy" or effect_type == "stat_boost"
+		var text_label := bag_use_button.get_node_or_null("Text") as Label
+		if text_label != null:
+			text_label.text = _text("use") if is_usable_item else _text("details")
+		bag_use_button.disabled = is_usable_item and amount <= 0
+		bag_use_button.modulate = Color(0.62, 0.62, 0.62, 0.9) if bag_use_button.disabled else Color.WHITE
 
 
 func _show_selected_bag_item_details() -> void:
 	if selected_bag_item.is_empty():
+		return
+
+	var effect_type := str(selected_bag_item.get("effect_type", ""))
+	if effect_type == "restore_energy":
+		_use_energy_item(selected_bag_item)
+		return
+	if effect_type == "stat_boost":
+		_show_stat_boost_targets(selected_bag_item)
 		return
 
 	var amount := InventoryManager.get_item_amount(str(selected_bag_item.get("id", "")))
@@ -554,6 +626,121 @@ func _show_selected_bag_item_details() -> void:
 		_item_description(selected_bag_item),
 		_text("items_use_hint"),
 	])
+
+
+func _use_energy_item(item: Dictionary) -> void:
+	if not _has_active_save():
+		UI.show_message_popup(self, _item_name(item), _text("no_active_save"))
+		return
+
+	_refresh_save_data()
+	var item_id := str(item.get("id", ""))
+	if InventoryManager.get_item_amount(item_id) <= 0:
+		return
+
+	var energy_max: int = maxi(1, int(save_data.get("energy_max", 30)))
+	var energy_current: int = clampi(int(save_data.get("energy_current", energy_max)), 0, energy_max)
+	if energy_current >= energy_max:
+		UI.show_message_popup(self, _item_name(item), _text("energy_full"))
+		return
+
+	var restore_amount: int = maxi(0, int(item.get("effect_value", 0)))
+	var next_energy: int = mini(energy_max, energy_current + restore_amount)
+	var restored: int = next_energy - energy_current
+	if restored <= 0:
+		UI.show_message_popup(self, _item_name(item), _text("energy_full"))
+		return
+
+	if not InventoryManager.remove_item(item_id, 1):
+		return
+
+	SaveManager.update_current_save({"energy_current": next_energy})
+	_refresh_save_data()
+	_refresh_home_stats()
+	_show_bag()
+	UI.show_message_popup(self, _item_name(item), _text("energy_restored") % restored)
+
+
+func _show_stat_boost_targets(item: Dictionary) -> void:
+	if not _has_active_save():
+		UI.show_message_popup(self, _item_name(item), _text("no_active_save"))
+		return
+
+	var item_id := str(item.get("id", ""))
+	if InventoryManager.get_item_amount(item_id) <= 0:
+		return
+
+	var existing := get_node_or_null("StatBoostTargetPopup")
+	if existing != null:
+		existing.queue_free()
+
+	var popup := _create_popup(_text("choose_pokemon"), "StatBoostTargetPopup", 92.0, 420.0)
+	var stat_key := PokemonHelpers.normalized_stat_key(str(item.get("effect_stat", "")))
+	UI.add_panel_label(
+		popup,
+		"%s\n%s +%d" % [_item_name(item), _stat_name(stat_key), int(item.get("effect_value", PokemonHelpers.STAT_BOOST_AMOUNT))],
+		Vector2(42, 154),
+		Vector2(276, 44),
+		13,
+		HORIZONTAL_ALIGNMENT_CENTER,
+		VERTICAL_ALIGNMENT_CENTER,
+		"BoostInfo"
+	)
+
+	var team := _team()
+	for i in range(team.size()):
+		if typeof(team[i]) != TYPE_DICTIONARY:
+			continue
+		_add_stat_boost_target_row(popup, team[i], i, 214.0 + float(i) * 56.0, item, stat_key)
+
+
+func _add_stat_boost_target_row(parent: Control, pokemon: Dictionary, team_index: int, y: float, item: Dictionary, stat_key: String) -> void:
+	var row := Panel.new()
+	row.name = "BoostTarget%d" % team_index
+	row.position = Vector2(42, y)
+	row.size = Vector2(276, 48)
+	parent.add_child(row)
+	UI.style_panel_button(row, Color(0.86, 0.92, 0.96), Color(0.34, 0.50, 0.62), 2)
+
+	PokemonHelpers.add_animated_sprite(row, pokemon, Vector2(8, 3), Vector2(42, 42), false, "PokemonSprite")
+	var value := int(pokemon.get(stat_key, 0))
+	var limit := PokemonHelpers.stat_limit(stat_key)
+	var name := str(pokemon.get("name", "Pokemon"))
+	var name_label := UI.add_panel_label(row, name, Vector2(56, 5), Vector2(110, 18), 12, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Name")
+	_fit_label(name_label, false)
+	UI.add_panel_label(row, "%s: %d/%d" % [_stat_name(stat_key), value, limit], Vector2(56, 25), Vector2(116, 16), 10, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Stat")
+	_add_small_button(row, _text("use"), Vector2(198, 9), Vector2(62, 30), Callable(self, "_use_stat_boost_item").bind(item, team_index), "UseBoost")
+
+
+func _use_stat_boost_item(item: Dictionary, team_index: int) -> void:
+	_refresh_save_data()
+	var team := _team()
+	if team_index < 0 or team_index >= team.size() or typeof(team[team_index]) != TYPE_DICTIONARY:
+		return
+
+	var item_id := str(item.get("id", ""))
+	if InventoryManager.get_item_amount(item_id) <= 0:
+		return
+
+	var stat_key := PokemonHelpers.normalized_stat_key(str(item.get("effect_stat", "")))
+	var boost_amount := maxi(1, int(item.get("effect_value", PokemonHelpers.STAT_BOOST_AMOUNT)))
+	var result := PokemonHelpers.boost_stat(team[team_index], stat_key, boost_amount)
+	var applied := int(result.get("applied", 0))
+	var updated_pokemon: Dictionary = result.get("pokemon", team[team_index])
+	var pokemon_name := str(updated_pokemon.get("name", "Pokemon"))
+	if applied <= 0:
+		UI.show_message_popup(self, _item_name(item), _text("stat_at_cap") % [pokemon_name, _stat_name(stat_key)])
+		return
+
+	if not InventoryManager.remove_item(item_id, 1):
+		return
+
+	team[team_index] = updated_pokemon
+	SaveManager.update_current_save({"team": team})
+	_refresh_save_data()
+	_refresh_home_stats()
+	_show_bag()
+	UI.show_message_popup(self, _item_name(item), _text("stat_boosted") % [pokemon_name, applied, _stat_name(stat_key)])
 
 
 func _show_shop() -> void:
@@ -597,11 +784,11 @@ func _add_shop_items() -> void:
 
 
 func _add_shop_item_row(parent: Control, item: Dictionary, index: int) -> void:
-	var player_level := int(save_data.get("level", 0))
-	var player_badges := int(save_data.get("badges", 0))
-	var min_level := int(item.get("min_level", 0))
-	var min_badges := int(item.get("min_badges", 0))
-	var locked := min_level > player_level or min_badges > player_badges
+	var player_level: int = maxi(1, int(save_data.get("level", 1)))
+	var player_badges: int = int(save_data.get("badges", 0))
+	var min_level: int = int(item.get("min_level", 0))
+	var min_badges: int = int(item.get("min_badges", 0))
+	var locked: bool = min_level > player_level or min_badges > player_badges
 	var row := Panel.new()
 	row.name = "Shop%s" % str(item.get("id", "")).capitalize()
 	row.position = Vector2(0, float(index) * 112.0)
@@ -688,12 +875,20 @@ func _show_my_pokemon() -> void:
 
 func _show_my_team_pokemon() -> void:
 	_close_pokemon_popup()
+	var existing_popup := get_node_or_null("MyTeamPokemonPopup")
+	if existing_popup != null:
+		existing_popup.queue_free()
 	var popup := _create_popup(_text("my_team_pokemon"), "MyTeamPokemonPopup", 34.0, 580.0)
 	var team := _team()
+	var active_index := _active_pokemon_index(team)
 	for slot in range(TEAM_LIMIT):
 		var y := 112.0 + float(slot) * 82.0
 		if slot < team.size():
-			_add_pokemon_card(popup, team[slot], Vector2(42, y), Vector2(276, 74), false, false)
+			_add_pokemon_card(popup, team[slot], Vector2(42, y), Vector2(178, 74), slot == active_index, false)
+			_add_small_button(popup, _text("set_active"), Vector2(226, y + 2.0), Vector2(42, 22), Callable(self, "_set_active_pokemon").bind(slot), "Active%d" % slot)
+			_add_small_button(popup, _text("move_up"), Vector2(272, y + 2.0), Vector2(42, 22), Callable(self, "_move_team_pokemon").bind(slot, -1), "Up%d" % slot)
+			_add_small_button(popup, _text("move_down"), Vector2(226, y + 26.0), Vector2(42, 22), Callable(self, "_move_team_pokemon").bind(slot, 1), "Down%d" % slot)
+			_add_small_button(popup, _text("deposit"), Vector2(272, y + 26.0), Vector2(42, 22), Callable(self, "_deposit_team_pokemon").bind(slot), "Deposit%d" % slot)
 		else:
 			_add_empty_team_slot(popup, slot + 1, y, 74.0)
 
@@ -738,7 +933,8 @@ func _show_pokemon_center() -> void:
 		"CenterStatus"
 	)
 	pokemon_center_status_label.clip_text = true
-	pokemon_center_heal_button = UI.add_orange_button(pokemon_center_popup, _text("heal_team"), Vector2(70, 552), Vector2(220, 48), Callable(self, "_heal_team"), "HealTeam")
+	pokemon_center_heal_button = UI.add_orange_button(pokemon_center_popup, _text("heal_team"), Vector2(42, 552), Vector2(132, 44), Callable(self, "_heal_team"), "HealTeam")
+	UI.add_orange_button(pokemon_center_popup, _text("storage"), Vector2(186, 552), Vector2(132, 44), Callable(self, "_show_storage"), "Storage")
 	_set_center_heal_enabled(not healing_in_progress)
 
 
@@ -750,10 +946,24 @@ func _team() -> Array:
 	return []
 
 
+func _storage() -> Array:
+	_refresh_save_data()
+	var storage_value = save_data.get("storage", [])
+	if typeof(storage_value) == TYPE_ARRAY:
+		return storage_value
+	return []
+
+
+func _active_pokemon_index(team: Array = []) -> int:
+	var source_team := team if not team.is_empty() else _team()
+	return clampi(int(save_data.get("active_pokemon_index", 0)), 0, maxi(0, source_team.size() - 1))
+
+
 func _first_owned_pokemon() -> Dictionary:
 	var team := _team()
-	if not team.is_empty() and typeof(team[0]) == TYPE_DICTIONARY:
-		return team[0]
+	var active_index := _active_pokemon_index(team)
+	if not team.is_empty() and active_index < team.size() and typeof(team[active_index]) == TYPE_DICTIONARY:
+		return team[active_index]
 	var starter_id := str(save_data.get("starter_id", PokemonHelpers.id_from_name(str(save_data.get("starter_name", "Charmander")))))
 	return PokemonHelpers.starter_save_data(starter_id)
 
@@ -793,7 +1003,7 @@ func _add_pokemon_card(parent: Control, pokemon: Dictionary, pos: Vector2, node_
 	var info_label := UI.add_panel_label(panel, info_text, info_pos, info_size, info_font, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Info")
 	_fit_label(info_label, true)
 	if not compact and (show_starter or bool(pokemon.get("starter", false))):
-		UI.add_panel_label(panel, _text("starter_tag"), Vector2(180, node_size.y - 24.0), Vector2(80, 18), 10, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Starter")
+		UI.add_panel_label(panel, _text("active") if show_starter else _text("starter_tag"), Vector2(108, node_size.y - 24.0), Vector2(70, 18), 10, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Starter")
 
 
 func _add_empty_team_slot(parent: Control, slot: int, y: float, slot_height: float) -> void:
@@ -917,6 +1127,148 @@ func _heal_team() -> void:
 		UI.show_message_popup(self, _text("pokemon_center"), _text("healed_team"))
 
 
+func _set_active_pokemon(index: int) -> void:
+	var team := _team()
+	if index < 0 or index >= team.size():
+		return
+	SaveManager.update_current_save({"active_pokemon_index": index})
+	_refresh_save_data()
+	_refresh_home_stats()
+	_show_my_team_pokemon()
+
+
+func _move_team_pokemon(index: int, direction: int) -> void:
+	var team := _team()
+	var target := index + direction
+	if index < 0 or index >= team.size() or target < 0 or target >= team.size():
+		return
+	var active_index := _active_pokemon_index(team)
+	var moved = team[index]
+	team[index] = team[target]
+	team[target] = moved
+	if active_index == index:
+		active_index = target
+	elif active_index == target:
+		active_index = index
+	SaveManager.update_current_save({"team": team, "active_pokemon_index": active_index})
+	_refresh_save_data()
+	_refresh_home_stats()
+	_show_my_team_pokemon()
+
+
+func _deposit_team_pokemon(index: int) -> void:
+	var team := _team()
+	if team.size() <= 1:
+		UI.show_message_popup(self, _text("storage"), _text("last_pokemon"))
+		return
+	var storage := _storage()
+	if storage.size() >= 500:
+		UI.show_message_popup(self, _text("storage"), _text("storage_full"))
+		return
+	if index < 0 or index >= team.size():
+		return
+	var pokemon = team[index]
+	team.remove_at(index)
+	storage.append(pokemon)
+	var active_index := clampi(int(save_data.get("active_pokemon_index", 0)), 0, maxi(0, team.size() - 1))
+	SaveManager.update_current_save({"team": team, "storage": storage, "active_pokemon_index": active_index})
+	_refresh_save_data()
+	_refresh_home_stats()
+	_show_my_team_pokemon()
+
+
+func _withdraw_storage_pokemon(storage_index: int) -> void:
+	var team := _team()
+	if team.size() >= TEAM_LIMIT:
+		UI.show_message_popup(self, _text("storage"), _text("team_full"))
+		return
+	var storage := _storage()
+	if storage_index < 0 or storage_index >= storage.size():
+		return
+	team.append(storage[storage_index])
+	storage.remove_at(storage_index)
+	SaveManager.update_current_save({"team": team, "storage": storage})
+	_refresh_save_data()
+	_refresh_home_stats()
+	_show_storage()
+
+
+func _show_storage() -> void:
+	if storage_popup != null and is_instance_valid(storage_popup):
+		storage_popup.queue_free()
+	storage_popup = _create_popup(_text("storage"), "StoragePopup", 34.0, 580.0)
+
+	var search := LineEdit.new()
+	search.name = "StorageSearch"
+	search.placeholder_text = _text("search")
+	search.text = storage_search_text
+	search.position = Vector2(42, 96)
+	search.size = Vector2(276, 34)
+	storage_popup.add_child(search)
+	search.text_changed.connect(func(value: String):
+		storage_search_text = value
+		call_deferred("_show_storage")
+	)
+
+	_add_small_button(storage_popup, _text("sort_level"), Vector2(42, 136), Vector2(52, 28), Callable(self, "_set_storage_sort").bind("level"), "SortLevel")
+	_add_small_button(storage_popup, _text("sort_name"), Vector2(98, 136), Vector2(52, 28), Callable(self, "_set_storage_sort").bind("name"), "SortName")
+	_add_small_button(storage_popup, _text("sort_dex"), Vector2(154, 136), Vector2(52, 28), Callable(self, "_set_storage_sort").bind("dex"), "SortDex")
+	_add_small_button(storage_popup, _text("sort_date"), Vector2(210, 136), Vector2(52, 28), Callable(self, "_set_storage_sort").bind("date"), "SortDate")
+	_add_small_button(storage_popup, _text("sort_generation"), Vector2(266, 136), Vector2(52, 28), Callable(self, "_set_storage_sort").bind("generation"), "SortGeneration")
+
+	var scroll := ScrollContainer.new()
+	scroll.name = "StorageScroll"
+	scroll.position = Vector2(28, 172)
+	scroll.size = Vector2(304, 398)
+	storage_popup.add_child(scroll)
+	var rows := _filtered_storage_rows()
+	var content := Control.new()
+	content.custom_minimum_size = Vector2(304, max(398, rows.size() * 78))
+	scroll.add_child(content)
+	if rows.is_empty():
+		UI.add_panel_label(content, _text("storage_empty"), Vector2(16, 80), Vector2(272, 40), 15, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "EmptyStorage")
+	for i in range(rows.size()):
+		var row: Dictionary = rows[i]
+		var pokemon: Dictionary = row.get("pokemon", {})
+		var source_index := int(row.get("index", 0))
+		_add_pokemon_card(content, pokemon, Vector2(0, float(i) * 78.0), Vector2(220, 70), false, false)
+		_add_small_button(content, _text("withdraw"), Vector2(226, float(i) * 78.0 + 18.0), Vector2(68, 30), Callable(self, "_withdraw_storage_pokemon").bind(source_index), "Withdraw%d" % i)
+
+
+func _set_storage_sort(sort_mode: String) -> void:
+	storage_sort_mode = sort_mode
+	_show_storage()
+
+
+func _filtered_storage_rows() -> Array:
+	var rows := []
+	var query := storage_search_text.strip_edges().to_lower()
+	var storage := _storage()
+	for i in range(storage.size()):
+		if typeof(storage[i]) != TYPE_DICTIONARY:
+			continue
+		var pokemon: Dictionary = storage[i]
+		var haystack := "%s %s %s" % [str(pokemon.get("name", "")), str(pokemon.get("species", "")), str(pokemon.get("generation", ""))]
+		if query == "" or haystack.to_lower().find(query) >= 0:
+			rows.append({"index": i, "pokemon": pokemon})
+	rows.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
+		var pa: Dictionary = a.get("pokemon", {})
+		var pb: Dictionary = b.get("pokemon", {})
+		match storage_sort_mode:
+			"name":
+				return str(pa.get("name", pa.get("species", ""))) < str(pb.get("name", pb.get("species", "")))
+			"dex":
+				return int(pa.get("dex_number", 0)) < int(pb.get("dex_number", 0))
+			"date":
+				return str(pa.get("capture_date", "")) < str(pb.get("capture_date", ""))
+			"generation":
+				return int(pa.get("generation", 1)) < int(pb.get("generation", 1))
+			_:
+				return int(pa.get("level", 1)) > int(pb.get("level", 1))
+	)
+	return rows
+
+
 func _set_center_status(text: String) -> void:
 	if pokemon_center_status_label != null and is_instance_valid(pokemon_center_status_label):
 		pokemon_center_status_label.text = text
@@ -934,7 +1286,10 @@ func _close_pokemon_popup() -> void:
 		pokemon_popup.queue_free()
 	if pokemon_center_popup != null and is_instance_valid(pokemon_center_popup):
 		pokemon_center_popup.queue_free()
+	if storage_popup != null and is_instance_valid(storage_popup):
+		storage_popup.queue_free()
 	pokemon_center_popup = null
+	storage_popup = null
 	pokemon_center_status_label = null
 	pokemon_center_heal_button = null
 
@@ -997,7 +1352,7 @@ func _debug_add_level() -> void:
 			var pokemon: Dictionary = team[i]
 			pokemon["level"] = int(pokemon.get("level", 5)) + 1
 			team[i] = pokemon
-	_update_debug_save({"level": int(save_data.get("level", 0)) + 1, "team": team})
+	_update_debug_save({"level": max(1, int(save_data.get("level", 1))) + 1, "team": team})
 
 
 func _debug_add_xp() -> void:
@@ -1272,6 +1627,13 @@ func _item_name(item: Dictionary) -> String:
 func _item_description(item: Dictionary) -> String:
 	var language := _language()
 	return str(item.get("description_pt" if language == "pt" else "description_en", ""))
+
+
+func _stat_name(stat_key: String) -> String:
+	var safe_key := PokemonHelpers.normalized_stat_key(stat_key)
+	if safe_key == "":
+		return _text("type")
+	return _text("stat_%s" % safe_key)
 
 
 func _icon_candidates(item: Dictionary) -> Array:

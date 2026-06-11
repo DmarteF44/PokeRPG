@@ -172,6 +172,188 @@
     "icon_path": "res://assets/items/potions/max_revive.png"
   },
   {
+    "id": "hp_boost_potion",
+    "name_en": "HP Boost Potion",
+    "name_pt": "Poção de HP",
+    "category": "potions",
+    "price": 30000,
+    "min_level": 8,
+    "min_badges": 1,
+    "effect_type": "stat_boost",
+    "effect_stat": "max_hp",
+    "effect_value": 5,
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "Raises a Pokemon's max HP by 5, up to the stat limit.",
+    "description_pt": "Aumenta o HP maximo de um Pokemon em 5, ate o limite do atributo.",
+    "icon_path": "res://assets/items/potions/hp_boost_potion.png"
+  },
+  {
+    "id": "attack_boost_potion",
+    "name_en": "Attack Boost Potion",
+    "name_pt": "Poção de Ataque",
+    "category": "potions",
+    "price": 35000,
+    "min_level": 10,
+    "min_badges": 2,
+    "effect_type": "stat_boost",
+    "effect_stat": "attack",
+    "effect_value": 5,
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "Raises a Pokemon's Attack by 5, up to the stat limit.",
+    "description_pt": "Aumenta o Ataque de um Pokemon em 5, ate o limite do atributo.",
+    "icon_path": "res://assets/items/potions/attack_boost_potion.png"
+  },
+  {
+    "id": "defense_boost_potion",
+    "name_en": "Defense Boost Potion",
+    "name_pt": "Poção de Defesa",
+    "category": "potions",
+    "price": 35000,
+    "min_level": 10,
+    "min_badges": 2,
+    "effect_type": "stat_boost",
+    "effect_stat": "defense",
+    "effect_value": 5,
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "Raises a Pokemon's Defense by 5, up to the stat limit.",
+    "description_pt": "Aumenta a Defesa de um Pokemon em 5, ate o limite do atributo.",
+    "icon_path": "res://assets/items/potions/defense_boost_potion.png"
+  },
+  {
+    "id": "sp_attack_boost_potion",
+    "name_en": "Sp. Attack Boost Potion",
+    "name_pt": "Poção de Ataque Especial",
+    "category": "potions",
+    "price": 45000,
+    "min_level": 15,
+    "min_badges": 3,
+    "effect_type": "stat_boost",
+    "effect_stat": "sp_attack",
+    "effect_value": 5,
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "Raises a Pokemon's Sp. Attack by 5, up to the stat limit.",
+    "description_pt": "Aumenta o Ataque Especial de um Pokemon em 5, ate o limite do atributo.",
+    "icon_path": "res://assets/items/potions/sp_attack_boost_potion.png"
+  },
+  {
+    "id": "sp_defense_boost_potion",
+    "name_en": "Sp. Defense Boost Potion",
+    "name_pt": "Poção de Defesa Especial",
+    "category": "potions",
+    "price": 45000,
+    "min_level": 15,
+    "min_badges": 3,
+    "effect_type": "stat_boost",
+    "effect_stat": "sp_defense",
+    "effect_value": 5,
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "Raises a Pokemon's Sp. Defense by 5, up to the stat limit.",
+    "description_pt": "Aumenta a Defesa Especial de um Pokemon em 5, ate o limite do atributo.",
+    "icon_path": "res://assets/items/potions/sp_defense_boost_potion.png"
+  },
+  {
+    "id": "speed_boost_potion",
+    "name_en": "Speed Boost Potion",
+    "name_pt": "Poção de Velocidade",
+    "category": "potions",
+    "price": 40000,
+    "min_level": 12,
+    "min_badges": 2,
+    "effect_type": "stat_boost",
+    "effect_stat": "speed",
+    "effect_value": 5,
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "Raises a Pokemon's Speed by 5, up to the stat limit.",
+    "description_pt": "Aumenta a Velocidade de um Pokemon em 5, ate o limite do atributo.",
+    "icon_path": "res://assets/items/potions/speed_boost_potion.png"
+  },
+  {
+    "id": "energy_snack",
+    "name_en": "Energy Snack",
+    "name_pt": "Energy Snack",
+    "category": "potions",
+    "price": 5000,
+    "min_level": 0,
+    "min_badges": 0,
+    "effect_type": "restore_energy",
+    "effect_value": 5,
+    "use_contexts": [
+      "field"
+    ],
+    "description_en": "Restores 5 exploration energy.",
+    "description_pt": "Restaura 5 de energia de exploração.",
+    "icon_path": "res://assets/ui/energy/energy_snack.png"
+  },
+  {
+    "id": "energy_drink",
+    "name_en": "Energy Drink",
+    "name_pt": "Energy Drink",
+    "category": "potions",
+    "price": 12500,
+    "min_level": 0,
+    "min_badges": 0,
+    "effect_type": "restore_energy",
+    "effect_value": 10,
+    "use_contexts": [
+      "field"
+    ],
+    "description_en": "Restores 10 exploration energy.",
+    "description_pt": "Restaura 10 de energia de exploração.",
+    "icon_path": "res://assets/ui/energy/energy_drink.png"
+  },
+  {
+    "id": "energy_capsule",
+    "name_en": "Energy Capsule",
+    "name_pt": "Energy Capsule",
+    "category": "potions",
+    "price": 22500,
+    "min_level": 0,
+    "min_badges": 0,
+    "effect_type": "restore_energy",
+    "effect_value": 15,
+    "use_contexts": [
+      "field"
+    ],
+    "description_en": "Restores 15 exploration energy.",
+    "description_pt": "Restaura 15 de energia de exploração.",
+    "icon_path": "res://assets/ui/energy/energy_capsule.png"
+  },
+  {
+    "id": "energy_crystal",
+    "name_en": "Energy Crystal",
+    "name_pt": "Energy Crystal",
+    "category": "potions",
+    "price": 50000,
+    "min_level": 0,
+    "min_badges": 0,
+    "effect_type": "restore_energy",
+    "effect_value": 30,
+    "use_contexts": [
+      "field"
+    ],
+    "description_en": "Restores 30 exploration energy.",
+    "description_pt": "Restaura 30 de energia de exploração.",
+    "icon_path": "res://assets/ui/energy/energy_crystal.png"
+  },
+  {
     "id": "fire_stone",
     "name_en": "Fire Stone",
     "name_pt": "Pedra de Fogo",

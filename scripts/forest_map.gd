@@ -12,7 +12,7 @@ const TEXT = {
 		"none_found": "None pokemon found",
 		"found": "Pokemon %s found!",
 		"fight": "Click here to fight",
-		"no_energy": "Your energy has been depleted for today.",
+		"no_energy": "You are out of energy for today.",
 		"level": "Level",
 		"forest": "Forest Map",
 		"fire": "Fire Map",
@@ -70,7 +70,6 @@ func _ready() -> void:
 	UI.setup_screen(self)
 	_add_background()
 	UI.add_topbar(self)
-	_add_fit_label(self, _map_title(), Vector2(60, 6), Vector2(240, 32), 20, Color.WHITE, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "TopTitle", false)
 	_build_map_screen()
 
 
@@ -90,7 +89,6 @@ func _add_background() -> void:
 
 
 func _build_map_screen() -> void:
-	_add_fit_label(self, _map_title(), Vector2(20, 54), Vector2(320, 30), 22, Color.WHITE, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Title", false)
 	_add_map_icon()
 	_add_fit_label(self, _requirements_text(), Vector2(28, 154), Vector2(304, 32), 14, Color(0.94, 0.97, 1.0), HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Requirement", true)
 	energy_label = _add_fit_label(self, _energy_text(), Vector2(28, 190), Vector2(304, 28), 15, Color.WHITE, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Energy", false)
