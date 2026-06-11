@@ -7,9 +7,13 @@
     "price": 200,
     "min_level": 0,
     "min_badges": 0,
-    "description_en": "A basic ball used to catch wild Pokemon.",
-    "description_pt": "Uma bola básica usada para capturar Pokémon selvagens.",
-    "icon_path": "res://assets/pokemon/items/poke-ball.png"
+    "effect_type": "catch",
+    "use_contexts": [
+      "battle"
+    ],
+    "description_en": "A basic capture device used during wild battles.",
+    "description_pt": "Uma cápsula básica usada em batalhas selvagens.",
+    "icon_path": "res://assets/items/pokeballs/poke_ball.png"
   },
   {
     "id": "great_ball",
@@ -19,9 +23,13 @@
     "price": 600,
     "min_level": 5,
     "min_badges": 1,
-    "description_en": "A stronger ball with a better catch rate.",
-    "description_pt": "Uma bola melhor, com chance maior de captura.",
-    "icon_path": "res://assets/pokemon/items/great-ball.png"
+    "effect_type": "catch",
+    "use_contexts": [
+      "battle"
+    ],
+    "description_en": "A stronger capture device than a basic ball.",
+    "description_pt": "Uma cápsula de captura melhor que a básica.",
+    "icon_path": "res://assets/items/pokeballs/great_ball.png"
   },
   {
     "id": "ultra_ball",
@@ -31,9 +39,13 @@
     "price": 1200,
     "min_level": 15,
     "min_badges": 3,
-    "description_en": "A high-performance ball for tougher Pokemon.",
-    "description_pt": "Uma bola de alto desempenho para Pokémon difíceis.",
-    "icon_path": "res://assets/pokemon/items/ultra-ball.png"
+    "effect_type": "catch",
+    "use_contexts": [
+      "battle"
+    ],
+    "description_en": "A high performance capture device.",
+    "description_pt": "Uma cápsula de captura de alto desempenho.",
+    "icon_path": "res://assets/items/pokeballs/ultra_ball.png"
   },
   {
     "id": "master_ball",
@@ -43,9 +55,13 @@
     "price": 50000,
     "min_level": 50,
     "min_badges": 8,
-    "description_en": "The ultimate ball. Extremely rare and expensive.",
-    "description_pt": "A bola definitiva. Extremamente rara e cara.",
-    "icon_path": "res://assets/pokemon/items/master-ball.png"
+    "effect_type": "catch",
+    "use_contexts": [
+      "battle"
+    ],
+    "description_en": "A rare top-tier capture device.",
+    "description_pt": "Uma cápsula de captura extremamente rara.",
+    "icon_path": "res://assets/items/pokeballs/master_ball.png"
   },
   {
     "id": "potion",
@@ -55,9 +71,15 @@
     "price": 300,
     "min_level": 0,
     "min_badges": 0,
-    "description_en": "A simple healing item for battle preparation.",
-    "description_pt": "Um item simples de cura para preparar batalhas.",
-    "icon_path": "res://assets/pokemon/items/potion.png"
+    "effect_type": "heal",
+    "use_contexts": [
+      "field",
+      "battle",
+      "pokemon_selection"
+    ],
+    "description_en": "Restores a small amount of HP.",
+    "description_pt": "Restaura uma pequena quantidade de HP.",
+    "icon_path": "res://assets/items/potions/potion.png"
   },
   {
     "id": "super_potion",
@@ -67,9 +89,15 @@
     "price": 700,
     "min_level": 8,
     "min_badges": 1,
-    "description_en": "A stronger healing item for longer journeys.",
-    "description_pt": "Um item de cura mais forte para jornadas longas.",
-    "icon_path": "res://assets/pokemon/items/super-potion.png"
+    "effect_type": "heal",
+    "use_contexts": [
+      "field",
+      "battle",
+      "pokemon_selection"
+    ],
+    "description_en": "Restores a medium amount of HP.",
+    "description_pt": "Restaura uma quantidade média de HP.",
+    "icon_path": "res://assets/items/potions/super_potion.png"
   },
   {
     "id": "hyper_potion",
@@ -79,21 +107,33 @@
     "price": 1200,
     "min_level": 18,
     "min_badges": 3,
-    "description_en": "A powerful potion for difficult fights.",
-    "description_pt": "Uma poção poderosa para lutas difíceis.",
-    "icon_path": "res://assets/pokemon/items/hyper-potion.png"
+    "effect_type": "heal",
+    "use_contexts": [
+      "field",
+      "battle",
+      "pokemon_selection"
+    ],
+    "description_en": "Restores a large amount of HP.",
+    "description_pt": "Restaura uma grande quantidade de HP.",
+    "icon_path": "res://assets/items/potions/hyper_potion.png"
   },
   {
     "id": "max_potion",
     "name_en": "Max Potion",
-    "name_pt": "Max Potion",
+    "name_pt": "Poção Máxima",
     "category": "potions",
     "price": 2500,
     "min_level": 30,
     "min_badges": 5,
-    "description_en": "A premium potion for late-game battles.",
-    "description_pt": "Uma poção premium para batalhas avançadas.",
-    "icon_path": "res://assets/pokemon/items/max-potion.png"
+    "effect_type": "heal",
+    "use_contexts": [
+      "field",
+      "battle",
+      "pokemon_selection"
+    ],
+    "description_en": "Fully restores HP.",
+    "description_pt": "Restaura todo o HP.",
+    "icon_path": "res://assets/items/potions/max_potion.png"
   },
   {
     "id": "revive",
@@ -103,21 +143,33 @@
     "price": 1500,
     "min_level": 12,
     "min_badges": 2,
-    "description_en": "Helps a fainted Pokemon return to battle soon.",
-    "description_pt": "Ajuda um Pokémon nocauteado a voltar à batalha em breve.",
-    "icon_path": "res://assets/pokemon/items/revive.png"
+    "effect_type": "revive",
+    "use_contexts": [
+      "field",
+      "battle",
+      "pokemon_selection"
+    ],
+    "description_en": "Revives a fainted team member.",
+    "description_pt": "Revive um membro do time desmaiado.",
+    "icon_path": "res://assets/items/potions/revive.png"
   },
   {
     "id": "max_revive",
     "name_en": "Max Revive",
-    "name_pt": "Max Revive",
+    "name_pt": "Reviver Máximo",
     "category": "potions",
     "price": 4000,
     "min_level": 35,
     "min_badges": 6,
-    "description_en": "A rare revive item for advanced trainers.",
-    "description_pt": "Um item raro de reviver para treinadores avançados.",
-    "icon_path": "res://assets/pokemon/items/max-revive.png"
+    "effect_type": "revive",
+    "use_contexts": [
+      "field",
+      "battle",
+      "pokemon_selection"
+    ],
+    "description_en": "Fully revives a fainted team member.",
+    "description_pt": "Revive completamente um membro do time desmaiado.",
+    "icon_path": "res://assets/items/potions/max_revive.png"
   },
   {
     "id": "fire_stone",
@@ -127,9 +179,14 @@
     "price": 2100,
     "min_level": 15,
     "min_badges": 2,
-    "description_en": "A stone connected to fiery evolutions.",
-    "description_pt": "Uma pedra ligada a evoluções de fogo.",
-    "icon_path": "res://assets/pokemon/items/fire-stone.png"
+    "effect_type": "evolve_stone",
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "A warm stone used for certain evolutions.",
+    "description_pt": "Uma pedra quente usada em certas evoluções.",
+    "icon_path": "res://assets/items/evolution/fire_stone.png"
   },
   {
     "id": "water_stone",
@@ -139,9 +196,14 @@
     "price": 2100,
     "min_level": 15,
     "min_badges": 2,
-    "description_en": "A stone connected to water evolutions.",
-    "description_pt": "Uma pedra ligada a evoluções de água.",
-    "icon_path": "res://assets/pokemon/items/water-stone.png"
+    "effect_type": "evolve_stone",
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "A blue stone used for certain evolutions.",
+    "description_pt": "Uma pedra azul usada em certas evoluções.",
+    "icon_path": "res://assets/items/evolution/water_stone.png"
   },
   {
     "id": "thunder_stone",
@@ -151,9 +213,14 @@
     "price": 2100,
     "min_level": 15,
     "min_badges": 2,
-    "description_en": "A stone connected to electric evolutions.",
-    "description_pt": "Uma pedra ligada a evoluções elétricas.",
-    "icon_path": "res://assets/pokemon/items/thunder-stone.png"
+    "effect_type": "evolve_stone",
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "A charged stone used for certain evolutions.",
+    "description_pt": "Uma pedra carregada usada em certas evoluções.",
+    "icon_path": "res://assets/items/evolution/thunder_stone.png"
   },
   {
     "id": "leaf_stone",
@@ -163,9 +230,14 @@
     "price": 2100,
     "min_level": 15,
     "min_badges": 2,
-    "description_en": "A stone connected to grass evolutions.",
-    "description_pt": "Uma pedra ligada a evoluções de grama.",
-    "icon_path": "res://assets/pokemon/items/leaf-stone.png"
+    "effect_type": "evolve_stone",
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "A green stone used for certain evolutions.",
+    "description_pt": "Uma pedra verde usada em certas evoluções.",
+    "icon_path": "res://assets/items/evolution/leaf_stone.png"
   },
   {
     "id": "moon_stone",
@@ -175,9 +247,14 @@
     "price": 3500,
     "min_level": 20,
     "min_badges": 3,
-    "description_en": "A mysterious stone connected to moonlight.",
-    "description_pt": "Uma pedra misteriosa ligada ao luar.",
-    "icon_path": "res://assets/pokemon/items/moon-stone.png"
+    "effect_type": "evolve_stone",
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "A lunar stone used for certain evolutions.",
+    "description_pt": "Uma pedra lunar usada em certas evoluções.",
+    "icon_path": "res://assets/items/evolution/moon_stone.png"
   },
   {
     "id": "sun_stone",
@@ -187,9 +264,14 @@
     "price": 3500,
     "min_level": 20,
     "min_badges": 3,
-    "description_en": "A bright stone connected to sunlight.",
-    "description_pt": "Uma pedra brilhante ligada à luz do sol.",
-    "icon_path": "res://assets/pokemon/items/sun-stone.png"
+    "effect_type": "evolve_stone",
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "A bright stone used for certain evolutions.",
+    "description_pt": "Uma pedra brilhante usada em certas evoluções.",
+    "icon_path": "res://assets/items/evolution/sun_stone.png"
   },
   {
     "id": "town_map",
@@ -199,9 +281,13 @@
     "price": 0,
     "min_level": 0,
     "min_badges": 0,
-    "description_en": "A useful map for checking nearby regions.",
-    "description_pt": "Um mapa útil para consultar regiões próximas.",
-    "icon_path": "res://assets/pokemon/items/town-map.png"
+    "effect_type": "map",
+    "use_contexts": [
+      "field"
+    ],
+    "description_en": "Opens the world map.",
+    "description_pt": "Abre o mapa do mundo.",
+    "icon_path": "res://assets/items/key_items/town_map.png"
   },
   {
     "id": "old_rod",
@@ -211,9 +297,13 @@
     "price": 500,
     "min_level": 3,
     "min_badges": 0,
-    "description_en": "A simple fishing rod for future fishing spots.",
-    "description_pt": "Uma vara simples para futuros pontos de pescaria.",
-    "icon_path": "res://assets/pokemon/items/old-rod.png"
+    "effect_type": "fishing",
+    "use_contexts": [
+      "field"
+    ],
+    "description_en": "A simple rod for basic fishing.",
+    "description_pt": "Uma vara simples para pesca básica.",
+    "icon_path": "res://assets/items/key_items/old_rod.png"
   },
   {
     "id": "good_rod",
@@ -223,9 +313,13 @@
     "price": 2500,
     "min_level": 15,
     "min_badges": 2,
-    "description_en": "A better rod for future fishing features.",
-    "description_pt": "Uma vara melhor para recursos futuros de pescaria.",
-    "icon_path": "res://assets/pokemon/items/good-rod.png"
+    "effect_type": "fishing",
+    "use_contexts": [
+      "field"
+    ],
+    "description_en": "A better rod for fishing.",
+    "description_pt": "Uma vara melhor para pesca.",
+    "icon_path": "res://assets/items/key_items/good_rod.png"
   },
   {
     "id": "super_rod",
@@ -235,8 +329,12 @@
     "price": 7000,
     "min_level": 30,
     "min_badges": 5,
-    "description_en": "A high-quality rod for future rare fishing.",
-    "description_pt": "Uma vara de alta qualidade para futuras pescarias raras.",
-    "icon_path": "res://assets/pokemon/items/super-rod.png"
+    "effect_type": "fishing",
+    "use_contexts": [
+      "field"
+    ],
+    "description_en": "A high quality fishing rod.",
+    "description_pt": "Uma vara de pesca de alta qualidade.",
+    "icon_path": "res://assets/items/key_items/super_rod.png"
   }
 ]

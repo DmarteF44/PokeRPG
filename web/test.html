@@ -89,6 +89,15 @@
       height: 32px;
       pointer-events: none;
     }
+    .icon-btn.icon-fallback {
+      display: grid;
+      place-items: center;
+      border: 1px solid #123f54;
+      border-radius: 6px;
+      color: #fff;
+      background: #3b819d;
+      font: 700 13px Arial, Helvetica, sans-serif;
+    }
     .actions {
       position: absolute;
       left: 42px;
@@ -180,12 +189,73 @@
       background: #557995;
       font-weight: 700;
     }
+    .map-thumb {
+      position: absolute;
+      left: 10px;
+      top: 7px;
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 5px;
+      color: #fff;
+      background: #557995;
+      font: 800 15px Arial, Helvetica, sans-serif;
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.45);
+      overflow: hidden;
+    }
+    .map-thumb::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 14px;
+      background: rgba(0, 0, 0, 0.25);
+    }
+    .avatar-card {
+      position: absolute;
+      width: 92px;
+      height: 92px;
+      border: 2px solid #5b7f9e;
+      border-radius: 6px;
+      color: #0c1d31;
+      background: #d3e1ee;
+      font: 700 11px Arial, Helvetica, sans-serif;
+    }
+    .avatar-card.active {
+      border: 3px solid #e87512;
+      background: #f2c650;
+    }
+    .avatar-card img {
+      position: absolute;
+      left: 18px;
+      top: 8px;
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+      pointer-events: none;
+    }
+    .avatar-card span {
+      position: absolute;
+      left: 4px;
+      bottom: 7px;
+      width: 84px;
+      text-align: center;
+      line-height: 1.1;
+      pointer-events: none;
+    }
+    .newgame-content {
+      position: relative;
+      width: 304px;
+      height: 740px;
+    }
     .desc {
       position: absolute;
       left: 28px;
-      top: 410px;
+      top: 398px;
       width: 304px;
-      height: 84px;
+      height: 102px;
       padding: 9px 12px;
       border: 2px solid #567f9d;
       border-radius: 6px;
@@ -241,12 +311,26 @@
         tutorial_prompt: "New here? See the tutorial:", tutorial: "Tutorial / Web Page",
         tutorial_soon: "Tutorial page coming soon.", money: "Money", level: "Lv.", badges: "{n} badges",
         explore_world: "Explore World", my_pokemon: "My Pokemon", bag: "Bag", shop: "Shop",
-        pokedex: "PokeDex", tournament: "Tournament", exit: "Exit", profile: "Profile",
-        my_pokemon_soon: "My Pokemon coming soon", pokedex_soon: "PokeDex coming soon",
+        pokedex: "PokeDex", tournament: "Tournament", pokemon_menu: "Pokemon",
+        my_team_pokemon: "My Team Pokemon", pokemon_center: "Pokemon Center",
+        exit: "Exit", exit_to_main_menu: "Exit to Main Menu", profile: "Profile", starter: "Starter", player_name: "Player Name",
+        choose_avatar: "Choose your avatar", custom_image: "Custom Image",
+        custom_help: "Place your image at user://custom_avatar.png and reload the profile.",
+        choose_generation: "Choose starter generation",
+        choose_starter: "Choose starter", start_game: "Start Game", cancel: "Cancel",
+        empty_slot: "Empty Slot", empty_save_slot: "Empty save slot.", load: "Load", details: "Details",
+        delete: "Delete", my_pokemon_soon: "My Pokemon coming soon",
+        items_use_hint: "Items can be used during battles, events, or specific menus.",
+        my_team_pokemon_soon: "My Team Pokemon coming soon", pokedex_soon: "PokeDex coming soon",
+        pokemon_center_soon: "Pokemon Center coming soon",
         world_map: "World Map", available: "Available", coming_soon: "Coming soon", type: "Type",
         forest: "Forest Map", fire: "Fire Map", water: "Water Map", cave: "Cave Map", ice: "Ice Map",
         mansion: "Mansion Map", factory: "Factory Map", electric: "Electric Map", desert: "Desert Map",
         ghost: "Ghost Tower", dragon: "Dragon Valley", safari: "Safari Zone",
+        type_grass: "Grass", type_fire: "Fire", type_water: "Water", type_rock: "Rock",
+        type_ice: "Ice", type_mystery: "Mystery", type_steel: "Steel",
+        type_electric: "Electric", type_ground: "Ground", type_ghost: "Ghost",
+        type_dragon: "Dragon", type_mixed: "Mixed",
         pokeballs: "Pokeballs", potions: "Potions", evolution: "Evolution", key_items: "Key Items",
         qty: "Qty", use: "Use", buy: "Buy", price: "Price", locked: "Locked",
         requires: "Requires Lv. {level} and {badges} badges.", not_enough_money: "Not enough money.",
@@ -261,15 +345,29 @@
       pt: {
         load_game: "Carregar Jogo", new_game: "Novo Jogo", options: "Opções", about: "Sobre",
         about_message: "PokeRPG private remake", hello: "Olá {name},", welcome_to: "Bem-vindo ao",
-        tutorial_prompt: "Novo aqui? Veja o tutorial:", tutorial: "Tutorial / Web Page",
+        tutorial_prompt: "Novo por aqui? Veja o tutorial:", tutorial: "Tutorial / Página Web",
         tutorial_soon: "Página de tutorial em breve.", money: "Dinheiro", level: "Nv.", badges: "{n} insígnias",
         explore_world: "Explorar Mundo", my_pokemon: "Meus Pokémon", bag: "Mochila", shop: "Loja",
-        pokedex: "PokéDex", tournament: "Torneio", exit: "Sair", profile: "Perfil",
-        my_pokemon_soon: "Meus Pokémon em breve", pokedex_soon: "PokéDex em breve",
+        pokedex: "PokéDex", tournament: "Torneio", pokemon_menu: "Pokémon",
+        my_team_pokemon: "Meu Time Pokémon", pokemon_center: "Centro Pokémon",
+        exit: "Sair", exit_to_main_menu: "Sair para o Menu", profile: "Perfil", starter: "Inicial", player_name: "Nome do jogador",
+        choose_avatar: "Escolha seu avatar", custom_image: "Imagem própria",
+        custom_help: "Coloque sua imagem em user://custom_avatar.png e recarregue o perfil.",
+        choose_generation: "Escolha a geração inicial",
+        choose_starter: "Escolha o inicial", start_game: "Iniciar Jogo", cancel: "Cancelar",
+        empty_slot: "Slot Vazio", empty_save_slot: "Slot de save vazio.", load: "Carregar", details: "Detalhes",
+        delete: "Apagar", my_pokemon_soon: "Meus Pokémon em breve",
+        items_use_hint: "Itens poderão ser usados em batalhas, eventos ou menus específicos.",
+        my_team_pokemon_soon: "Meu Time Pokémon em breve", pokedex_soon: "PokéDex em breve",
+        pokemon_center_soon: "Centro Pokémon em breve",
         world_map: "Mapa do Mundo", available: "Disponível", coming_soon: "Em breve", type: "Tipo",
         forest: "Floresta", fire: "Mapa de Fogo", water: "Mapa de Água", cave: "Caverna", ice: "Mapa de Gelo",
         mansion: "Mansão", factory: "Fábrica", electric: "Mapa Elétrico", desert: "Deserto",
         ghost: "Torre Fantasma", dragon: "Vale dos Dragões", safari: "Zona Safari",
+        type_grass: "Grama", type_fire: "Fogo", type_water: "Água", type_rock: "Pedra",
+        type_ice: "Gelo", type_mystery: "Mistério", type_steel: "Aço",
+        type_electric: "Elétrico", type_ground: "Terra", type_ghost: "Fantasma",
+        type_dragon: "Dragão", type_mixed: "Misto",
         pokeballs: "Pokébolas", potions: "Poções", evolution: "Evolução", key_items: "Itens-chave",
         qty: "Qtd", use: "Usar", buy: "Comprar", price: "Preço", locked: "Bloqueado",
         requires: "Requer Nv. {level} e {badges} insígnias.", not_enough_money: "Dinheiro insuficiente.",
@@ -290,9 +388,9 @@
       ["potion", "Potion", "Poção", "potions", 300, 0, 0, "A simple healing item for battle preparation.", "Um item simples de cura para preparar batalhas."],
       ["super_potion", "Super Potion", "Super Poção", "potions", 700, 8, 1, "A stronger healing item for longer journeys.", "Um item de cura mais forte para jornadas longas."],
       ["hyper_potion", "Hyper Potion", "Hiper Poção", "potions", 1200, 18, 3, "A powerful potion for difficult fights.", "Uma poção poderosa para lutas difíceis."],
-      ["max_potion", "Max Potion", "Max Potion", "potions", 2500, 30, 5, "A premium potion for late-game battles.", "Uma poção premium para batalhas avançadas."],
+      ["max_potion", "Max Potion", "Poção Máxima", "potions", 2500, 30, 5, "A premium potion for late-game battles.", "Uma poção premium para batalhas avançadas."],
       ["revive", "Revive", "Reviver", "potions", 1500, 12, 2, "Helps a fainted Pokemon return to battle soon.", "Ajuda um Pokémon nocauteado a voltar à batalha em breve."],
-      ["max_revive", "Max Revive", "Max Revive", "potions", 4000, 35, 6, "A rare revive item for advanced trainers.", "Um item raro de reviver para treinadores avançados."],
+      ["max_revive", "Max Revive", "Reviver Máximo", "potions", 4000, 35, 6, "A rare revive item for advanced trainers.", "Um item raro de reviver para treinadores avançados."],
       ["fire_stone", "Fire Stone", "Pedra de Fogo", "evolution", 2100, 15, 2, "A stone connected to fiery evolutions.", "Uma pedra ligada a evoluções de fogo."],
       ["water_stone", "Water Stone", "Pedra de Água", "evolution", 2100, 15, 2, "A stone connected to water evolutions.", "Uma pedra ligada a evoluções de água."],
       ["thunder_stone", "Thunder Stone", "Pedra do Trovão", "evolution", 2100, 15, 2, "A stone connected to electric evolutions.", "Uma pedra ligada a evoluções elétricas."],
@@ -307,22 +405,38 @@
       id, name_en, name_pt, category, price, min_level, min_badges, description_en, description_pt
     }));
     const maps = [
-      ["forest", "Grass", "maps/map_forest_64.png", true],
-      ["fire", "Fire", "maps/map_fire_64.png", false],
-      ["water", "Water", "", false],
-      ["cave", "Rock", "maps/map_cave_64.png", false],
-      ["ice", "Ice", "maps/map_ice_64.png", false],
-      ["mansion", "Mystery", "maps/map_mansion_64.png", false],
-      ["factory", "Steel", "maps/map_factory_64.png", false],
-      ["electric", "Electric", "", false],
-      ["desert", "Ground", "", false],
-      ["ghost", "Ghost", "", false],
-      ["dragon", "Dragon", "", false],
-      ["safari", "Mixed", "", false]
+      ["forest", "type_grass", "maps/map_forest_64.png", true],
+      ["fire", "type_fire", "maps/map_fire_64.png", false],
+      ["water", "type_water", "", false],
+      ["cave", "type_rock", "maps/map_cave_64.png", false],
+      ["ice", "type_ice", "maps/map_ice_64.png", false],
+      ["mansion", "type_mystery", "maps/map_mansion_64.png", false],
+      ["factory", "type_steel", "maps/map_factory_64.png", false],
+      ["electric", "type_electric", "", false],
+      ["desert", "type_ground", "", false],
+      ["ghost", "type_ghost", "", false],
+      ["dragon", "type_dragon", "", false],
+      ["safari", "type_mixed", "", false]
     ];
+    const avatarPaths = [
+      "avatars/96/avatar_01_trainer_red_96.png",
+      "avatars/96/avatar_02_trainer_blue_96.png",
+      "avatars/96/avatar_03_trainer_green_96.png",
+      "avatars/96/avatar_04_trainer_gold_96.png",
+      "avatars/96/avatar_05_trainer_purple_96.png",
+      "avatars/96/avatar_06_trainer_black_96.png"
+    ];
+    const mapFallbacks = {
+      water: ["#287bc7", "WA"],
+      electric: ["#f2c650", "EL"],
+      desert: ["#bf9956", "DS"],
+      ghost: ["#70489e", "GT"],
+      dragon: ["#4d57c7", "DR"],
+      safari: ["#479e56", "SZ"]
+    };
     const phone = document.getElementById("phone");
     let settings = JSON.parse(localStorage.getItem("pokerpg_settings") || "{\"language\":\"en\",\"music\":true,\"sfx\":true}");
-    let save = JSON.parse(localStorage.getItem("pokerpg_save") || "null");
+    let save = JSON.parse(localStorage.getItem("pokerpg_current_save") || localStorage.getItem("pokerpg_save") || "null");
     let bagCategory = "pokeballs";
     let shopCategory = "pokeballs";
     let selectedItemId = "";
@@ -333,8 +447,14 @@
       for (const [name, data] of Object.entries(vars)) value = value.replaceAll(`{${name}}`, data);
       return value;
     }
-    function defaultSave() {
-      return { player_name: "KaiPlayz", money: 3000, level: 0, badges: 0, inventory: { ...defaultInventory } };
+    function defaultSave(playerName = "KaiPlayz", avatarId = 1, avatarType = "preset") {
+      return {
+        slot: 1, player_name: playerName, avatar_id: avatarId, avatar_type: avatarType,
+        avatar_custom_path: avatarType === "custom" ? "user://custom_avatar.png" : "",
+        money: 3000, level: 0, badges: 0,
+        starter_generation: 1, starter_name: "Charmander", starter_dex_number: 4,
+        inventory: { ...defaultInventory }
+      };
     }
     function ensureSave() {
       if (!save) save = defaultSave();
@@ -343,12 +463,29 @@
       save.money ??= 3000;
       save.level ??= 0;
       save.badges ??= 0;
+      save.starter_name ||= "Charmander";
       save.player_name ||= "KaiPlayz";
       persist();
     }
     function persist() {
-      if (save) localStorage.setItem("pokerpg_save", JSON.stringify(save));
+      if (save) {
+        localStorage.setItem("pokerpg_current_save", JSON.stringify(save));
+        localStorage.setItem("pokerpg_save", JSON.stringify(save));
+      }
       localStorage.setItem("pokerpg_settings", JSON.stringify(settings));
+    }
+    function saveKey(slot) { return `pokerpg_save_${slot}`; }
+    function getSaveSlot(slot) {
+      const stored = localStorage.getItem(saveKey(slot));
+      if (stored) return JSON.parse(stored);
+      if (slot === 1 && localStorage.getItem("pokerpg_save")) return JSON.parse(localStorage.getItem("pokerpg_save"));
+      return null;
+    }
+    function writeSaveSlot(slot, data) {
+      const nextSave = { ...data, slot };
+      localStorage.setItem(saveKey(slot), JSON.stringify(nextSave));
+      save = nextSave;
+      persist();
     }
     function itemName(item) { return settings.language === "pt" ? item.name_pt : item.name_en; }
     function itemDesc(item) { return settings.language === "pt" ? item.description_pt : item.description_en; }
@@ -361,12 +498,13 @@
     function topbar() {
       return `
         <div class="topbar"></div>
-        ${icon("icons/icon_map_32.png", 12, 6, "showWorldMap()")}
-        ${icon("icons/icon_trophy_32.png", 66, 6, "showTournament()")}
-        ${icon("icons/icon_ball_32.png", 120, 6, "message(t('my_pokemon'), t('my_pokemon_soon'))")}
-        ${icon("icons/icon_bag_32.png", 174, 6, "showBag()")}
-        ${icon("icons/icon_user_32.png", 228, 6, "showProfile()")}
-        ${icon("icons/icon_gear_32.png", 316, 6, "showOptions()")}
+        ${icon("ui/icons/icon_world_32.png", 8, 6, "showWorldMap()")}
+        ${icon("ui/icons/icon_tournament_32.png", 58, 6, "showTournament()")}
+        ${icon("ui/icons/icon_pokemon.png", 108, 6, "showPokemonMenu()")}
+        ${icon("ui/icons/icon_bag_32.png", 158, 6, "showBag()")}
+        ${icon("ui/icons/icon_shop_32.png", 208, 6, "showShop()")}
+        ${icon("ui/icons/icon_profile_32.png", 258, 6, "showProfile()")}
+        ${icon("ui/icons/icon_options_32.png", 318, 6, "showOptions()")}
       `;
     }
     function icon(path, left, top, action) {
@@ -374,38 +512,119 @@
     }
     function itemIcon(item, left = 10, top = 8, size = 36) {
       const letter = itemName(item).charAt(0) || "?";
-      return `<div class="placeholder" style="left:${left}px;top:${top}px;width:${size}px;height:${size}px">${letter}</div>`;
+      return `<img src="${A}items/${item.category}/${item.id}.png" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'" style="position:absolute;left:${left}px;top:${top}px;width:${size}px;height:${size}px;object-fit:contain" alt=""><div class="placeholder" style="display:none;left:${left}px;top:${top}px;width:${size}px;height:${size}px">${letter}</div>`;
+    }
+    function avatarPath(dataOrId) {
+      if (typeof dataOrId === "object" && dataOrId?.avatar_type === "custom") return "avatars/avatar_card_custom_image.png";
+      const id = typeof dataOrId === "object" ? dataOrId.avatar_id : dataOrId;
+      return avatarPaths[Math.max(0, Math.min(avatarPaths.length - 1, (Number(id) || 1) - 1))];
+    }
+    function saveAvatar(data, left, top, size) {
+      return `<img src="${A}${avatarPath(data)}" style="position:absolute;left:${left}px;top:${top}px;width:${size}px;height:${size}px;object-fit:contain" alt="">`;
+    }
+    function avatarCard(id, index) {
+      return `<button id="avatarCard${id}" class="avatar-card ${id === 1 ? "active" : ""}" style="left:${index % 3 * 102}px;top:${122 + Math.floor(index / 3) * 102}px" onclick="selectPresetAvatar(${id})">
+        <img src="${A}${avatarPath(id)}" alt="">
+        <span>${t("profile")} ${id}</span>
+      </button>`;
+    }
+    function selectPresetAvatar(id) {
+      window.previewAvatar = id;
+      window.previewAvatarType = "preset";
+      document.querySelectorAll(".avatar-card").forEach(card => card.classList.remove("active"));
+      document.getElementById(`avatarCard${id}`)?.classList.add("active");
+      const hint = document.getElementById("customAvatarHint");
+      if (hint) hint.style.display = "none";
+    }
+    function selectCustomAvatar() {
+      window.previewAvatar = 0;
+      window.previewAvatarType = "custom";
+      document.querySelectorAll(".avatar-card").forEach(card => card.classList.remove("active"));
+      document.getElementById("avatarCardCustom")?.classList.add("active");
+      const hint = document.getElementById("customAvatarHint");
+      if (hint) hint.style.display = "block";
+    }
+    function mapThumb(key, img) {
+      const [color, code] = mapFallbacks[key] || ["#557995", "MAP"];
+      if (!img) return `<div class="map-thumb" style="background:${color}">${code}</div>`;
+      return `<img src="${A}${img}" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'" style="position:absolute;left:10px;top:7px;width:52px;height:52px;object-fit:contain" alt=""><div class="map-thumb" style="display:none;background:${color}">${code}</div>`;
     }
     function showMainMenu() {
       currentBase = "main";
       phone.innerHTML = `
         <section class="screen">
           <img class="logo" src="${A}ui/logo_pokerpg_512x200.png" style="left:36px;top:70px;width:288px;height:112px" alt="PokeRPG">
-          ${orange(t("load_game"), 70, 250, 220, 48, "loadGame()")}
-          ${orange(t("new_game"), 70, 310, 220, 48, "newGame()")}
+          ${orange(t("load_game"), 70, 250, 220, 48, "showLoadGamePopup()")}
+          ${orange(t("new_game"), 70, 310, 220, 48, "showNewGamePopup()")}
           ${orange(t("options"), 70, 370, 220, 48, "showOptions()")}
           ${orange(t("about"), 70, 430, 220, 48, "message(t('about'), t('about_message'))")}
           <p class="label" style="left:20px;top:594px;width:320px;font-size:13px">Private remake prototype</p>
         </section>
       `;
     }
-    function newGame() {
-      save = defaultSave();
+    function showNewGamePopup() {
+      window.previewAvatar = 1;
+      window.previewAvatarType = "preset";
+      phone.innerHTML = phone.innerHTML + overlay(t("new_game"), 42, 560) + `
+        <div class="scroll" style="left:28px;top:112px;width:304px;height:420px">
+          <div class="newgame-content">
+            <p class="label" style="left:0;top:0;width:296px;color:#0c1d31;text-shadow:none;text-align:left;font-size:15px">${t("player_name")}</p>
+            <input id="playerNameInput" style="position:absolute;left:0;top:28px;width:296px;height:38px;border:2px solid #567f9d;border-radius:6px;padding:0 10px;font-size:16px" placeholder="${settings.language === "pt" ? "Digite seu nome" : "Enter your name"}">
+            <p class="label" style="left:0;top:88px;width:296px;color:#0c1d31;text-shadow:none;font-size:16px">${t("choose_avatar")}</p>
+            ${[1,2,3,4,5,6].map((id, i) => avatarCard(id, i)).join("")}
+            <p class="label" style="left:0;top:322px;width:296px;color:#0c1d31;text-shadow:none;font-size:16px">${t("custom_image")}</p>
+            <button id="avatarCardCustom" class="avatar-card" style="left:102px;top:352px" onclick="selectCustomAvatar()">
+              <img src="${A}avatars/avatar_card_custom_image.png" alt="">
+              <span>${t("custom_image")}</span>
+            </button>
+            <p id="customAvatarHint" class="label" style="display:none;left:8px;top:444px;width:288px;color:#0c1d31;text-shadow:none;font-size:11px">${t("custom_help")}</p>
+            <p class="label" style="left:0;top:466px;width:296px;color:#0c1d31;text-shadow:none;font-size:16px">${t("choose_generation")}</p>
+            ${[1,2,3,4,5,6,7,8].map((id, i) => `<button class="tab ${id === 1 ? "active" : ""}" style="left:${(i % 4) * 74}px;top:${502 + Math.floor(i / 4) * 42}px;width:68px" onclick="${id === 1 ? "" : "message('Gen " + id + "', t('coming_soon'))"}">Gen ${id}</button>`).join("")}
+            <p class="label" style="left:0;top:600px;width:296px;color:#0c1d31;text-shadow:none;font-size:16px">${t("choose_starter")}</p>
+            ${["Bulbasaur", "Charmander", "Squirtle"].map((name, i) => `<button class="tab ${name === "Charmander" ? "active" : ""}" style="left:${i * 102}px;top:636px;width:92px;height:42px" onclick="${name === "Charmander" ? "" : "message('" + name + "', t('coming_soon'))"}">${name}</button>`).join("")}
+          </div>
+        </div>
+        ${orange(t("cancel"), 36, 546, 140, 44, "closeOverlay()", "small")}
+        ${orange(t("start_game"), 184, 546, 140, 44, "startNewGame()", "small")}
+      </div>`;
+    }
+    function startNewGame() {
+      const input = document.getElementById("playerNameInput");
+      const fallbackName = settings.language === "pt" ? "Jogador" : "Player";
+      const name = (input?.value || "").trim() || fallbackName;
+      writeSaveSlot(1, defaultSave(name, window.previewAvatar || 1, window.previewAvatarType || "preset"));
+      showHome();
+    }
+    function showLoadGamePopup() {
+      phone.innerHTML = phone.innerHTML + overlay(t("load_game"), 60, 520) + `
+        ${[1,2,3].map(slot => {
+          const data = getSaveSlot(slot);
+          if (!data) return `<button class="row" style="position:absolute;left:28px;top:${134 + (slot - 1) * 104}px;width:304px;height:82px" onclick="message(t('load_game'), t('empty_save_slot'))">${t("empty_slot")}</button>`;
+          return `<div class="row" style="position:absolute;left:28px;top:${134 + (slot - 1) * 104}px;width:304px;height:82px">
+            ${saveAvatar(data, 10, 13, 48)}
+            <span style="position:absolute;left:66px;top:7px;width:132px;font-size:11px">${t("empty_slot")} ${slot}<br>${data.player_name}<br>${t("starter")}: ${data.starter_name || "Charmander"}<br>${t("money")}: $${data.money || 3000} | ${t("level")} ${data.level || 0} | ${t("badges", { n: data.badges || 0 })}</span>
+            <button class="buy" style="right:72px;top:10px" onclick="loadSlot(${slot})">${t("load")}</button>
+            <button class="buy" style="right:8px;top:10px;background:#b93936;color:#fff" onclick="deleteSlot(${slot})">${t("delete")}</button>
+          </div>`;
+        }).join("")}
+        ${orange(t("cancel"), 70, 522, 220, 48, "closeOverlay()")}
+      </div>`;
+    }
+    function loadSlot(slot) {
+      const data = getSaveSlot(slot);
+      if (!data) { message(t("load_game"), t("empty_save_slot")); return; }
+      save = data;
       persist();
       showHome();
     }
-    function loadGame() {
-      ensureSave();
-      showHome();
+    function deleteSlot(slot) {
+      localStorage.removeItem(saveKey(slot));
+      showMainMenu();
+      showLoadGamePopup();
     }
     function showHome() {
       ensureSave();
       currentBase = "home";
-      const actions = [
-        [t("explore_world"), "showWorldMap()"], [t("my_pokemon"), "message(t('my_pokemon'), t('my_pokemon_soon'))"],
-        [t("bag"), "showBag()"], [t("shop"), "showShop()"], [t("pokedex"), "message(t('pokedex'), t('pokedex_soon'))"],
-        [t("tournament"), "showTournament()"], [t("options"), "showOptions()"], [t("exit"), "confirmExit()"]
-      ];
       phone.innerHTML = `
         <section class="screen">
           ${topbar()}
@@ -415,9 +634,6 @@
           <p class="label" style="left:16px;top:188px;width:328px;font-size:13px">${stats()}</p>
           <p class="label" style="left:20px;top:220px;width:320px;font-size:14px">${t("tutorial_prompt")}</p>
           ${orange(t("tutorial"), 70, 248, 220, 48, "message(t('tutorial'), t('tutorial_soon'))")}
-          <div class="actions"><div class="actions-inner">
-            ${actions.map(([label, action], i) => orange(label, 13, i * 58, 250, 52, action, "big")).join("")}
-          </div></div>
         </section>
       `;
     }
@@ -436,17 +652,25 @@
     }
     function showProfile() {
       ensureSave();
-      message(t("profile"), `${save.player_name}<br>${stats()}`);
+      message(t("profile"), `${save.player_name}<br>${t("starter")}: ${save.starter_name || "Charmander"}<br>${stats()}`);
+    }
+    function showPokemonMenu() {
+      phone.innerHTML = phone.innerHTML + overlay(t("pokemon_menu"), 92, 420) + `
+        ${orange(t("my_pokemon"), 70, 168, 220, 48, "message(t('my_pokemon'), t('my_pokemon_soon'))")}
+        ${orange(t("my_team_pokemon"), 70, 228, 220, 48, "message(t('my_team_pokemon'), t('my_team_pokemon_soon'))")}
+        ${orange(t("pokedex"), 70, 288, 220, 48, "message(t('pokedex'), t('pokedex_soon'))")}
+        ${orange(t("pokemon_center"), 70, 348, 220, 48, "message(t('pokemon_center'), t('pokemon_center_soon'))")}
+      </div>`;
     }
     function showWorldMap() {
       ensureSave();
       phone.innerHTML = phone.innerHTML + overlay(t("world_map"), 34, 580) + `
         <div class="scroll" style="left:28px;top:104px;width:304px;height:468px">
-          ${maps.map(([key, type, img, open]) => `
+          ${maps.map(([key, typeKey, img, open]) => `
             <button class="row" style="height:66px" onclick="${open ? "showForestMap()" : "message(t('world_map'), t('coming_soon'))"}">
-              ${img ? `<img src="${A}${img}" style="position:absolute;left:10px;top:7px;width:52px;height:52px;object-fit:contain" alt="">` : `<div class="placeholder" style="left:12px;top:9px;width:48px;height:48px">?</div>`}
+              ${mapThumb(key, img)}
               <span class="row-title" style="top:8px">${t(key)}</span>
-              <span class="row-sub" style="top:31px">${t("type")}: ${type}<br>${open ? t("available") : t("coming_soon")}</span>
+              <span class="row-sub" style="top:31px">${t("type")}: ${t(typeKey)}<br>${open ? t("available") : t("coming_soon")}</span>
             </button>`).join("")}
         </div></div>`;
     }
@@ -473,7 +697,7 @@
       ensureSave();
       const list = items.filter(item => item.category === bagCategory);
       const selected = items.find(item => item.id === selectedItemId);
-      const desc = selected ? `${itemName(selected)}<br>${t("qty")}: ${save.inventory[selected.id] || 0}<br>${itemDesc(selected)}` : t("select_item");
+      const desc = selected ? `${itemName(selected)}<br>${t("qty")}: ${save.inventory[selected.id] || 0}<br>${itemDesc(selected)}<br>${t("items_use_hint")}` : `${t("select_item")}<br>${t("items_use_hint")}`;
       phone.innerHTML = phone.innerHTML + overlay(t("bag"), 42, 560) + `
         ${categoryTabs("bag")}
         <div class="scroll" style="left:28px;top:146px;width:304px;height:250px">
@@ -488,7 +712,7 @@
           }).join("")}
         </div>
         <div class="desc">${desc}</div>
-        ${orange(t("use"), 110, 512, 140, 44, "useBagItem()", "small")}
+        ${orange(t("details"), 110, 512, 140, 44, "useBagItem()", "small")}
       </div>`;
     }
     function categoryTabs(kind) {
@@ -517,29 +741,26 @@
     function useBagItem() {
       const item = items.find(data => data.id === selectedItemId);
       if (!item) return;
-      if (item.id === "town_map") { showHome(); showWorldMap(); return; }
-      if (item.id.endsWith("_rod")) { message(itemName(item), t("fishing_soon")); return; }
-      if (item.category === "pokeballs") message(itemName(item), t("pokeball_use"));
-      else if (item.category === "potions") message(itemName(item), t("potion_use"));
-      else if (item.category === "evolution") message(itemName(item), t("evolution_use"));
-      else message(itemName(item), t("coming_soon"));
+      message(itemName(item), `${t("qty")}: ${save.inventory[item.id] || 0}<br>${itemDesc(item)}<br>${t("items_use_hint")}`);
     }
     function showShop(notice = "") {
       ensureSave();
       const list = items.filter(item => item.category === shopCategory && item.price > 0);
       phone.innerHTML = phone.innerHTML + overlay(t("shop"), 34, 580) + `
-        <p class="label" style="left:42px;top:92px;width:276px;color:#0c1d31;text-shadow:none;font-size:16px">${t("money")}: $${save.money}</p>
+        <img src="${A}shop/shop_sign_220x80.png" style="position:absolute;left:36px;top:78px;width:110px;height:40px;object-fit:contain" alt="">
+        <img src="${A}shop/shop_clerk_128.png" style="position:absolute;left:284px;top:78px;width:40px;height:40px;object-fit:contain" alt="">
+        <p class="label" style="left:142px;top:92px;width:140px;color:#0c1d31;text-shadow:none;font-size:15px">${t("money")}: $${save.money}</p>
         ${categoryTabs("shop")}
         <div class="scroll" style="left:28px;top:170px;width:304px;height:402px">
           ${list.map(item => {
             const locked = item.min_level > save.level || item.min_badges > save.badges;
             const req = t("requires", { level: item.min_level, badges: item.min_badges });
-            return `<div class="row ${locked ? "locked" : ""}" style="height:84px">
-              ${itemIcon(item, 10, 10, 38)}
+            return `<div class="row ${locked ? "locked" : ""}" style="height:104px">
+              ${itemIcon(item, 10, 10, 42)}
               <span class="row-title">${itemName(item)}</span>
-              <span class="row-sub">${t("price")}: $${item.price}</span>
-              <span style="position:absolute;left:54px;top:48px;width:166px;font-size:11px">${locked ? t("locked") : t("available")}<br>${req}</span>
-              <button class="buy" ${locked ? "disabled" : ""} onclick="buyItem('${item.id}')">${t("buy")}</button>
+              <span class="row-sub">${itemDesc(item)}</span>
+              <span style="position:absolute;left:54px;top:52px;width:166px;font-size:11px">${t("price")}: $${item.price}<br>${locked ? t("locked") : t("available")}<br>${req}</span>
+              <button class="buy" style="top:34px" ${locked ? "disabled" : ""} onclick="buyItem('${item.id}')">${t("buy")}</button>
             </div>`;
           }).join("")}
         </div>
@@ -574,6 +795,7 @@
         <button class="tab active" style="left:78px;top:286px;width:96px" onclick="setLanguage('en')">English</button>
         <button class="tab active" style="left:186px;top:286px;width:96px" onclick="setLanguage('pt')">Português</button>
         ${orange(t("apply"), 110, 370, 140, 44, "closeOverlay()", "small")}
+        ${currentBase === "home" ? orange(t("exit_to_main_menu"), 70, 426, 220, 44, "confirmExit()", "small") : ""}
       </div>`;
     }
     function setLanguage(language) {
@@ -600,8 +822,13 @@
     }
     window.t = t;
     window.stats = stats;
-    window.loadGame = loadGame;
-    window.newGame = newGame;
+    window.loadGame = showLoadGamePopup;
+    window.newGame = showNewGamePopup;
+    window.showLoadGamePopup = showLoadGamePopup;
+    window.showNewGamePopup = showNewGamePopup;
+    window.startNewGame = startNewGame;
+    window.loadSlot = loadSlot;
+    window.deleteSlot = deleteSlot;
     window.showHome = showHome;
     window.showMainMenu = showMainMenu;
     window.showWorldMap = showWorldMap;
@@ -609,6 +836,7 @@
     window.showBag = showBag;
     window.showShop = showShop;
     window.showTournament = showTournament;
+    window.showPokemonMenu = showPokemonMenu;
     window.showOptions = showOptions;
     window.showProfile = showProfile;
     window.message = message;
@@ -622,6 +850,7 @@
     window.useBagItem = useBagItem;
     window.buyItem = buyItem;
     window.settings = settings;
+    window.previewAvatar = 1;
     Object.defineProperty(window, "bagCategory", { get: () => bagCategory, set: value => { bagCategory = value; } });
     Object.defineProperty(window, "shopCategory", { get: () => shopCategory, set: value => { shopCategory = value; } });
     Object.defineProperty(window, "selectedItemId", { get: () => selectedItemId, set: value => { selectedItemId = value; } });
