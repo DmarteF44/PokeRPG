@@ -21,11 +21,18 @@ const TEXT = {
 		"shop": "Shop",
 		"pokedex": "PokeDex",
 		"tournament": "Tournament",
+		"pokemon_menu": "Pokemon",
+		"my_team_pokemon": "My Team Pokemon",
+		"pokemon_center": "Pokemon Center",
 		"options": "Options",
 		"exit": "Exit",
+		"exit_to_main_menu": "Exit to Main Menu",
 		"profile": "Profile",
+		"starter": "Starter",
 		"my_pokemon_soon": "My Pokemon coming soon",
+		"my_team_pokemon_soon": "My Team Pokemon coming soon",
 		"pokedex_soon": "PokeDex coming soon",
+		"pokemon_center_soon": "Pokemon Center coming soon",
 		"return_menu": "Return to Main Menu?",
 		"yes": "Yes",
 		"no": "No",
@@ -39,6 +46,18 @@ const TEXT = {
 		"coming_soon": "Coming soon",
 		"map_soon": "Coming soon",
 		"type": "Type",
+		"type_grass": "Grass",
+		"type_fire": "Fire",
+		"type_water": "Water",
+		"type_rock": "Rock",
+		"type_ice": "Ice",
+		"type_mystery": "Mystery",
+		"type_steel": "Steel",
+		"type_electric": "Electric",
+		"type_ground": "Ground",
+		"type_ghost": "Ghost",
+		"type_dragon": "Dragon",
+		"type_mixed": "Mixed",
 		"forest": "Forest Map",
 		"fire": "Fire Map",
 		"water": "Water Map",
@@ -55,8 +74,9 @@ const TEXT = {
 		"potions": "Potions",
 		"evolution": "Evolution",
 		"key_items": "Key Items",
-		"quantity": "Qty",
+		"quantity": "Quantity",
 		"use": "Use",
+		"details": "Details",
 		"buy": "Buy",
 		"price": "Price",
 		"requires": "Requires Lv. %d and %d badges.",
@@ -65,6 +85,7 @@ const TEXT = {
 		"not_enough_money": "Not enough money.",
 		"bought": "Bought %s!",
 		"select_item": "Select an item to see details.",
+		"items_use_hint": "Items can be used during battles, events, or specific menus.",
 		"pokeball_use": "Pokeballs are used during wild battles.",
 		"potion_use": "Healing items will be usable in battle soon.",
 		"evolution_use": "Evolution system coming soon.",
@@ -78,8 +99,8 @@ const TEXT = {
 		"hello": "Olá %s,",
 		"player_default": "Jogador",
 		"welcome_to": "Bem-vindo ao",
-		"tutorial_prompt": "Novo aqui? Veja o tutorial:",
-		"tutorial": "Tutorial / Web Page",
+		"tutorial_prompt": "Novo por aqui? Veja o tutorial:",
+		"tutorial": "Tutorial / Página Web",
 		"tutorial_soon": "Página de tutorial em breve.",
 		"money": "Dinheiro",
 		"level": "Nv.",
@@ -90,11 +111,18 @@ const TEXT = {
 		"shop": "Loja",
 		"pokedex": "PokéDex",
 		"tournament": "Torneio",
+		"pokemon_menu": "Pokémon",
+		"my_team_pokemon": "Meu Time Pokémon",
+		"pokemon_center": "Centro Pokémon",
 		"options": "Opções",
 		"exit": "Sair",
+		"exit_to_main_menu": "Sair para o Menu",
 		"profile": "Perfil",
+		"starter": "Inicial",
 		"my_pokemon_soon": "Meus Pokémon em breve",
+		"my_team_pokemon_soon": "Meu Time Pokémon em breve",
 		"pokedex_soon": "PokéDex em breve",
+		"pokemon_center_soon": "Centro Pokémon em breve",
 		"return_menu": "Voltar ao Menu Principal?",
 		"yes": "Sim",
 		"no": "Não",
@@ -108,6 +136,18 @@ const TEXT = {
 		"coming_soon": "Em breve",
 		"map_soon": "Em breve",
 		"type": "Tipo",
+		"type_grass": "Grama",
+		"type_fire": "Fogo",
+		"type_water": "Água",
+		"type_rock": "Pedra",
+		"type_ice": "Gelo",
+		"type_mystery": "Mistério",
+		"type_steel": "Aço",
+		"type_electric": "Elétrico",
+		"type_ground": "Terra",
+		"type_ghost": "Fantasma",
+		"type_dragon": "Dragão",
+		"type_mixed": "Misto",
 		"forest": "Floresta",
 		"fire": "Mapa de Fogo",
 		"water": "Mapa de Água",
@@ -124,8 +164,9 @@ const TEXT = {
 		"potions": "Poções",
 		"evolution": "Evolução",
 		"key_items": "Itens-chave",
-		"quantity": "Qtd",
+		"quantity": "Quantidade",
 		"use": "Usar",
+		"details": "Detalhes",
 		"buy": "Comprar",
 		"price": "Preço",
 		"requires": "Requer Nv. %d e %d insígnias.",
@@ -134,6 +175,7 @@ const TEXT = {
 		"not_enough_money": "Dinheiro insuficiente.",
 		"bought": "%s comprado!",
 		"select_item": "Selecione um item para ver detalhes.",
+		"items_use_hint": "Itens poderão ser usados em batalhas, eventos ou menus específicos.",
 		"pokeball_use": "Pokébolas são usadas em batalhas selvagens.",
 		"potion_use": "Itens de cura poderão ser usados em batalha em breve.",
 		"evolution_use": "Sistema de evolução em breve.",
@@ -146,18 +188,18 @@ const TEXT = {
 }
 
 const WORLD_MAPS = [
-	{"key": "forest", "type": "Grass", "icon": "res://assets/maps/map_forest_64.png", "available": true},
-	{"key": "fire", "type": "Fire", "icon": "res://assets/maps/map_fire_64.png", "available": false},
-	{"key": "water", "type": "Water", "icon": "", "available": false},
-	{"key": "cave", "type": "Rock", "icon": "res://assets/maps/map_cave_64.png", "available": false},
-	{"key": "ice", "type": "Ice", "icon": "res://assets/maps/map_ice_64.png", "available": false},
-	{"key": "mansion", "type": "Mystery", "icon": "res://assets/maps/map_mansion_64.png", "available": false},
-	{"key": "factory", "type": "Steel", "icon": "res://assets/maps/map_factory_64.png", "available": false},
-	{"key": "electric", "type": "Electric", "icon": "", "available": false},
-	{"key": "desert", "type": "Ground", "icon": "", "available": false},
-	{"key": "ghost", "type": "Ghost", "icon": "", "available": false},
-	{"key": "dragon", "type": "Dragon", "icon": "", "available": false},
-	{"key": "safari", "type": "Mixed", "icon": "", "available": false},
+	{"key": "forest", "type_key": "type_grass", "icon": "res://assets/maps/map_forest_64.png", "available": true},
+	{"key": "fire", "type_key": "type_fire", "icon": "res://assets/maps/map_fire_64.png", "available": false},
+	{"key": "water", "type_key": "type_water", "icon": "", "available": false},
+	{"key": "cave", "type_key": "type_rock", "icon": "res://assets/maps/map_cave_64.png", "available": false},
+	{"key": "ice", "type_key": "type_ice", "icon": "res://assets/maps/map_ice_64.png", "available": false},
+	{"key": "mansion", "type_key": "type_mystery", "icon": "res://assets/maps/map_mansion_64.png", "available": false},
+	{"key": "factory", "type_key": "type_steel", "icon": "res://assets/maps/map_factory_64.png", "available": false},
+	{"key": "electric", "type_key": "type_electric", "icon": "", "available": false},
+	{"key": "desert", "type_key": "type_ground", "icon": "", "available": false},
+	{"key": "ghost", "type_key": "type_ghost", "icon": "", "available": false},
+	{"key": "dragon", "type_key": "type_dragon", "icon": "", "available": false},
+	{"key": "safari", "type_key": "type_mixed", "icon": "", "available": false},
 ]
 
 var settings: Dictionary = {}
@@ -167,6 +209,7 @@ var world_popup: Control
 var bag_popup: Control
 var shop_popup: Control
 var tournament_popup: Control
+var pokemon_popup: Control
 var stats_label: Label
 var selected_bag_category := "pokeballs"
 var selected_bag_item: Dictionary = {}
@@ -214,54 +257,44 @@ func _build_screen() -> void:
 	stats_label = UI.add_label(self, _stats_text(), Vector2(16, 188), Vector2(328, 24), 13, Color(0.94, 0.97, 1.0), HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Stats")
 	UI.add_label(self, _text("tutorial_prompt"), Vector2(20, 220), Vector2(320, 24), 14, Color.WHITE, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "TutorialPrompt")
 	UI.add_orange_button(self, _text("tutorial"), Vector2(70, 248), Vector2(220, 48), Callable(self, "_show_tutorial"), "Tutorial")
-	_add_home_scroll_buttons()
 
 
 func _add_topbar_icons() -> void:
 	var icon_data := [
-		["res://assets/icons/icon_map_32.png", Vector2(12, 6), Callable(self, "_show_world_map"), "TopMap"],
-		["res://assets/icons/icon_trophy_32.png", Vector2(66, 6), Callable(self, "_show_tournament"), "TopTournament"],
-		["res://assets/icons/icon_ball_32.png", Vector2(120, 6), Callable(self, "_show_my_pokemon"), "TopPokemon"],
-		["res://assets/icons/icon_bag_32.png", Vector2(174, 6), Callable(self, "_show_bag"), "TopBag"],
-		["res://assets/icons/icon_user_32.png", Vector2(228, 6), Callable(self, "_show_profile"), "TopUser"],
-		["res://assets/icons/icon_gear_32.png", Vector2(316, 6), Callable(self, "_show_options"), "TopGear"],
+		["res://assets/ui/icons/icon_world_32.png", Vector2(8, 6), Callable(self, "_show_world_map"), "TopMap", "M"],
+		["res://assets/ui/icons/icon_tournament_32.png", Vector2(58, 6), Callable(self, "_show_tournament"), "TopTournament", "T"],
+		["res://assets/ui/icons/icon_pokemon.png", Vector2(108, 6), Callable(self, "_show_pokemon_menu"), "TopPokemon", "P"],
+		["res://assets/ui/icons/icon_bag_32.png", Vector2(158, 6), Callable(self, "_show_bag"), "TopBag", "B"],
+		["res://assets/ui/icons/icon_shop_32.png", Vector2(208, 6), Callable(self, "_show_shop"), "TopShop", "S"],
+		["res://assets/ui/icons/icon_profile_32.png", Vector2(258, 6), Callable(self, "_show_profile"), "TopUser", "U"],
+		["res://assets/ui/icons/icon_options_32.png", Vector2(318, 6), Callable(self, "_show_options"), "TopGear", "O"],
 	]
 
 	for data in icon_data:
-		var icon_path := str(data[0])
 		var icon_pos: Vector2 = data[1]
 		var icon_callback: Callable = data[2]
-		if not FileAccess.file_exists(icon_path):
-			icon_path = "res://assets/icons/icon_info_32.png"
-		UI.add_icon_button(self, icon_path, icon_pos, icon_callback, str(data[3]))
+		_add_topbar_icon(str(data[0]), icon_pos, icon_callback, str(data[3]), str(data[4]))
 
 
-func _add_home_scroll_buttons() -> void:
-	var scroll := ScrollContainer.new()
-	scroll.name = "HomeActionsScroll"
-	scroll.position = Vector2(42, 312)
-	scroll.size = Vector2(276, 306)
-	add_child(scroll)
+func _add_topbar_icon(icon_path: String, pos: Vector2, callback: Callable, node_name: String, fallback_text: String) -> void:
+	if FileAccess.file_exists(icon_path):
+		UI.add_icon_button(self, icon_path, pos, callback, node_name)
+		return
 
-	var content := Control.new()
-	content.name = "HomeActions"
-	content.custom_minimum_size = Vector2(276, 472)
-	scroll.add_child(content)
-
-	var actions := [
-		[_text("explore_world"), Callable(self, "_show_world_map"), "ExploreWorld"],
-		[_text("my_pokemon"), Callable(self, "_show_my_pokemon"), "MyPokemon"],
-		[_text("bag"), Callable(self, "_show_bag"), "Bag"],
-		[_text("shop"), Callable(self, "_show_shop"), "Shop"],
-		[_text("pokedex"), Callable(self, "_show_pokedex"), "PokeDex"],
-		[_text("tournament"), Callable(self, "_show_tournament"), "Tournament"],
-		[_text("options"), Callable(self, "_show_options"), "Options"],
-		[_text("exit"), Callable(self, "_confirm_exit"), "Exit"],
-	]
-
-	for i in range(actions.size()):
-		var action_callback: Callable = actions[i][1]
-		UI.add_orange_button(content, str(actions[i][0]), Vector2(13, float(i) * 58.0), Vector2(250, 52), action_callback, str(actions[i][2]))
+	var button := Button.new()
+	button.name = node_name
+	button.text = fallback_text
+	button.position = pos
+	button.size = Vector2(32, 32)
+	button.focus_mode = Control.FOCUS_NONE
+	button.add_theme_font_size_override("font_size", 13)
+	button.add_theme_color_override("font_color", Color.WHITE)
+	button.add_theme_color_override("font_hover_color", Color.WHITE)
+	button.add_theme_color_override("font_pressed_color", Color.WHITE)
+	UI.style_panel_button(button, Color(0.24, 0.52, 0.66), Color(0.08, 0.24, 0.34), 1)
+	add_child(button)
+	if callback.is_valid():
+		button.pressed.connect(callback)
 
 
 func _stats_text() -> String:
@@ -284,8 +317,19 @@ func _show_tutorial() -> void:
 
 
 func _show_profile() -> void:
+	_refresh_save_data()
 	var player_name := str(save_data.get("player_name", _text("player_default")))
-	UI.show_message_popup(self, _text("profile"), "%s\n%s" % [player_name, _stats_text()])
+	var profile_text := "%s\n%s: %s\n%s: $%d\n%s %d\n%s" % [
+		player_name,
+		_text("starter"),
+		str(save_data.get("starter_name", "Charmander")),
+		_text("money"),
+		int(save_data.get("money", 3000)),
+		_text("level"),
+		int(save_data.get("level", 0)),
+		_text("badges_short") % int(save_data.get("badges", 0)),
+	]
+	UI.show_message_popup(self, _text("profile"), profile_text)
 
 
 func _show_world_map() -> void:
@@ -323,17 +367,17 @@ func _add_world_map_row(parent: Control, map_data: Dictionary, index: int) -> vo
 	UI.style_panel_button(button, Color(0.86, 0.92, 0.96), Color(0.34, 0.50, 0.62), 2)
 	parent.add_child(button)
 
-	var icon_path := str(map_data.get("icon", ""))
+	var icon_path := _map_thumbnail_path(map_data)
 	if icon_path != "" and FileAccess.file_exists(icon_path):
 		UI.add_texture(button, icon_path, Vector2(10, 7), Vector2(52, 52), "Icon", TextureRect.STRETCH_KEEP_ASPECT_CENTERED)
 	else:
-		_add_placeholder_icon(button, Vector2(12, 9), Vector2(48, 48), "?")
+		_add_map_thumbnail_placeholder(button, str(map_data["key"]), Vector2(10, 7), Vector2(52, 52))
 
 	var status := _text("available") if bool(map_data.get("available", false)) else _text("coming_soon")
 	var description := "%s\n%s: %s\n%s" % [
 		_text(str(map_data["key"])),
 		_text("type"),
-		str(map_data["type"]),
+		_text(str(map_data.get("type_key", ""))),
 		status,
 	]
 	UI.add_panel_label(button, description, Vector2(72, 7), Vector2(210, 52), 14, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "MapText")
@@ -354,6 +398,7 @@ func _show_map_soon() -> void:
 
 func _show_bag() -> void:
 	InventoryManager.ensure_default_inventory()
+	_refresh_save_data()
 	if bag_popup != null and is_instance_valid(bag_popup):
 		bag_popup.queue_free()
 
@@ -373,13 +418,13 @@ func _add_bag_items() -> void:
 	var scroll := ScrollContainer.new()
 	scroll.name = "BagItemsScroll"
 	scroll.position = Vector2(28, 146)
-	scroll.size = Vector2(304, 250)
+	scroll.size = Vector2(304, 242)
 	bag_popup.add_child(scroll)
 
 	var category_items := _items_for_category(selected_bag_category)
 	var content := Control.new()
 	content.name = "BagItems"
-	content.custom_minimum_size = Vector2(304, max(250, category_items.size() * 60))
+	content.custom_minimum_size = Vector2(304, max(242, category_items.size() * 70))
 	scroll.add_child(content)
 
 	for i in range(category_items.size()):
@@ -391,8 +436,8 @@ func _add_bag_item_row(parent: Control, item: Dictionary, index: int) -> void:
 	var amount := InventoryManager.get_item_amount(str(item.get("id", "")))
 	var row := Button.new()
 	row.name = "Bag%s" % str(item.get("id", "")).capitalize()
-	row.position = Vector2(0, float(index) * 60.0)
-	row.size = Vector2(296, 52)
+	row.position = Vector2(0, float(index) * 70.0)
+	row.size = Vector2(296, 62)
 	row.focus_mode = Control.FOCUS_NONE
 	row.add_theme_color_override("font_color", UI.PANEL_TEXT)
 	row.add_theme_color_override("font_hover_color", UI.PANEL_TEXT)
@@ -400,23 +445,24 @@ func _add_bag_item_row(parent: Control, item: Dictionary, index: int) -> void:
 	row.modulate = Color(1, 1, 1, 1) if amount > 0 else Color(0.62, 0.67, 0.72, 1)
 	UI.style_panel_button(row, Color(0.86, 0.92, 0.96), Color(0.34, 0.50, 0.62), 2)
 	parent.add_child(row)
-	_add_item_icon(row, item, Vector2(10, 8), Vector2(36, 36))
-	UI.add_panel_label(row, _item_name(item), Vector2(54, 6), Vector2(168, 22), 14, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Name")
-	UI.add_panel_label(row, "%s: %d" % [_text("quantity"), amount], Vector2(54, 28), Vector2(168, 18), 12, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Qty")
-	UI.add_panel_label(row, ">", Vector2(256, 14), Vector2(24, 24), 17, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Arrow")
+	_add_item_icon(row, item, Vector2(10, 11), Vector2(40, 40))
+	UI.add_panel_label(row, _item_name(item), Vector2(58, 6), Vector2(160, 20), 14, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Name")
+	UI.add_panel_label(row, "%s: %d" % [_text("quantity"), amount], Vector2(58, 26), Vector2(160, 16), 11, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Qty")
+	UI.add_panel_label(row, _text(str(item.get("category", ""))), Vector2(58, 42), Vector2(160, 16), 10, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Category")
+	UI.add_panel_label(row, ">", Vector2(256, 19), Vector2(24, 24), 17, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Arrow")
 	row.pressed.connect(Callable(self, "_select_bag_item").bind(item))
 
 
 func _add_bag_description() -> void:
 	var panel := Panel.new()
 	panel.name = "BagDescription"
-	panel.position = Vector2(28, 410)
-	panel.size = Vector2(304, 84)
+	panel.position = Vector2(28, 398)
+	panel.size = Vector2(304, 102)
 	bag_popup.add_child(panel)
 	UI.style_panel_button(panel, Color(0.88, 0.94, 0.98), Color(0.34, 0.50, 0.62), 2)
-	bag_description_label = UI.add_panel_label(panel, _text("select_item"), Vector2(12, 8), Vector2(280, 68), 13, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Description")
+	bag_description_label = UI.add_panel_label(panel, "%s\n%s" % [_text("select_item"), _text("items_use_hint")], Vector2(12, 8), Vector2(280, 86), 12, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Description")
 
-	bag_use_button = UI.add_orange_button(bag_popup, _text("use"), Vector2(110, 512), Vector2(140, 44), Callable(self, "_use_selected_bag_item"), "UseItem")
+	bag_use_button = UI.add_orange_button(bag_popup, _text("details"), Vector2(110, 512), Vector2(140, 44), Callable(self, "_show_selected_bag_item_details"), "DetailsItem")
 	bag_use_button.disabled = true
 	bag_use_button.modulate = Color(0.62, 0.62, 0.62, 0.9)
 
@@ -425,35 +471,31 @@ func _select_bag_item(item: Dictionary) -> void:
 	selected_bag_item = item.duplicate(true)
 	if bag_description_label != null and is_instance_valid(bag_description_label):
 		var amount := InventoryManager.get_item_amount(str(item.get("id", "")))
-		bag_description_label.text = "%s\n%s: %d\n%s" % [_item_name(item), _text("quantity"), amount, _item_description(item)]
+		bag_description_label.text = "%s\n%s: %d | %s: %s\n%s\n%s" % [
+			_item_name(item),
+			_text("quantity"),
+			amount,
+			_text("type"),
+			_text(str(item.get("category", ""))),
+			_item_description(item),
+			_text("items_use_hint"),
+		]
 	if bag_use_button != null and is_instance_valid(bag_use_button):
 		bag_use_button.disabled = false
 		bag_use_button.modulate = Color.WHITE
 
 
-func _use_selected_bag_item() -> void:
+func _show_selected_bag_item_details() -> void:
 	if selected_bag_item.is_empty():
 		return
 
-	var item_id := str(selected_bag_item.get("id", ""))
-	var category := str(selected_bag_item.get("category", ""))
-	if item_id == "town_map":
-		_show_world_map()
-		return
-
-	if item_id.ends_with("_rod"):
-		UI.show_message_popup(self, _item_name(selected_bag_item), _text("fishing_soon"))
-		return
-
-	match category:
-		"pokeballs":
-			UI.show_message_popup(self, _item_name(selected_bag_item), _text("pokeball_use"))
-		"potions":
-			UI.show_message_popup(self, _item_name(selected_bag_item), _text("potion_use"))
-		"evolution":
-			UI.show_message_popup(self, _item_name(selected_bag_item), _text("evolution_use"))
-		_:
-			UI.show_message_popup(self, _item_name(selected_bag_item), _text("coming_soon"))
+	var amount := InventoryManager.get_item_amount(str(selected_bag_item.get("id", "")))
+	UI.show_message_popup(self, _item_name(selected_bag_item), "%s: %d\n%s\n%s" % [
+		_text("quantity"),
+		amount,
+		_item_description(selected_bag_item),
+		_text("items_use_hint"),
+	])
 
 
 func _show_shop() -> void:
@@ -462,7 +504,9 @@ func _show_shop() -> void:
 		shop_popup.queue_free()
 
 	shop_popup = _create_popup(_text("shop"), "ShopPopup", 34.0, 580.0)
-	UI.add_panel_label(shop_popup, "%s: $%d" % [_text("money"), int(save_data.get("money", 3000))], Vector2(42, 92), Vector2(276, 24), 16, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Money")
+	_add_texture_if_exists(shop_popup, "res://assets/shop/shop_sign_220x80.png", Vector2(36, 78), Vector2(110, 40), "ShopSign")
+	_add_texture_if_exists(shop_popup, "res://assets/shop/shop_clerk_128.png", Vector2(284, 78), Vector2(40, 40), "ShopClerk")
+	UI.add_panel_label(shop_popup, "%s: $%d" % [_text("money"), int(save_data.get("money", 3000))], Vector2(142, 92), Vector2(140, 24), 15, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Money")
 	_add_category_tabs(shop_popup, selected_shop_category, Callable(self, "_select_shop_category"), 126.0)
 	_add_shop_items()
 
@@ -486,7 +530,7 @@ func _add_shop_items() -> void:
 
 	var content := Control.new()
 	content.name = "ShopItems"
-	content.custom_minimum_size = Vector2(304, max(402, shop_items.size() * 92))
+	content.custom_minimum_size = Vector2(304, max(402, shop_items.size() * 112))
 	scroll.add_child(content)
 
 	for i in range(shop_items.size()):
@@ -502,21 +546,22 @@ func _add_shop_item_row(parent: Control, item: Dictionary, index: int) -> void:
 	var locked := min_level > player_level or min_badges > player_badges
 	var row := Panel.new()
 	row.name = "Shop%s" % str(item.get("id", "")).capitalize()
-	row.position = Vector2(0, float(index) * 92.0)
-	row.size = Vector2(296, 84)
+	row.position = Vector2(0, float(index) * 112.0)
+	row.size = Vector2(296, 104)
 	parent.add_child(row)
 	row.modulate = Color(1, 1, 1, 1) if not locked else Color(0.66, 0.70, 0.75, 1)
 	UI.style_panel_button(row, Color(0.86, 0.92, 0.96), Color(0.34, 0.50, 0.62), 2)
 
-	_add_item_icon(row, item, Vector2(10, 10), Vector2(38, 38))
-	UI.add_panel_label(row, _item_name(item), Vector2(56, 6), Vector2(158, 20), 14, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Name")
-	UI.add_panel_label(row, "%s: $%d" % [_text("price"), int(item.get("price", 0))], Vector2(56, 28), Vector2(158, 18), 12, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Price")
+	_add_item_icon(row, item, Vector2(10, 10), Vector2(42, 42))
+	UI.add_panel_label(row, _item_name(item), Vector2(58, 6), Vector2(154, 20), 14, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Name")
+	UI.add_panel_label(row, _item_description(item), Vector2(58, 26), Vector2(156, 30), 10, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Description")
+	UI.add_panel_label(row, "%s: $%d" % [_text("price"), int(item.get("price", 0))], Vector2(58, 56), Vector2(154, 18), 12, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Price")
 
 	var status := _text("locked") if locked else _text("available_status")
 	var requirement := _text("requires") % [min_level, min_badges]
-	UI.add_panel_label(row, "%s\n%s" % [status, requirement], Vector2(56, 48), Vector2(166, 30), 11, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Requirement")
+	UI.add_panel_label(row, "%s\n%s" % [status, requirement], Vector2(58, 74), Vector2(166, 26), 10, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Requirement")
 
-	var buy_button := _add_small_button(row, _text("buy"), Vector2(222, 26), Vector2(64, 32), Callable(self, "_buy_item").bind(item), "Buy")
+	var buy_button := _add_small_button(row, _text("buy"), Vector2(222, 34), Vector2(64, 32), Callable(self, "_buy_item").bind(item), "Buy")
 	if locked:
 		buy_button.disabled = true
 		buy_button.modulate = Color(0.55, 0.55, 0.55, 0.9)
@@ -561,16 +606,45 @@ func _add_tournament_card(parent: Control, title: String, y: float) -> void:
 	UI.add_texture(panel, "res://assets/icons/icon_trophy_32.png", Vector2(226, 11), Vector2(32, 32), "Icon", TextureRect.STRETCH_KEEP_ASPECT_CENTERED)
 
 
+func _show_pokemon_menu() -> void:
+	if pokemon_popup != null and is_instance_valid(pokemon_popup):
+		pokemon_popup.queue_free()
+
+	pokemon_popup = _create_popup(_text("pokemon_menu"), "PokemonMenuPopup", 92.0, 420.0)
+	UI.add_orange_button(pokemon_popup, _text("my_pokemon"), Vector2(70, 168), Vector2(220, 48), Callable(self, "_show_my_pokemon"), "MyPokemon")
+	UI.add_orange_button(pokemon_popup, _text("my_team_pokemon"), Vector2(70, 228), Vector2(220, 48), Callable(self, "_show_my_team_pokemon"), "MyTeamPokemon")
+	UI.add_orange_button(pokemon_popup, _text("pokedex"), Vector2(70, 288), Vector2(220, 48), Callable(self, "_show_pokedex"), "PokeDex")
+	UI.add_orange_button(pokemon_popup, _text("pokemon_center"), Vector2(70, 348), Vector2(220, 48), Callable(self, "_show_pokemon_center"), "PokemonCenter")
+
+
 func _show_my_pokemon() -> void:
+	_close_pokemon_popup()
 	UI.show_message_popup(self, _text("my_pokemon"), _text("my_pokemon_soon"))
 
 
+func _show_my_team_pokemon() -> void:
+	_close_pokemon_popup()
+	UI.show_message_popup(self, _text("my_team_pokemon"), _text("my_team_pokemon_soon"))
+
+
 func _show_pokedex() -> void:
+	_close_pokemon_popup()
 	UI.show_message_popup(self, _text("pokedex"), _text("pokedex_soon"))
 
 
+func _show_pokemon_center() -> void:
+	_close_pokemon_popup()
+	UI.show_message_popup(self, _text("pokemon_center"), _text("pokemon_center_soon"))
+
+
+func _close_pokemon_popup() -> void:
+	if pokemon_popup != null and is_instance_valid(pokemon_popup):
+		pokemon_popup.queue_free()
+
+
 func _show_options() -> void:
-	UI.show_options_popup(self, _text("options"), _options_labels(), Callable(self, "_on_options_applied"))
+	var options_popup := UI.show_options_popup(self, _text("options"), _options_labels(), Callable(self, "_on_options_applied"))
+	UI.add_orange_button(options_popup, _text("exit_to_main_menu"), Vector2(70, 454), Vector2(220, 48), Callable(self, "_confirm_exit"), "ExitToMainMenu")
 
 
 func _on_options_applied(new_settings: Dictionary) -> void:
@@ -653,6 +727,95 @@ func _add_item_icon(parent: Node, item: Dictionary, pos: Vector2, node_size: Vec
 	_add_placeholder_icon(parent, pos, node_size, letter)
 
 
+func _map_thumbnail_path(map_data: Dictionary) -> String:
+	var key := str(map_data.get("key", ""))
+	var stem := _map_file_stem(key)
+	var candidates := [
+		"res://assets/maps/thumbnails/%s_96x64.png" % stem,
+		"res://assets/maps/thumbnails/%s.png" % stem,
+		"res://assets/maps/%s_96x64.png" % stem,
+		"res://assets/maps/%s.png" % stem,
+		"res://assets/map/%s_96x64.png" % stem,
+		"res://assets/map/%s.png" % stem,
+		"res://assets_raw/%s_96x64.png" % stem,
+		"res://assets_raw/%s.png" % stem,
+		str(map_data.get("icon", "")),
+	]
+
+	for candidate in candidates:
+		if str(candidate) != "" and FileAccess.file_exists(str(candidate)):
+			return str(candidate)
+	return ""
+
+
+func _map_file_stem(key: String) -> String:
+	match key:
+		"ghost":
+			return "map_ghost_tower"
+		"dragon":
+			return "map_dragon_valley"
+		"safari":
+			return "map_safari_zone"
+		_:
+			return "map_%s" % key
+
+
+func _add_map_thumbnail_placeholder(parent: Node, key: String, pos: Vector2, node_size: Vector2) -> void:
+	var placeholder := ColorRect.new()
+	placeholder.name = "MapThumbnail"
+	placeholder.position = pos
+	placeholder.size = node_size
+	placeholder.color = _map_placeholder_color(key)
+	placeholder.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	parent.add_child(placeholder)
+
+	var band := ColorRect.new()
+	band.name = "MapThumbnailBand"
+	band.position = pos + Vector2(0, node_size.y - 14.0)
+	band.size = Vector2(node_size.x, 14.0)
+	band.color = Color(0, 0, 0, 0.28)
+	band.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	parent.add_child(band)
+
+	UI.add_label(parent, _map_placeholder_code(key), pos, node_size, 15, Color.WHITE, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "MapThumbnailText")
+
+
+func _map_placeholder_color(key: String) -> Color:
+	match key:
+		"water":
+			return Color(0.16, 0.48, 0.78)
+		"electric":
+			return Color(0.95, 0.78, 0.20)
+		"desert":
+			return Color(0.75, 0.60, 0.34)
+		"ghost":
+			return Color(0.44, 0.28, 0.62)
+		"dragon":
+			return Color(0.30, 0.34, 0.78)
+		"safari":
+			return Color(0.28, 0.62, 0.34)
+		_:
+			return Color(0.36, 0.50, 0.62)
+
+
+func _map_placeholder_code(key: String) -> String:
+	match key:
+		"water":
+			return "WA"
+		"electric":
+			return "EL"
+		"desert":
+			return "DS"
+		"ghost":
+			return "GT"
+		"dragon":
+			return "DR"
+		"safari":
+			return "SZ"
+		_:
+			return "MAP"
+
+
 func _add_placeholder_icon(parent: Node, pos: Vector2, node_size: Vector2, text: String) -> void:
 	var placeholder := ColorRect.new()
 	placeholder.name = "PlaceholderIcon"
@@ -662,6 +825,11 @@ func _add_placeholder_icon(parent: Node, pos: Vector2, node_size: Vector2, text:
 	placeholder.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	parent.add_child(placeholder)
 	UI.add_panel_label(parent, text, pos, node_size, 18, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "PlaceholderText")
+
+
+func _add_texture_if_exists(parent: Node, path: String, pos: Vector2, node_size: Vector2, node_name: String) -> void:
+	if FileAccess.file_exists(path):
+		UI.add_texture(parent, path, pos, node_size, node_name, TextureRect.STRETCH_KEEP_ASPECT_CENTERED)
 
 
 func _load_items() -> Array:
@@ -696,8 +864,13 @@ func _item_description(item: Dictionary) -> String:
 func _icon_candidates(item: Dictionary) -> Array:
 	var item_id := str(item.get("id", ""))
 	var dash_id := item_id.replace("_", "-")
+	var category := str(item.get("category", ""))
 	return [
 		str(item.get("icon_path", "")),
+		"res://assets/items/%s/%s.png" % [category, item_id],
+		"res://assets/items/%s/%s.png" % [category, dash_id],
+		"res://assets/items/%s/%s_48.png" % [category, item_id],
+		"res://assets/items/%s/%s_32.png" % [category, item_id],
 		"res://assets/items/%s.png" % item_id,
 		"res://assets/items/%s.png" % dash_id,
 		"res://assets/pokemon/items/%s.png" % item_id,
