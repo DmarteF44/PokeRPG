@@ -1,4 +1,16 @@
 {
+  "blastoise": {
+    "back_frame_count": 83,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_1/back/blastoise/",
+    "dex_number": 9,
+    "front_frame_count": 79,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_1/front/blastoise/",
+    "generation": 1,
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/blastoise.png",
+    "id": "blastoise",
+    "name": "Blastoise"
+  },
   "bulbasaur": {
     "back_frame_count": 45,
     "back_frames_path": "res://assets/pokemon/battle/animated/gen_1/back/bulbasaur/",
@@ -10,6 +22,18 @@
     "icon_path": "res://assets/pokemon/icons/bulbasaur.png",
     "id": "bulbasaur",
     "name": "Bulbasaur"
+  },
+  "charizard": {
+    "back_frame_count": 51,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_1/back/charizard/",
+    "dex_number": 6,
+    "front_frame_count": 47,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_1/front/charizard/",
+    "generation": 1,
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/charizard.png",
+    "id": "charizard",
+    "name": "Charizard"
   },
   "charmander": {
     "back_frame_count": 38,
@@ -23,6 +47,30 @@
     "id": "charmander",
     "name": "Charmander"
   },
+  "charmeleon": {
+    "back_frame_count": 63,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_1/back/charmeleon/",
+    "dex_number": 5,
+    "front_frame_count": 59,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_1/front/charmeleon/",
+    "generation": 1,
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/charmeleon.png",
+    "id": "charmeleon",
+    "name": "Charmeleon"
+  },
+  "ivysaur": {
+    "back_frame_count": 53,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_1/back/ivysaur/",
+    "dex_number": 2,
+    "front_frame_count": 49,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_1/front/ivysaur/",
+    "generation": 1,
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/ivysaur.png",
+    "id": "ivysaur",
+    "name": "Ivysaur"
+  },
   "squirtle": {
     "back_frame_count": 33,
     "back_frames_path": "res://assets/pokemon/battle/animated/gen_1/back/squirtle/",
@@ -34,5 +82,29 @@
     "icon_path": "res://assets/pokemon/icons/squirtle.png",
     "id": "squirtle",
     "name": "Squirtle"
+  },
+  "venusaur": {
+    "back_frame_count": 63,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_1/back/venusaur/",
+    "dex_number": 3,
+    "front_frame_count": 59,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_1/front/venusaur/",
+    "generation": 1,
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/venusaur.png",
+    "id": "venusaur",
+    "name": "Venusaur"
+  },
+  "wartortle": {
+    "back_frame_count": 35,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_1/back/wartortle/",
+    "dex_number": 8,
+    "front_frame_count": 31,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_1/front/wartortle/",
+    "generation": 1,
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/wartortle.png",
+    "id": "wartortle",
+    "name": "Wartortle"
   }
 }

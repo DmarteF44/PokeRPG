@@ -193,6 +193,37 @@
       image-rendering: pixelated;
       pointer-events: none;
     }
+    .pokemon-hit {
+      animation: damageFlash 0.36s steps(2, end);
+    }
+    .pokemon-static {
+      image-rendering: pixelated;
+      pointer-events: none;
+      animation: idleFloat 1.25s ease-in-out infinite alternate;
+    }
+    .move-effect {
+      position: absolute;
+      width: 96px;
+      height: 96px;
+      object-fit: contain;
+      pointer-events: none;
+      animation: effectPop 0.36s ease-out forwards;
+      image-rendering: auto;
+    }
+    @keyframes damageFlash {
+      0%, 100% { opacity: 1; filter: none; }
+      20%, 60% { opacity: 0.18; filter: brightness(2.1); }
+      40%, 80% { opacity: 1; filter: none; }
+    }
+    @keyframes effectPop {
+      0% { opacity: 0; transform: scale(0.72) rotate(-8deg); }
+      24% { opacity: 1; }
+      100% { opacity: 0; transform: scale(1.28) rotate(8deg); }
+    }
+    @keyframes idleFloat {
+      from { transform: translateY(0); }
+      to { transform: translateY(-3px); }
+    }
     .dex-desc {
       position: absolute;
       left: 12px;
@@ -390,10 +421,13 @@
         type_dragon: "Dragon", type_mixed: "Mixed",
         pokeballs: "Pokeballs", potions: "Potions", evolution: "Evolution", key_items: "Key Items",
         qty: "Qty", use: "Use", buy: "Buy", price: "Price", locked: "Locked",
-        requires: "Requires Lv. {level} and {badges} badges.", no_energy: "Your energy has been depleted for today.",
+        requires: "Requires Lv. {level} and {badges} badges.", no_energy: "You are out of energy for today.",
         none_found: "None pokemon found", found_pokemon: "Pokemon {name} found!", click_fight: "Click here to fight",
-        not_enough_money: "Not enough money.",
+        not_enough_money: "Not enough Gold.",
         bought: "Bought {item}!", select_item: "Select an item to see details.",
+        energy_full: "Your energy is already full.", energy_restored: "Energy restored by {n}.",
+        choose_pokemon: "Choose Pokemon", stat_boosted: "{name} gained +{amount} {stat}!", stat_at_cap: "{name} cannot raise {stat} anymore.",
+        stat_max_hp: "HP", stat_attack: "Attack", stat_defense: "Defense", stat_sp_attack: "Sp. Attack", stat_sp_defense: "Sp. Defense", stat_speed: "Speed",
         pokeball_use: "Pokeballs are used during wild battles.",
         potion_use: "Healing items will be usable in battle soon.",
         evolution_use: "Evolution system coming soon.", fishing_soon: "Fishing coming soon.",
@@ -401,6 +435,8 @@
         yes: "Yes", no: "No", music: "Music", sfx: "Sound Effects", language: "Language", apply: "Apply",
         beginner_cup: "Beginner Cup", forest_cup: "Forest Cup", master_league: "Master League",
         battle: "Battle", attack: "Attack", run: "Run", enemy_fainted: "Enemy fainted!", your_fainted: "Your Pokemon fainted!",
+        xp_gain: "{name} gained {xp} XP!", level_up: "{name} grew to level {level}!",
+        evolution_start: "What? {from} is evolving!", evolution_done: "Congratulations! {from} evolved into {to}!",
         battle_bag_soon: "Battle Bag coming soon.", switch_soon: "Switching Pokemon coming soon.",
         return_home: "Return Home", damage: "Damage"
       },
@@ -443,8 +479,11 @@
         qty: "Qtd", use: "Usar", buy: "Comprar", price: "Preço", locked: "Bloqueado",
         requires: "Requer Nv. {level} e {badges} insígnias.", no_energy: "Você está sem energia para explorar hoje.",
         none_found: "None pokemon found", found_pokemon: "Pokemon {name} found!", click_fight: "Click here to fight",
-        not_enough_money: "Dinheiro insuficiente.",
+        not_enough_money: "Gold insuficiente.",
         bought: "{item} comprado!", select_item: "Selecione um item para ver detalhes.",
+        energy_full: "Sua energia já está completa.", energy_restored: "Energia restaurada em {n}.",
+        choose_pokemon: "Escolha o Pokemon", stat_boosted: "{name} ganhou +{amount} em {stat}!", stat_at_cap: "{name} nao pode aumentar mais {stat}.",
+        stat_max_hp: "HP", stat_attack: "Ataque", stat_defense: "Defesa", stat_sp_attack: "Ataque Esp.", stat_sp_defense: "Defesa Esp.", stat_speed: "Velocidade",
         pokeball_use: "Pokébolas são usadas em batalhas selvagens.",
         potion_use: "Itens de cura poderão ser usados em batalha em breve.",
         evolution_use: "Sistema de evolução em breve.", fishing_soon: "Pescaria em breve.",
@@ -452,6 +491,8 @@
         yes: "Sim", no: "Não", music: "Música", sfx: "Efeitos Sonoros", language: "Idioma", apply: "Aplicar",
         beginner_cup: "Beginner Cup", forest_cup: "Forest Cup", master_league: "Master League",
         battle: "Batalha", attack: "Atacar", run: "Fugir", enemy_fainted: "O inimigo desmaiou!", your_fainted: "Seu Pokémon desmaiou!",
+        xp_gain: "{name} ganhou {xp} XP!", level_up: "{name} subiu para o nível {level}!",
+        evolution_start: "O quê? {from} está evoluindo!", evolution_done: "Parabéns! {from} evoluiu para {to}!",
         battle_bag_soon: "Mochila em batalha em breve.", switch_soon: "Troca de Pokémon em breve.",
         return_home: "Voltar para Home", damage: "Dano"
       }
@@ -467,6 +508,16 @@
       ["max_potion", "Max Potion", "Poção Máxima", "potions", 2500, 30, 5, "A premium potion for late-game battles.", "Uma poção premium para batalhas avançadas."],
       ["revive", "Revive", "Reviver", "potions", 1500, 12, 2, "Helps a fainted Pokemon return to battle soon.", "Ajuda um Pokémon nocauteado a voltar à batalha em breve."],
       ["max_revive", "Max Revive", "Reviver Máximo", "potions", 4000, 35, 6, "A rare revive item for advanced trainers.", "Um item raro de reviver para treinadores avançados."],
+      ["hp_boost_potion", "HP Boost Potion", "Poção de HP", "potions", 30000, 8, 1, "Raises a Pokemon's max HP by 5, up to the stat limit.", "Aumenta o HP máximo de um Pokémon em 5, até o limite do atributo.", "stat_boost", 5, "max_hp"],
+      ["attack_boost_potion", "Attack Boost Potion", "Poção de Ataque", "potions", 35000, 10, 2, "Raises a Pokemon's Attack by 5, up to the stat limit.", "Aumenta o Ataque de um Pokémon em 5, até o limite do atributo.", "stat_boost", 5, "attack"],
+      ["defense_boost_potion", "Defense Boost Potion", "Poção de Defesa", "potions", 35000, 10, 2, "Raises a Pokemon's Defense by 5, up to the stat limit.", "Aumenta a Defesa de um Pokémon em 5, até o limite do atributo.", "stat_boost", 5, "defense"],
+      ["sp_attack_boost_potion", "Sp. Attack Boost Potion", "Poção de Ataque Especial", "potions", 45000, 15, 3, "Raises a Pokemon's Sp. Attack by 5, up to the stat limit.", "Aumenta o Ataque Especial de um Pokémon em 5, até o limite do atributo.", "stat_boost", 5, "sp_attack"],
+      ["sp_defense_boost_potion", "Sp. Defense Boost Potion", "Poção de Defesa Especial", "potions", 45000, 15, 3, "Raises a Pokemon's Sp. Defense by 5, up to the stat limit.", "Aumenta a Defesa Especial de um Pokémon em 5, até o limite do atributo.", "stat_boost", 5, "sp_defense"],
+      ["speed_boost_potion", "Speed Boost Potion", "Poção de Velocidade", "potions", 40000, 12, 2, "Raises a Pokemon's Speed by 5, up to the stat limit.", "Aumenta a Velocidade de um Pokémon em 5, até o limite do atributo.", "stat_boost", 5, "speed"],
+      ["energy_snack", "Energy Snack", "Energy Snack", "potions", 5000, 0, 0, "Restores 5 exploration energy.", "Restaura 5 de energia de exploração.", "restore_energy", 5],
+      ["energy_drink", "Energy Drink", "Energy Drink", "potions", 12500, 0, 0, "Restores 10 exploration energy.", "Restaura 10 de energia de exploração.", "restore_energy", 10],
+      ["energy_capsule", "Energy Capsule", "Energy Capsule", "potions", 22500, 0, 0, "Restores 15 exploration energy.", "Restaura 15 de energia de exploração.", "restore_energy", 15],
+      ["energy_crystal", "Energy Crystal", "Energy Crystal", "potions", 50000, 0, 0, "Restores 30 exploration energy.", "Restaura 30 de energia de exploração.", "restore_energy", 30],
       ["fire_stone", "Fire Stone", "Pedra de Fogo", "evolution", 2100, 15, 2, "A stone connected to fiery evolutions.", "Uma pedra ligada a evoluções de fogo."],
       ["water_stone", "Water Stone", "Pedra de Água", "evolution", 2100, 15, 2, "A stone connected to water evolutions.", "Uma pedra ligada a evoluções de água."],
       ["thunder_stone", "Thunder Stone", "Pedra do Trovão", "evolution", 2100, 15, 2, "A stone connected to electric evolutions.", "Uma pedra ligada a evoluções elétricas."],
@@ -477,8 +528,8 @@
       ["old_rod", "Old Rod", "Vara Velha", "key_items", 500, 3, 0, "A simple fishing rod for future fishing spots.", "Uma vara simples para futuros pontos de pescaria."],
       ["good_rod", "Good Rod", "Vara Boa", "key_items", 2500, 15, 2, "A better rod for future fishing features.", "Uma vara melhor para recursos futuros de pescaria."],
       ["super_rod", "Super Rod", "Super Vara", "key_items", 7000, 30, 5, "A high-quality rod for future rare fishing.", "Uma vara de alta qualidade para futuras pescarias raras."]
-    ].map(([id, name_en, name_pt, category, price, min_level, min_badges, description_en, description_pt]) => ({
-      id, name_en, name_pt, category, price, min_level, min_badges, description_en, description_pt
+    ].map(([id, name_en, name_pt, category, price, min_level, min_badges, description_en, description_pt, effect_type = "", effect_value = 0, effect_stat = ""]) => ({
+      id, name_en, name_pt, category, price, min_level, min_badges, description_en, description_pt, effect_type, effect_value, effect_stat
     }));
 	    const maps = [
 	      ["forest", "type_grass", "maps/thumbnails/map_forest_96x64.png", 1, 0],
@@ -493,27 +544,100 @@
       ["dragon", "type_dragon", "maps/thumbnails/map_dragon_valley_96x64.png", 28, 7],
 	      ["safari", "type_mixed", "maps/thumbnails/map_safari_zone_96x64.png", 35, 8]
 	    ];
+	    const starterIds = ["bulbasaur", "charmander", "squirtle"];
+	    const moveDefs = {
+	      "Tackle": { name: "Tackle", power: 40, type: "Normal", category: "Physical", pp: 35 },
+	      "Growl": { name: "Growl", power: 0, type: "Normal", category: "Status", pp: 40 },
+	      "Vine Whip": { name: "Vine Whip", power: 45, type: "Grass", category: "Physical", pp: 25 },
+	      "Leech Seed": { name: "Leech Seed", power: 0, type: "Grass", category: "Status", pp: 10 },
+	      "Scratch": { name: "Scratch", power: 40, type: "Normal", category: "Physical", pp: 35 },
+	      "Ember": { name: "Ember", power: 40, type: "Fire", category: "Special", pp: 25 },
+	      "Smokescreen": { name: "Smokescreen", power: 0, type: "Normal", category: "Status", pp: 20 },
+	      "Tail Whip": { name: "Tail Whip", power: 0, type: "Normal", category: "Status", pp: 30 },
+	      "Water Gun": { name: "Water Gun", power: 40, type: "Water", category: "Special", pp: 25 },
+	      "Bubble": { name: "Bubble", power: 40, type: "Water", category: "Special", pp: 30 }
+	    };
 	    const starterDefs = {
 	      bulbasaur: {
-	        id: "bulbasaur", dex_number: 1, name: "Bulbasaur", level: 5, xp: 0, hp: 45, max_hp: 45,
-	        attack: 49, defense: 49, speed: 45, types: ["Grass", "Poison"], frameCount: 41, backFrameCount: 45,
+	        id: "bulbasaur", dex_number: 1, name: "Bulbasaur", generation: 1, baseLevel: 5,
+	        baseStats: { max_hp: 45, attack: 49, defense: 49, sp_attack: 65, sp_defense: 65, speed: 45 },
+	        ability: "Overgrow", friendship: 70, types: ["Grass", "Poison"], frameCount: 41, backFrameCount: 45,
+	        learnset: { 1: ["Tackle", "Growl"], 7: ["Vine Whip"], 10: ["Leech Seed"] },
+	        evolutions: [{ level: 16, target: "ivysaur" }],
 	        description_en: "A small seed Pokemon that stores energy in the bulb on its back. Its body combines natural endurance with grass attacks.",
-	        description_pt: "Um pequeno Pokémon de semente que guarda energia no bulbo em suas costas. Seu corpo mistura resistência natural e ataques de planta.",
-	        moves: [{ name: "Tackle", power: 40, type: "Normal" }, { name: "Vine Whip", power: 45, type: "Grass" }]
+	        description_pt: "Um pequeno Pokémon de semente que guarda energia no bulbo em suas costas. Seu corpo mistura resistência natural e ataques de planta."
+	      },
+	      ivysaur: {
+	        id: "ivysaur", dex_number: 2, name: "Ivysaur", generation: 1, baseLevel: 16,
+	        baseStats: { max_hp: 60, attack: 62, defense: 63, sp_attack: 80, sp_defense: 80, speed: 60 },
+	        ability: "Overgrow", friendship: 70, types: ["Grass", "Poison"], frameCount: 49, backFrameCount: 53,
+	        learnset: { 1: ["Tackle", "Growl"], 7: ["Vine Whip"], 10: ["Leech Seed"] },
+	        evolutions: [{ level: 32, target: "venusaur" }],
+	        description_en: "The bulb on its back grows heavier as it gathers energy for its final bloom.",
+	        description_pt: "O bulbo em suas costas fica mais pesado enquanto reúne energia para sua flor final."
+	      },
+	      venusaur: {
+	        id: "venusaur", dex_number: 3, name: "Venusaur", generation: 1, baseLevel: 32,
+	        baseStats: { max_hp: 80, attack: 82, defense: 83, sp_attack: 100, sp_defense: 100, speed: 80 },
+	        ability: "Overgrow", friendship: 70, types: ["Grass", "Poison"], frameCount: 59, backFrameCount: 63,
+	        learnset: { 1: ["Tackle", "Growl"], 7: ["Vine Whip"], 10: ["Leech Seed"] },
+	        evolutions: [],
+	        description_en: "A fully grown flower releases a soothing scent and concentrates solar energy.",
+	        description_pt: "Uma flor totalmente crescida libera um aroma suave e concentra energia solar."
 	      },
 	      charmander: {
-	        id: "charmander", dex_number: 4, name: "Charmander", level: 5, xp: 0, hp: 39, max_hp: 39,
-	        attack: 52, defense: 43, speed: 65, types: ["Fire"], frameCount: 69, backFrameCount: 38,
+	        id: "charmander", dex_number: 4, name: "Charmander", generation: 1, baseLevel: 5,
+	        baseStats: { max_hp: 39, attack: 52, defense: 43, sp_attack: 60, sp_defense: 50, speed: 65 },
+	        ability: "Blaze", friendship: 70, types: ["Fire"], frameCount: 69, backFrameCount: 38,
+	        learnset: { 1: ["Scratch", "Growl"], 7: ["Ember"], 10: ["Smokescreen"] },
+	        evolutions: [{ level: 16, target: "charmeleon" }],
 	        description_en: "A fire lizard Pokemon with a burning tail. Its flame represents its vitality and battle spirit.",
-	        description_pt: "Um Pokémon lagarto de fogo com uma chama na cauda. Sua chama representa sua vitalidade e seu espírito de batalha.",
-	        moves: [{ name: "Scratch", power: 40, type: "Normal" }, { name: "Ember", power: 45, type: "Fire" }]
+	        description_pt: "Um Pokémon lagarto de fogo com uma chama na cauda. Sua chama representa sua vitalidade e seu espírito de batalha."
+	      },
+	      charmeleon: {
+	        id: "charmeleon", dex_number: 5, name: "Charmeleon", generation: 1, baseLevel: 16,
+	        baseStats: { max_hp: 58, attack: 64, defense: 58, sp_attack: 80, sp_defense: 65, speed: 80 },
+	        ability: "Blaze", friendship: 70, types: ["Fire"], frameCount: 59, backFrameCount: 63,
+	        learnset: { 1: ["Scratch", "Growl"], 7: ["Ember"], 10: ["Smokescreen"] },
+	        evolutions: [{ level: 36, target: "charizard" }],
+	        description_en: "Its fiery temperament burns brighter as its claws and flame grow stronger.",
+	        description_pt: "Seu temperamento ardente fica mais intenso conforme suas garras e chama crescem."
+	      },
+	      charizard: {
+	        id: "charizard", dex_number: 6, name: "Charizard", generation: 1, baseLevel: 36,
+	        baseStats: { max_hp: 78, attack: 84, defense: 78, sp_attack: 109, sp_defense: 85, speed: 100 },
+	        ability: "Blaze", friendship: 70, types: ["Fire", "Flying"], frameCount: 47, backFrameCount: 51,
+	        learnset: { 1: ["Scratch", "Growl"], 7: ["Ember"], 10: ["Smokescreen"] },
+	        evolutions: [],
+	        description_en: "It flies through the sky while breathing flames hot enough to melt stone.",
+	        description_pt: "Voa pelos céus enquanto solta chamas quentes o bastante para derreter pedra."
 	      },
 	      squirtle: {
-	        id: "squirtle", dex_number: 7, name: "Squirtle", level: 5, xp: 0, hp: 44, max_hp: 44,
-	        attack: 48, defense: 65, speed: 43, types: ["Water"], frameCount: 29, backFrameCount: 33,
+	        id: "squirtle", dex_number: 7, name: "Squirtle", generation: 1, baseLevel: 5,
+	        baseStats: { max_hp: 44, attack: 48, defense: 65, sp_attack: 50, sp_defense: 64, speed: 43 },
+	        ability: "Torrent", friendship: 70, types: ["Water"], frameCount: 29, backFrameCount: 33,
+	        learnset: { 1: ["Tackle", "Tail Whip"], 7: ["Bubble"], 10: ["Water Gun"] },
+	        evolutions: [{ level: 16, target: "wartortle" }],
 	        description_en: "A tiny turtle Pokemon protected by a sturdy shell. It uses water attacks and solid defense to win battles.",
-	        description_pt: "Um pequeno Pokémon tartaruga protegido por um casco resistente. Usa ataques de água e defesa firme para vencer combates.",
-	        moves: [{ name: "Tackle", power: 40, type: "Normal" }, { name: "Water Gun", power: 45, type: "Water" }]
+	        description_pt: "Um pequeno Pokémon tartaruga protegido por um casco resistente. Usa ataques de água e defesa firme para vencer combates."
+	      },
+	      wartortle: {
+	        id: "wartortle", dex_number: 8, name: "Wartortle", generation: 1, baseLevel: 16,
+	        baseStats: { max_hp: 59, attack: 63, defense: 80, sp_attack: 65, sp_defense: 80, speed: 58 },
+	        ability: "Torrent", friendship: 70, types: ["Water"], frameCount: 31, backFrameCount: 35,
+	        learnset: { 1: ["Tackle", "Tail Whip"], 7: ["Bubble"], 10: ["Water Gun"] },
+	        evolutions: [{ level: 36, target: "blastoise" }],
+	        description_en: "Its larger tail and tougher shell help it balance speed with defense.",
+	        description_pt: "Sua cauda maior e casco mais resistente equilibram velocidade e defesa."
+	      },
+	      blastoise: {
+	        id: "blastoise", dex_number: 9, name: "Blastoise", generation: 1, baseLevel: 36,
+	        baseStats: { max_hp: 79, attack: 83, defense: 100, sp_attack: 85, sp_defense: 105, speed: 78 },
+	        ability: "Torrent", friendship: 70, types: ["Water"], frameCount: 79, backFrameCount: 83,
+	        learnset: { 1: ["Tackle", "Tail Whip"], 7: ["Bubble"], 10: ["Water Gun"] },
+	        evolutions: [],
+	        description_en: "Powerful water cannons on its shell fire blasts with tremendous force.",
+	        description_pt: "Canhões de água poderosos em seu casco disparam jatos com força enorme."
 	      }
 	    };
     const avatarPaths = [
@@ -546,6 +670,13 @@
 	    let healingInProgress = false;
 	    let currentMapKey = "forest";
 	    const pokemonFrameCache = new Map();
+	    const statLimits = { max_hp: 999, attack: 255, defense: 255, sp_attack: 255, sp_defense: 255, speed: 255 };
+	    const battleEffectAssets = {
+	      Bug: "bug_slash", Dragon: "dragon_flare", Electric: "electric_spark", Fire: "fire_burst",
+	      Flying: "flying_gust", Ghost: "ghost_wisp", Grass: "grass_leaf", Ground: "ground_dust",
+	      Ice: "ice_shard", Normal: "normal_hit", Poison: "poison_bubble", Rock: "rock_impact",
+	      Steel: "steel_flash", Water: "water_splash"
+	    };
 	    const encounterTables = Object.fromEntries(maps.map(([key]) => [key, [
 	      { rarity: "none", weight: 25 },
 	      { rarity: "common", weight: 50, pokemon: placeholderEncounter(key, "Common", 5) },
@@ -579,7 +710,7 @@
 	      }
 	    }
 	    function placeholderEncounter(mapKey, rarity, level) {
-	      return {
+	      return pokemonModel({
 	        id: `${mapKey}_placeholder`,
 	        name: `${t(mapKey)} ${rarity}`,
 	        level,
@@ -589,28 +720,195 @@
 	        defense: 8 + level,
 	        speed: 8 + level,
 	        icon_path: "sprites/sprite_wurmple_96.png"
+	      });
+	    }
+	    function xpToNextLevel(level) {
+	      const safeLevel = Math.max(1, Math.min(100, Number(level || 1)));
+	      return safeLevel >= 100 ? 0 : safeLevel * 100;
+	    }
+	    function normalizeStatKey(key) {
+	      const safe = String(key || "").toLowerCase();
+	      if (safe === "hp") return "max_hp";
+	      return statLimits[safe] ? safe : "";
+	    }
+	    function normalizeStatBoosts(value = {}) {
+	      return Object.fromEntries(Object.keys(statLimits).map(key => [key, Math.max(0, Number(value[key] || 0))]));
+	    }
+	    function statName(key) {
+	      return t(`stat_${normalizeStatKey(key) || "attack"}`);
+	    }
+	    function movesForLevel(id, level) {
+	      const def = starterDefs[id] || starterDefs.charmander;
+	      const learned = [];
+	      const seen = new Set();
+	      Object.keys(def.learnset || {}).map(Number).sort((a, b) => a - b).forEach(learnLevel => {
+	        if (learnLevel > level) return;
+	        for (const moveName of def.learnset[learnLevel] || []) {
+	          if (seen.has(moveName)) continue;
+	          learned.push({ ...(moveDefs[moveName] || moveDefs.Tackle) });
+	          seen.add(moveName);
+	        }
+	      });
+	      while (learned.length > 4) learned.shift();
+	      return learned.length ? learned : [{ ...moveDefs.Tackle }];
+	    }
+	    function statsForLevel(id, level, boosts = {}) {
+	      const def = starterDefs[id] || starterDefs.charmander;
+	      const base = def.baseStats;
+	      const bonusLevel = Math.max(0, Math.min(100, Number(level || 1)) - 5);
+	      const normalizedBoosts = normalizeStatBoosts(boosts);
+	      const stats = {
+	        max_hp: base.max_hp + bonusLevel * 3,
+	        attack: base.attack + Math.floor(bonusLevel * base.attack / 50),
+	        defense: base.defense + Math.floor(bonusLevel * base.defense / 50),
+	        sp_attack: base.sp_attack + Math.floor(bonusLevel * base.sp_attack / 50),
+	        sp_defense: base.sp_defense + Math.floor(bonusLevel * base.sp_defense / 50),
+	        speed: base.speed + Math.floor(bonusLevel * base.speed / 50)
 	      };
+	      for (const key of Object.keys(statLimits)) stats[key] = Math.min(statLimits[key], stats[key] + normalizedBoosts[key]);
+	      return stats;
+	    }
+	    function applyStatsForLevel(pokemon, oldMaxHp = pokemon.max_hp || 1) {
+	      const stats = statsForLevel(pokemon.id, pokemon.level, pokemon.stat_boosts);
+	      const hpGain = Math.max(0, stats.max_hp - oldMaxHp);
+	      return pokemonModel({
+	        ...pokemon,
+	        ...stats,
+	        hp: Math.max(0, Math.min(stats.max_hp, Number(pokemon.hp ?? stats.max_hp) + hpGain))
+	      });
+	    }
+	    function evolvePokemon(pokemon, targetId) {
+	      const target = starterDefs[targetId];
+	      if (!target) return pokemonModel(pokemon);
+	      const oldMaxHp = Number(pokemon.max_hp || 1);
+	      return applyStatsForLevel({
+	        ...pokemon,
+	        id: target.id,
+	        dex_number: target.dex_number,
+	        species: target.name,
+	        name: pokemon.nickname || target.name,
+	        generation: target.generation,
+	        ability: target.ability,
+	        types: [...target.types],
+	        moves: Array.isArray(pokemon.moves) && pokemon.moves.length ? pokemon.moves : movesForLevel(target.id, pokemon.level)
+	      }, oldMaxHp);
+	    }
+	    function grantXP(pokemon, amount) {
+	      let updated = pokemonModel(pokemon);
+	      const result = { pokemon: updated, xpGained: 0, levelUps: [], evolutions: [] };
+	      if (amount <= 0 || updated.level >= 100) {
+	        updated.xp = updated.level >= 100 ? 0 : updated.xp;
+	        updated.xp_to_next_level = xpToNextLevel(updated.level);
+	        result.pokemon = updated;
+	        return result;
+	      }
+	      result.xpGained = amount;
+	      updated.xp += amount;
+	      while (updated.level < 100 && updated.xp >= xpToNextLevel(updated.level)) {
+	        updated.xp -= xpToNextLevel(updated.level);
+	        const oldMaxHp = updated.max_hp;
+	        updated.level += 1;
+	        updated = applyStatsForLevel(updated, oldMaxHp);
+	        updated.moves = movesForLevel(updated.id, updated.level);
+	        updated.pp_max = updated.moves.map(move => move.pp || 35);
+	        updated.pp_current = [...updated.pp_max];
+	        result.levelUps.push(updated.level);
+	        let target = (starterDefs[updated.id]?.evolutions || []).find(evo => updated.level >= evo.level)?.target || "";
+	        while (target) {
+	          const before = { ...updated };
+	          updated = evolvePokemon(updated, target);
+	          result.evolutions.push({ from: before, to: { ...updated } });
+	          target = (starterDefs[updated.id]?.evolutions || []).find(evo => updated.level >= evo.level)?.target || "";
+	        }
+	      }
+	      if (updated.level >= 100) updated.xp = 0;
+	      updated.xp_to_next_level = xpToNextLevel(updated.level);
+	      result.pokemon = pokemonModel(updated);
+	      return result;
+	    }
+	    function boostPokemonStat(pokemon, statKey, amount = 5) {
+	      const key = normalizeStatKey(statKey);
+	      const updated = pokemonModel(pokemon);
+	      if (!key) return { pokemon: updated, applied: 0, statKey: key };
+	      const current = Number(updated[key] || 0);
+	      const limit = statLimits[key];
+	      const applied = Math.max(0, Math.min(amount, limit - current));
+	      if (applied <= 0) return { pokemon: updated, applied: 0, statKey: key };
+	      updated[key] = current + applied;
+	      if (key === "max_hp") updated.hp = Math.min(updated.max_hp, Number(updated.hp || 0) + applied);
+	      updated.stat_boosts[key] = Number(updated.stat_boosts[key] || 0) + applied;
+	      return { pokemon: pokemonModel(updated), applied, statKey: key };
 	    }
 	    function defaultSave(playerName = "KaiPlayz", avatarId = 1, avatarType = "preset", starterId = "charmander") {
 	      const starter = starterPokemon(starterId);
 	      return {
 	        slot: 1, player_name: playerName, avatar_id: avatarId, avatar_type: avatarType,
 	        avatar_custom_path: avatarType === "custom" ? "user://custom_avatar.png" : "",
-	        money: 3000, level: 0, badges: 0,
+	        money: 3000, level: 1, badges: 0,
 	        energy_current: 30, energy_max: 30, last_energy_reset: todayString(),
 	        starter_generation: 1, starter_id: starter.id, starter_name: starter.name, starter_dex_number: starter.dex_number,
 	        inventory: { ...defaultInventory },
 	        seen_pokemon: Object.keys(starterDefs),
 	        owned_pokemon: [starter.id],
-	        team: [starter]
+	        team: [starter],
+	        storage: [],
+	        active_pokemon_index: 0
 	      };
 	    }
 	    function starterPokemon(id = "charmander") {
 	      const data = starterDefs[id] || starterDefs.charmander;
+	      const level = Math.max(1, Number(data.baseLevel || 5));
+	      const moves = movesForLevel(data.id, level);
+	      const stats = statsForLevel(data.id, level);
+	      return pokemonModel({
+	        id: data.id, dex_number: data.dex_number, species: data.name, name: data.name, generation: data.generation,
+	        level, xp: 0, xp_to_next_level: xpToNextLevel(level), ...stats, hp: stats.max_hp,
+	        types: [...data.types], moves, pp_max: moves.map(move => move.pp || 35), pp_current: moves.map(move => move.pp || 35),
+	        ability: data.ability, friendship: data.friendship,
+	        starter: true
+	      });
+	    }
+	    function pokemonModel(data = {}) {
+	      const def = starterDefs[data.id || ""];
+	      const species = data.species || data.name || def?.name || "Pokemon";
+	      const level = Math.max(1, Math.min(100, Number(data.level || def?.baseLevel || 1)));
+	      const moves = Array.isArray(data.moves) && data.moves.length ? data.moves : (def ? movesForLevel(def.id, level) : []);
+	      const ppMax = Array.isArray(data.pp_max) && data.pp_max.length ? data.pp_max : moves.map(move => Number(move.pp || (Number(move.power || 40) >= 45 ? 25 : 35)));
+	      const ppCurrent = Array.isArray(data.pp_current) && data.pp_current.length ? data.pp_current : [...ppMax];
+	      const statBoosts = normalizeStatBoosts(data.stat_boosts || {});
+	      const fallbackStats = def ? statsForLevel(def.id, level, statBoosts) : {};
 	      return {
-	        id: data.id, dex_number: data.dex_number, name: data.name, level: 5, xp: 0,
-	        hp: data.max_hp, max_hp: data.max_hp, attack: data.attack, defense: data.defense,
-	        speed: data.speed, types: [...data.types], starter: true
+	        id: data.id || def?.id || "pokemon",
+	        dex_number: Number(data.dex_number || def?.dex_number || 0),
+	        species,
+	        nickname: data.nickname || "",
+	        name: data.name || data.nickname || species,
+	        generation: Number(data.generation || def?.generation || 1),
+	        level,
+	        xp: level >= 100 ? 0 : Math.max(0, Number(data.xp || 0)),
+	        xp_to_next_level: xpToNextLevel(level),
+	        nature: data.nature || "Hardy",
+	        ability: data.ability || def?.ability || "Unknown",
+	        gender: data.gender || "Unknown",
+	        shiny: Boolean(data.shiny),
+	        types: Array.isArray(data.types) && data.types.length ? [...data.types] : (def ? [...def.types] : ["Normal"]),
+	        hp: Math.max(0, Number(data.hp ?? data.max_hp ?? fallbackStats.max_hp ?? 1)),
+	        max_hp: Math.max(1, Number(data.max_hp ?? data.hp ?? fallbackStats.max_hp ?? 1)),
+	        attack: Math.max(1, Number(data.attack || fallbackStats.attack || 1)),
+	        defense: Math.max(1, Number(data.defense || fallbackStats.defense || 1)),
+	        sp_attack: Math.max(1, Number(data.sp_attack || fallbackStats.sp_attack || data.attack || 1)),
+	        sp_defense: Math.max(1, Number(data.sp_defense || fallbackStats.sp_defense || data.defense || 1)),
+	        speed: Math.max(1, Number(data.speed || fallbackStats.speed || 1)),
+	        status_condition: data.status_condition || null,
+	        held_item: data.held_item || null,
+	        moves,
+	        pp_current: ppCurrent,
+	        pp_max: ppMax,
+	        friendship: Math.max(0, Math.min(255, Number(data.friendship ?? def?.friendship ?? 70))),
+	        capture_date: data.capture_date || "",
+	        stat_boosts: statBoosts,
+	        starter: Boolean(data.starter),
+	        icon_path: data.icon_path || (def ? `pokemon/icons/${def.id}.png` : "")
 	      };
 	    }
 	    function ensureSave() {
@@ -618,7 +916,7 @@
       save.inventory ||= {};
       if (Object.keys(save.inventory).length === 0) save.inventory = { ...defaultInventory };
       save.money ??= 3000;
-      save.level ??= 0;
+      save.level = Math.max(1, Number(save.level || 1));
       save.badges ??= 0;
 	      normalizeEnergy();
 	      save.starter_id ||= Object.keys(starterDefs).find(id => starterDefs[id].name === save.starter_name) || "charmander";
@@ -626,7 +924,9 @@
 	      save.starter_name ||= starter.name;
 	      save.starter_dex_number ||= starter.dex_number;
 	      if (!Array.isArray(save.team) || save.team.length === 0) save.team = [starter];
-	      save.team = save.team.slice(0, 5).map(pokemon => ({ ...starterPokemon(pokemon.id || save.starter_id), ...pokemon }));
+	      save.team = save.team.slice(0, 5).map(pokemon => pokemonModel({ ...starterPokemon(pokemon.id || save.starter_id), ...pokemon }));
+	      save.storage = Array.isArray(save.storage) ? save.storage.map(pokemon => pokemonModel(pokemon)).slice(0, 500) : [];
+	      save.active_pokemon_index = Math.max(0, Math.min(save.team.length - 1, Number(save.active_pokemon_index || 0)));
 	      save.seen_pokemon = Array.isArray(save.seen_pokemon) ? [...new Set([...save.seen_pokemon, ...Object.keys(starterDefs)])] : Object.keys(starterDefs);
 	      save.owned_pokemon = Array.isArray(save.owned_pokemon) ? save.owned_pokemon : [save.starter_id];
 	      for (const pokemon of save.team) if (!save.owned_pokemon.includes(pokemon.id)) save.owned_pokemon.push(pokemon.id);
@@ -635,20 +935,47 @@
 	    }
     function persist() {
       if (save) {
+        save = normalizeSaveData(save);
         localStorage.setItem("pokerpg_current_save", JSON.stringify(save));
-        localStorage.setItem("pokerpg_save", JSON.stringify(save));
+        localStorage.setItem(saveKey(Number(save.slot || 1)), JSON.stringify(save));
       }
       localStorage.setItem("pokerpg_settings", JSON.stringify(settings));
     }
     function saveKey(slot) { return `pokerpg_save_${slot}`; }
+    function normalizeSaveData(data) {
+      if (!data) return null;
+      const next = { ...data };
+      next.slot = Number(next.slot || 1);
+      next.money = Number(next.money ?? 3000);
+      next.level = Math.max(1, Number(next.level || 1));
+      next.badges = Number(next.badges || 0);
+      next.energy_max = Math.max(1, Number(next.energy_max || 30));
+      next.energy_current = Math.max(0, Math.min(next.energy_max, Number(next.energy_current ?? next.energy_max)));
+      const today = todayString();
+      if (next.last_energy_reset !== today) {
+        next.energy_current = next.energy_max;
+        next.last_energy_reset = today;
+      }
+      if (Array.isArray(next.team)) next.team = next.team.map(pokemon => pokemonModel(pokemon)).slice(0, 5);
+      return next;
+    }
     function getSaveSlot(slot) {
       const stored = localStorage.getItem(saveKey(slot));
-      if (stored) return JSON.parse(stored);
-      if (slot === 1 && localStorage.getItem("pokerpg_save")) return JSON.parse(localStorage.getItem("pokerpg_save"));
+      if (stored) {
+        const data = normalizeSaveData(JSON.parse(stored));
+        localStorage.setItem(saveKey(slot), JSON.stringify({ ...data, slot }));
+        return { ...data, slot };
+      }
+      if (slot === 1 && localStorage.getItem("pokerpg_save")) {
+        const data = normalizeSaveData(JSON.parse(localStorage.getItem("pokerpg_save")));
+        localStorage.setItem(saveKey(1), JSON.stringify({ ...data, slot: 1 }));
+        localStorage.removeItem("pokerpg_save");
+        return { ...data, slot: 1 };
+      }
       return null;
     }
     function writeSaveSlot(slot, data) {
-      const nextSave = { ...data, slot };
+      const nextSave = normalizeSaveData({ ...data, slot });
       localStorage.setItem(saveKey(slot), JSON.stringify(nextSave));
       save = nextSave;
       persist();
@@ -659,7 +986,8 @@
       return `${t("money")}: $${save.money}  |  ${t("level")} ${save.level}  |  ${t("badges", { n: save.badges })}  |  ${t("energy")} ${save.energy_current}/${save.energy_max}`;
     }
     function orange(text, left, top, width, height, action, extra = "") {
-      return `<button class="orange ${extra}" style="left:${left}px;top:${top}px;width:${width}px;height:${height}px" onclick="${action}">${text}</button>`;
+      const disabled = String(extra).includes("disabled") ? "disabled" : "";
+      return `<button class="orange ${extra}" ${disabled} style="left:${left}px;top:${top}px;width:${width}px;height:${height}px" onclick="${action}">${text}</button>`;
     }
     function topbar() {
       return `
@@ -678,7 +1006,8 @@
     }
     function itemIcon(item, left = 10, top = 8, size = 36) {
       const letter = itemName(item).charAt(0) || "?";
-      return `<img src="${A}items/${item.category}/${item.id}.png" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'" style="position:absolute;left:${left}px;top:${top}px;width:${size}px;height:${size}px;object-fit:contain" alt=""><div class="placeholder" style="display:none;left:${left}px;top:${top}px;width:${size}px;height:${size}px">${letter}</div>`;
+      const src = item.effect_type === "restore_energy" ? `${A}ui/energy/${item.id}.png` : `${A}items/${item.category}/${item.id}.png`;
+      return `<img src="${src}" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'" style="position:absolute;left:${left}px;top:${top}px;width:${size}px;height:${size}px;object-fit:contain" alt=""><div class="placeholder" style="display:none;left:${left}px;top:${top}px;width:${size}px;height:${size}px">${letter}</div>`;
     }
     function avatarPath(dataOrId) {
       if (typeof dataOrId === "object" && dataOrId?.avatar_type === "custom") return "avatars/avatar_card_custom_image.png";
@@ -730,18 +1059,27 @@
 	      let roll = Math.random() * total;
 	      for (const row of table) {
 	        roll -= row.weight;
-	        if (roll <= 0) return row.rarity === "none" ? null : { ...row.pokemon };
+	        if (roll <= 0) return row.rarity === "none" ? null : pokemonModel({ ...row.pokemon });
 	      }
 	      return null;
 	    }
 	    function pokemonTypes(pokemon) {
 	      return (pokemon.types || ["Fire"]).map(type => t(`type_${String(type).toLowerCase()}`)).join(", ");
 	    }
-	    function pokemonSprite(pokemon, left, top, size = 64, back = false) {
+	    function pokemonSprite(pokemon, left, top, size = 64, back = false, extraClass = "") {
 	      const data = starterDefs[pokemon.id] || starterDefs.charmander;
 	      const dir = back ? "back" : "front";
 	      const frameCount = back ? (data.backFrameCount || data.frameCount || 1) : (data.frameCount || 1);
-	      return `<img class="pokemon-anim" data-path="${A}pokemon/battle/animated/gen_1/${dir}/${data.id}/" data-count="${frameCount}" data-fps="30" src="${A}pokemon/battle/animated/gen_1/${dir}/${data.id}/000.png" onerror="this.src='${A}pokemon/icons/${data.id}.png'" style="position:absolute;left:${left}px;top:${top}px;width:${size}px;height:${size}px;object-fit:contain" alt="">`;
+	      return `<img class="pokemon-anim ${extraClass}" data-path="${A}pokemon/battle/animated/gen_1/${dir}/${data.id}/" data-count="${frameCount}" data-fps="30" src="${A}pokemon/battle/animated/gen_1/${dir}/${data.id}/000.png" onerror="this.src='${A}pokemon/icons/${data.id}.png'" style="position:absolute;left:${left}px;top:${top}px;width:${size}px;height:${size}px;object-fit:contain" alt="">`;
+	    }
+	    function battlePokemonSprite(pokemon, left, top, size = 64, back = false, hit = false) {
+	      const hitClass = hit ? "pokemon-hit" : "";
+	      if (starterDefs[pokemon.id]) return pokemonSprite(pokemon, left, top, size, back, hitClass);
+	      return `<img class="pokemon-static ${hitClass}" src="${A}${pokemon.icon_path || "sprites/sprite_wurmple_96.png"}" style="position:absolute;left:${left}px;top:${top}px;width:${size}px;height:${size}px;object-fit:contain" alt="">`;
+	    }
+	    function battleMoveEffect(type, left, top) {
+	      const key = battleEffectAssets[String(type || "Normal")] || battleEffectAssets.Normal;
+	      return `<img class="move-effect" src="${A}battle/effects/${key}.png" style="left:${left}px;top:${top}px" alt="">`;
 	    }
 	    function startAnimations() {
 	      stopAnimations();
@@ -837,7 +1175,7 @@
             <p class="label" style="left:0;top:466px;width:296px;color:#0c1d31;text-shadow:none;font-size:16px">${t("choose_generation")}</p>
             ${[1,2,3,4,5,6,7,8].map((id, i) => `<button class="tab ${id === 1 ? "active" : ""}" style="left:${(i % 4) * 74}px;top:${502 + Math.floor(i / 4) * 42}px;width:68px" onclick="${id === 1 ? "" : "message('Gen " + id + "', t('coming_soon'))"}">Gen ${id}</button>`).join("")}
             <p class="label" style="left:0;top:600px;width:296px;color:#0c1d31;text-shadow:none;font-size:16px">${t("choose_starter")}</p>
-	            ${Object.values(starterDefs).map((starter, i) => `<button id="starter_${starter.id}" class="tab ${starter.id === "charmander" ? "active" : ""}" style="left:${i * 102}px;top:636px;width:92px;height:42px" onclick="selectStarter('${starter.id}')">${starter.name}</button>`).join("")}
+	            ${starterIds.map((id, i) => starterDefs[id]).map((starter, i) => `<button id="starter_${starter.id}" class="tab ${starter.id === "charmander" ? "active" : ""}" style="left:${i * 102}px;top:636px;width:92px;height:42px" onclick="selectStarter('${starter.id}')">${starter.name}</button>`).join("")}
           </div>
         </div>
         ${orange(t("cancel"), 36, 546, 140, 44, "closeOverlay()", "small")}
@@ -874,18 +1212,25 @@
     function loadSlot(slot) {
       const data = getSaveSlot(slot);
       if (!data) { message(t("load_game"), t("empty_save_slot")); return; }
-      save = data;
+      save = normalizeSaveData({ ...data, slot });
       persist();
       showHome();
     }
     function deleteSlot(slot) {
       localStorage.removeItem(saveKey(slot));
+      localStorage.removeItem("pokerpg_save");
+      const currentSlot = Number(save?.slot || 1);
+      if (currentSlot === Number(slot)) {
+        save = null;
+        localStorage.removeItem("pokerpg_current_save");
+      }
       showMainMenu();
       showLoadGamePopup();
     }
     function showHome() {
       ensureSave();
       stopAnimations();
+      battle = null;
       currentBase = "home";
       phone.innerHTML = `
         <section class="screen">
@@ -907,10 +1252,12 @@
     }
     function closeOverlay() {
       if (currentBase === "main") showMainMenu();
+      else if (currentBase === "battle" && battle) renderBattle(battle.lastMessage || "");
       else showHome();
     }
     function redrawBase() {
       if (currentBase === "main") showMainMenu();
+      else if (currentBase === "battle" && battle) renderBattle(battle.lastMessage || "");
       else showHome();
     }
     function showProfile() {
@@ -927,7 +1274,8 @@
     }
 	    function showMyPokemon() {
 	      ensureSave();
-	      const pokemon = save.team[0] || starterPokemon(save.starter_id);
+	      const activeIndex = Math.max(0, Math.min(save.team.length - 1, Number(save.active_pokemon_index || 0)));
+	      const pokemon = save.team[activeIndex] || starterPokemon(save.starter_id);
 	      showHome();
 	      phone.innerHTML += overlay(t("my_pokemon"), 72, 480) + `
 	        ${pokemonCard(pokemon, 42, 150, 276, 148, true)}
@@ -1037,6 +1385,7 @@
     }
     function showForestMap(key = "forest") {
       ensureSave();
+      battle = null;
       currentMapKey = key;
       save.current_map = key;
       persist();
@@ -1045,8 +1394,6 @@
       phone.innerHTML = `
         <section class="screen">
           ${topbar()}
-          <p class="label" style="left:60px;top:7px;width:240px;height:32px;font-size:20px;overflow:hidden">${t(key)}</p>
-          <p class="label" style="left:20px;top:54px;width:320px;height:30px;font-size:22px;overflow:hidden">${t(key)}</p>
           <img src="${A}${map[2]}" style="position:absolute;left:142px;top:88px;width:76px;height:58px;object-fit:contain" alt="">
           <p id="mapRequirement" class="label" style="left:28px;top:154px;width:304px;height:32px;font-size:14px;overflow:hidden">${mapRequirement(map)}</p>
           <p id="mapEnergy" class="label" style="left:28px;top:190px;width:304px;height:28px;font-size:15px;overflow:hidden">${t("energy")} ${save.energy_current}/${save.energy_max}</p>
@@ -1093,19 +1440,23 @@
 	    }
 	    function showBattle() {
 	      ensureSave();
-	      const player = { ...(save.team[0] || starterPokemon(save.starter_id)) };
-	      const data = starterDefs[player.id] || starterDefs.charmander;
+	      const activeIndex = Math.max(0, Math.min(save.team.length - 1, Number(save.active_pokemon_index || 0)));
+	      const player = { ...(save.team[activeIndex] || starterPokemon(save.starter_id)) };
 	      const enemy = save.pending_encounter || { id: "wurmple", name: "Wurmple", level: 3, hp: 25, max_hp: 25, attack: 8, defense: 5, speed: 30, icon_path: "sprites/sprite_wurmple_96.png" };
 	      battle = {
-	        player,
-	        enemy,
-	        moves: data.moves,
+	        player: pokemonModel(player),
+	        enemy: pokemonModel(enemy),
+	        moves: Array.isArray(player.moves) && player.moves.length ? player.moves : movesForLevel(player.id, player.level || 1),
+	        teamIndex: activeIndex,
 	        movesOpen: false,
 	        over: false
 	      };
+	      currentBase = "battle";
 	      renderBattle(`Wild ${enemy.name} appeared!<br>Go! ${player.name}!<br>What will ${player.name} do?`);
 	    }
 	    function renderBattle(messageText) {
+	      currentBase = "battle";
+	      battle.lastMessage = messageText;
 	      const player = battle.player;
 	      const enemy = battle.enemy;
 	      phone.innerHTML = `
@@ -1115,8 +1466,10 @@
 	          <p class="label" style="left:18px;top:62px;width:180px;text-align:left;font-size:16px">${enemy.name} ${t("level")} ${enemy.level}</p>
 	          <div style="position:absolute;left:18px;top:92px;width:146px;height:12px;background:#050505;border-radius:3px"><div style="margin:2px;width:${Math.max(0, enemy.hp / enemy.max_hp * 142)}px;height:8px;background:#3bd83b"></div></div>
 	          <p class="label" style="left:18px;top:108px;width:146px;text-align:left;font-size:13px">${t("hp")} ${enemy.hp}/${enemy.max_hp}</p>
-	          <img src="${A}${enemy.icon_path || "sprites/sprite_wurmple_96.png"}" style="position:absolute;left:226px;top:70px;width:96px;height:96px;object-fit:contain" alt="">
-	          ${pokemonSprite(player, 36, 266, 112, true)}
+	          ${battlePokemonSprite(enemy, 226, 70, 96, false, battle.enemyHit)}
+	          ${battle.enemyEffect ? battleMoveEffect(battle.enemyEffect, 226, 70) : ""}
+	          ${battlePokemonSprite(player, 36, 266, 112, true, battle.playerHit)}
+	          ${battle.playerEffect ? battleMoveEffect(battle.playerEffect, 44, 270) : ""}
 	          <p class="label" style="left:166px;top:278px;width:178px;text-align:right;font-size:16px">${player.name} ${t("level")} ${player.level}</p>
 	          <div style="position:absolute;left:198px;top:310px;width:146px;height:12px;background:#050505;border-radius:3px"><div style="margin:2px;width:${Math.max(0, player.hp / player.max_hp * 142)}px;height:8px;background:#3bd83b"></div></div>
 	          <p class="label" style="left:198px;top:326px;width:146px;text-align:right;font-size:13px">${t("hp")} ${player.hp}/${player.max_hp}</p>
@@ -1139,27 +1492,31 @@
 	      const move = battle.moves[index];
 	      const damage = Math.max(1, Math.floor((battle.player.attack + move.power) / 4) - Math.floor(battle.enemy.defense / 6) + Math.floor(Math.random() * 5) - 2);
 	      battle.enemy.hp = Math.max(0, battle.enemy.hp - damage);
+	      battle.enemyHit = true;
+	      battle.enemyEffect = move.type || "Normal";
 	      let lines = [`${battle.player.name} used ${move.name}!`, `${t("damage")}: ${damage}`];
 	      if (battle.enemy.hp <= 0) {
-	        battle.player.xp = (battle.player.xp || 0) + 25;
-	        if (battle.player.xp >= 100) {
-	          battle.player.xp -= 100;
-	          battle.player.level += 1;
-	          battle.player.max_hp += 3;
-	          battle.player.hp = battle.player.max_hp;
-	          battle.player.attack += 1;
-	          battle.player.defense += 1;
-	          battle.player.speed += 1;
-	        }
-	        save.team[0] = battle.player;
+	        const xpResult = grantXP(battle.player, 25);
+	        battle.player = xpResult.pokemon;
+	        battle.moves = Array.isArray(battle.player.moves) && battle.player.moves.length ? battle.player.moves : movesForLevel(battle.player.id, battle.player.level);
+	        save.team[battle.teamIndex || 0] = battle.player;
 	        persist();
 	        battle.over = true;
-	        renderBattle([...lines, t("enemy_fainted"), `${battle.player.name} +25 XP`].join("<br>"));
+	        const xpLines = [t("enemy_fainted"), t("xp_gain", { name: battle.player.name, xp: xpResult.xpGained })];
+	        for (const level of xpResult.levelUps) xpLines.push(t("level_up", { name: battle.player.name, level }));
+	        for (const evo of xpResult.evolutions) {
+	          xpLines.push(t("evolution_start", { from: evo.from.species || evo.from.name }));
+	          xpLines.push(t("evolution_done", { from: evo.from.species || evo.from.name, to: evo.to.species || evo.to.name }));
+	        }
+	        renderBattle([...lines, ...xpLines].join("<br>"));
+	        clearBattleEffectsSoon();
 	        return;
 	      }
 	      const enemyDamage = Math.max(1, Math.floor((battle.enemy.attack + 35) / 4) - Math.floor(battle.player.defense / 6) + Math.floor(Math.random() * 5) - 2);
 	      battle.player.hp = Math.max(0, battle.player.hp - enemyDamage);
-	      save.team[0] = battle.player;
+	      battle.playerHit = true;
+	      battle.playerEffect = "Normal";
+	      save.team[battle.teamIndex || 0] = battle.player;
 	      persist();
 	      lines.push(`${battle.enemy.name} used Tackle!`, `${t("damage")}: ${enemyDamage}`);
 	      if (battle.player.hp <= 0) {
@@ -1168,12 +1525,32 @@
 	      }
 	      battle.movesOpen = false;
 	      renderBattle(lines.join("<br>"));
+	      clearBattleEffectsSoon();
+	    }
+	    function clearBattleEffectsSoon() {
+	      if (!battle) return;
+	      const token = Date.now();
+	      battle.effectToken = token;
+	      setTimeout(() => {
+	        if (!battle || battle.effectToken !== token) return;
+	        battle.enemyHit = false;
+	        battle.enemyEffect = "";
+	        battle.playerHit = false;
+	        battle.playerEffect = "";
+	        if (currentBase === "battle") renderBattle(battle.lastMessage || "");
+	      }, 440);
 	    }
     function showBag() {
       ensureSave();
+      if (currentBase === "battle") {
+        message(t("bag"), t("battle_bag_soon"));
+        return;
+      }
       const list = items.filter(item => item.category === bagCategory);
       const selected = items.find(item => item.id === selectedItemId);
       const desc = selected ? `${itemName(selected)}<br>${t("qty")}: ${save.inventory[selected.id] || 0}<br>${itemDesc(selected)}<br>${t("items_use_hint")}` : `${t("select_item")}<br>${t("items_use_hint")}`;
+      const selectedUsable = selected?.effect_type === "restore_energy" || selected?.effect_type === "stat_boost";
+      const actionLabel = selectedUsable ? t("use") : t("details");
       phone.innerHTML = phone.innerHTML + overlay(t("bag"), 42, 560) + `
         ${categoryTabs("bag")}
         <div class="scroll" style="left:28px;top:146px;width:304px;height:250px">
@@ -1188,7 +1565,7 @@
           }).join("")}
         </div>
         <div class="desc">${desc}</div>
-        ${orange(t("details"), 110, 512, 140, 44, "useBagItem()", "small")}
+        ${orange(actionLabel, 110, 512, 140, 44, "useBagItem()", selectedUsable && !(save.inventory[selected.id] || 0) ? "small disabled" : "small")}
       </div>`;
     }
     function categoryTabs(kind) {
@@ -1217,7 +1594,73 @@
     function useBagItem() {
       const item = items.find(data => data.id === selectedItemId);
       if (!item) return;
+      if (item.effect_type === "restore_energy") {
+        useEnergyItem(item);
+        return;
+      }
+      if (item.effect_type === "stat_boost") {
+        showStatBoostTargets(item);
+        return;
+      }
       message(itemName(item), `${t("qty")}: ${save.inventory[item.id] || 0}<br>${itemDesc(item)}<br>${t("items_use_hint")}`);
+    }
+    function useEnergyItem(item) {
+      ensureSave();
+      const amount = Number(save.inventory[item.id] || 0);
+      if (amount <= 0) return;
+      if (save.energy_current >= save.energy_max) {
+        message(itemName(item), t("energy_full"));
+        return;
+      }
+      const restored = Math.min(Number(item.effect_value || 0), save.energy_max - save.energy_current);
+      if (restored <= 0) {
+        message(itemName(item), t("energy_full"));
+        return;
+      }
+      save.energy_current += restored;
+      save.inventory[item.id] = amount - 1;
+      persist();
+      showHome();
+      showBag();
+      message(itemName(item), t("energy_restored", { n: restored }));
+    }
+    function showStatBoostTargets(item) {
+      ensureSave();
+      if ((save.inventory[item.id] || 0) <= 0) return;
+      const statKey = normalizeStatKey(item.effect_stat);
+      phone.innerHTML = phone.innerHTML + overlay(t("choose_pokemon"), 92, 420) + `
+        <p class="label" style="left:42px;top:154px;width:276px;height:44px;color:#0c1d31;text-shadow:none;font-size:13px">${itemName(item)}<br>${statName(statKey)} +${item.effect_value || 5}</p>
+        <div class="scroll" style="left:42px;top:214px;width:276px;height:278px">
+          ${save.team.map((pokemon, index) => {
+            const value = Number(pokemon[statKey] || 0);
+            return `<div class="row" style="width:276px;height:48px;min-height:48px">
+              ${battlePokemonSprite(pokemon, 8, 3, 42)}
+              <span class="row-title" style="left:56px;width:110px;top:5px">${pokemon.name}</span>
+              <span class="row-sub" style="left:56px;width:120px;top:25px">${statName(statKey)}: ${value}/${statLimits[statKey]}</span>
+              <button class="buy" style="right:16px;top:9px;width:62px;height:30px" onclick="useStatBoostItem('${item.id}', ${index})">${t("use")}</button>
+            </div>`;
+          }).join("")}
+        </div>
+      </div>`;
+      startAnimations();
+    }
+    function useStatBoostItem(itemId, teamIndex) {
+      ensureSave();
+      const item = items.find(data => data.id === itemId);
+      if (!item || (save.inventory[item.id] || 0) <= 0) return;
+      const target = save.team[teamIndex];
+      if (!target) return;
+      const result = boostPokemonStat(target, item.effect_stat, Number(item.effect_value || 5));
+      if (result.applied <= 0) {
+        message(itemName(item), t("stat_at_cap", { name: target.name, stat: statName(item.effect_stat) }));
+        return;
+      }
+      save.team[teamIndex] = result.pokemon;
+      save.inventory[item.id] = Math.max(0, Number(save.inventory[item.id] || 0) - 1);
+      persist();
+      showHome();
+      showBag();
+      message(itemName(item), t("stat_boosted", { name: result.pokemon.name, amount: result.applied, stat: statName(item.effect_stat) }));
     }
     function showShop(notice = "") {
       ensureSave();
@@ -1328,13 +1771,13 @@
     function debugLevel() {
       ensureSave();
       save.level += 1;
-      save.team = save.team.map(pokemon => ({ ...pokemon, level: (pokemon.level || 5) + 1 }));
+      save.team = save.team.map(pokemon => applyStatsForLevel({ ...pokemon, level: Math.min(100, Number(pokemon.level || 1) + 1) }, pokemon.max_hp || 1));
       saveDebug();
     }
     function debugXP() {
       ensureSave();
       save.xp = (save.xp || 0) + 100;
-      save.team = save.team.map(pokemon => ({ ...pokemon, xp: (pokemon.xp || 0) + 100 }));
+      save.team = save.team.map(pokemon => grantXP(pokemon, 100).pokemon);
       saveDebug();
     }
     function debugBadge() { ensureSave(); save.badges = Math.min(8, save.badges + 1); saveDebug(); }
@@ -1395,6 +1838,7 @@
     window.selectBagItem = selectBagItem;
     window.setLanguage = setLanguage;
     window.useBagItem = useBagItem;
+    window.useStatBoostItem = useStatBoostItem;
     window.buyItem = buyItem;
     window.settings = settings;
     window.previewAvatar = 1;

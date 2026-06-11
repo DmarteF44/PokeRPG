@@ -16,6 +16,8 @@ const DEFAULT_INVENTORY = {
 	"town_map": 1,
 }
 const DEFAULT_ENERGY_MAX = 30
+const MAX_TEAM_SIZE = 5
+const MAX_STORAGE_SIZE = 500
 
 var _settings: Dictionary = DEFAULT_SETTINGS.duplicate(true)
 var _current_save: Dictionary = {}
@@ -78,12 +80,14 @@ func create_save(slot: int, data: Dictionary) -> Dictionary:
 		"starter_dex_number": int(data.get("starter_dex_number", starter_definition.get("dex_number", 4))),
 		"money": int(data.get("money", 3000)),
 		"badges": int(data.get("badges", 0)),
-		"level": int(data.get("level", 0)),
+		"level": max(1, int(data.get("level", 1))),
 		"energy_current": int(data.get("energy_current", DEFAULT_ENERGY_MAX)),
 		"energy_max": int(data.get("energy_max", DEFAULT_ENERGY_MAX)),
 		"last_energy_reset": str(data.get("last_energy_reset", _today_string())),
 		"inventory": _normalized_inventory(data.get("inventory", DEFAULT_INVENTORY)),
 		"team": _normalized_team(data.get("team", []), starter_id),
+		"storage": _normalized_storage(data.get("storage", [])),
+		"active_pokemon_index": int(data.get("active_pokemon_index", 0)),
 		"seen_pokemon": _normalized_seen_pokemon(data.get("seen_pokemon", [])),
 		"owned_pokemon": _normalized_owned_pokemon(data.get("owned_pokemon", []), data.get("team", []), starter_id),
 		"current_scene": str(data.get("current_scene", "HomeScreen")),
@@ -209,10 +213,12 @@ func _normalized_save(save_data: Dictionary) -> Dictionary:
 	normalized["starter_dex_number"] = int(normalized.get("starter_dex_number", starter_definition.get("dex_number", 4)))
 	normalized["money"] = int(normalized.get("money", 3000))
 	normalized["badges"] = int(normalized.get("badges", 0))
-	normalized["level"] = int(normalized.get("level", 0))
+	normalized["level"] = max(1, int(normalized.get("level", 1)))
 	_apply_daily_energy_reset(normalized)
 	normalized["inventory"] = _normalized_inventory(normalized.get("inventory", DEFAULT_INVENTORY))
 	normalized["team"] = _normalized_team(normalized.get("team", []), starter_id)
+	normalized["storage"] = _normalized_storage(normalized.get("storage", []))
+	normalized["active_pokemon_index"] = clampi(int(normalized.get("active_pokemon_index", 0)), 0, maxi(0, normalized["team"].size() - 1))
 	normalized["seen_pokemon"] = _normalized_seen_pokemon(normalized.get("seen_pokemon", []))
 	normalized["owned_pokemon"] = _normalized_owned_pokemon(normalized.get("owned_pokemon", []), normalized["team"], starter_id)
 	normalized["current_scene"] = str(normalized.get("current_scene", "HomeScreen"))
@@ -287,7 +293,7 @@ func _normalized_team(value, starter_id: String = PokemonHelpers.DEFAULT_STARTER
 		for entry in value:
 			if typeof(entry) == TYPE_DICTIONARY:
 				team.append(PokemonHelpers.normalize_pokemon(entry, starter_id))
-				if team.size() >= 5:
+				if team.size() >= MAX_TEAM_SIZE:
 					break
 
 	if team.is_empty():
@@ -296,12 +302,23 @@ func _normalized_team(value, starter_id: String = PokemonHelpers.DEFAULT_STARTER
 	return team
 
 
+func _normalized_storage(value) -> Array:
+	var storage := []
+	if typeof(value) == TYPE_ARRAY:
+		for entry in value:
+			if typeof(entry) == TYPE_DICTIONARY:
+				storage.append(PokemonHelpers.normalize_pokemon(entry, str(entry.get("id", PokemonHelpers.DEFAULT_STARTER_ID))))
+				if storage.size() >= MAX_STORAGE_SIZE:
+					break
+	return storage
+
+
 func _normalized_seen_pokemon(value) -> Array:
 	var seen := []
 	if typeof(value) == TYPE_ARRAY:
 		for entry in value:
 			var pokemon_id := str(entry)
-			if PokemonHelpers.is_starter_id(pokemon_id) and not seen.has(pokemon_id):
+			if PokemonHelpers.has_definition(pokemon_id) and not seen.has(pokemon_id):
 				seen.append(pokemon_id)
 
 	for pokemon_id in PokemonHelpers.starter_ids():
@@ -315,14 +332,14 @@ func _normalized_owned_pokemon(value, team_value, starter_id: String) -> Array:
 	if typeof(value) == TYPE_ARRAY:
 		for entry in value:
 			var pokemon_id := str(entry)
-			if PokemonHelpers.is_starter_id(pokemon_id) and not owned.has(pokemon_id):
+			if PokemonHelpers.has_definition(pokemon_id) and not owned.has(pokemon_id):
 				owned.append(pokemon_id)
 
 	if typeof(team_value) == TYPE_ARRAY:
 		for entry in team_value:
 			if typeof(entry) == TYPE_DICTIONARY:
 				var team_id := str(entry.get("id", ""))
-				if PokemonHelpers.is_starter_id(team_id) and not owned.has(team_id):
+				if PokemonHelpers.has_definition(team_id) and not owned.has(team_id):
 					owned.append(team_id)
 
 	if owned.is_empty() and PokemonHelpers.is_starter_id(starter_id):

@@ -140,7 +140,7 @@ static func map_for_key(map_key: String) -> Dictionary:
 
 
 static func meets_requirements(save_data: Dictionary, map_data: Dictionary) -> bool:
-	return int(save_data.get("level", 0)) >= int(map_data.get("min_level", 1)) and int(save_data.get("badges", 0)) >= int(map_data.get("min_badges", 0))
+	return max(1, int(save_data.get("level", 1))) >= int(map_data.get("min_level", 1)) and int(save_data.get("badges", 0)) >= int(map_data.get("min_badges", 0))
 
 
 static func roll_encounter(map_key: String) -> Dictionary:
@@ -161,7 +161,7 @@ static func roll_encounter(map_key: String) -> Dictionary:
 				return {}
 			var pokemon = entry.get("pokemon", {})
 			if typeof(pokemon) == TYPE_DICTIONARY:
-				return pokemon.duplicate(true)
+				return _complete_pokemon_model(pokemon)
 			return {}
 	return {}
 
@@ -179,7 +179,7 @@ static func _placeholder_table(map_key: String, label: String) -> Array:
 
 
 static func _placeholder_pokemon(pokemon_id: String, pokemon_name: String, level: int) -> Dictionary:
-	return {
+	return _complete_pokemon_model({
 		"id": pokemon_id,
 		"dex_number": 0,
 		"name": pokemon_name,
@@ -191,4 +191,50 @@ static func _placeholder_pokemon(pokemon_id: String, pokemon_name: String, level
 		"speed": 8 + level,
 		"types": ["Normal"],
 		"icon_path": "res://assets/sprites/sprite_wurmple_96.png",
-	}
+	})
+
+
+static func _complete_pokemon_model(source: Dictionary) -> Dictionary:
+	var pokemon := source.duplicate(true)
+	var species := str(pokemon.get("species", pokemon.get("name", "Pokemon")))
+	pokemon["species"] = species
+	pokemon["nickname"] = str(pokemon.get("nickname", ""))
+	pokemon["name"] = str(pokemon.get("name", species))
+	pokemon["generation"] = max(1, int(pokemon.get("generation", 1)))
+	pokemon["level"] = max(1, int(pokemon.get("level", 1)))
+	pokemon["xp"] = max(0, int(pokemon.get("xp", 0)))
+	pokemon["xp_to_next_level"] = max(1, int(pokemon.get("xp_to_next_level", 100)))
+	pokemon["nature"] = str(pokemon.get("nature", "Hardy"))
+	pokemon["ability"] = str(pokemon.get("ability", "Unknown"))
+	pokemon["gender"] = str(pokemon.get("gender", "Unknown"))
+	pokemon["shiny"] = bool(pokemon.get("shiny", false))
+	pokemon["hp"] = max(1, int(pokemon.get("hp", 1)))
+	pokemon["max_hp"] = max(1, int(pokemon.get("max_hp", pokemon["hp"])))
+	pokemon["attack"] = max(1, int(pokemon.get("attack", 1)))
+	pokemon["defense"] = max(1, int(pokemon.get("defense", 1)))
+	pokemon["sp_attack"] = max(1, int(pokemon.get("sp_attack", pokemon["attack"])))
+	pokemon["sp_defense"] = max(1, int(pokemon.get("sp_defense", pokemon["defense"])))
+	pokemon["speed"] = max(1, int(pokemon.get("speed", 1)))
+	var types_value = pokemon.get("types", [])
+	if typeof(types_value) != TYPE_ARRAY or types_value.is_empty():
+		pokemon["types"] = ["Normal"]
+	var status_value = pokemon.get("status_condition", null)
+	pokemon["status_condition"] = null if status_value == null or str(status_value) == "" else str(status_value)
+	var held_item_value = pokemon.get("held_item", null)
+	pokemon["held_item"] = null if held_item_value == null or str(held_item_value) == "" else str(held_item_value)
+	var moves = pokemon.get("moves", [])
+	if typeof(moves) != TYPE_ARRAY:
+		moves = []
+	pokemon["moves"] = moves
+	var pp_max = pokemon.get("pp_max", [])
+	if typeof(pp_max) != TYPE_ARRAY:
+		pp_max = []
+	var pp_current = pokemon.get("pp_current", [])
+	if typeof(pp_current) != TYPE_ARRAY:
+		pp_current = []
+	pokemon["pp_max"] = pp_max
+	pokemon["pp_current"] = pp_current
+	pokemon["friendship"] = clampi(int(pokemon.get("friendship", 70)), 0, 255)
+	var capture_date_value = pokemon.get("capture_date", "")
+	pokemon["capture_date"] = "" if capture_date_value == null else str(capture_date_value)
+	return pokemon
