@@ -1,6 +1,17 @@
 extends RefCounted
 
 const SPECIES_PATH = "res://data/pokemon_species.json"
+const SPECIES_INDEX_PATH = "res://data/pokemon/pokemon_index.json"
+const GENERATION_FILES = {
+	1: "res://data/pokemon/gen1/pokemon.json",
+	2: "res://data/pokemon/gen2/pokemon.json",
+	3: "res://data/pokemon/gen3/pokemon.json",
+	4: "res://data/pokemon/gen4/pokemon.json",
+	5: "res://data/pokemon/gen5/pokemon.json",
+	6: "res://data/pokemon/gen6/pokemon.json",
+	7: "res://data/pokemon/gen7/pokemon.json",
+	8: "res://data/pokemon/gen8/pokemon.json",
+}
 const MOVES_PATH = "res://data/moves.json"
 const MANIFEST_PATH = "res://data/pokemon_assets_manifest.json"
 const SPECIES_IDS = ["bulbasaur", "ivysaur", "venusaur", "charmander", "charmeleon", "charizard", "squirtle", "wartortle", "blastoise"]
@@ -25,6 +36,12 @@ const STAT_LIMITS = {
 	"speed": 255,
 }
 const AnimatedTextureRect = preload("res://scripts/pokemon_animated_texture_rect.gd")
+
+static var _species_index_cache := {}
+static var _generation_definitions_cache := {}
+static var _legacy_definitions_cache := {}
+static var _moves_cache := {}
+static var _asset_manifest_cache := {}
 
 const FALLBACK_MOVES = {
 	"Tackle": {"id": "tackle", "name": "Tackle", "type": "Normal", "category": "Physical", "power": 40, "accuracy": 100, "pp": 35, "priority": 0, "target": "enemy", "effects": []},
@@ -111,7 +128,8 @@ static func is_starter_id(pokemon_id: String) -> bool:
 
 
 static func is_species_id(pokemon_id: String) -> bool:
-	return SPECIES_IDS.has(_safe_id(pokemon_id)) or _loaded_definitions().has(_safe_id(pokemon_id))
+	var safe_id := _safe_id(pokemon_id)
+	return SPECIES_IDS.has(safe_id) or _loaded_species_index().has(safe_id) or _loaded_definitions().has(safe_id)
 
 
 static func id_from_name(name: String) -> String:
@@ -128,6 +146,11 @@ static func id_from_name(name: String) -> String:
 
 
 static func id_from_dex(dex_number: int) -> String:
+	var index := _loaded_species_index()
+	for pokemon_id in index.keys():
+		var entry: Dictionary = index.get(str(pokemon_id), {})
+		if int(entry.get("dex_number", 0)) == dex_number:
+			return str(pokemon_id)
 	for pokemon_id in species_ids():
 		if int(get_definition(pokemon_id).get("dex_number", 0)) == dex_number:
 			return pokemon_id
@@ -136,10 +159,10 @@ static func id_from_dex(dex_number: int) -> String:
 
 static func get_definition(pokemon_id: String) -> Dictionary:
 	var safe_id := _safe_id(pokemon_id)
-	var definitions := _loaded_definitions()
+	var loaded_definition := _loaded_definition_for_id(safe_id)
 	var definition: Dictionary = {}
-	if definitions.has(safe_id):
-		definition = definitions[safe_id].duplicate(true)
+	if not loaded_definition.is_empty():
+		definition = loaded_definition.duplicate(true)
 	elif FALLBACK_DEFINITIONS.has(safe_id):
 		definition = FALLBACK_DEFINITIONS[safe_id].duplicate(true)
 	else:
@@ -462,6 +485,27 @@ static func evolve_pokemon(pokemon: Dictionary, target_id: String) -> Dictionary
 	return normalize_pokemon(evolved, str(evolved["id"]))
 
 
+static func evolution_options_for(pokemon: Dictionary) -> Array:
+	var definition := get_definition(str(pokemon.get("id", DEFAULT_STARTER_ID)))
+	var evolutions_value = definition.get("evolutions", [])
+	return evolutions_value.duplicate(true) if typeof(evolutions_value) == TYPE_ARRAY else []
+
+
+static func evolution_target_for_context(pokemon: Dictionary, context: Dictionary = {}) -> String:
+	for entry in evolution_options_for(pokemon):
+		if typeof(entry) != TYPE_DICTIONARY:
+			continue
+		if _evolution_matches_context(pokemon, entry, context):
+			var target_id := _safe_id(str(entry.get("target", "")))
+			if has_definition(target_id):
+				return target_id
+	return ""
+
+
+static func evolution_target_for_item(pokemon: Dictionary, item_id: String) -> String:
+	return evolution_target_for_context(pokemon, {"method": "item", "item_id": item_id})
+
+
 static func move_by_name(move_name: String) -> Dictionary:
 	var moves_database := _loaded_moves()
 	if moves_database.has(move_name):
@@ -501,6 +545,8 @@ static func frame_textures(pokemon_id: String, use_back: bool = false) -> Array:
 static func has_definition(pokemon_id: String) -> bool:
 	var safe_id := _safe_id(pokemon_id)
 	if FALLBACK_DEFINITIONS.has(safe_id):
+		return true
+	if _loaded_species_index().has(safe_id):
 		return true
 	return _loaded_definitions().has(safe_id)
 
@@ -556,10 +602,43 @@ static func _fallback_texture(pokemon: Dictionary) -> Texture2D:
 
 static func _loaded_definitions() -> Dictionary:
 	var definitions := {}
-	if not FileAccess.file_exists(SPECIES_PATH):
+	var index := _loaded_species_index()
+	if not index.is_empty():
+		for generation in GENERATION_FILES.keys():
+			var generation_definitions := _loaded_generation_definitions(int(generation))
+			for pokemon_id in generation_definitions.keys():
+				definitions[pokemon_id] = generation_definitions[pokemon_id]
+		if not definitions.is_empty():
+			return definitions
+	return _loaded_legacy_definitions()
+
+
+static func _loaded_definition_for_id(pokemon_id: String) -> Dictionary:
+	var safe_id := _safe_id(pokemon_id)
+	if safe_id == "":
+		return {}
+	var index := _loaded_species_index()
+	if index.has(safe_id):
+		var entry: Dictionary = index.get(safe_id, {})
+		var generation := int(entry.get("generation", 0))
+		var generation_definitions := _loaded_generation_definitions(generation)
+		if generation_definitions.has(safe_id):
+			return generation_definitions[safe_id].duplicate(true)
+	var legacy := _loaded_legacy_definitions()
+	return legacy.get(safe_id, {}).duplicate(true) if legacy.has(safe_id) else {}
+
+
+static func _loaded_generation_definitions(generation: int) -> Dictionary:
+	if _generation_definitions_cache.has(generation):
+		return _generation_definitions_cache[generation]
+	var definitions := {}
+	var path := str(GENERATION_FILES.get(generation, ""))
+	if path == "" or not FileAccess.file_exists(path):
+		_generation_definitions_cache[generation] = definitions
 		return definitions
-	var file := FileAccess.open(SPECIES_PATH, FileAccess.READ)
+	var file := FileAccess.open(path, FileAccess.READ)
 	if file == null:
+		_generation_definitions_cache[generation] = definitions
 		return definitions
 	var parsed = JSON.parse_string(file.get_as_text())
 	if typeof(parsed) == TYPE_ARRAY:
@@ -568,15 +647,51 @@ static func _loaded_definitions() -> Dictionary:
 				var entry_id := _safe_id(str(entry.get("id", "")))
 				if entry_id != "":
 					definitions[entry_id] = entry
+	_generation_definitions_cache[generation] = definitions
+	return definitions
+
+
+static func _loaded_legacy_definitions() -> Dictionary:
+	if not _legacy_definitions_cache.is_empty():
+		return _legacy_definitions_cache
+	var definitions := {}
+	if not FileAccess.file_exists(SPECIES_PATH):
+		_legacy_definitions_cache = definitions
+		return definitions
+	var file := FileAccess.open(SPECIES_PATH, FileAccess.READ)
+	if file == null:
+		_legacy_definitions_cache = definitions
+		return definitions
+	var parsed = JSON.parse_string(file.get_as_text())
+	if typeof(parsed) == TYPE_ARRAY:
+		for entry in parsed:
+			if typeof(entry) == TYPE_DICTIONARY:
+				var entry_id := _safe_id(str(entry.get("id", "")))
+				if entry_id != "":
+					definitions[entry_id] = entry
+	_legacy_definitions_cache = definitions
 	return definitions
 
 
 static func _loaded_species_ids() -> Array:
-	var definitions := _loaded_definitions()
-	var ids := definitions.keys()
+	var index := _loaded_species_index()
+	if index.is_empty():
+		var definitions := _loaded_definitions()
+		var ids := definitions.keys()
+		ids.sort_custom(func(a, b):
+			var a_definition: Dictionary = definitions.get(str(a), {})
+			var b_definition: Dictionary = definitions.get(str(b), {})
+			var a_dex := int(a_definition.get("dex_number", 999999))
+			var b_dex := int(b_definition.get("dex_number", 999999))
+			if a_dex == b_dex:
+				return str(a) < str(b)
+			return a_dex < b_dex
+		)
+		return ids
+	var ids := index.keys()
 	ids.sort_custom(func(a, b):
-		var a_definition: Dictionary = definitions.get(str(a), {})
-		var b_definition: Dictionary = definitions.get(str(b), {})
+		var a_definition: Dictionary = index.get(str(a), {})
+		var b_definition: Dictionary = index.get(str(b), {})
 		var a_dex := int(a_definition.get("dex_number", 999999))
 		var b_dex := int(b_definition.get("dex_number", 999999))
 		if a_dex == b_dex:
@@ -586,12 +701,44 @@ static func _loaded_species_ids() -> Array:
 	return ids
 
 
+static func _loaded_species_index() -> Dictionary:
+	if not _species_index_cache.is_empty():
+		return _species_index_cache
+	var index := {}
+	if FileAccess.file_exists(SPECIES_INDEX_PATH):
+		var file := FileAccess.open(SPECIES_INDEX_PATH, FileAccess.READ)
+		if file != null:
+			var parsed = JSON.parse_string(file.get_as_text())
+			if typeof(parsed) == TYPE_DICTIONARY:
+				for pokemon_id in parsed.keys():
+					if typeof(parsed[pokemon_id]) == TYPE_DICTIONARY:
+						index[_safe_id(str(pokemon_id))] = parsed[pokemon_id]
+				_species_index_cache = index
+				return index
+	var legacy := _loaded_legacy_definitions()
+	for pokemon_id in legacy.keys():
+		var definition: Dictionary = legacy[pokemon_id]
+		index[pokemon_id] = {
+			"id": pokemon_id,
+			"dex_number": int(definition.get("dex_number", 0)),
+			"name": str(definition.get("name", definition.get("species", pokemon_id))),
+			"generation": int(definition.get("generation", 1)),
+			"file": SPECIES_PATH,
+		}
+	_species_index_cache = index
+	return index
+
+
 static func _loaded_moves() -> Dictionary:
+	if not _moves_cache.is_empty():
+		return _moves_cache
 	var moves_database: Dictionary = FALLBACK_MOVES.duplicate(true)
 	if not FileAccess.file_exists(MOVES_PATH):
+		_moves_cache = moves_database
 		return moves_database
 	var file := FileAccess.open(MOVES_PATH, FileAccess.READ)
 	if file == null:
+		_moves_cache = moves_database
 		return moves_database
 	var parsed = JSON.parse_string(file.get_as_text())
 	if typeof(parsed) == TYPE_ARRAY:
@@ -599,38 +746,52 @@ static func _loaded_moves() -> Dictionary:
 			if typeof(entry) == TYPE_DICTIONARY:
 				var move := _canonical_move(entry)
 				moves_database[str(move.get("name", "Tackle"))] = move
+	_moves_cache = moves_database
 	return moves_database
 
 
 # Add future moves by editing data/moves.json. If a species can learn the new
-# move, add its display name to data/pokemon_species.json under that species'
-# learnset; the collection move editor and battle PP setup read those JSON
-# records automatically.
+# move, add its display name to that species' learnset in data/pokemon/gen*/
+# pokemon.json, then regenerate data/pokemon_species.json for compatibility.
+# Collection editing, battles, and PP setup read those JSON records.
 static func _with_asset_paths(definition: Dictionary) -> Dictionary:
 	var manifest := _asset_manifest()
 	var pokemon_id := str(definition.get("id", DEFAULT_STARTER_ID))
+	var generation := int(definition.get("generation", 1))
 	if manifest.has(pokemon_id) and typeof(manifest[pokemon_id]) == TYPE_DICTIONARY:
 		var assets: Dictionary = manifest[pokemon_id]
-		for key in ["icon_path", "front_frames_path", "back_frames_path", "has_animation"]:
+		for key in ["icon_path", "front_frames_path", "back_frames_path", "has_animation", "front_frame_count", "back_frame_count"]:
 			if assets.has(key):
 				definition[key] = assets[key]
-	if not definition.has("icon_path"):
-		definition["icon_path"] = "res://assets/pokemon/icons/%s.png" % pokemon_id
-	if not definition.has("front_frames_path"):
-		definition["front_frames_path"] = "res://assets/pokemon/battle/animated/gen_1/front/%s/" % pokemon_id
-	if not definition.has("back_frames_path"):
-		definition["back_frames_path"] = "res://assets/pokemon/battle/animated/gen_1/back/%s/" % pokemon_id
+	if str(definition.get("icon_path", "")) == "":
+		for icon_path in ["res://assets/pokemon/icons/%s.png" % pokemon_id, "res://assets/pokemon/icons/gen_%d/%s.png" % [generation, pokemon_id]]:
+			if FileAccess.file_exists(icon_path):
+				definition["icon_path"] = icon_path
+				break
+	if str(definition.get("front_frames_path", "")) == "":
+		var front_path := "res://assets/pokemon/battle/animated/gen_%d/front/%s/" % [generation, pokemon_id]
+		if FileAccess.file_exists("%s000.png" % front_path):
+			definition["front_frames_path"] = front_path
+	if str(definition.get("back_frames_path", "")) == "":
+		var back_path := "res://assets/pokemon/battle/animated/gen_%d/back/%s/" % [generation, pokemon_id]
+		if FileAccess.file_exists("%s000.png" % back_path):
+			definition["back_frames_path"] = back_path
 	return definition
 
 
 static func _asset_manifest() -> Dictionary:
+	if not _asset_manifest_cache.is_empty():
+		return _asset_manifest_cache
 	if not FileAccess.file_exists(MANIFEST_PATH):
+		_asset_manifest_cache = {}
 		return {}
 	var file := FileAccess.open(MANIFEST_PATH, FileAccess.READ)
 	if file == null:
+		_asset_manifest_cache = {}
 		return {}
 	var parsed = JSON.parse_string(file.get_as_text())
-	return parsed if typeof(parsed) == TYPE_DICTIONARY else {}
+	_asset_manifest_cache = parsed if typeof(parsed) == TYPE_DICTIONARY else {}
+	return _asset_manifest_cache
 
 
 static func _complete_species_definition(definition: Dictionary) -> Dictionary:
@@ -942,20 +1103,78 @@ static func _recalculate_stats(pokemon: Dictionary, old_max_hp_override: int = -
 
 
 static func _evolution_target_for_level(pokemon: Dictionary) -> String:
-	var definition := get_definition(str(pokemon.get("id", DEFAULT_STARTER_ID)))
-	var evolutions_value = definition.get("evolutions", [])
-	if typeof(evolutions_value) != TYPE_ARRAY:
-		return ""
-	var level := int(pokemon.get("level", 1))
-	for entry in evolutions_value:
-		if typeof(entry) != TYPE_DICTIONARY:
+	return evolution_target_for_context(pokemon, {"method": "level"})
+
+
+static func _evolution_matches_context(pokemon: Dictionary, entry: Dictionary, context: Dictionary) -> bool:
+	var entry_method := _safe_id(str(entry.get("method", entry.get("trigger", ""))))
+	var context_method := _safe_id(str(context.get("method", "")))
+	if context_method != "":
+		var normalized_context_method := "stone" if context_method == "item" and _safe_id(str(entry.get("method", ""))) == "stone" else context_method
+		if entry_method != normalized_context_method and _safe_id(str(entry.get("trigger", ""))) != normalized_context_method:
+			if not (context_method == "item" and entry_method == "stone"):
+				return false
+
+	var min_level := int(entry.get("min_level", entry.get("level", 0)))
+	if min_level > 0 and int(pokemon.get("level", 1)) < min_level:
+		return false
+
+	var min_happiness := int(entry.get("min_happiness", 0))
+	if min_happiness > 0 and int(pokemon.get("friendship", 0)) < min_happiness:
+		return false
+
+	for key in ["item_id", "held_item_id", "location_id", "known_move_id", "party_species", "trade_species"]:
+		var expected := _safe_id(str(entry.get(key, "")))
+		if expected == "":
 			continue
-		if level >= int(entry.get("level", MAX_LEVEL + 1)):
-			var target_id := _safe_id(str(entry.get("target", "")))
-			if has_definition(target_id):
-				return target_id
-	return ""
+		var actual := _safe_id(str(context.get(key, context.get(key.replace("_id", ""), ""))))
+		if actual != expected:
+			return false
+
+	var expected_gender := _safe_id(str(entry.get("gender", "")))
+	if expected_gender != "" and expected_gender != _safe_id(str(pokemon.get("gender", context.get("gender", "")))):
+		return false
+
+	var expected_time := _safe_id(str(entry.get("time_of_day", "")))
+	if expected_time != "" and expected_time != _safe_id(str(context.get("time_of_day", ""))):
+		return false
+
+	var expected_move := _safe_id(str(entry.get("known_move", "")))
+	if expected_move != "" and not _pokemon_knows_move(pokemon, expected_move):
+		return false
+
+	var held_item := _safe_id(str(entry.get("held_item", "")))
+	if held_item != "" and held_item != _safe_id(str(pokemon.get("held_item", context.get("held_item", "")))):
+		return false
+
+	var target_id := _safe_id(str(entry.get("target", "")))
+	return target_id != "" and has_definition(target_id)
+
+
+static func _pokemon_knows_move(pokemon: Dictionary, move_id: String) -> bool:
+	var moves_value = pokemon.get("moves", [])
+	if typeof(moves_value) != TYPE_ARRAY:
+		return false
+	for move in moves_value:
+		var name := ""
+		if typeof(move) == TYPE_DICTIONARY:
+			name = str(move.get("id", move.get("name", "")))
+		else:
+			name = str(move)
+		if _safe_id(name) == move_id:
+			return true
+	return false
 
 
 static func _safe_id(value: String) -> String:
-	return value.strip_edges().to_lower().replace(" ", "_").replace("-", "_")
+	var result := value.strip_edges().to_lower()
+	result = result.replace("♀", "_f").replace("♂", "_m")
+	for token in [" ", "-", ":", "/", "\\", ".", ",", "(", ")", "[", "]", "{", "}", "'", "’"]:
+		result = result.replace(token, "_")
+	while result.contains("__"):
+		result = result.replace("__", "_")
+	if result.begins_with("_"):
+		result = result.substr(1)
+	if result.ends_with("_"):
+		result = result.substr(0, result.length() - 1)
+	return result

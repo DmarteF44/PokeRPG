@@ -1,0 +1,7127 @@
+[
+  {
+    "id": "chespin",
+    "dex_number": 650,
+    "species": "Chespin",
+    "name": "Chespin",
+    "generation": 6,
+    "types": [
+      "Grass"
+    ],
+    "ability": "Overgrow",
+    "abilities": [
+      "Overgrow"
+    ],
+    "hidden_ability": "Bulletproof",
+    "gender": "87.5% male / 12.5% female",
+    "gender_rate": 1,
+    "capture_rate": 45,
+    "catch_rate": 45,
+    "growth_rate": "Medium Slow",
+    "base_experience": 63,
+    "xp_yield": 63,
+    "weight": 90,
+    "height": 4,
+    "egg_groups": [
+      "Ground"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 56,
+      "attack": 61,
+      "defense": 65,
+      "sp_attack": 48,
+      "sp_defense": 45,
+      "speed": 38
+    },
+    "learnset": {
+      "1": [
+        "Vine Whip",
+        "Growl"
+      ],
+      "5": [
+        "Vine Whip"
+      ],
+      "8": [
+        "Rollout"
+      ],
+      "11": [
+        "Bite"
+      ],
+      "15": [
+        "Leech Seed"
+      ],
+      "18": [
+        "Pin Missile"
+      ],
+      "27": [
+        "Take Down"
+      ],
+      "32": [
+        "Seed Bomb"
+      ],
+      "35": [
+        "Mud Shot"
+      ],
+      "39": [
+        "Bulk Up"
+      ],
+      "42": [
+        "Body Slam"
+      ],
+      "45": [
+        "Pain Split"
+      ],
+      "48": [
+        "Wood Hammer"
+      ]
+    },
+    "learnset_source_version_group": "ultra-sun-ultra-moon",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "quilladin",
+        "target_dex_number": 651,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 16,
+        "min_level": 16
+      }
+    ],
+    "evolves_from": "",
+    "description_en": "The quills on its head are usually soft. When it flexes them, the points become so hard and sharp that they can pierce rock.",
+    "description_pt": "The quills on its head are usually soft. When it flexes them, the points become so hard and sharp that they can pierce rock.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "quilladin",
+    "dex_number": 651,
+    "species": "Quilladin",
+    "name": "Quilladin",
+    "generation": 6,
+    "types": [
+      "Grass"
+    ],
+    "ability": "Overgrow",
+    "abilities": [
+      "Overgrow"
+    ],
+    "hidden_ability": "Bulletproof",
+    "gender": "87.5% male / 12.5% female",
+    "gender_rate": 1,
+    "capture_rate": 45,
+    "catch_rate": 45,
+    "growth_rate": "Medium Slow",
+    "base_experience": 142,
+    "xp_yield": 142,
+    "weight": 290,
+    "height": 7,
+    "egg_groups": [
+      "Ground"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 61,
+      "attack": 78,
+      "defense": 95,
+      "sp_attack": 56,
+      "sp_defense": 58,
+      "speed": 57
+    },
+    "learnset": {
+      "1": [
+        "Vine Whip",
+        "Growl",
+        "Needle Arm"
+      ],
+      "5": [
+        "Vine Whip"
+      ],
+      "8": [
+        "Rollout"
+      ],
+      "11": [
+        "Bite"
+      ],
+      "15": [
+        "Leech Seed"
+      ],
+      "19": [
+        "Pin Missile"
+      ],
+      "29": [
+        "Take Down"
+      ],
+      "35": [
+        "Seed Bomb"
+      ],
+      "39": [
+        "Mud Shot"
+      ],
+      "44": [
+        "Bulk Up"
+      ],
+      "48": [
+        "Body Slam"
+      ],
+      "52": [
+        "Pain Split"
+      ],
+      "56": [
+        "Wood Hammer"
+      ]
+    },
+    "learnset_source_version_group": "ultra-sun-ultra-moon",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "chesnaught",
+        "target_dex_number": 652,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 36,
+        "min_level": 36
+      }
+    ],
+    "evolves_from": "chespin",
+    "description_en": "It relies on its sturdy shell to deflect predators’ attacks. It counterattacks with its sharp quills.",
+    "description_pt": "It relies on its sturdy shell to deflect predators’ attacks. It counterattacks with its sharp quills.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "chesnaught",
+    "dex_number": 652,
+    "species": "Chesnaught",
+    "name": "Chesnaught",
+    "generation": 6,
+    "types": [
+      "Grass",
+      "Fighting"
+    ],
+    "ability": "Overgrow",
+    "abilities": [
+      "Overgrow"
+    ],
+    "hidden_ability": "Bulletproof",
+    "gender": "87.5% male / 12.5% female",
+    "gender_rate": 1,
+    "capture_rate": 45,
+    "catch_rate": 45,
+    "growth_rate": "Medium Slow",
+    "base_experience": 239,
+    "xp_yield": 239,
+    "weight": 900,
+    "height": 16,
+    "egg_groups": [
+      "Ground"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 88,
+      "attack": 107,
+      "defense": 122,
+      "sp_attack": 74,
+      "sp_defense": 75,
+      "speed": 64
+    },
+    "learnset": {
+      "1": [
+        "Vine Whip",
+        "Tackle",
+        "Growl",
+        "Belly Drum",
+        "Rollout",
+        "Needle Arm",
+        "Hammer Arm",
+        "Feint",
+        "Spiky Shield"
+      ],
+      "5": [
+        "Vine Whip"
+      ],
+      "8": [
+        "Rollout"
+      ],
+      "11": [
+        "Bite"
+      ],
+      "15": [
+        "Leech Seed"
+      ],
+      "19": [
+        "Pin Missile"
+      ],
+      "29": [
+        "Take Down"
+      ],
+      "35": [
+        "Seed Bomb"
+      ],
+      "41": [
+        "Mud Shot"
+      ],
+      "48": [
+        "Bulk Up"
+      ],
+      "54": [
+        "Body Slam"
+      ],
+      "60": [
+        "Pain Split"
+      ],
+      "66": [
+        "Wood Hammer"
+      ],
+      "72": [
+        "Hammer Arm"
+      ],
+      "78": [
+        "Giga Impact"
+      ]
+    },
+    "learnset_source_version_group": "ultra-sun-ultra-moon",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "quilladin",
+    "description_en": "Its Tackle is forceful enough to flip a 50-ton tank. It shields its allies from danger with its own body.",
+    "description_pt": "Its Tackle is forceful enough to flip a 50-ton tank. It shields its allies from danger with its own body.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "fennekin",
+    "dex_number": 653,
+    "species": "Fennekin",
+    "name": "Fennekin",
+    "generation": 6,
+    "types": [
+      "Fire"
+    ],
+    "ability": "Blaze",
+    "abilities": [
+      "Blaze"
+    ],
+    "hidden_ability": "Magician",
+    "gender": "87.5% male / 12.5% female",
+    "gender_rate": 1,
+    "capture_rate": 45,
+    "catch_rate": 45,
+    "growth_rate": "Medium Slow",
+    "base_experience": 61,
+    "xp_yield": 61,
+    "weight": 94,
+    "height": 4,
+    "egg_groups": [
+      "Ground"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 40,
+      "attack": 45,
+      "defense": 40,
+      "sp_attack": 62,
+      "sp_defense": 60,
+      "speed": 60
+    },
+    "learnset": {
+      "1": [
+        "Scratch",
+        "Tail Whip"
+      ],
+      "5": [
+        "Ember"
+      ],
+      "11": [
+        "Howl"
+      ],
+      "14": [
+        "Flame Charge"
+      ],
+      "17": [
+        "Psybeam"
+      ],
+      "20": [
+        "Fire Spin"
+      ],
+      "25": [
+        "Lucky Chant"
+      ],
+      "27": [
+        "Light Screen"
+      ],
+      "31": [
+        "Psyshock"
+      ],
+      "35": [
+        "Flamethrower"
+      ],
+      "38": [
+        "Will-O-Wisp"
+      ],
+      "41": [
+        "Psychic"
+      ],
+      "43": [
+        "Sunny Day"
+      ],
+      "46": [
+        "Magic Room"
+      ],
+      "48": [
+        "Fire Blast"
+      ]
+    },
+    "learnset_source_version_group": "ultra-sun-ultra-moon",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "braixen",
+        "target_dex_number": 654,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 16,
+        "min_level": 16
+      }
+    ],
+    "evolves_from": "",
+    "description_en": "Eating a twig fills it with energy, and its roomy ears give vent to air hotter than 390 degrees Fahrenheit.",
+    "description_pt": "Eating a twig fills it with energy, and its roomy ears give vent to air hotter than 390 degrees Fahrenheit.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "braixen",
+    "dex_number": 654,
+    "species": "Braixen",
+    "name": "Braixen",
+    "generation": 6,
+    "types": [
+      "Fire"
+    ],
+    "ability": "Blaze",
+    "abilities": [
+      "Blaze"
+    ],
+    "hidden_ability": "Magician",
+    "gender": "87.5% male / 12.5% female",
+    "gender_rate": 1,
+    "capture_rate": 45,
+    "catch_rate": 45,
+    "growth_rate": "Medium Slow",
+    "base_experience": 143,
+    "xp_yield": 143,
+    "weight": 145,
+    "height": 10,
+    "egg_groups": [
+      "Ground"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 59,
+      "attack": 59,
+      "defense": 58,
+      "sp_attack": 90,
+      "sp_defense": 70,
+      "speed": 73
+    },
+    "learnset": {
+      "1": [
+        "Scratch",
+        "Tail Whip",
+        "Ember"
+      ],
+      "5": [
+        "Ember"
+      ],
+      "11": [
+        "Howl"
+      ],
+      "14": [
+        "Flame Charge"
+      ],
+      "18": [
+        "Psybeam"
+      ],
+      "22": [
+        "Fire Spin"
+      ],
+      "28": [
+        "Lucky Chant"
+      ],
+      "31": [
+        "Light Screen"
+      ],
+      "36": [
+        "Psyshock"
+      ],
+      "41": [
+        "Flamethrower"
+      ],
+      "45": [
+        "Will-O-Wisp"
+      ],
+      "49": [
+        "Psychic"
+      ],
+      "52": [
+        "Sunny Day"
+      ],
+      "56": [
+        "Magic Room"
+      ],
+      "59": [
+        "Fire Blast"
+      ]
+    },
+    "learnset_source_version_group": "ultra-sun-ultra-moon",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "delphox",
+        "target_dex_number": 655,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 36,
+        "min_level": 36
+      }
+    ],
+    "evolves_from": "fennekin",
+    "description_en": "It has a twig stuck in its tail. With friction from its tail fur, it sets the twig on fire and launches into battle.",
+    "description_pt": "It has a twig stuck in its tail. With friction from its tail fur, it sets the twig on fire and launches into battle.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "delphox",
+    "dex_number": 655,
+    "species": "Delphox",
+    "name": "Delphox",
+    "generation": 6,
+    "types": [
+      "Fire",
+      "Psychic"
+    ],
+    "ability": "Blaze",
+    "abilities": [
+      "Blaze"
+    ],
+    "hidden_ability": "Magician",
+    "gender": "87.5% male / 12.5% female",
+    "gender_rate": 1,
+    "capture_rate": 45,
+    "catch_rate": 45,
+    "growth_rate": "Medium Slow",
+    "base_experience": 240,
+    "xp_yield": 240,
+    "weight": 390,
+    "height": 15,
+    "egg_groups": [
+      "Ground"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 75,
+      "attack": 69,
+      "defense": 72,
+      "sp_attack": 114,
+      "sp_defense": 100,
+      "speed": 104
+    },
+    "learnset": {
+      "1": [
+        "Scratch",
+        "Tail Whip",
+        "Ember",
+        "Shadow Ball",
+        "Future Sight",
+        "Role Play",
+        "Howl",
+        "Switcheroo",
+        "Mystical Fire"
+      ],
+      "5": [
+        "Ember"
+      ],
+      "11": [
+        "Howl"
+      ],
+      "14": [
+        "Flame Charge"
+      ],
+      "18": [
+        "Psybeam"
+      ],
+      "22": [
+        "Fire Spin"
+      ],
+      "28": [
+        "Lucky Chant"
+      ],
+      "31": [
+        "Light Screen"
+      ],
+      "38": [
+        "Psyshock"
+      ],
+      "45": [
+        "Flamethrower"
+      ],
+      "51": [
+        "Will-O-Wisp"
+      ],
+      "57": [
+        "Psychic"
+      ],
+      "62": [
+        "Sunny Day"
+      ],
+      "68": [
+        "Magic Room"
+      ],
+      "74": [
+        "Fire Blast"
+      ],
+      "80": [
+        "Future Sight"
+      ]
+    },
+    "learnset_source_version_group": "ultra-sun-ultra-moon",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "braixen",
+    "description_en": "It gazes into the flame at the tip of its branch to achieve a focused state, which allows it to see into the future.",
+    "description_pt": "It gazes into the flame at the tip of its branch to achieve a focused state, which allows it to see into the future.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "froakie",
+    "dex_number": 656,
+    "species": "Froakie",
+    "name": "Froakie",
+    "generation": 6,
+    "types": [
+      "Water"
+    ],
+    "ability": "Torrent",
+    "abilities": [
+      "Torrent"
+    ],
+    "hidden_ability": "Protean",
+    "gender": "87.5% male / 12.5% female",
+    "gender_rate": 1,
+    "capture_rate": 45,
+    "catch_rate": 45,
+    "growth_rate": "Medium Slow",
+    "base_experience": 63,
+    "xp_yield": 63,
+    "weight": 70,
+    "height": 3,
+    "egg_groups": [
+      "Water1"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 41,
+      "attack": 56,
+      "defense": 40,
+      "sp_attack": 62,
+      "sp_defense": 44,
+      "speed": 71
+    },
+    "learnset": {
+      "1": [
+        "Pound",
+        "Growl"
+      ],
+      "5": [
+        "Bubble"
+      ],
+      "8": [
+        "Quick Attack"
+      ],
+      "10": [
+        "Lick"
+      ],
+      "14": [
+        "Water Pulse"
+      ],
+      "18": [
+        "Smokescreen"
+      ],
+      "21": [
+        "Round"
+      ],
+      "25": [
+        "Fling"
+      ],
+      "29": [
+        "Smack Down"
+      ],
+      "35": [
+        "Substitute"
+      ],
+      "39": [
+        "Bounce"
+      ],
+      "43": [
+        "Double Team"
+      ],
+      "48": [
+        "Hydro Pump"
+      ]
+    },
+    "learnset_source_version_group": "ultra-sun-ultra-moon",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "frogadier",
+        "target_dex_number": 657,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 16,
+        "min_level": 16
+      }
+    ],
+    "evolves_from": "",
+    "description_en": "It secretes flexible bubbles from its chest and back. The bubbles reduce the damage it would otherwise take when attacked.",
+    "description_pt": "It secretes flexible bubbles from its chest and back. The bubbles reduce the damage it would otherwise take when attacked.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "frogadier",
+    "dex_number": 657,
+    "species": "Frogadier",
+    "name": "Frogadier",
+    "generation": 6,
+    "types": [
+      "Water"
+    ],
+    "ability": "Torrent",
+    "abilities": [
+      "Torrent"
+    ],
+    "hidden_ability": "Protean",
+    "gender": "87.5% male / 12.5% female",
+    "gender_rate": 1,
+    "capture_rate": 45,
+    "catch_rate": 45,
+    "growth_rate": "Medium Slow",
+    "base_experience": 142,
+    "xp_yield": 142,
+    "weight": 109,
+    "height": 6,
+    "egg_groups": [
+      "Water1"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 54,
+      "attack": 63,
+      "defense": 52,
+      "sp_attack": 83,
+      "sp_defense": 56,
+      "speed": 97
+    },
+    "learnset": {
+      "1": [
+        "Pound",
+        "Growl",
+        "Bubble"
+      ],
+      "5": [
+        "Bubble"
+      ],
+      "8": [
+        "Quick Attack"
+      ],
+      "10": [
+        "Lick"
+      ],
+      "14": [
+        "Water Pulse"
+      ],
+      "19": [
+        "Smokescreen"
+      ],
+      "23": [
+        "Round"
+      ],
+      "28": [
+        "Fling"
+      ],
+      "33": [
+        "Smack Down"
+      ],
+      "40": [
+        "Substitute"
+      ],
+      "45": [
+        "Bounce"
+      ],
+      "50": [
+        "Double Team"
+      ],
+      "56": [
+        "Hydro Pump"
+      ]
+    },
+    "learnset_source_version_group": "ultra-sun-ultra-moon",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "greninja",
+        "target_dex_number": 658,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 36,
+        "min_level": 36
+      }
+    ],
+    "evolves_from": "froakie",
+    "description_en": "It can throw bubble-covered pebbles with precise control, hitting empty cans up to a hundred feet away.",
+    "description_pt": "It can throw bubble-covered pebbles with precise control, hitting empty cans up to a hundred feet away.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "greninja",
+    "dex_number": 658,
+    "species": "Greninja",
+    "name": "Greninja",
+    "generation": 6,
+    "types": [
+      "Water",
+      "Dark"
+    ],
+    "ability": "Torrent",
+    "abilities": [
+      "Torrent"
+    ],
+    "hidden_ability": "Protean",
+    "gender": "87.5% male / 12.5% female",
+    "gender_rate": 1,
+    "capture_rate": 45,
+    "catch_rate": 45,
+    "growth_rate": "Medium Slow",
+    "base_experience": 239,
+    "xp_yield": 239,
+    "weight": 400,
+    "height": 15,
+    "egg_groups": [
+      "Water1"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 72,
+      "attack": 95,
+      "defense": 67,
+      "sp_attack": 103,
+      "sp_defense": 71,
+      "speed": 122
+    },
+    "learnset": {
+      "1": [
+        "Pound",
+        "Growl",
+        "Quick Attack",
+        "Haze",
+        "Bubble",
+        "Role Play",
+        "Night Slash",
+        "Mat Block",
+        "Water Shuriken"
+      ],
+      "5": [
+        "Bubble"
+      ],
+      "8": [
+        "Quick Attack"
+      ],
+      "10": [
+        "Lick"
+      ],
+      "14": [
+        "Water Pulse"
+      ],
+      "19": [
+        "Smokescreen"
+      ],
+      "23": [
+        "Shadow Sneak"
+      ],
+      "28": [
+        "Spikes"
+      ],
+      "33": [
+        "Feint Attack"
+      ],
+      "42": [
+        "Substitute"
+      ],
+      "49": [
+        "Extrasensory"
+      ],
+      "56": [
+        "Double Team"
+      ],
+      "68": [
+        "Hydro Pump"
+      ],
+      "70": [
+        "Haze"
+      ],
+      "77": [
+        "Night Slash"
+      ]
+    },
+    "learnset_source_version_group": "ultra-sun-ultra-moon",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "frogadier",
+    "description_en": "It creates throwing stars out of compressed water. When it spins them and throws them at high speed, these stars can split metal in two.",
+    "description_pt": "It creates throwing stars out of compressed water. When it spins them and throws them at high speed, these stars can split metal in two.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "bunnelby",
+    "dex_number": 659,
+    "species": "Bunnelby",
+    "name": "Bunnelby",
+    "generation": 6,
+    "types": [
+      "Normal"
+    ],
+    "ability": "Pickup",
+    "abilities": [
+      "Pickup",
+      "Cheek Pouch"
+    ],
+    "hidden_ability": "Huge Power",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 255,
+    "catch_rate": 255,
+    "growth_rate": "Medium",
+    "base_experience": 47,
+    "xp_yield": 47,
+    "weight": 50,
+    "height": 4,
+    "egg_groups": [
+      "Ground"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 38,
+      "attack": 36,
+      "defense": 38,
+      "sp_attack": 32,
+      "sp_defense": 36,
+      "speed": 57
+    },
+    "learnset": {
+      "1": [
+        "Leer",
+        "Mud-Slap"
+      ],
+      "3": [
+        "Tackle"
+      ],
+      "6": [
+        "Laser Focus"
+      ],
+      "9": [
+        "Quick Attack"
+      ],
+      "12": [
+        "Mud Shot"
+      ],
+      "15": [
+        "Flail"
+      ],
+      "18": [
+        "Double Kick"
+      ],
+      "21": [
+        "Bulldoze"
+      ],
+      "24": [
+        "Dig"
+      ],
+      "27": [
+        "Bounce"
+      ],
+      "30": [
+        "Take Down"
+      ],
+      "33": [
+        "Swords Dance"
+      ],
+      "36": [
+        "Earthquake"
+      ],
+      "39": [
+        "Super Fang"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "diggersby",
+        "target_dex_number": 660,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 20,
+        "min_level": 20
+      }
+    ],
+    "evolves_from": "",
+    "description_en": "They use their large ears to dig burrows. They will dig the whole night through.",
+    "description_pt": "They use their large ears to dig burrows. They will dig the whole night through.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "diggersby",
+    "dex_number": 660,
+    "species": "Diggersby",
+    "name": "Diggersby",
+    "generation": 6,
+    "types": [
+      "Normal",
+      "Ground"
+    ],
+    "ability": "Pickup",
+    "abilities": [
+      "Pickup",
+      "Cheek Pouch"
+    ],
+    "hidden_ability": "Huge Power",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 127,
+    "catch_rate": 127,
+    "growth_rate": "Medium",
+    "base_experience": 148,
+    "xp_yield": 148,
+    "weight": 424,
+    "height": 10,
+    "egg_groups": [
+      "Ground"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 85,
+      "attack": 56,
+      "defense": 77,
+      "sp_attack": 50,
+      "sp_defense": 77,
+      "speed": 78
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Leer",
+        "Mud-Slap",
+        "Laser Focus"
+      ],
+      "9": [
+        "Quick Attack"
+      ],
+      "12": [
+        "Mud Shot"
+      ],
+      "15": [
+        "Flail"
+      ],
+      "18": [
+        "Double Kick"
+      ],
+      "23": [
+        "Bulldoze"
+      ],
+      "28": [
+        "Dig"
+      ],
+      "33": [
+        "Bounce"
+      ],
+      "38": [
+        "Take Down"
+      ],
+      "43": [
+        "Swords Dance"
+      ],
+      "48": [
+        "Earthquake"
+      ],
+      "53": [
+        "Super Fang"
+      ],
+      "58": [
+        "Hammer Arm"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "bunnelby",
+    "description_en": "With their powerful ears, they can heft boulders of a ton or more with ease. They can be a big help at construction sites.",
+    "description_pt": "With their powerful ears, they can heft boulders of a ton or more with ease. They can be a big help at construction sites.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "fletchling",
+    "dex_number": 661,
+    "species": "Fletchling",
+    "name": "Fletchling",
+    "generation": 6,
+    "types": [
+      "Normal",
+      "Flying"
+    ],
+    "ability": "Big Pecks",
+    "abilities": [
+      "Big Pecks"
+    ],
+    "hidden_ability": "Gale Wings",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 255,
+    "catch_rate": 255,
+    "growth_rate": "Medium Slow",
+    "base_experience": 56,
+    "xp_yield": 56,
+    "weight": 17,
+    "height": 3,
+    "egg_groups": [
+      "Flying"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 45,
+      "attack": 50,
+      "defense": 43,
+      "sp_attack": 40,
+      "sp_defense": 38,
+      "speed": 62
+    },
+    "learnset": {
+      "1": [
+        "Growl",
+        "Peck"
+      ],
+      "5": [
+        "Quick Attack"
+      ],
+      "10": [
+        "Ember"
+      ],
+      "15": [
+        "Flail"
+      ],
+      "20": [
+        "Acrobatics"
+      ],
+      "25": [
+        "Agility"
+      ],
+      "30": [
+        "Aerial Ace"
+      ],
+      "35": [
+        "Tailwind"
+      ],
+      "40": [
+        "Steel Wing"
+      ],
+      "45": [
+        "Roost"
+      ],
+      "50": [
+        "Fly"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "fletchinder",
+        "target_dex_number": 662,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 17,
+        "min_level": 17
+      }
+    ],
+    "evolves_from": "",
+    "description_en": "These friendly Pokémon send signals to one another with beautiful chirps and tail-feather movements.",
+    "description_pt": "These friendly Pokémon send signals to one another with beautiful chirps and tail-feather movements.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "fletchinder",
+    "dex_number": 662,
+    "species": "Fletchinder",
+    "name": "Fletchinder",
+    "generation": 6,
+    "types": [
+      "Fire",
+      "Flying"
+    ],
+    "ability": "Flame Body",
+    "abilities": [
+      "Flame Body"
+    ],
+    "hidden_ability": "Gale Wings",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 120,
+    "catch_rate": 120,
+    "growth_rate": "Medium Slow",
+    "base_experience": 134,
+    "xp_yield": 134,
+    "weight": 160,
+    "height": 7,
+    "egg_groups": [
+      "Flying"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 62,
+      "attack": 73,
+      "defense": 55,
+      "sp_attack": 56,
+      "sp_defense": 52,
+      "speed": 84
+    },
+    "learnset": {
+      "1": [
+        "Growl",
+        "Ember",
+        "Peck",
+        "Quick Attack",
+        "Feint",
+        "Flame Charge"
+      ],
+      "15": [
+        "Flail"
+      ],
+      "22": [
+        "Acrobatics"
+      ],
+      "29": [
+        "Agility"
+      ],
+      "36": [
+        "Aerial Ace"
+      ],
+      "43": [
+        "Tailwind"
+      ],
+      "50": [
+        "Steel Wing"
+      ],
+      "57": [
+        "Roost"
+      ],
+      "64": [
+        "Fly"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "talonflame",
+        "target_dex_number": 663,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 35,
+        "min_level": 35
+      }
+    ],
+    "evolves_from": "fletchling",
+    "description_en": "From its beak, it expels embers that set the tall grass on fire. Then it pounces on the bewildered prey that pop out of the grass.",
+    "description_pt": "From its beak, it expels embers that set the tall grass on fire. Then it pounces on the bewildered prey that pop out of the grass.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "talonflame",
+    "dex_number": 663,
+    "species": "Talonflame",
+    "name": "Talonflame",
+    "generation": 6,
+    "types": [
+      "Fire",
+      "Flying"
+    ],
+    "ability": "Flame Body",
+    "abilities": [
+      "Flame Body"
+    ],
+    "hidden_ability": "Gale Wings",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 45,
+    "catch_rate": 45,
+    "growth_rate": "Medium Slow",
+    "base_experience": 175,
+    "xp_yield": 175,
+    "weight": 245,
+    "height": 12,
+    "egg_groups": [
+      "Flying"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 78,
+      "attack": 81,
+      "defense": 71,
+      "sp_attack": 74,
+      "sp_defense": 69,
+      "speed": 126
+    },
+    "learnset": {
+      "1": [
+        "Growl",
+        "Ember",
+        "Peck",
+        "Quick Attack",
+        "Feint",
+        "Flare Blitz",
+        "Flame Charge"
+      ],
+      "15": [
+        "Flail"
+      ],
+      "22": [
+        "Acrobatics"
+      ],
+      "29": [
+        "Agility"
+      ],
+      "38": [
+        "Aerial Ace"
+      ],
+      "47": [
+        "Tailwind"
+      ],
+      "56": [
+        "Steel Wing"
+      ],
+      "65": [
+        "Roost"
+      ],
+      "74": [
+        "Fly"
+      ],
+      "83": [
+        "Brave Bird"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "fletchinder",
+    "description_en": "In the fever of an exciting battle, it showers embers from the gaps between its feathers and takes to the air.",
+    "description_pt": "In the fever of an exciting battle, it showers embers from the gaps between its feathers and takes to the air.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "scatterbug",
+    "dex_number": 664,
+    "species": "Scatterbug",
+    "name": "Scatterbug",
+    "generation": 6,
+    "types": [
+      "Bug"
+    ],
+    "ability": "Shield Dust",
+    "abilities": [
+      "Shield Dust",
+      "Compound Eyes"
+    ],
+    "hidden_ability": "Friend Guard",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 255,
+    "catch_rate": 255,
+    "growth_rate": "Medium",
+    "base_experience": 40,
+    "xp_yield": 40,
+    "weight": 25,
+    "height": 3,
+    "egg_groups": [
+      "Bug"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 38,
+      "attack": 35,
+      "defense": 40,
+      "sp_attack": 27,
+      "sp_defense": 25,
+      "speed": 35
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "String Shot"
+      ],
+      "6": [
+        "Stun Spore"
+      ],
+      "15": [
+        "Bug Bite"
+      ]
+    },
+    "learnset_source_version_group": "ultra-sun-ultra-moon",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "spewpa",
+        "target_dex_number": 665,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 9,
+        "min_level": 9
+      }
+    ],
+    "evolves_from": "",
+    "description_en": "When under attack from bird Pokémon, it spews a poisonous black powder that causes paralysis on contact.",
+    "description_pt": "When under attack from bird Pokémon, it spews a poisonous black powder that causes paralysis on contact.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "spewpa",
+    "dex_number": 665,
+    "species": "Spewpa",
+    "name": "Spewpa",
+    "generation": 6,
+    "types": [
+      "Bug"
+    ],
+    "ability": "Shed Skin",
+    "abilities": [
+      "Shed Skin"
+    ],
+    "hidden_ability": "Friend Guard",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 120,
+    "catch_rate": 120,
+    "growth_rate": "Medium",
+    "base_experience": 75,
+    "xp_yield": 75,
+    "weight": 84,
+    "height": 3,
+    "egg_groups": [
+      "Bug"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 45,
+      "attack": 22,
+      "defense": 60,
+      "sp_attack": 27,
+      "sp_defense": 30,
+      "speed": 29
+    },
+    "learnset": {
+      "1": [
+        "Harden",
+        "Protect"
+      ]
+    },
+    "learnset_source_version_group": "ultra-sun-ultra-moon",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "vivillon",
+        "target_dex_number": 666,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 12,
+        "min_level": 12
+      }
+    ],
+    "evolves_from": "scatterbug",
+    "description_en": "It lives hidden within thicket shadows. When predators attack, it quickly bristles the fur covering its body in an effort to threaten them.",
+    "description_pt": "It lives hidden within thicket shadows. When predators attack, it quickly bristles the fur covering its body in an effort to threaten them.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "vivillon",
+    "dex_number": 666,
+    "species": "Vivillon",
+    "name": "Vivillon",
+    "generation": 6,
+    "types": [
+      "Bug",
+      "Flying"
+    ],
+    "ability": "Shield Dust",
+    "abilities": [
+      "Shield Dust",
+      "Compound Eyes"
+    ],
+    "hidden_ability": "Friend Guard",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 45,
+    "catch_rate": 45,
+    "growth_rate": "Medium",
+    "base_experience": 185,
+    "xp_yield": 185,
+    "weight": 170,
+    "height": 12,
+    "egg_groups": [
+      "Bug"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 80,
+      "attack": 52,
+      "defense": 50,
+      "sp_attack": 90,
+      "sp_defense": 50,
+      "speed": 89
+    },
+    "learnset": {
+      "1": [
+        "Gust",
+        "Poison Powder",
+        "Stun Spore",
+        "Sleep Powder",
+        "Struggle Bug",
+        "Powder"
+      ],
+      "12": [
+        "Light Screen"
+      ],
+      "17": [
+        "Psybeam"
+      ],
+      "21": [
+        "Supersonic"
+      ],
+      "25": [
+        "Draining Kiss"
+      ],
+      "31": [
+        "Aromatherapy"
+      ],
+      "35": [
+        "Bug Buzz"
+      ],
+      "41": [
+        "Safeguard"
+      ],
+      "45": [
+        "Quiver Dance"
+      ],
+      "50": [
+        "Hurricane"
+      ],
+      "55": [
+        "Powder"
+      ]
+    },
+    "learnset_source_version_group": "ultra-sun-ultra-moon",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "spewpa",
+    "description_en": "Vivillon with many different patterns are found all over the world. These patterns are affected by the climate of their habitat.",
+    "description_pt": "Vivillon with many different patterns are found all over the world. These patterns are affected by the climate of their habitat.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "litleo",
+    "dex_number": 667,
+    "species": "Litleo",
+    "name": "Litleo",
+    "generation": 6,
+    "types": [
+      "Fire",
+      "Normal"
+    ],
+    "ability": "Rivalry",
+    "abilities": [
+      "Rivalry",
+      "Unnerve"
+    ],
+    "hidden_ability": "Moxie",
+    "gender": "12.5% male / 87.5% female",
+    "gender_rate": 7,
+    "capture_rate": 220,
+    "catch_rate": 220,
+    "growth_rate": "Medium Slow",
+    "base_experience": 74,
+    "xp_yield": 74,
+    "weight": 135,
+    "height": 6,
+    "egg_groups": [
+      "Ground"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 62,
+      "attack": 50,
+      "defense": 58,
+      "sp_attack": 73,
+      "sp_defense": 54,
+      "speed": 72
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Leer"
+      ],
+      "5": [
+        "Ember"
+      ],
+      "8": [
+        "Work Up"
+      ],
+      "11": [
+        "Headbutt"
+      ],
+      "15": [
+        "Noble Roar"
+      ],
+      "20": [
+        "Take Down"
+      ],
+      "23": [
+        "Fire Fang"
+      ],
+      "28": [
+        "Endeavor"
+      ],
+      "33": [
+        "Echoed Voice"
+      ],
+      "36": [
+        "Flamethrower"
+      ],
+      "39": [
+        "Crunch"
+      ],
+      "43": [
+        "Hyper Voice"
+      ],
+      "46": [
+        "Incinerate"
+      ],
+      "50": [
+        "Overheat"
+      ]
+    },
+    "learnset_source_version_group": "ultra-sun-ultra-moon",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "pyroar",
+        "target_dex_number": 668,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 35,
+        "min_level": 35
+      }
+    ],
+    "evolves_from": "",
+    "description_en": "The stronger the opponent it faces, the more heat surges from its mane and the more power flows through its body.",
+    "description_pt": "The stronger the opponent it faces, the more heat surges from its mane and the more power flows through its body.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "pyroar",
+    "dex_number": 668,
+    "species": "Pyroar",
+    "name": "Pyroar",
+    "generation": 6,
+    "types": [
+      "Fire",
+      "Normal"
+    ],
+    "ability": "Rivalry",
+    "abilities": [
+      "Rivalry",
+      "Unnerve"
+    ],
+    "hidden_ability": "Moxie",
+    "gender": "12.5% male / 87.5% female",
+    "gender_rate": 7,
+    "capture_rate": 65,
+    "catch_rate": 65,
+    "growth_rate": "Medium Slow",
+    "base_experience": 177,
+    "xp_yield": 177,
+    "weight": 815,
+    "height": 15,
+    "egg_groups": [
+      "Ground"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 86,
+      "attack": 68,
+      "defense": 72,
+      "sp_attack": 109,
+      "sp_defense": 66,
+      "speed": 106
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Leer",
+        "Ember",
+        "Hyper Beam",
+        "Work Up"
+      ],
+      "5": [
+        "Ember"
+      ],
+      "8": [
+        "Work Up"
+      ],
+      "11": [
+        "Headbutt"
+      ],
+      "15": [
+        "Noble Roar"
+      ],
+      "20": [
+        "Take Down"
+      ],
+      "23": [
+        "Fire Fang"
+      ],
+      "28": [
+        "Endeavor"
+      ],
+      "33": [
+        "Echoed Voice"
+      ],
+      "38": [
+        "Flamethrower"
+      ],
+      "42": [
+        "Crunch"
+      ],
+      "48": [
+        "Hyper Voice"
+      ],
+      "51": [
+        "Incinerate"
+      ],
+      "57": [
+        "Overheat"
+      ]
+    },
+    "learnset_source_version_group": "ultra-sun-ultra-moon",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "litleo",
+    "description_en": "The male with the largest mane of fire is the leader of the pride.",
+    "description_pt": "The male with the largest mane of fire is the leader of the pride.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "flabebe",
+    "dex_number": 669,
+    "species": "Flabébé",
+    "name": "Flabébé",
+    "generation": 6,
+    "types": [
+      "Fairy"
+    ],
+    "ability": "Flower Veil",
+    "abilities": [
+      "Flower Veil"
+    ],
+    "hidden_ability": "Symbiosis",
+    "gender": "100% female",
+    "gender_rate": 8,
+    "capture_rate": 225,
+    "catch_rate": 225,
+    "growth_rate": "Medium",
+    "base_experience": 61,
+    "xp_yield": 61,
+    "weight": 1,
+    "height": 1,
+    "egg_groups": [
+      "Fairy"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 44,
+      "attack": 38,
+      "defense": 39,
+      "sp_attack": 61,
+      "sp_defense": 79,
+      "speed": 42
+    },
+    "learnset": {
+      "1": [
+        "Vine Whip",
+        "Tackle"
+      ],
+      "6": [
+        "Fairy Wind"
+      ],
+      "10": [
+        "Lucky Chant"
+      ],
+      "15": [
+        "Razor Leaf"
+      ],
+      "20": [
+        "Wish"
+      ],
+      "22": [
+        "Magical Leaf"
+      ],
+      "24": [
+        "Grassy Terrain"
+      ],
+      "28": [
+        "Petal Blizzard"
+      ],
+      "33": [
+        "Aromatherapy"
+      ],
+      "37": [
+        "Misty Terrain"
+      ],
+      "41": [
+        "Moonblast"
+      ],
+      "45": [
+        "Petal Dance"
+      ],
+      "48": [
+        "Solar Beam"
+      ]
+    },
+    "learnset_source_version_group": "ultra-sun-ultra-moon",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "floette",
+        "target_dex_number": 670,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 19,
+        "min_level": 19
+      }
+    ],
+    "evolves_from": "",
+    "description_en": "It draws out and controls the hidden power of flowers. The flower Flabébé holds is most likely part of its body.",
+    "description_pt": "It draws out and controls the hidden power of flowers. The flower Flabébé holds is most likely part of its body.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "floette",
+    "dex_number": 670,
+    "species": "Floette",
+    "name": "Floette",
+    "generation": 6,
+    "types": [
+      "Fairy"
+    ],
+    "ability": "Flower Veil",
+    "abilities": [
+      "Flower Veil"
+    ],
+    "hidden_ability": "Symbiosis",
+    "gender": "100% female",
+    "gender_rate": 8,
+    "capture_rate": 120,
+    "catch_rate": 120,
+    "growth_rate": "Medium",
+    "base_experience": 130,
+    "xp_yield": 130,
+    "weight": 9,
+    "height": 2,
+    "egg_groups": [
+      "Fairy"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 54,
+      "attack": 45,
+      "defense": 47,
+      "sp_attack": 75,
+      "sp_defense": 98,
+      "speed": 52
+    },
+    "learnset": {
+      "1": [
+        "Vine Whip",
+        "Tackle",
+        "Fairy Wind"
+      ],
+      "6": [
+        "Fairy Wind"
+      ],
+      "10": [
+        "Lucky Chant"
+      ],
+      "15": [
+        "Razor Leaf"
+      ],
+      "20": [
+        "Wish"
+      ],
+      "25": [
+        "Magical Leaf"
+      ],
+      "27": [
+        "Grassy Terrain"
+      ],
+      "33": [
+        "Petal Blizzard"
+      ],
+      "38": [
+        "Aromatherapy"
+      ],
+      "43": [
+        "Misty Terrain"
+      ],
+      "46": [
+        "Moonblast"
+      ],
+      "51": [
+        "Petal Dance"
+      ],
+      "58": [
+        "Solar Beam"
+      ]
+    },
+    "learnset_source_version_group": "ultra-sun-ultra-moon",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "florges",
+        "target_dex_number": 671,
+        "method": "stone",
+        "trigger": "use-item",
+        "item": "Shiny Stone",
+        "item_id": "shiny_stone"
+      }
+    ],
+    "evolves_from": "flabebe",
+    "description_en": "It flutters around fields of flowers and cares for flowers that are starting to wilt. It draws out the hidden power of flowers to battle.",
+    "description_pt": "It flutters around fields of flowers and cares for flowers that are starting to wilt. It draws out the hidden power of flowers to battle.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "florges",
+    "dex_number": 671,
+    "species": "Florges",
+    "name": "Florges",
+    "generation": 6,
+    "types": [
+      "Fairy"
+    ],
+    "ability": "Flower Veil",
+    "abilities": [
+      "Flower Veil"
+    ],
+    "hidden_ability": "Symbiosis",
+    "gender": "100% female",
+    "gender_rate": 8,
+    "capture_rate": 45,
+    "catch_rate": 45,
+    "growth_rate": "Medium",
+    "base_experience": 248,
+    "xp_yield": 248,
+    "weight": 100,
+    "height": 11,
+    "egg_groups": [
+      "Fairy"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 78,
+      "attack": 65,
+      "defense": 68,
+      "sp_attack": 112,
+      "sp_defense": 154,
+      "speed": 75
+    },
+    "learnset": {
+      "1": [
+        "Petal Dance",
+        "Wish",
+        "Aromatherapy",
+        "Magical Leaf",
+        "Lucky Chant",
+        "Grass Knot",
+        "Petal Blizzard",
+        "Disarming Voice",
+        "Flower Shield",
+        "Grassy Terrain",
+        "Misty Terrain",
+        "Moonblast"
+      ]
+    },
+    "learnset_source_version_group": "ultra-sun-ultra-moon",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "floette",
+    "description_en": "It claims exquisite flower gardens as its territory, and it obtains power from basking in the energy emitted by flowering plants.",
+    "description_pt": "It claims exquisite flower gardens as its territory, and it obtains power from basking in the energy emitted by flowering plants.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "skiddo",
+    "dex_number": 672,
+    "species": "Skiddo",
+    "name": "Skiddo",
+    "generation": 6,
+    "types": [
+      "Grass"
+    ],
+    "ability": "Sap Sipper",
+    "abilities": [
+      "Sap Sipper"
+    ],
+    "hidden_ability": "Grass Pelt",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 200,
+    "catch_rate": 200,
+    "growth_rate": "Medium",
+    "base_experience": 70,
+    "xp_yield": 70,
+    "weight": 310,
+    "height": 9,
+    "egg_groups": [
+      "Ground"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 66,
+      "attack": 65,
+      "defense": 48,
+      "sp_attack": 62,
+      "sp_defense": 57,
+      "speed": 52
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Growth"
+      ],
+      "7": [
+        "Vine Whip"
+      ],
+      "9": [
+        "Tail Whip"
+      ],
+      "12": [
+        "Leech Seed"
+      ],
+      "13": [
+        "Razor Leaf"
+      ],
+      "16": [
+        "Worry Seed"
+      ],
+      "20": [
+        "Synthesis"
+      ],
+      "22": [
+        "Take Down"
+      ],
+      "26": [
+        "Bulldoze"
+      ],
+      "30": [
+        "Seed Bomb"
+      ],
+      "34": [
+        "Bulk Up"
+      ],
+      "38": [
+        "Double-Edge"
+      ],
+      "42": [
+        "Horn Leech"
+      ],
+      "45": [
+        "Leaf Blade"
+      ],
+      "50": [
+        "Milk Drink"
+      ]
+    },
+    "learnset_source_version_group": "ultra-sun-ultra-moon",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "gogoat",
+        "target_dex_number": 673,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 32,
+        "min_level": 32
+      }
+    ],
+    "evolves_from": "",
+    "description_en": "Thought to be one of the first Pokémon to live in harmony with humans, it has a placid disposition.",
+    "description_pt": "Thought to be one of the first Pokémon to live in harmony with humans, it has a placid disposition.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "gogoat",
+    "dex_number": 673,
+    "species": "Gogoat",
+    "name": "Gogoat",
+    "generation": 6,
+    "types": [
+      "Grass"
+    ],
+    "ability": "Sap Sipper",
+    "abilities": [
+      "Sap Sipper"
+    ],
+    "hidden_ability": "Grass Pelt",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 45,
+    "catch_rate": 45,
+    "growth_rate": "Medium",
+    "base_experience": 186,
+    "xp_yield": 186,
+    "weight": 910,
+    "height": 17,
+    "egg_groups": [
+      "Ground"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 123,
+      "attack": 100,
+      "defense": 62,
+      "sp_attack": 97,
+      "sp_defense": 81,
+      "speed": 68
+    },
+    "learnset": {
+      "1": [
+        "Vine Whip",
+        "Tackle",
+        "Tail Whip",
+        "Growth",
+        "Earthquake",
+        "Aerial Ace"
+      ],
+      "7": [
+        "Vine Whip"
+      ],
+      "9": [
+        "Tail Whip"
+      ],
+      "12": [
+        "Leech Seed"
+      ],
+      "13": [
+        "Razor Leaf"
+      ],
+      "16": [
+        "Worry Seed"
+      ],
+      "20": [
+        "Synthesis"
+      ],
+      "22": [
+        "Take Down"
+      ],
+      "26": [
+        "Bulldoze"
+      ],
+      "30": [
+        "Seed Bomb"
+      ],
+      "34": [
+        "Bulk Up"
+      ],
+      "40": [
+        "Double-Edge"
+      ],
+      "47": [
+        "Horn Leech"
+      ],
+      "55": [
+        "Leaf Blade"
+      ],
+      "58": [
+        "Milk Drink"
+      ]
+    },
+    "learnset_source_version_group": "ultra-sun-ultra-moon",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "skiddo",
+    "description_en": "It can tell how its Trainer is feeling by subtle shifts in the grip on its horns. This empathic sense lets them run as if one being.",
+    "description_pt": "It can tell how its Trainer is feeling by subtle shifts in the grip on its horns. This empathic sense lets them run as if one being.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "pancham",
+    "dex_number": 674,
+    "species": "Pancham",
+    "name": "Pancham",
+    "generation": 6,
+    "types": [
+      "Fighting"
+    ],
+    "ability": "Iron Fist",
+    "abilities": [
+      "Iron Fist",
+      "Mold Breaker"
+    ],
+    "hidden_ability": "Scrappy",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 220,
+    "catch_rate": 220,
+    "growth_rate": "Medium",
+    "base_experience": 70,
+    "xp_yield": 70,
+    "weight": 80,
+    "height": 6,
+    "egg_groups": [
+      "Ground",
+      "Humanshape"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 67,
+      "attack": 82,
+      "defense": 62,
+      "sp_attack": 46,
+      "sp_defense": 48,
+      "speed": 43
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Leer"
+      ],
+      "4": [
+        "Arm Thrust"
+      ],
+      "8": [
+        "Taunt"
+      ],
+      "12": [
+        "Circle Throw"
+      ],
+      "16": [
+        "Low Sweep"
+      ],
+      "20": [
+        "Work Up"
+      ],
+      "24": [
+        "Slash"
+      ],
+      "28": [
+        "Vital Throw"
+      ],
+      "33": [
+        "Crunch"
+      ],
+      "36": [
+        "Body Slam"
+      ],
+      "40": [
+        "Parting Shot"
+      ],
+      "44": [
+        "Entrainment"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "pangoro",
+        "target_dex_number": 675,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 32,
+        "min_level": 32,
+        "party_type": "Dark"
+      }
+    ],
+    "evolves_from": "",
+    "description_en": "It does its best to be taken seriously by its enemies, but its glare is not sufficiently intimidating. Chewing on a leaf is its trademark.",
+    "description_pt": "It does its best to be taken seriously by its enemies, but its glare is not sufficiently intimidating. Chewing on a leaf is its trademark.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "pangoro",
+    "dex_number": 675,
+    "species": "Pangoro",
+    "name": "Pangoro",
+    "generation": 6,
+    "types": [
+      "Fighting",
+      "Dark"
+    ],
+    "ability": "Iron Fist",
+    "abilities": [
+      "Iron Fist",
+      "Mold Breaker"
+    ],
+    "hidden_ability": "Scrappy",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 65,
+    "catch_rate": 65,
+    "growth_rate": "Medium",
+    "base_experience": 173,
+    "xp_yield": 173,
+    "weight": 1360,
+    "height": 21,
+    "egg_groups": [
+      "Ground",
+      "Humanshape"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 95,
+      "attack": 124,
+      "defense": 78,
+      "sp_attack": 69,
+      "sp_defense": 71,
+      "speed": 58
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Leer",
+        "Taunt",
+        "Arm Thrust",
+        "Night Slash",
+        "Bullet Punch"
+      ],
+      "12": [
+        "Circle Throw"
+      ],
+      "16": [
+        "Low Sweep"
+      ],
+      "20": [
+        "Work Up"
+      ],
+      "24": [
+        "Slash"
+      ],
+      "28": [
+        "Vital Throw"
+      ],
+      "35": [
+        "Crunch"
+      ],
+      "40": [
+        "Body Slam"
+      ],
+      "46": [
+        "Parting Shot"
+      ],
+      "52": [
+        "Entrainment"
+      ],
+      "58": [
+        "Hammer Arm"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "pancham",
+    "description_en": "Although it possesses a violent temperament, it won’t put up with bullying. It uses the leaf in its mouth to sense the movements of its enemies.",
+    "description_pt": "Although it possesses a violent temperament, it won’t put up with bullying. It uses the leaf in its mouth to sense the movements of its enemies.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "furfrou",
+    "dex_number": 676,
+    "species": "Furfrou",
+    "name": "Furfrou",
+    "generation": 6,
+    "types": [
+      "Normal"
+    ],
+    "ability": "Fur Coat",
+    "abilities": [
+      "Fur Coat"
+    ],
+    "hidden_ability": "",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 160,
+    "catch_rate": 160,
+    "growth_rate": "Medium",
+    "base_experience": 165,
+    "xp_yield": 165,
+    "weight": 280,
+    "height": 12,
+    "egg_groups": [
+      "Ground"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 75,
+      "attack": 80,
+      "defense": 60,
+      "sp_attack": 65,
+      "sp_defense": 90,
+      "speed": 102
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Growl"
+      ],
+      "5": [
+        "Sand Attack"
+      ],
+      "9": [
+        "Baby-Doll Eyes"
+      ],
+      "12": [
+        "Headbutt"
+      ],
+      "15": [
+        "Tail Whip"
+      ],
+      "22": [
+        "Bite"
+      ],
+      "27": [
+        "Odor Sleuth"
+      ],
+      "33": [
+        "Retaliate"
+      ],
+      "35": [
+        "Take Down"
+      ],
+      "38": [
+        "Charm"
+      ],
+      "42": [
+        "Sucker Punch"
+      ],
+      "48": [
+        "Cotton Guard"
+      ]
+    },
+    "learnset_source_version_group": "ultra-sun-ultra-moon",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "",
+    "description_en": "Trimming its fluffy fur not only makes it more elegant but also increases the swiftness of its movements.",
+    "description_pt": "Trimming its fluffy fur not only makes it more elegant but also increases the swiftness of its movements.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "espurr",
+    "dex_number": 677,
+    "species": "Espurr",
+    "name": "Espurr",
+    "generation": 6,
+    "types": [
+      "Psychic"
+    ],
+    "ability": "Keen Eye",
+    "abilities": [
+      "Keen Eye",
+      "Infiltrator"
+    ],
+    "hidden_ability": "Own Tempo",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 190,
+    "catch_rate": 190,
+    "growth_rate": "Medium",
+    "base_experience": 71,
+    "xp_yield": 71,
+    "weight": 35,
+    "height": 3,
+    "egg_groups": [
+      "Ground"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 62,
+      "attack": 48,
+      "defense": 54,
+      "sp_attack": 63,
+      "sp_defense": 60,
+      "speed": 68
+    },
+    "learnset": {
+      "1": [
+        "Scratch",
+        "Leer"
+      ],
+      "3": [
+        "Fake Out"
+      ],
+      "6": [
+        "Disarming Voice"
+      ],
+      "9": [
+        "Confusion"
+      ],
+      "18": [
+        "Covet"
+      ],
+      "21": [
+        "Psybeam"
+      ],
+      "30": [
+        "Light Screen",
+        "Reflect"
+      ],
+      "33": [
+        "Psyshock"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "meowstic",
+        "target_dex_number": 678,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 25,
+        "min_level": 25
+      }
+    ],
+    "evolves_from": "",
+    "description_en": "The organ that emits its intense psychic power is sheltered by its ears to keep power from leaking out.",
+    "description_pt": "The organ that emits its intense psychic power is sheltered by its ears to keep power from leaking out.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "meowstic",
+    "dex_number": 678,
+    "species": "Meowstic",
+    "name": "Meowstic",
+    "generation": 6,
+    "types": [
+      "Psychic"
+    ],
+    "ability": "Keen Eye",
+    "abilities": [
+      "Keen Eye",
+      "Infiltrator"
+    ],
+    "hidden_ability": "Prankster",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 75,
+    "catch_rate": 75,
+    "growth_rate": "Medium",
+    "base_experience": 163,
+    "xp_yield": 163,
+    "weight": 85,
+    "height": 6,
+    "egg_groups": [
+      "Ground"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 74,
+      "attack": 48,
+      "defense": 76,
+      "sp_attack": 83,
+      "sp_defense": 81,
+      "speed": 104
+    },
+    "learnset": {
+      "1": [
+        "Scratch",
+        "Leer",
+        "Mean Look",
+        "Fake Out",
+        "Disarming Voice"
+      ],
+      "9": [
+        "Confusion"
+      ],
+      "12": [
+        "Helping Hand"
+      ],
+      "15": [
+        "Charm"
+      ],
+      "18": [
+        "Covet"
+      ],
+      "21": [
+        "Psybeam"
+      ],
+      "24": [
+        "Sucker Punch"
+      ],
+      "29": [
+        "Role Play"
+      ],
+      "34": [
+        "Light Screen",
+        "Reflect"
+      ],
+      "39": [
+        "Psyshock"
+      ],
+      "44": [
+        "Imprison"
+      ],
+      "49": [
+        "Quick Guard"
+      ],
+      "54": [
+        "Psychic"
+      ],
+      "59": [
+        "Misty Terrain"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "espurr",
+    "description_en": "When in danger, it raises its ears and releases enough psychic power to grind a 10-ton truck into dust.",
+    "description_pt": "When in danger, it raises its ears and releases enough psychic power to grind a 10-ton truck into dust.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "honedge",
+    "dex_number": 679,
+    "species": "Honedge",
+    "name": "Honedge",
+    "generation": 6,
+    "types": [
+      "Steel",
+      "Ghost"
+    ],
+    "ability": "No Guard",
+    "abilities": [
+      "No Guard"
+    ],
+    "hidden_ability": "",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 180,
+    "catch_rate": 180,
+    "growth_rate": "Medium",
+    "base_experience": 65,
+    "xp_yield": 65,
+    "weight": 20,
+    "height": 8,
+    "egg_groups": [
+      "Mineral"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 45,
+      "attack": 80,
+      "defense": 100,
+      "sp_attack": 35,
+      "sp_defense": 37,
+      "speed": 28
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Fury Cutter"
+      ],
+      "4": [
+        "Shadow Sneak"
+      ],
+      "8": [
+        "Autotomize"
+      ],
+      "12": [
+        "Aerial Ace"
+      ],
+      "16": [
+        "Metal Sound"
+      ],
+      "20": [
+        "Slash"
+      ],
+      "24": [
+        "Night Slash"
+      ],
+      "28": [
+        "Retaliate"
+      ],
+      "32": [
+        "Iron Defense"
+      ],
+      "36": [
+        "Iron Head"
+      ],
+      "40": [
+        "Power Trick"
+      ],
+      "44": [
+        "Swords Dance"
+      ],
+      "48": [
+        "Sacred Sword"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "doublade",
+        "target_dex_number": 680,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 35,
+        "min_level": 35
+      }
+    ],
+    "evolves_from": "",
+    "description_en": "Apparently this Pokémon is born when a departed spirit inhabits a sword. It attaches itself to people and drinks their life force.",
+    "description_pt": "Apparently this Pokémon is born when a departed spirit inhabits a sword. It attaches itself to people and drinks their life force.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "doublade",
+    "dex_number": 680,
+    "species": "Doublade",
+    "name": "Doublade",
+    "generation": 6,
+    "types": [
+      "Steel",
+      "Ghost"
+    ],
+    "ability": "No Guard",
+    "abilities": [
+      "No Guard"
+    ],
+    "hidden_ability": "",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 90,
+    "catch_rate": 90,
+    "growth_rate": "Medium",
+    "base_experience": 157,
+    "xp_yield": 157,
+    "weight": 45,
+    "height": 8,
+    "egg_groups": [
+      "Mineral"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 59,
+      "attack": 110,
+      "defense": 150,
+      "sp_attack": 45,
+      "sp_defense": 49,
+      "speed": 35
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Fury Cutter",
+        "Shadow Sneak",
+        "Autotomize"
+      ],
+      "12": [
+        "Aerial Ace"
+      ],
+      "16": [
+        "Metal Sound"
+      ],
+      "20": [
+        "Slash"
+      ],
+      "24": [
+        "Night Slash"
+      ],
+      "28": [
+        "Retaliate"
+      ],
+      "32": [
+        "Iron Defense"
+      ],
+      "38": [
+        "Iron Head"
+      ],
+      "44": [
+        "Power Trick"
+      ],
+      "50": [
+        "Swords Dance"
+      ],
+      "56": [
+        "Sacred Sword"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "aegislash",
+        "target_dex_number": 681,
+        "method": "stone",
+        "trigger": "use-item",
+        "item": "Dusk Stone",
+        "item_id": "dusk_stone"
+      }
+    ],
+    "evolves_from": "honedge",
+    "description_en": "When Honedge evolves, it divides into two swords, which cooperate via telepathy to coordinate attacks and slash their enemies to ribbons.",
+    "description_pt": "When Honedge evolves, it divides into two swords, which cooperate via telepathy to coordinate attacks and slash their enemies to ribbons.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "aegislash",
+    "dex_number": 681,
+    "species": "Aegislash",
+    "name": "Aegislash",
+    "generation": 6,
+    "types": [
+      "Steel",
+      "Ghost"
+    ],
+    "ability": "Stance Change",
+    "abilities": [
+      "Stance Change"
+    ],
+    "hidden_ability": "",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 45,
+    "catch_rate": 45,
+    "growth_rate": "Medium",
+    "base_experience": 234,
+    "xp_yield": 234,
+    "weight": 530,
+    "height": 17,
+    "egg_groups": [
+      "Mineral"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 60,
+      "attack": 50,
+      "defense": 140,
+      "sp_attack": 50,
+      "sp_defense": 140,
+      "speed": 60
+    },
+    "learnset": {
+      "1": [
+        "Swords Dance",
+        "Tackle",
+        "Slash",
+        "Fury Cutter",
+        "Metal Sound",
+        "Aerial Ace",
+        "Iron Defense",
+        "Power Trick",
+        "Night Slash",
+        "Shadow Sneak",
+        "Iron Head",
+        "Head Smash",
+        "Autotomize",
+        "Retaliate",
+        "Sacred Sword",
+        "King's Shield"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "doublade",
+    "description_en": "Generations of kings were attended by these Pokémon, which used their spectral power to manipulate and control people and Pokémon.",
+    "description_pt": "Generations of kings were attended by these Pokémon, which used their spectral power to manipulate and control people and Pokémon.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "spritzee",
+    "dex_number": 682,
+    "species": "Spritzee",
+    "name": "Spritzee",
+    "generation": 6,
+    "types": [
+      "Fairy"
+    ],
+    "ability": "Healer",
+    "abilities": [
+      "Healer"
+    ],
+    "hidden_ability": "Aroma Veil",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 200,
+    "catch_rate": 200,
+    "growth_rate": "Medium",
+    "base_experience": 68,
+    "xp_yield": 68,
+    "weight": 5,
+    "height": 2,
+    "egg_groups": [
+      "Fairy"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 78,
+      "attack": 52,
+      "defense": 60,
+      "sp_attack": 63,
+      "sp_defense": 65,
+      "speed": 23
+    },
+    "learnset": {
+      "1": [
+        "Sweet Scent",
+        "Fairy Wind"
+      ],
+      "3": [
+        "Sweet Kiss"
+      ],
+      "6": [
+        "Echoed Voice"
+      ],
+      "9": [
+        "Draining Kiss"
+      ],
+      "12": [
+        "Aromatherapy"
+      ],
+      "15": [
+        "Draining Kiss"
+      ],
+      "18": [
+        "Attract"
+      ],
+      "21": [
+        "Flail"
+      ],
+      "24": [
+        "Misty Terrain"
+      ],
+      "27": [
+        "Psychic"
+      ],
+      "30": [
+        "Charm"
+      ],
+      "33": [
+        "Calm Mind"
+      ],
+      "36": [
+        "Moonblast"
+      ],
+      "39": [
+        "Skill Swap"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "aromatisse",
+        "target_dex_number": 683,
+        "method": "trade",
+        "trigger": "trade",
+        "held_item": "Sachet",
+        "held_item_id": "sachet"
+      }
+    ],
+    "evolves_from": "",
+    "description_en": "It emits a scent that enraptures those who smell it. This fragrance changes depending on what it has eaten.",
+    "description_pt": "It emits a scent that enraptures those who smell it. This fragrance changes depending on what it has eaten.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "aromatisse",
+    "dex_number": 683,
+    "species": "Aromatisse",
+    "name": "Aromatisse",
+    "generation": 6,
+    "types": [
+      "Fairy"
+    ],
+    "ability": "Healer",
+    "abilities": [
+      "Healer"
+    ],
+    "hidden_ability": "Aroma Veil",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 140,
+    "catch_rate": 140,
+    "growth_rate": "Medium",
+    "base_experience": 162,
+    "xp_yield": 162,
+    "weight": 155,
+    "height": 8,
+    "egg_groups": [
+      "Fairy"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 101,
+      "attack": 72,
+      "defense": 72,
+      "sp_attack": 99,
+      "sp_defense": 89,
+      "speed": 29
+    },
+    "learnset": {
+      "1": [
+        "Sweet Kiss",
+        "Sweet Scent",
+        "Echoed Voice",
+        "Heal Pulse",
+        "Fairy Wind",
+        "Aromatic Mist"
+      ],
+      "9": [
+        "Disarming Voice"
+      ],
+      "12": [
+        "Aromatherapy"
+      ],
+      "15": [
+        "Draining Kiss"
+      ],
+      "18": [
+        "Attract"
+      ],
+      "21": [
+        "Flail"
+      ],
+      "24": [
+        "Misty Terrain"
+      ],
+      "27": [
+        "Psychic"
+      ],
+      "30": [
+        "Charm"
+      ],
+      "33": [
+        "Calm Mind"
+      ],
+      "36": [
+        "Moonblast"
+      ],
+      "39": [
+        "Skill Swap"
+      ],
+      "42": [
+        "Psych Up"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "spritzee",
+    "description_en": "It devises various scents, pleasant and unpleasant, and emits scents that its enemies dislike in order to gain an edge in battle.",
+    "description_pt": "It devises various scents, pleasant and unpleasant, and emits scents that its enemies dislike in order to gain an edge in battle.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "swirlix",
+    "dex_number": 684,
+    "species": "Swirlix",
+    "name": "Swirlix",
+    "generation": 6,
+    "types": [
+      "Fairy"
+    ],
+    "ability": "Sweet Veil",
+    "abilities": [
+      "Sweet Veil"
+    ],
+    "hidden_ability": "Unburden",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 200,
+    "catch_rate": 200,
+    "growth_rate": "Medium",
+    "base_experience": 68,
+    "xp_yield": 68,
+    "weight": 35,
+    "height": 4,
+    "egg_groups": [
+      "Fairy"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 62,
+      "attack": 48,
+      "defense": 66,
+      "sp_attack": 59,
+      "sp_defense": 57,
+      "speed": 49
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Sweet Scent"
+      ],
+      "3": [
+        "Play Nice"
+      ],
+      "6": [
+        "Fairy Wind"
+      ],
+      "9": [
+        "Aromatherapy"
+      ],
+      "12": [
+        "Draining Kiss"
+      ],
+      "15": [
+        "Fake Tears"
+      ],
+      "18": [
+        "Round"
+      ],
+      "21": [
+        "String Shot"
+      ],
+      "24": [
+        "Cotton Spore"
+      ],
+      "27": [
+        "Energy Ball"
+      ],
+      "30": [
+        "Wish"
+      ],
+      "33": [
+        "Play Rough"
+      ],
+      "36": [
+        "Cotton Guard"
+      ],
+      "39": [
+        "Endeavor"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "slurpuff",
+        "target_dex_number": 685,
+        "method": "trade",
+        "trigger": "trade",
+        "held_item": "Whipped Dream",
+        "held_item_id": "whipped_dream"
+      }
+    ],
+    "evolves_from": "",
+    "description_en": "To entangle its opponents in battle, it extrudes white threads as sweet and sticky as cotton candy.",
+    "description_pt": "To entangle its opponents in battle, it extrudes white threads as sweet and sticky as cotton candy.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "slurpuff",
+    "dex_number": 685,
+    "species": "Slurpuff",
+    "name": "Slurpuff",
+    "generation": 6,
+    "types": [
+      "Fairy"
+    ],
+    "ability": "Sweet Veil",
+    "abilities": [
+      "Sweet Veil"
+    ],
+    "hidden_ability": "Unburden",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 140,
+    "catch_rate": 140,
+    "growth_rate": "Medium",
+    "base_experience": 168,
+    "xp_yield": 168,
+    "weight": 50,
+    "height": 8,
+    "egg_groups": [
+      "Fairy"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 82,
+      "attack": 80,
+      "defense": 86,
+      "sp_attack": 85,
+      "sp_defense": 75,
+      "speed": 72
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Sweet Scent",
+        "Fairy Wind",
+        "Play Nice"
+      ],
+      "9": [
+        "Aromatherapy"
+      ],
+      "12": [
+        "Draining Kiss"
+      ],
+      "15": [
+        "Fake Tears"
+      ],
+      "18": [
+        "Round"
+      ],
+      "21": [
+        "String Shot"
+      ],
+      "24": [
+        "Cotton Spore"
+      ],
+      "27": [
+        "Energy Ball"
+      ],
+      "30": [
+        "Wish"
+      ],
+      "33": [
+        "Play Rough"
+      ],
+      "36": [
+        "Cotton Guard"
+      ],
+      "39": [
+        "Endeavor"
+      ],
+      "42": [
+        "Sticky Web"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "swirlix",
+    "description_en": "It can distinguish the faintest of scents. It puts its sensitive sense of smell to use by helping pastry chefs in their work.",
+    "description_pt": "It can distinguish the faintest of scents. It puts its sensitive sense of smell to use by helping pastry chefs in their work.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "inkay",
+    "dex_number": 686,
+    "species": "Inkay",
+    "name": "Inkay",
+    "generation": 6,
+    "types": [
+      "Dark",
+      "Psychic"
+    ],
+    "ability": "Contrary",
+    "abilities": [
+      "Contrary",
+      "Suction Cups"
+    ],
+    "hidden_ability": "Infiltrator",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 190,
+    "catch_rate": 190,
+    "growth_rate": "Medium",
+    "base_experience": 58,
+    "xp_yield": 58,
+    "weight": 35,
+    "height": 4,
+    "egg_groups": [
+      "Water1",
+      "Water2"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 53,
+      "attack": 54,
+      "defense": 53,
+      "sp_attack": 37,
+      "sp_defense": 46,
+      "speed": 45
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Peck"
+      ],
+      "3": [
+        "Hypnosis"
+      ],
+      "6": [
+        "Wrap"
+      ],
+      "9": [
+        "Payback"
+      ],
+      "12": [
+        "Pluck"
+      ],
+      "15": [
+        "Psybeam"
+      ],
+      "18": [
+        "Swagger"
+      ],
+      "21": [
+        "Slash"
+      ],
+      "24": [
+        "Night Slash"
+      ],
+      "27": [
+        "Psycho Cut"
+      ],
+      "31": [
+        "Switcheroo"
+      ],
+      "33": [
+        "Foul Play"
+      ],
+      "36": [
+        "Topsy-Turvy"
+      ],
+      "39": [
+        "Superpower"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "malamar",
+        "target_dex_number": 687,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 30,
+        "min_level": 30,
+        "turn_upside_down": true
+      }
+    ],
+    "evolves_from": "",
+    "description_en": "Opponents who stare at the flashing of the light-emitting spots on its body become dazed and lose their will to fight.",
+    "description_pt": "Opponents who stare at the flashing of the light-emitting spots on its body become dazed and lose their will to fight.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "malamar",
+    "dex_number": 687,
+    "species": "Malamar",
+    "name": "Malamar",
+    "generation": 6,
+    "types": [
+      "Dark",
+      "Psychic"
+    ],
+    "ability": "Contrary",
+    "abilities": [
+      "Contrary",
+      "Suction Cups"
+    ],
+    "hidden_ability": "Infiltrator",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 80,
+    "catch_rate": 80,
+    "growth_rate": "Medium",
+    "base_experience": 169,
+    "xp_yield": 169,
+    "weight": 470,
+    "height": 15,
+    "egg_groups": [
+      "Water1",
+      "Water2"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 86,
+      "attack": 92,
+      "defense": 88,
+      "sp_attack": 68,
+      "sp_defense": 75,
+      "speed": 73
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Wrap",
+        "Peck",
+        "Hypnosis",
+        "Reversal"
+      ],
+      "9": [
+        "Payback"
+      ],
+      "12": [
+        "Pluck"
+      ],
+      "15": [
+        "Psybeam"
+      ],
+      "18": [
+        "Swagger"
+      ],
+      "21": [
+        "Slash"
+      ],
+      "24": [
+        "Night Slash"
+      ],
+      "27": [
+        "Psycho Cut"
+      ],
+      "33": [
+        "Switcheroo"
+      ],
+      "37": [
+        "Foul Play"
+      ],
+      "42": [
+        "Topsy-Turvy"
+      ],
+      "47": [
+        "Superpower"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "inkay",
+    "description_en": "It wields the most compelling hypnotic powers of any Pokémon, and it forces others to do whatever it wants.",
+    "description_pt": "It wields the most compelling hypnotic powers of any Pokémon, and it forces others to do whatever it wants.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "binacle",
+    "dex_number": 688,
+    "species": "Binacle",
+    "name": "Binacle",
+    "generation": 6,
+    "types": [
+      "Rock",
+      "Water"
+    ],
+    "ability": "Tough Claws",
+    "abilities": [
+      "Tough Claws",
+      "Sniper"
+    ],
+    "hidden_ability": "Pickpocket",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 120,
+    "catch_rate": 120,
+    "growth_rate": "Medium",
+    "base_experience": 61,
+    "xp_yield": 61,
+    "weight": 310,
+    "height": 5,
+    "egg_groups": [
+      "Water3"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 42,
+      "attack": 52,
+      "defense": 67,
+      "sp_attack": 39,
+      "sp_defense": 56,
+      "speed": 50
+    },
+    "learnset": {
+      "1": [
+        "Scratch",
+        "Mud-Slap"
+      ],
+      "4": [
+        "Withdraw"
+      ],
+      "8": [
+        "Water Gun"
+      ],
+      "12": [
+        "Fury Cutter"
+      ],
+      "16": [
+        "Fury Swipes"
+      ],
+      "20": [
+        "Ancient Power"
+      ],
+      "24": [
+        "Rock Polish"
+      ],
+      "28": [
+        "Slash"
+      ],
+      "32": [
+        "Hone Claws"
+      ],
+      "36": [
+        "Razor Shell"
+      ],
+      "40": [
+        "Shell Smash"
+      ],
+      "44": [
+        "Cross Chop"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "barbaracle",
+        "target_dex_number": 689,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 39,
+        "min_level": 39
+      }
+    ],
+    "evolves_from": "",
+    "description_en": "Two Binacle live together on one rock. When they fight, one of them will move to a different rock.",
+    "description_pt": "Two Binacle live together on one rock. When they fight, one of them will move to a different rock.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "barbaracle",
+    "dex_number": 689,
+    "species": "Barbaracle",
+    "name": "Barbaracle",
+    "generation": 6,
+    "types": [
+      "Rock",
+      "Water"
+    ],
+    "ability": "Tough Claws",
+    "abilities": [
+      "Tough Claws",
+      "Sniper"
+    ],
+    "hidden_ability": "Pickpocket",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 45,
+    "catch_rate": 45,
+    "growth_rate": "Medium",
+    "base_experience": 175,
+    "xp_yield": 175,
+    "weight": 960,
+    "height": 13,
+    "egg_groups": [
+      "Water3"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 72,
+      "attack": 105,
+      "defense": 115,
+      "sp_attack": 54,
+      "sp_defense": 86,
+      "speed": 68
+    },
+    "learnset": {
+      "1": [
+        "Scratch",
+        "Water Gun",
+        "Withdraw",
+        "Skull Bash",
+        "Mud-Slap"
+      ],
+      "12": [
+        "Fury Cutter"
+      ],
+      "16": [
+        "Fury Swipes"
+      ],
+      "20": [
+        "Ancient Power"
+      ],
+      "24": [
+        "Rock Polish"
+      ],
+      "28": [
+        "Slash"
+      ],
+      "32": [
+        "Hone Claws"
+      ],
+      "36": [
+        "Razor Shell"
+      ],
+      "42": [
+        "Shell Smash"
+      ],
+      "48": [
+        "Cross Chop"
+      ],
+      "54": [
+        "Stone Edge"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "binacle",
+    "description_en": "When they evolve, two Binacle multiply into seven. They fight with the power of seven Binacle.",
+    "description_pt": "When they evolve, two Binacle multiply into seven. They fight with the power of seven Binacle.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "skrelp",
+    "dex_number": 690,
+    "species": "Skrelp",
+    "name": "Skrelp",
+    "generation": 6,
+    "types": [
+      "Poison",
+      "Water"
+    ],
+    "ability": "Poison Point",
+    "abilities": [
+      "Poison Point",
+      "Poison Touch"
+    ],
+    "hidden_ability": "Adaptability",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 225,
+    "catch_rate": 225,
+    "growth_rate": "Medium",
+    "base_experience": 64,
+    "xp_yield": 64,
+    "weight": 73,
+    "height": 5,
+    "egg_groups": [
+      "Water1",
+      "Dragon"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 50,
+      "attack": 60,
+      "defense": 60,
+      "sp_attack": 60,
+      "sp_defense": 60,
+      "speed": 30
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Smokescreen"
+      ],
+      "5": [
+        "Acid"
+      ],
+      "10": [
+        "Water Gun"
+      ],
+      "15": [
+        "Tail Whip"
+      ],
+      "20": [
+        "Double Team"
+      ],
+      "25": [
+        "Poison Tail"
+      ],
+      "30": [
+        "Water Pulse"
+      ],
+      "35": [
+        "Toxic"
+      ],
+      "40": [
+        "Dragon Pulse"
+      ],
+      "45": [
+        "Aqua Tail"
+      ],
+      "50": [
+        "Sludge Bomb"
+      ],
+      "55": [
+        "Hydro Pump"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "dragalge",
+        "target_dex_number": 691,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 48,
+        "min_level": 48
+      }
+    ],
+    "evolves_from": "",
+    "description_en": "Camouflaged as rotten kelp, they spray liquid poison on prey that approaches unawares and then finish it off.",
+    "description_pt": "Camouflaged as rotten kelp, they spray liquid poison on prey that approaches unawares and then finish it off.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "dragalge",
+    "dex_number": 691,
+    "species": "Dragalge",
+    "name": "Dragalge",
+    "generation": 6,
+    "types": [
+      "Poison",
+      "Dragon"
+    ],
+    "ability": "Poison Point",
+    "abilities": [
+      "Poison Point",
+      "Poison Touch"
+    ],
+    "hidden_ability": "Adaptability",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 55,
+    "catch_rate": 55,
+    "growth_rate": "Medium",
+    "base_experience": 173,
+    "xp_yield": 173,
+    "weight": 815,
+    "height": 18,
+    "egg_groups": [
+      "Water1",
+      "Dragon"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 65,
+      "attack": 75,
+      "defense": 90,
+      "sp_attack": 97,
+      "sp_defense": 123,
+      "speed": 44
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Acid",
+        "Water Gun",
+        "Smokescreen"
+      ],
+      "15": [
+        "Tail Whip"
+      ],
+      "20": [
+        "Double Team"
+      ],
+      "25": [
+        "Poison Tail"
+      ],
+      "30": [
+        "Water Pulse"
+      ],
+      "35": [
+        "Toxic"
+      ],
+      "40": [
+        "Dragon Pulse"
+      ],
+      "45": [
+        "Aqua Tail"
+      ],
+      "52": [
+        "Sludge Bomb"
+      ],
+      "59": [
+        "Hydro Pump"
+      ],
+      "66": [
+        "Outrage"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "skrelp",
+    "description_en": "Their poison is strong enough to eat through the hull of a tanker, and they spit it indiscriminately at anything that enters their territory.",
+    "description_pt": "Their poison is strong enough to eat through the hull of a tanker, and they spit it indiscriminately at anything that enters their territory.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "clauncher",
+    "dex_number": 692,
+    "species": "Clauncher",
+    "name": "Clauncher",
+    "generation": 6,
+    "types": [
+      "Water"
+    ],
+    "ability": "Mega Launcher",
+    "abilities": [
+      "Mega Launcher"
+    ],
+    "hidden_ability": "",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 225,
+    "catch_rate": 225,
+    "growth_rate": "Slow",
+    "base_experience": 66,
+    "xp_yield": 66,
+    "weight": 83,
+    "height": 5,
+    "egg_groups": [
+      "Water1",
+      "Water3"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 50,
+      "attack": 53,
+      "defense": 62,
+      "sp_attack": 58,
+      "sp_defense": 63,
+      "speed": 44
+    },
+    "learnset": {
+      "1": [
+        "Water Gun",
+        "Splash"
+      ],
+      "5": [
+        "Vise Grip"
+      ],
+      "10": [
+        "Flail"
+      ],
+      "15": [
+        "Aqua Jet"
+      ],
+      "20": [
+        "Smack Down"
+      ],
+      "25": [
+        "Hone Claws"
+      ],
+      "30": [
+        "Water Pulse"
+      ],
+      "35": [
+        "Swords Dance"
+      ],
+      "40": [
+        "Aura Sphere"
+      ],
+      "45": [
+        "Bounce"
+      ],
+      "50": [
+        "Muddy Water"
+      ],
+      "55": [
+        "Crabhammer"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "clawitzer",
+        "target_dex_number": 693,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 37,
+        "min_level": 37
+      }
+    ],
+    "evolves_from": "",
+    "description_en": "They knock down flying prey by firing compressed water from their massive claws like shooting a pistol.",
+    "description_pt": "They knock down flying prey by firing compressed water from their massive claws like shooting a pistol.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "clawitzer",
+    "dex_number": 693,
+    "species": "Clawitzer",
+    "name": "Clawitzer",
+    "generation": 6,
+    "types": [
+      "Water"
+    ],
+    "ability": "Mega Launcher",
+    "abilities": [
+      "Mega Launcher"
+    ],
+    "hidden_ability": "",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 55,
+    "catch_rate": 55,
+    "growth_rate": "Slow",
+    "base_experience": 100,
+    "xp_yield": 100,
+    "weight": 353,
+    "height": 13,
+    "egg_groups": [
+      "Water1",
+      "Water3"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 71,
+      "attack": 73,
+      "defense": 88,
+      "sp_attack": 120,
+      "sp_defense": 89,
+      "speed": 59
+    },
+    "learnset": {
+      "1": [
+        "Vise Grip",
+        "Water Gun",
+        "Splash",
+        "Flail",
+        "Dark Pulse",
+        "Dragon Pulse",
+        "Heal Pulse"
+      ],
+      "15": [
+        "Aqua Jet"
+      ],
+      "20": [
+        "Smack Down"
+      ],
+      "25": [
+        "Hone Claws"
+      ],
+      "30": [
+        "Water Pulse"
+      ],
+      "35": [
+        "Swords Dance"
+      ],
+      "42": [
+        "Aura Sphere"
+      ],
+      "49": [
+        "Bounce"
+      ],
+      "56": [
+        "Muddy Water"
+      ],
+      "63": [
+        "Crabhammer"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "clauncher",
+    "description_en": "Their enormous claws launch cannonballs of water powerful enough to pierce tanker hulls.",
+    "description_pt": "Their enormous claws launch cannonballs of water powerful enough to pierce tanker hulls.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "helioptile",
+    "dex_number": 694,
+    "species": "Helioptile",
+    "name": "Helioptile",
+    "generation": 6,
+    "types": [
+      "Electric",
+      "Normal"
+    ],
+    "ability": "Dry Skin",
+    "abilities": [
+      "Dry Skin",
+      "Sand Veil"
+    ],
+    "hidden_ability": "Solar Power",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 190,
+    "catch_rate": 190,
+    "growth_rate": "Medium",
+    "base_experience": 58,
+    "xp_yield": 58,
+    "weight": 60,
+    "height": 5,
+    "egg_groups": [
+      "Monster",
+      "Dragon"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 44,
+      "attack": 38,
+      "defense": 33,
+      "sp_attack": 61,
+      "sp_defense": 43,
+      "speed": 70
+    },
+    "learnset": {
+      "1": [
+        "Tail Whip",
+        "Mud-Slap"
+      ],
+      "4": [
+        "Pound"
+      ],
+      "8": [
+        "Thunder Shock"
+      ],
+      "12": [
+        "Quick Attack"
+      ],
+      "16": [
+        "Charge"
+      ],
+      "20": [
+        "Bulldoze"
+      ],
+      "24": [
+        "Volt Switch"
+      ],
+      "28": [
+        "Parabolic Charge"
+      ],
+      "32": [
+        "Thunder Wave"
+      ],
+      "36": [
+        "Thunderbolt"
+      ],
+      "40": [
+        "Electrify"
+      ],
+      "44": [
+        "Thunder"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "heliolisk",
+        "target_dex_number": 695,
+        "method": "stone",
+        "trigger": "use-item",
+        "item": "Sun Stone",
+        "item_id": "sun_stone"
+      }
+    ],
+    "evolves_from": "",
+    "description_en": "They make their home in deserts. They can generate their energy from basking in the sun, so eating food is not a requirement.",
+    "description_pt": "They make their home in deserts. They can generate their energy from basking in the sun, so eating food is not a requirement.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "heliolisk",
+    "dex_number": 695,
+    "species": "Heliolisk",
+    "name": "Heliolisk",
+    "generation": 6,
+    "types": [
+      "Electric",
+      "Normal"
+    ],
+    "ability": "Dry Skin",
+    "abilities": [
+      "Dry Skin",
+      "Sand Veil"
+    ],
+    "hidden_ability": "Solar Power",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 75,
+    "catch_rate": 75,
+    "growth_rate": "Medium",
+    "base_experience": 168,
+    "xp_yield": 168,
+    "weight": 210,
+    "height": 10,
+    "egg_groups": [
+      "Monster",
+      "Dragon"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 62,
+      "attack": 55,
+      "defense": 52,
+      "sp_attack": 109,
+      "sp_defense": 94,
+      "speed": 109
+    },
+    "learnset": {
+      "1": [
+        "Pound",
+        "Tail Whip",
+        "Thunder Shock",
+        "Thunderbolt",
+        "Thunder Wave",
+        "Thunder",
+        "Quick Attack",
+        "Mud-Slap",
+        "Charge",
+        "Discharge",
+        "Volt Switch",
+        "Bulldoze",
+        "Parabolic Charge",
+        "Electrify",
+        "Eerie Impulse"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "helioptile",
+    "description_en": "They flare their frills and generate energy. A single Heliolisk can generate sufficient electricity to power a skyscraper.",
+    "description_pt": "They flare their frills and generate energy. A single Heliolisk can generate sufficient electricity to power a skyscraper.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "tyrunt",
+    "dex_number": 696,
+    "species": "Tyrunt",
+    "name": "Tyrunt",
+    "generation": 6,
+    "types": [
+      "Rock",
+      "Dragon"
+    ],
+    "ability": "Strong Jaw",
+    "abilities": [
+      "Strong Jaw"
+    ],
+    "hidden_ability": "Sturdy",
+    "gender": "87.5% male / 12.5% female",
+    "gender_rate": 1,
+    "capture_rate": 45,
+    "catch_rate": 45,
+    "growth_rate": "Medium",
+    "base_experience": 72,
+    "xp_yield": 72,
+    "weight": 260,
+    "height": 8,
+    "egg_groups": [
+      "Monster",
+      "Dragon"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 58,
+      "attack": 89,
+      "defense": 77,
+      "sp_attack": 45,
+      "sp_defense": 45,
+      "speed": 48
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Tail Whip"
+      ],
+      "4": [
+        "Roar"
+      ],
+      "8": [
+        "Ancient Power"
+      ],
+      "12": [
+        "Charm"
+      ],
+      "16": [
+        "Bite"
+      ],
+      "20": [
+        "Dragon Tail"
+      ],
+      "24": [
+        "Stomp"
+      ],
+      "28": [
+        "Rock Slide"
+      ],
+      "32": [
+        "Crunch"
+      ],
+      "36": [
+        "Dragon Claw"
+      ],
+      "40": [
+        "Thrash"
+      ],
+      "44": [
+        "Earthquake"
+      ],
+      "48": [
+        "Horn Drill"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "tyrantrum",
+        "target_dex_number": 697,
+        "method": "time",
+        "trigger": "level-up",
+        "level": 39,
+        "min_level": 39,
+        "time_of_day": "day"
+      }
+    ],
+    "evolves_from": "",
+    "description_en": "This Pokémon was restored from a fossil. If something happens that it doesn’t like, it throws a tantrum and runs wild.",
+    "description_pt": "This Pokémon was restored from a fossil. If something happens that it doesn’t like, it throws a tantrum and runs wild.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "tyrantrum",
+    "dex_number": 697,
+    "species": "Tyrantrum",
+    "name": "Tyrantrum",
+    "generation": 6,
+    "types": [
+      "Rock",
+      "Dragon"
+    ],
+    "ability": "Strong Jaw",
+    "abilities": [
+      "Strong Jaw"
+    ],
+    "hidden_ability": "Rock Head",
+    "gender": "87.5% male / 12.5% female",
+    "gender_rate": 1,
+    "capture_rate": 45,
+    "catch_rate": 45,
+    "growth_rate": "Medium",
+    "base_experience": 182,
+    "xp_yield": 182,
+    "weight": 2700,
+    "height": 25,
+    "egg_groups": [
+      "Monster",
+      "Dragon"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 82,
+      "attack": 121,
+      "defense": 119,
+      "sp_attack": 69,
+      "sp_defense": 59,
+      "speed": 71
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Tail Whip",
+        "Roar",
+        "Ancient Power"
+      ],
+      "12": [
+        "Charm"
+      ],
+      "16": [
+        "Bite"
+      ],
+      "20": [
+        "Dragon Tail"
+      ],
+      "24": [
+        "Stomp"
+      ],
+      "28": [
+        "Rock Slide"
+      ],
+      "32": [
+        "Crunch"
+      ],
+      "36": [
+        "Dragon Claw"
+      ],
+      "42": [
+        "Thrash"
+      ],
+      "48": [
+        "Earthquake"
+      ],
+      "54": [
+        "Horn Drill"
+      ],
+      "60": [
+        "Giga Impact"
+      ],
+      "66": [
+        "Head Smash"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "tyrunt",
+    "description_en": "Thanks to its gargantuan jaws, which could shred thick metal plates as if they were paper, it was invincible in the ancient world it once inhabited.",
+    "description_pt": "Thanks to its gargantuan jaws, which could shred thick metal plates as if they were paper, it was invincible in the ancient world it once inhabited.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "amaura",
+    "dex_number": 698,
+    "species": "Amaura",
+    "name": "Amaura",
+    "generation": 6,
+    "types": [
+      "Rock",
+      "Ice"
+    ],
+    "ability": "Refrigerate",
+    "abilities": [
+      "Refrigerate"
+    ],
+    "hidden_ability": "Snow Warning",
+    "gender": "87.5% male / 12.5% female",
+    "gender_rate": 1,
+    "capture_rate": 45,
+    "catch_rate": 45,
+    "growth_rate": "Medium",
+    "base_experience": 72,
+    "xp_yield": 72,
+    "weight": 252,
+    "height": 13,
+    "egg_groups": [
+      "Monster"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 77,
+      "attack": 59,
+      "defense": 50,
+      "sp_attack": 67,
+      "sp_defense": 63,
+      "speed": 46
+    },
+    "learnset": {
+      "1": [
+        "Growl",
+        "Powder Snow"
+      ],
+      "4": [
+        "Encore"
+      ],
+      "8": [
+        "Ancient Power"
+      ],
+      "12": [
+        "Icy Wind"
+      ],
+      "16": [
+        "Round"
+      ],
+      "20": [
+        "Mist"
+      ],
+      "24": [
+        "Aurora Beam"
+      ],
+      "28": [
+        "Thunder Wave"
+      ],
+      "32": [
+        "Nature Power"
+      ],
+      "36": [
+        "Freeze-Dry"
+      ],
+      "40": [
+        "Ice Beam"
+      ],
+      "44": [
+        "Light Screen"
+      ],
+      "48": [
+        "Hail"
+      ],
+      "52": [
+        "Blizzard"
+      ],
+      "56": [
+        "Hyper Beam"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "aurorus",
+        "target_dex_number": 699,
+        "method": "time",
+        "trigger": "level-up",
+        "level": 39,
+        "min_level": 39,
+        "time_of_day": "night"
+      }
+    ],
+    "evolves_from": "",
+    "description_en": "This ancient Pokémon was restored from part of its body that had been frozen in ice for over 100 million years.",
+    "description_pt": "This ancient Pokémon was restored from part of its body that had been frozen in ice for over 100 million years.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "aurorus",
+    "dex_number": 699,
+    "species": "Aurorus",
+    "name": "Aurorus",
+    "generation": 6,
+    "types": [
+      "Rock",
+      "Ice"
+    ],
+    "ability": "Refrigerate",
+    "abilities": [
+      "Refrigerate"
+    ],
+    "hidden_ability": "Snow Warning",
+    "gender": "87.5% male / 12.5% female",
+    "gender_rate": 1,
+    "capture_rate": 45,
+    "catch_rate": 45,
+    "growth_rate": "Medium",
+    "base_experience": 104,
+    "xp_yield": 104,
+    "weight": 2250,
+    "height": 27,
+    "egg_groups": [
+      "Monster"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 123,
+      "attack": 77,
+      "defense": 72,
+      "sp_attack": 99,
+      "sp_defense": 92,
+      "speed": 58
+    },
+    "learnset": {
+      "1": [
+        "Growl",
+        "Powder Snow",
+        "Encore",
+        "Ancient Power"
+      ],
+      "12": [
+        "Icy Wind"
+      ],
+      "16": [
+        "Round"
+      ],
+      "20": [
+        "Mist"
+      ],
+      "24": [
+        "Aurora Beam"
+      ],
+      "28": [
+        "Thunder Wave"
+      ],
+      "32": [
+        "Nature Power"
+      ],
+      "36": [
+        "Freeze-Dry"
+      ],
+      "42": [
+        "Ice Beam"
+      ],
+      "48": [
+        "Light Screen"
+      ],
+      "54": [
+        "Hail"
+      ],
+      "60": [
+        "Blizzard"
+      ],
+      "66": [
+        "Hyper Beam"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "amaura",
+    "description_en": "The diamond-shaped crystals on its body expel air as cold as -240 degrees Fahrenheit, surrounding its enemies and encasing them in ice.",
+    "description_pt": "The diamond-shaped crystals on its body expel air as cold as -240 degrees Fahrenheit, surrounding its enemies and encasing them in ice.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "sylveon",
+    "dex_number": 700,
+    "species": "Sylveon",
+    "name": "Sylveon",
+    "generation": 6,
+    "types": [
+      "Fairy"
+    ],
+    "ability": "Cute Charm",
+    "abilities": [
+      "Cute Charm"
+    ],
+    "hidden_ability": "Pixilate",
+    "gender": "87.5% male / 12.5% female",
+    "gender_rate": 1,
+    "capture_rate": 45,
+    "catch_rate": 45,
+    "growth_rate": "Medium",
+    "base_experience": 184,
+    "xp_yield": 184,
+    "weight": 235,
+    "height": 10,
+    "egg_groups": [
+      "Ground"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 95,
+      "attack": 65,
+      "defense": 65,
+      "sp_attack": 110,
+      "sp_defense": 130,
+      "speed": 60
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Fairy Wind"
+      ],
+      "6": [
+        "Quick Attack"
+      ],
+      "11": [
+        "Swift"
+      ],
+      "18": [
+        "Baby-Doll Eyes"
+      ],
+      "25": [
+        "Mimic",
+        "Play Rough"
+      ],
+      "34": [
+        "Calm Mind"
+      ],
+      "43": [
+        "Double-Edge"
+      ]
+    },
+    "learnset_source_version_group": "legends-arceus",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "eevee",
+    "description_en": "It emits a soothing aura from its ribbon-shaped organs. It wraps these appendages around quarrelers to instantly restore calm to the situation.",
+    "description_pt": "It emits a soothing aura from its ribbon-shaped organs. It wraps these appendages around quarrelers to instantly restore calm to the situation.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "hawlucha",
+    "dex_number": 701,
+    "species": "Hawlucha",
+    "name": "Hawlucha",
+    "generation": 6,
+    "types": [
+      "Fighting",
+      "Flying"
+    ],
+    "ability": "Limber",
+    "abilities": [
+      "Limber",
+      "Unburden"
+    ],
+    "hidden_ability": "Mold Breaker",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 100,
+    "catch_rate": 100,
+    "growth_rate": "Medium",
+    "base_experience": 175,
+    "xp_yield": 175,
+    "weight": 215,
+    "height": 8,
+    "egg_groups": [
+      "Flying",
+      "Humanshape"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 78,
+      "attack": 92,
+      "defense": 75,
+      "sp_attack": 74,
+      "sp_defense": 63,
+      "speed": 118
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Hone Claws"
+      ],
+      "4": [
+        "Wing Attack"
+      ],
+      "8": [
+        "Detect"
+      ],
+      "12": [
+        "Aerial Ace"
+      ],
+      "16": [
+        "Encore"
+      ],
+      "20": [
+        "Feather Dance"
+      ],
+      "24": [
+        "Submission"
+      ],
+      "28": [
+        "Bounce"
+      ],
+      "32": [
+        "Taunt"
+      ],
+      "36": [
+        "Roost"
+      ],
+      "40": [
+        "Swords Dance"
+      ],
+      "44": [
+        "Flying Press"
+      ],
+      "48": [
+        "High Jump Kick"
+      ],
+      "52": [
+        "Endeavor"
+      ],
+      "56": [
+        "Sky Attack"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "",
+    "description_en": "Although its body is small, its proficient fighting skills enable it to keep up with big bruisers like Machamp and Hariyama.",
+    "description_pt": "Although its body is small, its proficient fighting skills enable it to keep up with big bruisers like Machamp and Hariyama.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "dedenne",
+    "dex_number": 702,
+    "species": "Dedenne",
+    "name": "Dedenne",
+    "generation": 6,
+    "types": [
+      "Electric",
+      "Fairy"
+    ],
+    "ability": "Cheek Pouch",
+    "abilities": [
+      "Cheek Pouch",
+      "Pickup"
+    ],
+    "hidden_ability": "Plus",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 180,
+    "catch_rate": 180,
+    "growth_rate": "Medium",
+    "base_experience": 151,
+    "xp_yield": 151,
+    "weight": 22,
+    "height": 2,
+    "egg_groups": [
+      "Ground",
+      "Fairy"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 67,
+      "attack": 58,
+      "defense": 57,
+      "sp_attack": 81,
+      "sp_defense": 67,
+      "speed": 101
+    },
+    "learnset": {
+      "1": [
+        "Tail Whip",
+        "Nuzzle"
+      ],
+      "5": [
+        "Tackle"
+      ],
+      "10": [
+        "Charge"
+      ],
+      "15": [
+        "Thunder Shock"
+      ],
+      "20": [
+        "Charm"
+      ],
+      "25": [
+        "Parabolic Charge"
+      ],
+      "30": [
+        "Volt Switch"
+      ],
+      "35": [
+        "Rest",
+        "Snore"
+      ],
+      "40": [
+        "Discharge"
+      ],
+      "45": [
+        "Play Rough"
+      ],
+      "50": [
+        "Super Fang"
+      ],
+      "55": [
+        "Entrainment"
+      ],
+      "60": [
+        "Thunder"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "",
+    "description_en": "Its whiskers serve as antennas. By sending and receiving electrical waves, it can communicate with others over vast distances.",
+    "description_pt": "Its whiskers serve as antennas. By sending and receiving electrical waves, it can communicate with others over vast distances.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "carbink",
+    "dex_number": 703,
+    "species": "Carbink",
+    "name": "Carbink",
+    "generation": 6,
+    "types": [
+      "Rock",
+      "Fairy"
+    ],
+    "ability": "Clear Body",
+    "abilities": [
+      "Clear Body"
+    ],
+    "hidden_ability": "Sturdy",
+    "gender": "Genderless",
+    "gender_rate": -1,
+    "capture_rate": 60,
+    "catch_rate": 60,
+    "growth_rate": "Slow",
+    "base_experience": 100,
+    "xp_yield": 100,
+    "weight": 57,
+    "height": 3,
+    "egg_groups": [
+      "Fairy",
+      "Mineral"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 50,
+      "attack": 50,
+      "defense": 150,
+      "sp_attack": 50,
+      "sp_defense": 150,
+      "speed": 50
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Harden"
+      ],
+      "5": [
+        "Guard Split"
+      ],
+      "10": [
+        "Smack Down"
+      ],
+      "15": [
+        "Flail"
+      ],
+      "20": [
+        "Ancient Power"
+      ],
+      "25": [
+        "Rock Polish"
+      ],
+      "30": [
+        "Light Screen"
+      ],
+      "35": [
+        "Rock Slide"
+      ],
+      "40": [
+        "Skill Swap"
+      ],
+      "45": [
+        "Power Gem"
+      ],
+      "50": [
+        "Stealth Rock"
+      ],
+      "55": [
+        "Moonblast"
+      ],
+      "60": [
+        "Stone Edge"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "",
+    "description_en": "Born from the temperatures and pressures deep underground, it fires beams from the stone in its head.",
+    "description_pt": "Born from the temperatures and pressures deep underground, it fires beams from the stone in its head.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "goomy",
+    "dex_number": 704,
+    "species": "Goomy",
+    "name": "Goomy",
+    "generation": 6,
+    "types": [
+      "Dragon"
+    ],
+    "ability": "Sap Sipper",
+    "abilities": [
+      "Sap Sipper",
+      "Hydration"
+    ],
+    "hidden_ability": "Gooey",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 45,
+    "catch_rate": 45,
+    "growth_rate": "Slow",
+    "base_experience": 60,
+    "xp_yield": 60,
+    "weight": 28,
+    "height": 3,
+    "egg_groups": [
+      "Dragon"
+    ],
+    "friendship": 35,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 45,
+      "attack": 50,
+      "defense": 35,
+      "sp_attack": 55,
+      "sp_defense": 75,
+      "speed": 40
+    },
+    "learnset": {
+      "1": [
+        "Bubble"
+      ],
+      "6": [
+        "Acid Spray"
+      ],
+      "11": [
+        "Acid Armor"
+      ],
+      "18": [
+        "Water Pulse"
+      ],
+      "25": [
+        "Dragon Pulse"
+      ],
+      "34": [
+        "Shelter"
+      ],
+      "43": [
+        "Hydro Pump"
+      ]
+    },
+    "learnset_source_version_group": "legends-arceus",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "sliggoo",
+        "target_dex_number": 705,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 40,
+        "min_level": 40
+      },
+      {
+        "target": "sliggoo",
+        "target_dex_number": 705,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 40,
+        "min_level": 40
+      }
+    ],
+    "evolves_from": "",
+    "description_en": "Goomy hides away in the shade of trees, where it's nice and humid. If the slime coating its body dries out, the Pokémon instantly becomes lethargic.",
+    "description_pt": "Goomy hides away in the shade of trees, where it's nice and humid. If the slime coating its body dries out, the Pokémon instantly becomes lethargic.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "sliggoo",
+    "dex_number": 705,
+    "species": "Sliggoo",
+    "name": "Sliggoo",
+    "generation": 6,
+    "types": [
+      "Dragon"
+    ],
+    "ability": "Sap Sipper",
+    "abilities": [
+      "Sap Sipper",
+      "Hydration"
+    ],
+    "hidden_ability": "Gooey",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 45,
+    "catch_rate": 45,
+    "growth_rate": "Slow",
+    "base_experience": 158,
+    "xp_yield": 158,
+    "weight": 175,
+    "height": 8,
+    "egg_groups": [
+      "Dragon"
+    ],
+    "friendship": 35,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 68,
+      "attack": 75,
+      "defense": 53,
+      "sp_attack": 83,
+      "sp_defense": 113,
+      "speed": 60
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Water Gun",
+        "Absorb",
+        "Dragon Breath",
+        "Acid Spray"
+      ],
+      "15": [
+        "Protect"
+      ],
+      "20": [
+        "Flail"
+      ],
+      "25": [
+        "Water Pulse"
+      ],
+      "30": [
+        "Rain Dance"
+      ],
+      "35": [
+        "Dragon Pulse"
+      ],
+      "43": [
+        "Curse"
+      ],
+      "49": [
+        "Body Slam"
+      ],
+      "56": [
+        "Muddy Water"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "goodra",
+        "target_dex_number": 706,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 50,
+        "min_level": 50,
+        "needs_overworld_rain": true
+      },
+      {
+        "target": "goodra",
+        "target_dex_number": 706,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 50,
+        "min_level": 50,
+        "needs_overworld_rain": true
+      }
+    ],
+    "evolves_from": "goomy",
+    "description_en": "A creature given to melancholy. I suspect its metallic shell developed as a result of the mucus on its skin reacting with the iron in Hisui's water.",
+    "description_pt": "A creature given to melancholy. I suspect its metallic shell developed as a result of the mucus on its skin reacting with the iron in Hisui's water.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "goodra",
+    "dex_number": 706,
+    "species": "Goodra",
+    "name": "Goodra",
+    "generation": 6,
+    "types": [
+      "Dragon"
+    ],
+    "ability": "Sap Sipper",
+    "abilities": [
+      "Sap Sipper",
+      "Hydration"
+    ],
+    "hidden_ability": "Gooey",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 45,
+    "catch_rate": 45,
+    "growth_rate": "Slow",
+    "base_experience": 270,
+    "xp_yield": 270,
+    "weight": 1505,
+    "height": 20,
+    "egg_groups": [
+      "Dragon"
+    ],
+    "friendship": 35,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 90,
+      "attack": 100,
+      "defense": 70,
+      "sp_attack": 110,
+      "sp_defense": 150,
+      "speed": 80
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Water Gun",
+        "Absorb",
+        "Dragon Breath",
+        "Poison Tail",
+        "Feint",
+        "Aqua Tail",
+        "Acid Spray",
+        "Tearful Look"
+      ],
+      "15": [
+        "Protect"
+      ],
+      "20": [
+        "Flail"
+      ],
+      "25": [
+        "Water Pulse"
+      ],
+      "30": [
+        "Rain Dance"
+      ],
+      "35": [
+        "Dragon Pulse"
+      ],
+      "43": [
+        "Curse"
+      ],
+      "49": [
+        "Body Slam"
+      ],
+      "58": [
+        "Muddy Water"
+      ],
+      "67": [
+        "Power Whip"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "sliggoo",
+    "description_en": "Able to freely control the hardness of its metallic shell. It loathes solitude and is extremely clingy—it will fume and run riot if those dearest to it ever leave its side.",
+    "description_pt": "Able to freely control the hardness of its metallic shell. It loathes solitude and is extremely clingy—it will fume and run riot if those dearest to it ever leave its side.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "klefki",
+    "dex_number": 707,
+    "species": "Klefki",
+    "name": "Klefki",
+    "generation": 6,
+    "types": [
+      "Steel",
+      "Fairy"
+    ],
+    "ability": "Prankster",
+    "abilities": [
+      "Prankster"
+    ],
+    "hidden_ability": "Magician",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 75,
+    "catch_rate": 75,
+    "growth_rate": "Fast",
+    "base_experience": 165,
+    "xp_yield": 165,
+    "weight": 30,
+    "height": 2,
+    "egg_groups": [
+      "Mineral"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 57,
+      "attack": 80,
+      "defense": 91,
+      "sp_attack": 80,
+      "sp_defense": 87,
+      "speed": 75
+    },
+    "learnset": {
+      "1": [
+        "Astonish",
+        "Fairy Lock"
+      ],
+      "4": [
+        "Tackle"
+      ],
+      "8": [
+        "Fairy Wind"
+      ],
+      "12": [
+        "Torment"
+      ],
+      "16": [
+        "Crafty Shield"
+      ],
+      "20": [
+        "Metal Sound"
+      ],
+      "24": [
+        "Draining Kiss"
+      ],
+      "28": [
+        "Recycle"
+      ],
+      "32": [
+        "Imprison"
+      ],
+      "36": [
+        "Flash Cannon"
+      ],
+      "40": [
+        "Play Rough"
+      ],
+      "44": [
+        "Magic Room"
+      ],
+      "48": [
+        "Foul Play"
+      ],
+      "52": [
+        "Last Resort"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "",
+    "description_en": "These key collectors threaten any attackers by fiercely jingling their keys at them.",
+    "description_pt": "These key collectors threaten any attackers by fiercely jingling their keys at them.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "phantump",
+    "dex_number": 708,
+    "species": "Phantump",
+    "name": "Phantump",
+    "generation": 6,
+    "types": [
+      "Ghost",
+      "Grass"
+    ],
+    "ability": "Natural Cure",
+    "abilities": [
+      "Natural Cure",
+      "Frisk"
+    ],
+    "hidden_ability": "Harvest",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 120,
+    "catch_rate": 120,
+    "growth_rate": "Medium",
+    "base_experience": 62,
+    "xp_yield": 62,
+    "weight": 70,
+    "height": 4,
+    "egg_groups": [
+      "Plant",
+      "Indeterminate"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 43,
+      "attack": 70,
+      "defense": 48,
+      "sp_attack": 50,
+      "sp_defense": 60,
+      "speed": 38
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Astonish"
+      ],
+      "4": [
+        "Branch Poke"
+      ],
+      "8": [
+        "Leech Seed"
+      ],
+      "12": [
+        "Confuse Ray"
+      ],
+      "16": [
+        "Will-O-Wisp"
+      ],
+      "20": [
+        "Hex"
+      ],
+      "24": [
+        "Growth"
+      ],
+      "28": [
+        "Horn Leech"
+      ],
+      "32": [
+        "Curse"
+      ],
+      "36": [
+        "Phantom Force"
+      ],
+      "40": [
+        "Ingrain"
+      ],
+      "44": [
+        "Wood Hammer"
+      ],
+      "48": [
+        "Destiny Bond"
+      ],
+      "52": [
+        "Forest's Curse"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "trevenant",
+        "target_dex_number": 709,
+        "method": "trade",
+        "trigger": "trade"
+      }
+    ],
+    "evolves_from": "",
+    "description_en": "These Pokémon are created when spirits possess rotten tree stumps. They prefer to live in abandoned forests.",
+    "description_pt": "These Pokémon are created when spirits possess rotten tree stumps. They prefer to live in abandoned forests.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "trevenant",
+    "dex_number": 709,
+    "species": "Trevenant",
+    "name": "Trevenant",
+    "generation": 6,
+    "types": [
+      "Ghost",
+      "Grass"
+    ],
+    "ability": "Natural Cure",
+    "abilities": [
+      "Natural Cure",
+      "Frisk"
+    ],
+    "hidden_ability": "Harvest",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 60,
+    "catch_rate": 60,
+    "growth_rate": "Medium",
+    "base_experience": 166,
+    "xp_yield": 166,
+    "weight": 710,
+    "height": 15,
+    "egg_groups": [
+      "Plant",
+      "Indeterminate"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 85,
+      "attack": 110,
+      "defense": 76,
+      "sp_attack": 65,
+      "sp_defense": 82,
+      "speed": 56
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Leech Seed",
+        "Astonish",
+        "Shadow Claw",
+        "Branch Poke"
+      ],
+      "12": [
+        "Confuse Ray"
+      ],
+      "16": [
+        "Will-O-Wisp"
+      ],
+      "20": [
+        "Hex"
+      ],
+      "24": [
+        "Growth"
+      ],
+      "28": [
+        "Horn Leech"
+      ],
+      "32": [
+        "Curse"
+      ],
+      "36": [
+        "Phantom Force"
+      ],
+      "40": [
+        "Ingrain"
+      ],
+      "44": [
+        "Wood Hammer"
+      ],
+      "48": [
+        "Destiny Bond"
+      ],
+      "52": [
+        "Forest's Curse"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "phantump",
+    "description_en": "It can control trees at will. It will trap people who harm the forest, so they can never leave.",
+    "description_pt": "It can control trees at will. It will trap people who harm the forest, so they can never leave.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "pumpkaboo",
+    "dex_number": 710,
+    "species": "Pumpkaboo",
+    "name": "Pumpkaboo",
+    "generation": 6,
+    "types": [
+      "Ghost",
+      "Grass"
+    ],
+    "ability": "Pickup",
+    "abilities": [
+      "Pickup",
+      "Frisk"
+    ],
+    "hidden_ability": "Insomnia",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 120,
+    "catch_rate": 120,
+    "growth_rate": "Medium",
+    "base_experience": 67,
+    "xp_yield": 67,
+    "weight": 50,
+    "height": 4,
+    "egg_groups": [
+      "Indeterminate"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 49,
+      "attack": 66,
+      "defense": 70,
+      "sp_attack": 44,
+      "sp_defense": 55,
+      "speed": 51
+    },
+    "learnset": {
+      "1": [
+        "Astonish",
+        "Trick-or-Treat"
+      ],
+      "4": [
+        "Shadow Sneak"
+      ],
+      "8": [
+        "Confuse Ray"
+      ],
+      "12": [
+        "Razor Leaf",
+        "Trick-or-Treat"
+      ],
+      "16": [
+        "Leech Seed"
+      ],
+      "20": [
+        "Bullet Seed"
+      ],
+      "24": [
+        "Scary Face",
+        "Trick-or-Treat"
+      ],
+      "28": [
+        "Worry Seed"
+      ],
+      "32": [
+        "Seed Bomb"
+      ],
+      "36": [
+        "Shadow Ball",
+        "Trick-or-Treat"
+      ],
+      "40": [
+        "Trick"
+      ],
+      "44": [
+        "Pain Split"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "gourgeist",
+        "target_dex_number": 711,
+        "method": "trade",
+        "trigger": "trade"
+      }
+    ],
+    "evolves_from": "",
+    "description_en": "The pumpkin body is inhabited by a spirit trapped in this world. As the sun sets, it becomes restless and active.",
+    "description_pt": "The pumpkin body is inhabited by a spirit trapped in this world. As the sun sets, it becomes restless and active.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "gourgeist",
+    "dex_number": 711,
+    "species": "Gourgeist",
+    "name": "Gourgeist",
+    "generation": 6,
+    "types": [
+      "Ghost",
+      "Grass"
+    ],
+    "ability": "Pickup",
+    "abilities": [
+      "Pickup",
+      "Frisk"
+    ],
+    "hidden_ability": "Insomnia",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 60,
+    "catch_rate": 60,
+    "growth_rate": "Medium",
+    "base_experience": 173,
+    "xp_yield": 173,
+    "weight": 125,
+    "height": 9,
+    "egg_groups": [
+      "Indeterminate"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 65,
+      "attack": 90,
+      "defense": 122,
+      "sp_attack": 58,
+      "sp_defense": 75,
+      "speed": 84
+    },
+    "learnset": {
+      "1": [
+        "Confuse Ray",
+        "Explosion",
+        "Astonish",
+        "Shadow Sneak",
+        "Trick-or-Treat",
+        "Moonblast"
+      ],
+      "12": [
+        "Razor Leaf",
+        "Trick-or-Treat"
+      ],
+      "16": [
+        "Leech Seed"
+      ],
+      "20": [
+        "Bullet Seed"
+      ],
+      "24": [
+        "Scary Face",
+        "Trick-or-Treat"
+      ],
+      "28": [
+        "Worry Seed"
+      ],
+      "32": [
+        "Seed Bomb"
+      ],
+      "36": [
+        "Shadow Ball",
+        "Trick-or-Treat"
+      ],
+      "40": [
+        "Trick"
+      ],
+      "44": [
+        "Pain Split"
+      ],
+      "48": [
+        "Phantom Force"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "pumpkaboo",
+    "description_en": "Singing in eerie voices, they wander town streets on the night of the new moon. Anyone who hears their song is cursed.",
+    "description_pt": "Singing in eerie voices, they wander town streets on the night of the new moon. Anyone who hears their song is cursed.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "bergmite",
+    "dex_number": 712,
+    "species": "Bergmite",
+    "name": "Bergmite",
+    "generation": 6,
+    "types": [
+      "Ice"
+    ],
+    "ability": "Own Tempo",
+    "abilities": [
+      "Own Tempo",
+      "Ice Body"
+    ],
+    "hidden_ability": "Sturdy",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 190,
+    "catch_rate": 190,
+    "growth_rate": "Medium",
+    "base_experience": 61,
+    "xp_yield": 61,
+    "weight": 995,
+    "height": 10,
+    "egg_groups": [
+      "Monster",
+      "Mineral"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 55,
+      "attack": 69,
+      "defense": 85,
+      "sp_attack": 32,
+      "sp_defense": 35,
+      "speed": 28
+    },
+    "learnset": {
+      "1": [
+        "Tackle"
+      ],
+      "5": [
+        "Powder Snow"
+      ],
+      "9": [
+        "Ice Shard"
+      ],
+      "15": [
+        "Bite"
+      ],
+      "21": [
+        "Iron Defense"
+      ],
+      "29": [
+        "Crunch"
+      ],
+      "37": [
+        "Blizzard"
+      ],
+      "47": [
+        "Double-Edge"
+      ]
+    },
+    "learnset_source_version_group": "legends-arceus",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "avalugg",
+        "target_dex_number": 713,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 37,
+        "min_level": 37
+      },
+      {
+        "target": "avalugg",
+        "target_dex_number": 713,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 37,
+        "min_level": 37
+      }
+    ],
+    "evolves_from": "",
+    "description_en": "Lives on mountains blanketed in perennial snow. It freezes water vapor in the air to make the ice helmet that it dons for defense.",
+    "description_pt": "Lives on mountains blanketed in perennial snow. It freezes water vapor in the air to make the ice helmet that it dons for defense.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "avalugg",
+    "dex_number": 713,
+    "species": "Avalugg",
+    "name": "Avalugg",
+    "generation": 6,
+    "types": [
+      "Ice"
+    ],
+    "ability": "Own Tempo",
+    "abilities": [
+      "Own Tempo",
+      "Ice Body"
+    ],
+    "hidden_ability": "Sturdy",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 55,
+    "catch_rate": 55,
+    "growth_rate": "Medium",
+    "base_experience": 180,
+    "xp_yield": 180,
+    "weight": 5050,
+    "height": 20,
+    "egg_groups": [
+      "Monster",
+      "Mineral"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 95,
+      "attack": 117,
+      "defense": 184,
+      "sp_attack": 44,
+      "sp_defense": 46,
+      "speed": 28
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Body Slam",
+        "Harden",
+        "Powder Snow",
+        "Rapid Spin",
+        "Wide Guard"
+      ],
+      "9": [
+        "Curse"
+      ],
+      "12": [
+        "Icy Wind"
+      ],
+      "15": [
+        "Protect"
+      ],
+      "18": [
+        "Avalanche"
+      ],
+      "21": [
+        "Bite"
+      ],
+      "24": [
+        "Ice Fang"
+      ],
+      "27": [
+        "Iron Defense"
+      ],
+      "30": [
+        "Recover"
+      ],
+      "33": [
+        "Crunch"
+      ],
+      "36": [
+        "Take Down"
+      ],
+      "41": [
+        "Blizzard"
+      ],
+      "46": [
+        "Double-Edge"
+      ],
+      "51": [
+        "Skull Bash"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "bergmite",
+    "description_en": "The armor of ice covering its lower jaw puts steel to shame and can shatter rocks with ease. This Pokémon barrels along steep mountain paths, cleaving through the deep snow.",
+    "description_pt": "The armor of ice covering its lower jaw puts steel to shame and can shatter rocks with ease. This Pokémon barrels along steep mountain paths, cleaving through the deep snow.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "noibat",
+    "dex_number": 714,
+    "species": "Noibat",
+    "name": "Noibat",
+    "generation": 6,
+    "types": [
+      "Flying",
+      "Dragon"
+    ],
+    "ability": "Frisk",
+    "abilities": [
+      "Frisk",
+      "Infiltrator"
+    ],
+    "hidden_ability": "Telepathy",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 190,
+    "catch_rate": 190,
+    "growth_rate": "Medium",
+    "base_experience": 49,
+    "xp_yield": 49,
+    "weight": 80,
+    "height": 5,
+    "egg_groups": [
+      "Flying",
+      "Dragon"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 40,
+      "attack": 30,
+      "defense": 35,
+      "sp_attack": 45,
+      "sp_defense": 40,
+      "speed": 55
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Absorb"
+      ],
+      "4": [
+        "Gust"
+      ],
+      "8": [
+        "Supersonic"
+      ],
+      "12": [
+        "Double Team"
+      ],
+      "16": [
+        "Wing Attack"
+      ],
+      "20": [
+        "Bite"
+      ],
+      "24": [
+        "Air Cutter"
+      ],
+      "28": [
+        "Whirlwind"
+      ],
+      "32": [
+        "Super Fang"
+      ],
+      "36": [
+        "Air Slash"
+      ],
+      "40": [
+        "Screech"
+      ],
+      "44": [
+        "Roost"
+      ],
+      "49": [
+        "Tailwind"
+      ],
+      "52": [
+        "Hurricane"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [
+      {
+        "target": "noivern",
+        "target_dex_number": 715,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 48,
+        "min_level": 48
+      }
+    ],
+    "evolves_from": "",
+    "description_en": "They live in pitch-black caves. Their enormous ears can emit ultrasonic waves of 200,000 hertz.",
+    "description_pt": "They live in pitch-black caves. Their enormous ears can emit ultrasonic waves of 200,000 hertz.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "noivern",
+    "dex_number": 715,
+    "species": "Noivern",
+    "name": "Noivern",
+    "generation": 6,
+    "types": [
+      "Flying",
+      "Dragon"
+    ],
+    "ability": "Frisk",
+    "abilities": [
+      "Frisk",
+      "Infiltrator"
+    ],
+    "hidden_ability": "Telepathy",
+    "gender": "50% male / 50% female",
+    "gender_rate": 4,
+    "capture_rate": 45,
+    "catch_rate": 45,
+    "growth_rate": "Medium",
+    "base_experience": 187,
+    "xp_yield": 187,
+    "weight": 850,
+    "height": 15,
+    "egg_groups": [
+      "Flying",
+      "Dragon"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 85,
+      "attack": 70,
+      "defense": 80,
+      "sp_attack": 97,
+      "sp_defense": 80,
+      "speed": 123
+    },
+    "learnset": {
+      "1": [
+        "Gust",
+        "Tackle",
+        "Supersonic",
+        "Absorb",
+        "Moonlight",
+        "Dragon Pulse"
+      ],
+      "12": [
+        "Double Team"
+      ],
+      "16": [
+        "Wing Attack"
+      ],
+      "20": [
+        "Bite"
+      ],
+      "24": [
+        "Air Cutter"
+      ],
+      "28": [
+        "Whirlwind"
+      ],
+      "32": [
+        "Super Fang"
+      ],
+      "36": [
+        "Air Slash"
+      ],
+      "40": [
+        "Screech"
+      ],
+      "44": [
+        "Roost"
+      ],
+      "51": [
+        "Tailwind"
+      ],
+      "56": [
+        "Hurricane"
+      ],
+      "62": [
+        "Boomburst"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "noibat",
+    "description_en": "They fly around on moonless nights and attack careless prey. Nothing can beat them in a battle in the dark.",
+    "description_pt": "They fly around on moonless nights and attack careless prey. Nothing can beat them in a battle in the dark.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "xerneas",
+    "dex_number": 716,
+    "species": "Xerneas",
+    "name": "Xerneas",
+    "generation": 6,
+    "types": [
+      "Fairy"
+    ],
+    "ability": "Fairy Aura",
+    "abilities": [
+      "Fairy Aura"
+    ],
+    "hidden_ability": "",
+    "gender": "Genderless",
+    "gender_rate": -1,
+    "capture_rate": 45,
+    "catch_rate": 45,
+    "growth_rate": "Slow",
+    "base_experience": 306,
+    "xp_yield": 306,
+    "weight": 2150,
+    "height": 30,
+    "egg_groups": [
+      "No Eggs"
+    ],
+    "friendship": 0,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 126,
+      "attack": 131,
+      "defense": 95,
+      "sp_attack": 131,
+      "sp_defense": 98,
+      "speed": 99
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Gravity"
+      ],
+      "5": [
+        "Light Screen"
+      ],
+      "10": [
+        "Aurora Beam"
+      ],
+      "15": [
+        "Nature Power"
+      ],
+      "20": [
+        "Night Slash"
+      ],
+      "25": [
+        "Aromatherapy"
+      ],
+      "30": [
+        "Psych Up"
+      ],
+      "35": [
+        "Horn Leech"
+      ],
+      "40": [
+        "Misty Terrain"
+      ],
+      "45": [
+        "Ingrain"
+      ],
+      "50": [
+        "Take Down"
+      ],
+      "55": [
+        "Geomancy"
+      ],
+      "60": [
+        "Moonblast"
+      ],
+      "65": [
+        "Heal Pulse"
+      ],
+      "70": [
+        "Megahorn"
+      ],
+      "75": [
+        "Close Combat"
+      ],
+      "80": [
+        "Outrage"
+      ],
+      "85": [
+        "Giga Impact"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "",
+    "description_en": "Legends say it can share eternal life. It slept for a thousand years in the form of a tree before its revival.",
+    "description_pt": "Legends say it can share eternal life. It slept for a thousand years in the form of a tree before its revival.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "yveltal",
+    "dex_number": 717,
+    "species": "Yveltal",
+    "name": "Yveltal",
+    "generation": 6,
+    "types": [
+      "Dark",
+      "Flying"
+    ],
+    "ability": "Dark Aura",
+    "abilities": [
+      "Dark Aura"
+    ],
+    "hidden_ability": "",
+    "gender": "Genderless",
+    "gender_rate": -1,
+    "capture_rate": 45,
+    "catch_rate": 45,
+    "growth_rate": "Slow",
+    "base_experience": 306,
+    "xp_yield": 306,
+    "weight": 2030,
+    "height": 58,
+    "egg_groups": [
+      "No Eggs"
+    ],
+    "friendship": 0,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 126,
+      "attack": 131,
+      "defense": 95,
+      "sp_attack": 131,
+      "sp_defense": 98,
+      "speed": 99
+    },
+    "learnset": {
+      "1": [
+        "Gust",
+        "Double Team"
+      ],
+      "5": [
+        "Taunt"
+      ],
+      "10": [
+        "Snarl"
+      ],
+      "15": [
+        "Disable"
+      ],
+      "20": [
+        "Sucker Punch"
+      ],
+      "25": [
+        "Tailwind"
+      ],
+      "30": [
+        "Roost"
+      ],
+      "35": [
+        "Air Slash"
+      ],
+      "40": [
+        "Dark Pulse"
+      ],
+      "45": [
+        "Psychic"
+      ],
+      "50": [
+        "Oblivion Wing"
+      ],
+      "55": [
+        "Phantom Force"
+      ],
+      "60": [
+        "Foul Play"
+      ],
+      "65": [
+        "Dragon Rush"
+      ],
+      "70": [
+        "Hurricane"
+      ],
+      "75": [
+        "Focus Blast"
+      ],
+      "80": [
+        "Sky Attack"
+      ],
+      "85": [
+        "Hyper Beam"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "",
+    "description_en": "When this legendary Pokémon’s wings and tail feathers spread wide and glow red, it absorbs the life force of living creatures.",
+    "description_pt": "When this legendary Pokémon’s wings and tail feathers spread wide and glow red, it absorbs the life force of living creatures.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "zygarde",
+    "dex_number": 718,
+    "species": "Zygarde",
+    "name": "Zygarde",
+    "generation": 6,
+    "types": [
+      "Dragon",
+      "Ground"
+    ],
+    "ability": "Aura Break",
+    "abilities": [
+      "Aura Break"
+    ],
+    "hidden_ability": "",
+    "gender": "Genderless",
+    "gender_rate": -1,
+    "capture_rate": 3,
+    "catch_rate": 3,
+    "growth_rate": "Slow",
+    "base_experience": 270,
+    "xp_yield": 270,
+    "weight": 3050,
+    "height": 50,
+    "egg_groups": [
+      "No Eggs"
+    ],
+    "friendship": 0,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 108,
+      "attack": 100,
+      "defense": 121,
+      "sp_attack": 81,
+      "sp_defense": 95,
+      "speed": 95
+    },
+    "learnset": {
+      "1": [
+        "Bind",
+        "Bite",
+        "Dragon Breath",
+        "Bulldoze",
+        "Thousand Arrows",
+        "Thousand Waves",
+        "Core Enforcer"
+      ],
+      "8": [
+        "Haze"
+      ],
+      "16": [
+        "Dig"
+      ],
+      "24": [
+        "Safeguard"
+      ],
+      "32": [
+        "Crunch"
+      ],
+      "40": [
+        "Dragon Pulse"
+      ],
+      "48": [
+        "Land's Wrath"
+      ],
+      "56": [
+        "Glare"
+      ],
+      "64": [
+        "Sandstorm"
+      ],
+      "72": [
+        "Coil"
+      ],
+      "80": [
+        "Earthquake"
+      ],
+      "88": [
+        "Outrage"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "",
+    "description_en": "When the Kalos region’s ecosystem falls into disarray, it appears and reveals its secret power.",
+    "description_pt": "When the Kalos region’s ecosystem falls into disarray, it appears and reveals its secret power.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "diancie",
+    "dex_number": 719,
+    "species": "Diancie",
+    "name": "Diancie",
+    "generation": 6,
+    "types": [
+      "Rock",
+      "Fairy"
+    ],
+    "ability": "Clear Body",
+    "abilities": [
+      "Clear Body"
+    ],
+    "hidden_ability": "",
+    "gender": "Genderless",
+    "gender_rate": -1,
+    "capture_rate": 3,
+    "catch_rate": 3,
+    "growth_rate": "Slow",
+    "base_experience": 270,
+    "xp_yield": 270,
+    "weight": 88,
+    "height": 7,
+    "egg_groups": [
+      "No Eggs"
+    ],
+    "friendship": 70,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 50,
+      "attack": 100,
+      "defense": 150,
+      "sp_attack": 100,
+      "sp_defense": 150,
+      "speed": 50
+    },
+    "learnset": {
+      "1": [
+        "Tackle",
+        "Harden"
+      ],
+      "7": [
+        "Guard Split"
+      ],
+      "14": [
+        "Smack Down"
+      ],
+      "21": [
+        "Flail"
+      ],
+      "28": [
+        "Ancient Power"
+      ],
+      "35": [
+        "Rock Polish"
+      ],
+      "42": [
+        "Light Screen"
+      ],
+      "49": [
+        "Rock Slide"
+      ],
+      "56": [
+        "Skill Swap"
+      ],
+      "63": [
+        "Power Gem"
+      ],
+      "70": [
+        "Stealth Rock"
+      ],
+      "77": [
+        "Moonblast"
+      ],
+      "84": [
+        "Stone Edge"
+      ],
+      "91": [
+        "Diamond Storm"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "",
+    "description_en": "A sudden transformation of Carbink, its pink, glimmering body is said to be the loveliest sight in the whole world.",
+    "description_pt": "A sudden transformation of Carbink, its pink, glimmering body is said to be the loveliest sight in the whole world.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "hoopa",
+    "dex_number": 720,
+    "species": "Hoopa",
+    "name": "Hoopa",
+    "generation": 6,
+    "types": [
+      "Psychic",
+      "Ghost"
+    ],
+    "ability": "Magician",
+    "abilities": [
+      "Magician"
+    ],
+    "hidden_ability": "",
+    "gender": "Genderless",
+    "gender_rate": -1,
+    "capture_rate": 3,
+    "catch_rate": 3,
+    "growth_rate": "Slow",
+    "base_experience": 270,
+    "xp_yield": 270,
+    "weight": 90,
+    "height": 5,
+    "egg_groups": [
+      "No Eggs"
+    ],
+    "friendship": 100,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 80,
+      "attack": 110,
+      "defense": 60,
+      "sp_attack": 150,
+      "sp_defense": 130,
+      "speed": 70
+    },
+    "learnset": {
+      "1": [
+        "Confusion",
+        "Destiny Bond",
+        "Trick",
+        "Ally Switch",
+        "Hyperspace Hole"
+      ],
+      "6": [
+        "Astonish"
+      ],
+      "10": [
+        "Magic Coat"
+      ],
+      "15": [
+        "Light Screen"
+      ],
+      "19": [
+        "Psybeam"
+      ],
+      "25": [
+        "Skill Swap"
+      ],
+      "29": [
+        "Guard Split",
+        "Power Split"
+      ],
+      "35": [
+        "Phantom Force"
+      ],
+      "46": [
+        "Zen Headbutt"
+      ],
+      "50": [
+        "Trick Room",
+        "Wonder Room"
+      ],
+      "55": [
+        "Shadow Ball"
+      ],
+      "68": [
+        "Nasty Plot"
+      ],
+      "75": [
+        "Psychic"
+      ],
+      "85": [
+        "Hyperspace Hole"
+      ]
+    },
+    "learnset_source_version_group": "ultra-sun-ultra-moon",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "",
+    "description_en": "This troublemaker sends anything and everything to faraway places using its loop, which can warp space.",
+    "description_pt": "This troublemaker sends anything and everything to faraway places using its loop, which can warp space.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  },
+  {
+    "id": "volcanion",
+    "dex_number": 721,
+    "species": "Volcanion",
+    "name": "Volcanion",
+    "generation": 6,
+    "types": [
+      "Fire",
+      "Water"
+    ],
+    "ability": "Water Absorb",
+    "abilities": [
+      "Water Absorb"
+    ],
+    "hidden_ability": "",
+    "gender": "Genderless",
+    "gender_rate": -1,
+    "capture_rate": 3,
+    "catch_rate": 3,
+    "growth_rate": "Slow",
+    "base_experience": 270,
+    "xp_yield": 270,
+    "weight": 1950,
+    "height": 17,
+    "egg_groups": [
+      "No Eggs"
+    ],
+    "friendship": 100,
+    "base_level": 5,
+    "base_stats": {
+      "hp": 80,
+      "attack": 110,
+      "defense": 120,
+      "sp_attack": 130,
+      "sp_defense": 90,
+      "speed": 70
+    },
+    "learnset": {
+      "1": [
+        "Water Gun",
+        "Fire Spin"
+      ],
+      "6": [
+        "Leer"
+      ],
+      "12": [
+        "Weather Ball"
+      ],
+      "18": [
+        "Flame Charge"
+      ],
+      "24": [
+        "Water Pulse"
+      ],
+      "30": [
+        "Scary Face"
+      ],
+      "36": [
+        "Incinerate"
+      ],
+      "42": [
+        "Stomp"
+      ],
+      "48": [
+        "Scald"
+      ],
+      "54": [
+        "Take Down"
+      ],
+      "60": [
+        "Mist",
+        "Haze"
+      ],
+      "66": [
+        "Hydro Pump"
+      ],
+      "72": [
+        "Steam Eruption"
+      ],
+      "78": [
+        "Flare Blitz"
+      ],
+      "84": [
+        "Overheat"
+      ],
+      "90": [
+        "Explosion"
+      ]
+    },
+    "learnset_source_version_group": "sword-shield",
+    "learnset_dependencies": [],
+    "evolutions": [],
+    "evolves_from": "",
+    "description_en": "It lets out billows of steam and disappears into the dense fog. It’s said to live in mountains where humans do not tread.",
+    "description_pt": "It lets out billows of steam and disappears into the dense fog. It’s said to live in mountains where humans do not tread.",
+    "description_source": "pokeapi_flavor_text",
+    "sprite_front": "",
+    "sprite_back": "",
+    "front_frames_path": "",
+    "back_frames_path": "",
+    "icon_path": "",
+    "front_gif_source": "",
+    "back_gif_source": "",
+    "has_animation": false
+  }
+]

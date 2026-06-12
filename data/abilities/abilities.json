@@ -1,0 +1,4274 @@
+[
+  {
+    "id": "stench",
+    "api_id": 1,
+    "name": "Stench",
+    "generation": 3,
+    "description": "Has a 10% chance of making target Pokémon flinch with each hit.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Has a 10% chance of making target Pokémon flinch with each hit."
+      }
+    ]
+  },
+  {
+    "id": "drizzle",
+    "api_id": 2,
+    "name": "Drizzle",
+    "generation": 3,
+    "description": "Summons rain that lasts indefinitely upon entering battle.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Summons rain that lasts indefinitely upon entering battle."
+      }
+    ]
+  },
+  {
+    "id": "speed_boost",
+    "api_id": 3,
+    "name": "Speed Boost",
+    "generation": 3,
+    "description": "Raises Speed one stage after each turn.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Raises Speed one stage after each turn."
+      }
+    ]
+  },
+  {
+    "id": "battle_armor",
+    "api_id": 4,
+    "name": "Battle Armor",
+    "generation": 3,
+    "description": "Protects against critical hits.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Protects against critical hits."
+      }
+    ]
+  },
+  {
+    "id": "sturdy",
+    "api_id": 5,
+    "name": "Sturdy",
+    "generation": 3,
+    "description": "Prevents being KOed from full HP, leaving 1 HP instead. Protects against the one-hit KO moves regardless of HP.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Prevents being KOed from full HP, leaving 1 HP instead. Protects against the one-hit KO moves regardless of HP."
+      }
+    ]
+  },
+  {
+    "id": "damp",
+    "api_id": 6,
+    "name": "Damp",
+    "generation": 3,
+    "description": "Prevents Self-Destruct, Explosion, and Aftermath from working while the Pokémon is in battle.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Prevents Self-Destruct, Explosion, and Aftermath from working while the Pokémon is in battle."
+      }
+    ]
+  },
+  {
+    "id": "limber",
+    "api_id": 7,
+    "name": "Limber",
+    "generation": 3,
+    "description": "Prevents paralysis.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Prevents paralysis."
+      }
+    ]
+  },
+  {
+    "id": "sand_veil",
+    "api_id": 8,
+    "name": "Sand Veil",
+    "generation": 3,
+    "description": "Increases evasion to 1.25× during a sandstorm. Protects against sandstorm damage.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Increases evasion to 1.25× during a sandstorm. Protects against sandstorm damage."
+      }
+    ]
+  },
+  {
+    "id": "static",
+    "api_id": 9,
+    "name": "Static",
+    "generation": 3,
+    "description": "Has a 30% chance of paralyzing attacking Pokémon on contact.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Has a 30% chance of paralyzing attacking Pokémon on contact."
+      }
+    ]
+  },
+  {
+    "id": "volt_absorb",
+    "api_id": 10,
+    "name": "Volt Absorb",
+    "generation": 3,
+    "description": "Absorbs Electric moves, healing for 1/4 max HP.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Absorbs Electric moves, healing for 1/4 max HP."
+      }
+    ]
+  },
+  {
+    "id": "water_absorb",
+    "api_id": 11,
+    "name": "Water Absorb",
+    "generation": 3,
+    "description": "Absorbs Water moves, healing for 1/4 max HP.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Absorbs Water moves, healing for 1/4 max HP."
+      }
+    ]
+  },
+  {
+    "id": "oblivious",
+    "api_id": 12,
+    "name": "Oblivious",
+    "generation": 3,
+    "description": "Prevents infatuation and protects against Captivate.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Prevents infatuation and protects against Captivate."
+      }
+    ]
+  },
+  {
+    "id": "cloud_nine",
+    "api_id": 13,
+    "name": "Cloud Nine",
+    "generation": 3,
+    "description": "Negates all effects of weather, but does not prevent the weather itself.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Negates all effects of weather, but does not prevent the weather itself."
+      }
+    ]
+  },
+  {
+    "id": "compound_eyes",
+    "api_id": 14,
+    "name": "Compound Eyes",
+    "generation": 3,
+    "description": "Increases moves' accuracy to 1.3×.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Increases moves' accuracy to 1.3×."
+      }
+    ]
+  },
+  {
+    "id": "insomnia",
+    "api_id": 15,
+    "name": "Insomnia",
+    "generation": 3,
+    "description": "Prevents sleep.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Prevents sleep."
+      }
+    ]
+  },
+  {
+    "id": "color_change",
+    "api_id": 16,
+    "name": "Color Change",
+    "generation": 3,
+    "description": "Changes type to match when hit by a damaging move.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Changes type to match when hit by a damaging move."
+      }
+    ]
+  },
+  {
+    "id": "immunity",
+    "api_id": 17,
+    "name": "Immunity",
+    "generation": 3,
+    "description": "Prevents poison.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Prevents poison."
+      }
+    ]
+  },
+  {
+    "id": "flash_fire",
+    "api_id": 18,
+    "name": "Flash Fire",
+    "generation": 3,
+    "description": "Protects against Fire moves. Once one has been blocked, the Pokémon's own Fire moves inflict 1.5× damage until it leaves battle.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Protects against Fire moves. Once one has been blocked, the Pokémon's own Fire moves inflict 1.5× damage until it leaves battle."
+      }
+    ]
+  },
+  {
+    "id": "shield_dust",
+    "api_id": 19,
+    "name": "Shield Dust",
+    "generation": 3,
+    "description": "Protects against incoming moves' extra effects.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Protects against incoming moves' extra effects."
+      }
+    ]
+  },
+  {
+    "id": "own_tempo",
+    "api_id": 20,
+    "name": "Own Tempo",
+    "generation": 3,
+    "description": "Prevents confusion.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Prevents confusion."
+      }
+    ]
+  },
+  {
+    "id": "suction_cups",
+    "api_id": 21,
+    "name": "Suction Cups",
+    "generation": 3,
+    "description": "Prevents being forced out of battle by other Pokémon's moves.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Prevents being forced out of battle by other Pokémon's moves."
+      }
+    ]
+  },
+  {
+    "id": "intimidate",
+    "api_id": 22,
+    "name": "Intimidate",
+    "generation": 3,
+    "description": "Lowers opponents' Attack one stage upon entering battle.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Lowers opponents' Attack one stage upon entering battle."
+      }
+    ]
+  },
+  {
+    "id": "shadow_tag",
+    "api_id": 23,
+    "name": "Shadow Tag",
+    "generation": 3,
+    "description": "Prevents opponents from fleeing or switching out.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Prevents opponents from fleeing or switching out."
+      }
+    ]
+  },
+  {
+    "id": "rough_skin",
+    "api_id": 24,
+    "name": "Rough Skin",
+    "generation": 3,
+    "description": "Damages attacking Pokémon for 1/8 their max HP on contact.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Damages attacking Pokémon for 1/8 their max HP on contact."
+      }
+    ]
+  },
+  {
+    "id": "wonder_guard",
+    "api_id": 25,
+    "name": "Wonder Guard",
+    "generation": 3,
+    "description": "Protects against damaging moves that are not super effective.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Protects against damaging moves that are not super effective."
+      }
+    ]
+  },
+  {
+    "id": "levitate",
+    "api_id": 26,
+    "name": "Levitate",
+    "generation": 3,
+    "description": "Evades Ground moves.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Evades Ground moves."
+      }
+    ]
+  },
+  {
+    "id": "effect_spore",
+    "api_id": 27,
+    "name": "Effect Spore",
+    "generation": 3,
+    "description": "Has a 30% chance of inflcting either paralysis, poison, or sleep on attacking Pokémon on contact.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Has a 30% chance of inflcting either paralysis, poison, or sleep on attacking Pokémon on contact."
+      }
+    ]
+  },
+  {
+    "id": "synchronize",
+    "api_id": 28,
+    "name": "Synchronize",
+    "generation": 3,
+    "description": "Copies burns, paralysis, and poison received onto the Pokémon that inflicted them.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Copies burns, paralysis, and poison received onto the Pokémon that inflicted them."
+      }
+    ]
+  },
+  {
+    "id": "clear_body",
+    "api_id": 29,
+    "name": "Clear Body",
+    "generation": 3,
+    "description": "Prevents stats from being lowered by other Pokémon.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Prevents stats from being lowered by other Pokémon."
+      }
+    ]
+  },
+  {
+    "id": "natural_cure",
+    "api_id": 30,
+    "name": "Natural Cure",
+    "generation": 3,
+    "description": "Cures any major status ailment upon switching out.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Cures any major status ailment upon switching out."
+      }
+    ]
+  },
+  {
+    "id": "lightning_rod",
+    "api_id": 31,
+    "name": "Lightning Rod",
+    "generation": 3,
+    "description": "Redirects single-target Electric moves to this Pokémon where possible. Absorbs Electric moves, raising Special Attack one stage.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Redirects single-target Electric moves to this Pokémon where possible. Absorbs Electric moves, raising Special Attack one stage."
+      }
+    ]
+  },
+  {
+    "id": "serene_grace",
+    "api_id": 32,
+    "name": "Serene Grace",
+    "generation": 3,
+    "description": "Doubles the chance of moves' extra effects occurring.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Doubles the chance of moves' extra effects occurring."
+      }
+    ]
+  },
+  {
+    "id": "swift_swim",
+    "api_id": 33,
+    "name": "Swift Swim",
+    "generation": 3,
+    "description": "Doubles Speed during rain.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Doubles Speed during rain."
+      }
+    ]
+  },
+  {
+    "id": "chlorophyll",
+    "api_id": 34,
+    "name": "Chlorophyll",
+    "generation": 3,
+    "description": "Doubles Speed during strong sunlight.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Doubles Speed during strong sunlight."
+      }
+    ]
+  },
+  {
+    "id": "illuminate",
+    "api_id": 35,
+    "name": "Illuminate",
+    "generation": 3,
+    "description": "Doubles the wild encounter rate.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Doubles the wild encounter rate."
+      }
+    ]
+  },
+  {
+    "id": "trace",
+    "api_id": 36,
+    "name": "Trace",
+    "generation": 3,
+    "description": "Copies an opponent's ability upon entering battle.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Copies an opponent's ability upon entering battle."
+      }
+    ]
+  },
+  {
+    "id": "huge_power",
+    "api_id": 37,
+    "name": "Huge Power",
+    "generation": 3,
+    "description": "Doubles Attack in battle.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Doubles Attack in battle."
+      }
+    ]
+  },
+  {
+    "id": "poison_point",
+    "api_id": 38,
+    "name": "Poison Point",
+    "generation": 3,
+    "description": "Has a 30% chance of poisoning attacking Pokémon on contact.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Has a 30% chance of poisoning attacking Pokémon on contact."
+      }
+    ]
+  },
+  {
+    "id": "inner_focus",
+    "api_id": 39,
+    "name": "Inner Focus",
+    "generation": 3,
+    "description": "Prevents flinching.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Prevents flinching."
+      }
+    ]
+  },
+  {
+    "id": "magma_armor",
+    "api_id": 40,
+    "name": "Magma Armor",
+    "generation": 3,
+    "description": "Prevents freezing.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Prevents freezing."
+      }
+    ]
+  },
+  {
+    "id": "water_veil",
+    "api_id": 41,
+    "name": "Water Veil",
+    "generation": 3,
+    "description": "Prevents burns.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Prevents burns."
+      }
+    ]
+  },
+  {
+    "id": "magnet_pull",
+    "api_id": 42,
+    "name": "Magnet Pull",
+    "generation": 3,
+    "description": "Prevents Steel opponents from fleeing or switching out.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Prevents Steel opponents from fleeing or switching out."
+      }
+    ]
+  },
+  {
+    "id": "soundproof",
+    "api_id": 43,
+    "name": "Soundproof",
+    "generation": 3,
+    "description": "Protects against sound-based moves.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Protects against sound-based moves."
+      }
+    ]
+  },
+  {
+    "id": "rain_dish",
+    "api_id": 44,
+    "name": "Rain Dish",
+    "generation": 3,
+    "description": "Heals for 1/16 max HP after each turn during rain.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Heals for 1/16 max HP after each turn during rain."
+      }
+    ]
+  },
+  {
+    "id": "sand_stream",
+    "api_id": 45,
+    "name": "Sand Stream",
+    "generation": 3,
+    "description": "Summons a sandstorm that lasts indefinitely upon entering battle.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Summons a sandstorm that lasts indefinitely upon entering battle."
+      }
+    ]
+  },
+  {
+    "id": "pressure",
+    "api_id": 46,
+    "name": "Pressure",
+    "generation": 3,
+    "description": "Increases the PP cost of moves targetting the Pokémon by one.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Increases the PP cost of moves targetting the Pokémon by one."
+      }
+    ]
+  },
+  {
+    "id": "thick_fat",
+    "api_id": 47,
+    "name": "Thick Fat",
+    "generation": 3,
+    "description": "Halves damage from Fire and Ice moves.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Halves damage from Fire and Ice moves."
+      }
+    ]
+  },
+  {
+    "id": "early_bird",
+    "api_id": 48,
+    "name": "Early Bird",
+    "generation": 3,
+    "description": "Makes sleep pass twice as quickly.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Makes sleep pass twice as quickly."
+      }
+    ]
+  },
+  {
+    "id": "flame_body",
+    "api_id": 49,
+    "name": "Flame Body",
+    "generation": 3,
+    "description": "Has a 30% chance of burning attacking Pokémon on contact.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Has a 30% chance of burning attacking Pokémon on contact."
+      }
+    ]
+  },
+  {
+    "id": "run_away",
+    "api_id": 50,
+    "name": "Run Away",
+    "generation": 3,
+    "description": "Ensures success fleeing from wild battles.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Ensures success fleeing from wild battles."
+      }
+    ]
+  },
+  {
+    "id": "keen_eye",
+    "api_id": 51,
+    "name": "Keen Eye",
+    "generation": 3,
+    "description": "Prevents accuracy from being lowered.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Prevents accuracy from being lowered."
+      }
+    ]
+  },
+  {
+    "id": "hyper_cutter",
+    "api_id": 52,
+    "name": "Hyper Cutter",
+    "generation": 3,
+    "description": "Prevents Attack from being lowered by other Pokémon.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Prevents Attack from being lowered by other Pokémon."
+      }
+    ]
+  },
+  {
+    "id": "pickup",
+    "api_id": 53,
+    "name": "Pickup",
+    "generation": 3,
+    "description": "Picks up other Pokémon's used and Flung held items. May also pick up an item after battle.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Picks up other Pokémon's used and Flung held items. May also pick up an item after battle."
+      }
+    ]
+  },
+  {
+    "id": "truant",
+    "api_id": 54,
+    "name": "Truant",
+    "generation": 3,
+    "description": "Skips every second turn.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Skips every second turn."
+      }
+    ]
+  },
+  {
+    "id": "hustle",
+    "api_id": 55,
+    "name": "Hustle",
+    "generation": 3,
+    "description": "Strengthens physical moves to inflict 1.5× damage, but decreases their accuracy to 0.8×.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Strengthens physical moves to inflict 1.5× damage, but decreases their accuracy to 0.8×."
+      }
+    ]
+  },
+  {
+    "id": "cute_charm",
+    "api_id": 56,
+    "name": "Cute Charm",
+    "generation": 3,
+    "description": "Has a 30% chance of infatuating attacking Pokémon on contact.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Has a 30% chance of infatuating attacking Pokémon on contact."
+      }
+    ]
+  },
+  {
+    "id": "plus",
+    "api_id": 57,
+    "name": "Plus",
+    "generation": 3,
+    "description": "Increases Special Attack to 1.5× when a friendly Pokémon has Plus or Minus.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Increases Special Attack to 1.5× when a friendly Pokémon has Plus or Minus."
+      }
+    ]
+  },
+  {
+    "id": "minus",
+    "api_id": 58,
+    "name": "Minus",
+    "generation": 3,
+    "description": "Increases Special Attack to 1.5× when a friendly Pokémon has Plus or Minus.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Increases Special Attack to 1.5× when a friendly Pokémon has Plus or Minus."
+      }
+    ]
+  },
+  {
+    "id": "forecast",
+    "api_id": 59,
+    "name": "Forecast",
+    "generation": 3,
+    "description": "Changes Castform's type and form to match the weather.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Changes Castform's type and form to match the weather."
+      }
+    ]
+  },
+  {
+    "id": "sticky_hold",
+    "api_id": 60,
+    "name": "Sticky Hold",
+    "generation": 3,
+    "description": "Prevents a held item from being removed by other Pokémon.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Prevents a held item from being removed by other Pokémon."
+      }
+    ]
+  },
+  {
+    "id": "shed_skin",
+    "api_id": 61,
+    "name": "Shed Skin",
+    "generation": 3,
+    "description": "Has a 33% chance of curing any major status ailment after each turn.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Has a 33% chance of curing any major status ailment after each turn."
+      }
+    ]
+  },
+  {
+    "id": "guts",
+    "api_id": 62,
+    "name": "Guts",
+    "generation": 3,
+    "description": "Increases Attack to 1.5× with a major status ailment.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Increases Attack to 1.5× with a major status ailment."
+      }
+    ]
+  },
+  {
+    "id": "marvel_scale",
+    "api_id": 63,
+    "name": "Marvel Scale",
+    "generation": 3,
+    "description": "Increases Defense to 1.5× with a major status ailment.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Increases Defense to 1.5× with a major status ailment."
+      }
+    ]
+  },
+  {
+    "id": "liquid_ooze",
+    "api_id": 64,
+    "name": "Liquid Ooze",
+    "generation": 3,
+    "description": "Damages opponents using leeching moves for as much as they would heal.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Damages opponents using leeching moves for as much as they would heal."
+      }
+    ]
+  },
+  {
+    "id": "overgrow",
+    "api_id": 65,
+    "name": "Overgrow",
+    "generation": 3,
+    "description": "Strengthens Grass moves to inflict 1.5× damage at 1/3 max HP or less.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Strengthens Grass moves to inflict 1.5× damage at 1/3 max HP or less."
+      }
+    ]
+  },
+  {
+    "id": "blaze",
+    "api_id": 66,
+    "name": "Blaze",
+    "generation": 3,
+    "description": "Strengthens Fire moves to inflict 1.5× damage at 1/3 max HP or less.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Strengthens Fire moves to inflict 1.5× damage at 1/3 max HP or less."
+      }
+    ]
+  },
+  {
+    "id": "torrent",
+    "api_id": 67,
+    "name": "Torrent",
+    "generation": 3,
+    "description": "Strengthens Water moves to inflict 1.5× damage at 1/3 max HP or less.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Strengthens Water moves to inflict 1.5× damage at 1/3 max HP or less."
+      }
+    ]
+  },
+  {
+    "id": "swarm",
+    "api_id": 68,
+    "name": "Swarm",
+    "generation": 3,
+    "description": "Strengthens Bug moves to inflict 1.5× damage at 1/3 max HP or less.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Strengthens Bug moves to inflict 1.5× damage at 1/3 max HP or less."
+      }
+    ]
+  },
+  {
+    "id": "rock_head",
+    "api_id": 69,
+    "name": "Rock Head",
+    "generation": 3,
+    "description": "Protects against recoil damage.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Protects against recoil damage."
+      }
+    ]
+  },
+  {
+    "id": "drought",
+    "api_id": 70,
+    "name": "Drought",
+    "generation": 3,
+    "description": "Summons strong sunlight that lasts indefinitely upon entering battle.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Summons strong sunlight that lasts indefinitely upon entering battle."
+      }
+    ]
+  },
+  {
+    "id": "arena_trap",
+    "api_id": 71,
+    "name": "Arena Trap",
+    "generation": 3,
+    "description": "Prevents opponents from fleeing or switching out. Eluded by Flying-types and Pokémon in the air.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Prevents opponents from fleeing or switching out. Eluded by Flying-types and Pokémon in the air."
+      }
+    ]
+  },
+  {
+    "id": "vital_spirit",
+    "api_id": 72,
+    "name": "Vital Spirit",
+    "generation": 3,
+    "description": "Prevents sleep.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Prevents sleep."
+      }
+    ]
+  },
+  {
+    "id": "white_smoke",
+    "api_id": 73,
+    "name": "White Smoke",
+    "generation": 3,
+    "description": "Prevents stats from being lowered by other Pokémon.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Prevents stats from being lowered by other Pokémon."
+      }
+    ]
+  },
+  {
+    "id": "pure_power",
+    "api_id": 74,
+    "name": "Pure Power",
+    "generation": 3,
+    "description": "Doubles Attack in battle.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Doubles Attack in battle."
+      }
+    ]
+  },
+  {
+    "id": "shell_armor",
+    "api_id": 75,
+    "name": "Shell Armor",
+    "generation": 3,
+    "description": "Protects against critical hits.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Protects against critical hits."
+      }
+    ]
+  },
+  {
+    "id": "air_lock",
+    "api_id": 76,
+    "name": "Air Lock",
+    "generation": 3,
+    "description": "Negates all effects of weather, but does not prevent the weather itself.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Negates all effects of weather, but does not prevent the weather itself."
+      }
+    ]
+  },
+  {
+    "id": "tangled_feet",
+    "api_id": 77,
+    "name": "Tangled Feet",
+    "generation": 4,
+    "description": "Doubles evasion when confused.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Doubles evasion when confused."
+      }
+    ]
+  },
+  {
+    "id": "motor_drive",
+    "api_id": 78,
+    "name": "Motor Drive",
+    "generation": 4,
+    "description": "Absorbs Electric moves, raising Speed one stage.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Absorbs Electric moves, raising Speed one stage."
+      }
+    ]
+  },
+  {
+    "id": "rivalry",
+    "api_id": 79,
+    "name": "Rivalry",
+    "generation": 4,
+    "description": "Increases damage inflicted to 1.25× against Pokémon of the same gender, but decreases damage to 0.75× against the opposite gender.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Increases damage inflicted to 1.25× against Pokémon of the same gender, but decreases damage to 0.75× against the opposite gender."
+      }
+    ]
+  },
+  {
+    "id": "steadfast",
+    "api_id": 80,
+    "name": "Steadfast",
+    "generation": 4,
+    "description": "Raises Speed one stage upon flinching.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Raises Speed one stage upon flinching."
+      }
+    ]
+  },
+  {
+    "id": "snow_cloak",
+    "api_id": 81,
+    "name": "Snow Cloak",
+    "generation": 4,
+    "description": "Increases evasion to 1.25× during hail. Protects against hail damage.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Increases evasion to 1.25× during hail. Protects against hail damage."
+      }
+    ]
+  },
+  {
+    "id": "gluttony",
+    "api_id": 82,
+    "name": "Gluttony",
+    "generation": 4,
+    "description": "Makes the Pokémon eat any held Berry triggered by low HP below 1/2 its max HP.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Makes the Pokémon eat any held Berry triggered by low HP below 1/2 its max HP."
+      }
+    ]
+  },
+  {
+    "id": "anger_point",
+    "api_id": 83,
+    "name": "Anger Point",
+    "generation": 4,
+    "description": "Raises Attack to the maximum of six stages upon receiving a critical hit.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Raises Attack to the maximum of six stages upon receiving a critical hit."
+      }
+    ]
+  },
+  {
+    "id": "unburden",
+    "api_id": 84,
+    "name": "Unburden",
+    "generation": 4,
+    "description": "Doubles Speed upon using or losing a held item.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Doubles Speed upon using or losing a held item."
+      }
+    ]
+  },
+  {
+    "id": "heatproof",
+    "api_id": 85,
+    "name": "Heatproof",
+    "generation": 4,
+    "description": "Halves damage from Fire moves and burns.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Halves damage from Fire moves and burns."
+      }
+    ]
+  },
+  {
+    "id": "simple",
+    "api_id": 86,
+    "name": "Simple",
+    "generation": 4,
+    "description": "Doubles the Pokémon's stat modifiers. These doubled modifiers are still capped at -6 or 6 stages.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Doubles the Pokémon's stat modifiers. These doubled modifiers are still capped at -6 or 6 stages."
+      }
+    ]
+  },
+  {
+    "id": "dry_skin",
+    "api_id": 87,
+    "name": "Dry Skin",
+    "generation": 4,
+    "description": "Causes 1/8 max HP in damage each turn during strong sunlight, but heals for 1/8 max HP during rain. Increases damage from Fire moves to 1.25×, but absorbs Water moves, healing for 1/4 max HP.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Causes 1/8 max HP in damage each turn during strong sunlight, but heals for 1/8 max HP during rain. Increases damage from Fire moves to 1.25×, but absorbs Water moves, healing for 1/4 max HP."
+      }
+    ]
+  },
+  {
+    "id": "download",
+    "api_id": 88,
+    "name": "Download",
+    "generation": 4,
+    "description": "Raises the attack stat corresponding to the opponents' weaker defense one stage upon entering battle.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Raises the attack stat corresponding to the opponents' weaker defense one stage upon entering battle."
+      }
+    ]
+  },
+  {
+    "id": "iron_fist",
+    "api_id": 89,
+    "name": "Iron Fist",
+    "generation": 4,
+    "description": "Strengthens punch-based moves to 1.2× their power.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Strengthens punch-based moves to 1.2× their power."
+      }
+    ]
+  },
+  {
+    "id": "poison_heal",
+    "api_id": 90,
+    "name": "Poison Heal",
+    "generation": 4,
+    "description": "Heals for 1/8 max HP after each turn when poisoned in place of damage.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Heals for 1/8 max HP after each turn when poisoned in place of damage."
+      }
+    ]
+  },
+  {
+    "id": "adaptability",
+    "api_id": 91,
+    "name": "Adaptability",
+    "generation": 4,
+    "description": "Increases the same-type attack bonus from 1.5× to 2×.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Increases the same-type attack bonus from 1.5× to 2×."
+      }
+    ]
+  },
+  {
+    "id": "skill_link",
+    "api_id": 92,
+    "name": "Skill Link",
+    "generation": 4,
+    "description": "Extends two-to-five-hit moves and Triple Kick to their full length every time.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Extends two-to-five-hit moves and Triple Kick to their full length every time."
+      }
+    ]
+  },
+  {
+    "id": "hydration",
+    "api_id": 93,
+    "name": "Hydration",
+    "generation": 4,
+    "description": "Cures any major status ailment after each turn during rain.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Cures any major status ailment after each turn during rain."
+      }
+    ]
+  },
+  {
+    "id": "solar_power",
+    "api_id": 94,
+    "name": "Solar Power",
+    "generation": 4,
+    "description": "Increases Special Attack to 1.5× but costs 1/8 max HP after each turn during strong sunlight.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Increases Special Attack to 1.5× but costs 1/8 max HP after each turn during strong sunlight."
+      }
+    ]
+  },
+  {
+    "id": "quick_feet",
+    "api_id": 95,
+    "name": "Quick Feet",
+    "generation": 4,
+    "description": "Increases Speed to 1.5× with a major status ailment.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Increases Speed to 1.5× with a major status ailment."
+      }
+    ]
+  },
+  {
+    "id": "normalize",
+    "api_id": 96,
+    "name": "Normalize",
+    "generation": 4,
+    "description": "Makes the Pokémon's moves all act Normal-type.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Makes the Pokémon's moves all act Normal-type."
+      }
+    ]
+  },
+  {
+    "id": "sniper",
+    "api_id": 97,
+    "name": "Sniper",
+    "generation": 4,
+    "description": "Strengthens critical hits to inflict 3× damage rather than 2×.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Strengthens critical hits to inflict 3× damage rather than 2×."
+      }
+    ]
+  },
+  {
+    "id": "magic_guard",
+    "api_id": 98,
+    "name": "Magic Guard",
+    "generation": 4,
+    "description": "Protects against damage not directly caused by a move.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Protects against damage not directly caused by a move."
+      }
+    ]
+  },
+  {
+    "id": "no_guard",
+    "api_id": 99,
+    "name": "No Guard",
+    "generation": 4,
+    "description": "Ensures all moves used by and against the Pokémon hit.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Ensures all moves used by and against the Pokémon hit."
+      }
+    ]
+  },
+  {
+    "id": "stall",
+    "api_id": 100,
+    "name": "Stall",
+    "generation": 4,
+    "description": "Makes the Pokémon move last within its move's priority bracket.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Makes the Pokémon move last within its move's priority bracket."
+      }
+    ]
+  },
+  {
+    "id": "technician",
+    "api_id": 101,
+    "name": "Technician",
+    "generation": 4,
+    "description": "Strengthens moves of 60 base power or less to 1.5× their power.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Strengthens moves of 60 base power or less to 1.5× their power."
+      }
+    ]
+  },
+  {
+    "id": "leaf_guard",
+    "api_id": 102,
+    "name": "Leaf Guard",
+    "generation": 4,
+    "description": "Protects against major status ailments during strong sunlight.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Protects against major status ailments during strong sunlight."
+      }
+    ]
+  },
+  {
+    "id": "klutz",
+    "api_id": 103,
+    "name": "Klutz",
+    "generation": 4,
+    "description": "Prevents the Pokémon from using its held item in battle.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Prevents the Pokémon from using its held item in battle."
+      }
+    ]
+  },
+  {
+    "id": "mold_breaker",
+    "api_id": 104,
+    "name": "Mold Breaker",
+    "generation": 4,
+    "description": "Bypasses targets' abilities if they could hinder or prevent a move.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Bypasses targets' abilities if they could hinder or prevent a move."
+      }
+    ]
+  },
+  {
+    "id": "super_luck",
+    "api_id": 105,
+    "name": "Super Luck",
+    "generation": 4,
+    "description": "Raises moves' critical hit rates one stage.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Raises moves' critical hit rates one stage."
+      }
+    ]
+  },
+  {
+    "id": "aftermath",
+    "api_id": 106,
+    "name": "Aftermath",
+    "generation": 4,
+    "description": "Damages the attacker for 1/4 its max HP when knocked out by a contact move.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Damages the attacker for 1/4 its max HP when knocked out by a contact move."
+      }
+    ]
+  },
+  {
+    "id": "anticipation",
+    "api_id": 107,
+    "name": "Anticipation",
+    "generation": 4,
+    "description": "Notifies all trainers upon entering battle if an opponent has a super-effective move, Self-Destruct, Explosion, or a one-hit KO move.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Notifies all trainers upon entering battle if an opponent has a super-effective move, Self-Destruct, Explosion, or a one-hit KO move."
+      }
+    ]
+  },
+  {
+    "id": "forewarn",
+    "api_id": 108,
+    "name": "Forewarn",
+    "generation": 4,
+    "description": "Reveals the opponents' strongest move upon entering battle.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Reveals the opponents' strongest move upon entering battle."
+      }
+    ]
+  },
+  {
+    "id": "unaware",
+    "api_id": 109,
+    "name": "Unaware",
+    "generation": 4,
+    "description": "Ignores other Pokémon's stat modifiers for damage and accuracy calculation.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Ignores other Pokémon's stat modifiers for damage and accuracy calculation."
+      }
+    ]
+  },
+  {
+    "id": "tinted_lens",
+    "api_id": 110,
+    "name": "Tinted Lens",
+    "generation": 4,
+    "description": "Doubles damage inflicted with not-very-effective moves.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Doubles damage inflicted with not-very-effective moves."
+      }
+    ]
+  },
+  {
+    "id": "filter",
+    "api_id": 111,
+    "name": "Filter",
+    "generation": 4,
+    "description": "Decreases damage taken from super-effective moves by 1/4.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Decreases damage taken from super-effective moves by 1/4."
+      }
+    ]
+  },
+  {
+    "id": "slow_start",
+    "api_id": 112,
+    "name": "Slow Start",
+    "generation": 4,
+    "description": "Halves Attack and Speed for five turns upon entering battle.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Halves Attack and Speed for five turns upon entering battle."
+      }
+    ]
+  },
+  {
+    "id": "scrappy",
+    "api_id": 113,
+    "name": "Scrappy",
+    "generation": 4,
+    "description": "Lets the Pokémon's Normal and Fighting moves hit Ghost Pokémon.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Lets the Pokémon's Normal and Fighting moves hit Ghost Pokémon."
+      }
+    ]
+  },
+  {
+    "id": "storm_drain",
+    "api_id": 114,
+    "name": "Storm Drain",
+    "generation": 4,
+    "description": "Redirects single-target Water moves to this Pokémon where possible. Absorbs Water moves, raising Special Attack one stage.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Redirects single-target Water moves to this Pokémon where possible. Absorbs Water moves, raising Special Attack one stage."
+      }
+    ]
+  },
+  {
+    "id": "ice_body",
+    "api_id": 115,
+    "name": "Ice Body",
+    "generation": 4,
+    "description": "Heals for 1/16 max HP after each turn during hail. Protects against hail damage.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Heals for 1/16 max HP after each turn during hail. Protects against hail damage."
+      }
+    ]
+  },
+  {
+    "id": "solid_rock",
+    "api_id": 116,
+    "name": "Solid Rock",
+    "generation": 4,
+    "description": "Decreases damage taken from super-effective moves by 1/4.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Decreases damage taken from super-effective moves by 1/4."
+      }
+    ]
+  },
+  {
+    "id": "snow_warning",
+    "api_id": 117,
+    "name": "Snow Warning",
+    "generation": 4,
+    "description": "Summons hail that lasts indefinitely upon entering battle.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Summons hail that lasts indefinitely upon entering battle."
+      }
+    ]
+  },
+  {
+    "id": "honey_gather",
+    "api_id": 118,
+    "name": "Honey Gather",
+    "generation": 4,
+    "description": "The Pokémon may pick up Honey after battle.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "The Pokémon may pick up Honey after battle."
+      }
+    ]
+  },
+  {
+    "id": "frisk",
+    "api_id": 119,
+    "name": "Frisk",
+    "generation": 4,
+    "description": "Reveals an opponent's held item upon entering battle.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Reveals an opponent's held item upon entering battle."
+      }
+    ]
+  },
+  {
+    "id": "reckless",
+    "api_id": 120,
+    "name": "Reckless",
+    "generation": 4,
+    "description": "Strengthens recoil moves to 1.2× their power.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Strengthens recoil moves to 1.2× their power."
+      }
+    ]
+  },
+  {
+    "id": "multitype",
+    "api_id": 121,
+    "name": "Multitype",
+    "generation": 4,
+    "description": "Changes Arceus's type and form to match its held Plate.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Changes Arceus's type and form to match its held Plate."
+      }
+    ]
+  },
+  {
+    "id": "flower_gift",
+    "api_id": 122,
+    "name": "Flower Gift",
+    "generation": 4,
+    "description": "Increases friendly Pokémon's Attack and Special Defense to 1.5× during strong sunlight.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Increases friendly Pokémon's Attack and Special Defense to 1.5× during strong sunlight."
+      }
+    ]
+  },
+  {
+    "id": "bad_dreams",
+    "api_id": 123,
+    "name": "Bad Dreams",
+    "generation": 4,
+    "description": "Damages sleeping opponents for 1/8 their max HP after each turn.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Damages sleeping opponents for 1/8 their max HP after each turn."
+      }
+    ]
+  },
+  {
+    "id": "pickpocket",
+    "api_id": 124,
+    "name": "Pickpocket",
+    "generation": 5,
+    "description": "Steals attacking Pokémon's held items on contact.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Steals attacking Pokémon's held items on contact."
+      }
+    ]
+  },
+  {
+    "id": "sheer_force",
+    "api_id": 125,
+    "name": "Sheer Force",
+    "generation": 5,
+    "description": "Strengthens moves with extra effects to 1.3× their power, but prevents their extra effects.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Strengthens moves with extra effects to 1.3× their power, but prevents their extra effects."
+      }
+    ]
+  },
+  {
+    "id": "contrary",
+    "api_id": 126,
+    "name": "Contrary",
+    "generation": 5,
+    "description": "Inverts stat changes.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Inverts stat changes."
+      }
+    ]
+  },
+  {
+    "id": "unnerve",
+    "api_id": 127,
+    "name": "Unnerve",
+    "generation": 5,
+    "description": "Prevents opposing Pokémon from eating held Berries.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Prevents opposing Pokémon from eating held Berries."
+      }
+    ]
+  },
+  {
+    "id": "defiant",
+    "api_id": 128,
+    "name": "Defiant",
+    "generation": 5,
+    "description": "Raises Attack two stages upon having any stat lowered.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Raises Attack two stages upon having any stat lowered."
+      }
+    ]
+  },
+  {
+    "id": "defeatist",
+    "api_id": 129,
+    "name": "Defeatist",
+    "generation": 5,
+    "description": "Halves Attack and Special Attack at 50% max HP or less.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Halves Attack and Special Attack at 50% max HP or less."
+      }
+    ]
+  },
+  {
+    "id": "cursed_body",
+    "api_id": 130,
+    "name": "Cursed Body",
+    "generation": 5,
+    "description": "Has a 30% chance of Disabling any move that hits the Pokémon.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Has a 30% chance of Disabling any move that hits the Pokémon."
+      }
+    ]
+  },
+  {
+    "id": "healer",
+    "api_id": 131,
+    "name": "Healer",
+    "generation": 5,
+    "description": "Has a 30% chance of curing each adjacent ally of any major status ailment after each turn.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Has a 30% chance of curing each adjacent ally of any major status ailment after each turn."
+      }
+    ]
+  },
+  {
+    "id": "friend_guard",
+    "api_id": 132,
+    "name": "Friend Guard",
+    "generation": 5,
+    "description": "Decreases all direct damage taken by friendly Pokémon to 0.75×.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Decreases all direct damage taken by friendly Pokémon to 0.75×."
+      }
+    ]
+  },
+  {
+    "id": "weak_armor",
+    "api_id": 133,
+    "name": "Weak Armor",
+    "generation": 5,
+    "description": "Raises Speed and lowers Defense by one stage each upon being hit by a physical move.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Raises Speed and lowers Defense by one stage each upon being hit by a physical move."
+      }
+    ]
+  },
+  {
+    "id": "heavy_metal",
+    "api_id": 134,
+    "name": "Heavy Metal",
+    "generation": 5,
+    "description": "Doubles the Pokémon's weight.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Doubles the Pokémon's weight."
+      }
+    ]
+  },
+  {
+    "id": "light_metal",
+    "api_id": 135,
+    "name": "Light Metal",
+    "generation": 5,
+    "description": "Halves the Pokémon's weight.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Halves the Pokémon's weight."
+      }
+    ]
+  },
+  {
+    "id": "multiscale",
+    "api_id": 136,
+    "name": "Multiscale",
+    "generation": 5,
+    "description": "Halves damage taken from full HP.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Halves damage taken from full HP."
+      }
+    ]
+  },
+  {
+    "id": "toxic_boost",
+    "api_id": 137,
+    "name": "Toxic Boost",
+    "generation": 5,
+    "description": "Increases Attack to 1.5× when poisoned.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Increases Attack to 1.5× when poisoned."
+      }
+    ]
+  },
+  {
+    "id": "flare_boost",
+    "api_id": 138,
+    "name": "Flare Boost",
+    "generation": 5,
+    "description": "Increases Special Attack to 1.5× when burned.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Increases Special Attack to 1.5× when burned."
+      }
+    ]
+  },
+  {
+    "id": "harvest",
+    "api_id": 139,
+    "name": "Harvest",
+    "generation": 5,
+    "description": "Has a 50% chance of restoring a used Berry after each turn if the Pokémon has held no items in the meantime.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Has a 50% chance of restoring a used Berry after each turn if the Pokémon has held no items in the meantime."
+      }
+    ]
+  },
+  {
+    "id": "telepathy",
+    "api_id": 140,
+    "name": "Telepathy",
+    "generation": 5,
+    "description": "Protects against friendly Pokémon's damaging moves.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Protects against friendly Pokémon's damaging moves."
+      }
+    ]
+  },
+  {
+    "id": "moody",
+    "api_id": 141,
+    "name": "Moody",
+    "generation": 5,
+    "description": "Raises a random stat two stages and lowers another one stage after each turn.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Raises a random stat two stages and lowers another one stage after each turn."
+      }
+    ]
+  },
+  {
+    "id": "overcoat",
+    "api_id": 142,
+    "name": "Overcoat",
+    "generation": 5,
+    "description": "Protects against damage from weather.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Protects against damage from weather."
+      }
+    ]
+  },
+  {
+    "id": "poison_touch",
+    "api_id": 143,
+    "name": "Poison Touch",
+    "generation": 5,
+    "description": "Has a 30% chance of poisoning target Pokémon upon contact.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Has a 30% chance of poisoning target Pokémon upon contact."
+      }
+    ]
+  },
+  {
+    "id": "regenerator",
+    "api_id": 144,
+    "name": "Regenerator",
+    "generation": 5,
+    "description": "Heals for 1/3 max HP upon switching out.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Heals for 1/3 max HP upon switching out."
+      }
+    ]
+  },
+  {
+    "id": "big_pecks",
+    "api_id": 145,
+    "name": "Big Pecks",
+    "generation": 5,
+    "description": "Protects against Defense drops.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Protects against Defense drops."
+      }
+    ]
+  },
+  {
+    "id": "sand_rush",
+    "api_id": 146,
+    "name": "Sand Rush",
+    "generation": 5,
+    "description": "Doubles Speed during a sandstorm. Protects against sandstorm damage.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Doubles Speed during a sandstorm. Protects against sandstorm damage."
+      }
+    ]
+  },
+  {
+    "id": "wonder_skin",
+    "api_id": 147,
+    "name": "Wonder Skin",
+    "generation": 5,
+    "description": "Lowers incoming non-damaging moves' base accuracy to exactly 50%.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Lowers incoming non-damaging moves' base accuracy to exactly 50%."
+      }
+    ]
+  },
+  {
+    "id": "analytic",
+    "api_id": 148,
+    "name": "Analytic",
+    "generation": 5,
+    "description": "Strengthens moves to 1.3× their power when moving last.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Strengthens moves to 1.3× their power when moving last."
+      }
+    ]
+  },
+  {
+    "id": "illusion",
+    "api_id": 149,
+    "name": "Illusion",
+    "generation": 5,
+    "description": "Takes the appearance of the last conscious party Pokémon upon being sent out until hit by a damaging move.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Takes the appearance of the last conscious party Pokémon upon being sent out until hit by a damaging move."
+      }
+    ]
+  },
+  {
+    "id": "imposter",
+    "api_id": 150,
+    "name": "Imposter",
+    "generation": 5,
+    "description": "Transforms upon entering battle.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Transforms upon entering battle."
+      }
+    ]
+  },
+  {
+    "id": "infiltrator",
+    "api_id": 151,
+    "name": "Infiltrator",
+    "generation": 5,
+    "description": "Bypasses Light Screen, Reflect, and Safeguard.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Bypasses Light Screen, Reflect, and Safeguard."
+      }
+    ]
+  },
+  {
+    "id": "mummy",
+    "api_id": 152,
+    "name": "Mummy",
+    "generation": 5,
+    "description": "Changes attacking Pokémon's abilities to Mummy on contact.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Changes attacking Pokémon's abilities to Mummy on contact."
+      }
+    ]
+  },
+  {
+    "id": "moxie",
+    "api_id": 153,
+    "name": "Moxie",
+    "generation": 5,
+    "description": "Raises Attack one stage upon KOing a Pokémon.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Raises Attack one stage upon KOing a Pokémon."
+      }
+    ]
+  },
+  {
+    "id": "justified",
+    "api_id": 154,
+    "name": "Justified",
+    "generation": 5,
+    "description": "Raises Attack one stage upon taking damage from a Dark move.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Raises Attack one stage upon taking damage from a Dark move."
+      }
+    ]
+  },
+  {
+    "id": "rattled",
+    "api_id": 155,
+    "name": "Rattled",
+    "generation": 5,
+    "description": "Raises Speed one stage upon being hit by a Dark, Ghost, or Bug move.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Raises Speed one stage upon being hit by a Dark, Ghost, or Bug move."
+      }
+    ]
+  },
+  {
+    "id": "magic_bounce",
+    "api_id": 156,
+    "name": "Magic Bounce",
+    "generation": 5,
+    "description": "Reflects most non-damaging moves back at their user.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Reflects most non-damaging moves back at their user."
+      }
+    ]
+  },
+  {
+    "id": "sap_sipper",
+    "api_id": 157,
+    "name": "Sap Sipper",
+    "generation": 5,
+    "description": "Absorbs Grass moves, raising Attack one stage.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Absorbs Grass moves, raising Attack one stage."
+      }
+    ]
+  },
+  {
+    "id": "prankster",
+    "api_id": 158,
+    "name": "Prankster",
+    "generation": 5,
+    "description": "Raises non-damaging moves' priority by one stage.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Raises non-damaging moves' priority by one stage."
+      }
+    ]
+  },
+  {
+    "id": "sand_force",
+    "api_id": 159,
+    "name": "Sand Force",
+    "generation": 5,
+    "description": "Strengthens Rock, Ground, and Steel moves to 1.3× their power during a sandstorm. Protects against sandstorm damage.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Strengthens Rock, Ground, and Steel moves to 1.3× their power during a sandstorm. Protects against sandstorm damage."
+      }
+    ]
+  },
+  {
+    "id": "iron_barbs",
+    "api_id": 160,
+    "name": "Iron Barbs",
+    "generation": 5,
+    "description": "Damages attacking Pokémon for 1/8 their max HP on contact.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Damages attacking Pokémon for 1/8 their max HP on contact."
+      }
+    ]
+  },
+  {
+    "id": "zen_mode",
+    "api_id": 161,
+    "name": "Zen Mode",
+    "generation": 5,
+    "description": "Changes Darmanitan's form after each turn depending on its HP: Zen Mode below 50% max HP, and Standard Mode otherwise.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Changes Darmanitan's form after each turn depending on its HP: Zen Mode below 50% max HP, and Standard Mode otherwise."
+      }
+    ]
+  },
+  {
+    "id": "victory_star",
+    "api_id": 162,
+    "name": "Victory Star",
+    "generation": 5,
+    "description": "Increases moves' accuracy to 1.1× for friendly Pokémon.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Increases moves' accuracy to 1.1× for friendly Pokémon."
+      }
+    ]
+  },
+  {
+    "id": "turboblaze",
+    "api_id": 163,
+    "name": "Turboblaze",
+    "generation": 5,
+    "description": "Bypasses targets' abilities if they could hinder or prevent moves.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Bypasses targets' abilities if they could hinder or prevent moves."
+      }
+    ]
+  },
+  {
+    "id": "teravolt",
+    "api_id": 164,
+    "name": "Teravolt",
+    "generation": 5,
+    "description": "Bypasses targets' abilities if they could hinder or prevent moves.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Bypasses targets' abilities if they could hinder or prevent moves."
+      }
+    ]
+  },
+  {
+    "id": "aroma_veil",
+    "api_id": 165,
+    "name": "Aroma Veil",
+    "generation": 6,
+    "description": "Protects allies against moves that affect their mental state.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Protects allies against moves that affect their mental state."
+      }
+    ]
+  },
+  {
+    "id": "flower_veil",
+    "api_id": 166,
+    "name": "Flower Veil",
+    "generation": 6,
+    "description": "Protects friendly Grass Pokémon from having their stats lowered by other Pokémon.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Protects friendly Grass Pokémon from having their stats lowered by other Pokémon."
+      }
+    ]
+  },
+  {
+    "id": "cheek_pouch",
+    "api_id": 167,
+    "name": "Cheek Pouch",
+    "generation": 6,
+    "description": "Restores HP upon eating a Berry, in addition to the Berry's effect.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Restores HP upon eating a Berry, in addition to the Berry's effect."
+      }
+    ]
+  },
+  {
+    "id": "protean",
+    "api_id": 168,
+    "name": "Protean",
+    "generation": 6,
+    "description": "Changes the bearer's type to match each move it uses.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Changes the bearer's type to match each move it uses."
+      }
+    ]
+  },
+  {
+    "id": "fur_coat",
+    "api_id": 169,
+    "name": "Fur Coat",
+    "generation": 6,
+    "description": "Halves damage from physical attacks.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Halves damage from physical attacks."
+      }
+    ]
+  },
+  {
+    "id": "magician",
+    "api_id": 170,
+    "name": "Magician",
+    "generation": 6,
+    "description": "Steals the target's held item when the bearer uses a damaging move.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Steals the target's held item when the bearer uses a damaging move."
+      }
+    ]
+  },
+  {
+    "id": "bulletproof",
+    "api_id": 171,
+    "name": "Bulletproof",
+    "generation": 6,
+    "description": "Protects against bullet, ball, and bomb-based moves.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Protects against bullet, ball, and bomb-based moves."
+      }
+    ]
+  },
+  {
+    "id": "competitive",
+    "api_id": 172,
+    "name": "Competitive",
+    "generation": 6,
+    "description": "Raises Special Attack by two stages upon having any stat lowered.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Raises Special Attack by two stages upon having any stat lowered."
+      }
+    ]
+  },
+  {
+    "id": "strong_jaw",
+    "api_id": 173,
+    "name": "Strong Jaw",
+    "generation": 6,
+    "description": "Strengthens biting moves to 1.5× their power.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Strengthens biting moves to 1.5× their power."
+      }
+    ]
+  },
+  {
+    "id": "refrigerate",
+    "api_id": 174,
+    "name": "Refrigerate",
+    "generation": 6,
+    "description": "Turns the bearer's Normal moves into Ice moves and strengthens them to 1.3× their power.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Turns the bearer's Normal moves into Ice moves and strengthens them to 1.3× their power."
+      }
+    ]
+  },
+  {
+    "id": "sweet_veil",
+    "api_id": 175,
+    "name": "Sweet Veil",
+    "generation": 6,
+    "description": "Prevents friendly Pokémon from sleeping.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Prevents friendly Pokémon from sleeping."
+      }
+    ]
+  },
+  {
+    "id": "stance_change",
+    "api_id": 176,
+    "name": "Stance Change",
+    "generation": 6,
+    "description": "Changes Aegislash to Blade Forme before using a damaging move, or Shield Forme before using King’s Shield.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Changes Aegislash to Blade Forme before using a damaging move, or Shield Forme before using King’s Shield."
+      }
+    ]
+  },
+  {
+    "id": "gale_wings",
+    "api_id": 177,
+    "name": "Gale Wings",
+    "generation": 6,
+    "description": "Raises Flying moves' priority by one stage.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Raises Flying moves' priority by one stage."
+      }
+    ]
+  },
+  {
+    "id": "mega_launcher",
+    "api_id": 178,
+    "name": "Mega Launcher",
+    "generation": 6,
+    "description": "Strengthens aura and pulse moves to 1.5× their power.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Strengthens aura and pulse moves to 1.5× their power."
+      }
+    ]
+  },
+  {
+    "id": "grass_pelt",
+    "api_id": 179,
+    "name": "Grass Pelt",
+    "generation": 6,
+    "description": "Boosts Defense while Grassy Terrain is in effect.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Boosts Defense while Grassy Terrain is in effect."
+      }
+    ]
+  },
+  {
+    "id": "symbiosis",
+    "api_id": 180,
+    "name": "Symbiosis",
+    "generation": 6,
+    "description": "Passes the bearer's held item to an ally when the ally uses up its item.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Passes the bearer's held item to an ally when the ally uses up its item."
+      }
+    ]
+  },
+  {
+    "id": "tough_claws",
+    "api_id": 181,
+    "name": "Tough Claws",
+    "generation": 6,
+    "description": "Strengthens moves that make contact to 1.33× their power.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Strengthens moves that make contact to 1.33× their power."
+      }
+    ]
+  },
+  {
+    "id": "pixilate",
+    "api_id": 182,
+    "name": "Pixilate",
+    "generation": 6,
+    "description": "Turns the bearer's Normal moves into Fairy moves and strengthens them to 1.3× their power.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Turns the bearer's Normal moves into Fairy moves and strengthens them to 1.3× their power."
+      }
+    ]
+  },
+  {
+    "id": "gooey",
+    "api_id": 183,
+    "name": "Gooey",
+    "generation": 6,
+    "description": "Lowers attacking Pokémon's Speed by one stage on contact.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Lowers attacking Pokémon's Speed by one stage on contact."
+      }
+    ]
+  },
+  {
+    "id": "aerilate",
+    "api_id": 184,
+    "name": "Aerilate",
+    "generation": 6,
+    "description": "Turns the bearer's Normal moves into Flying moves and strengthens them to 1.3× their power.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Turns the bearer's Normal moves into Flying moves and strengthens them to 1.3× their power."
+      }
+    ]
+  },
+  {
+    "id": "parental_bond",
+    "api_id": 185,
+    "name": "Parental Bond",
+    "generation": 6,
+    "description": "Lets the bearer hit twice with damaging moves. The second hit has half power.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Lets the bearer hit twice with damaging moves. The second hit has half power."
+      }
+    ]
+  },
+  {
+    "id": "dark_aura",
+    "api_id": 186,
+    "name": "Dark Aura",
+    "generation": 6,
+    "description": "Strengthens Dark moves to 1.33× their power for all friendly and opposing Pokémon.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Strengthens Dark moves to 1.33× their power for all friendly and opposing Pokémon."
+      }
+    ]
+  },
+  {
+    "id": "fairy_aura",
+    "api_id": 187,
+    "name": "Fairy Aura",
+    "generation": 6,
+    "description": "Strengthens Fairy moves to 1.33× their power for all friendly and opposing Pokémon.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Strengthens Fairy moves to 1.33× their power for all friendly and opposing Pokémon."
+      }
+    ]
+  },
+  {
+    "id": "aura_break",
+    "api_id": 188,
+    "name": "Aura Break",
+    "generation": 6,
+    "description": "Makes Dark Aura and Fairy Aura weaken moves of their respective types.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Makes Dark Aura and Fairy Aura weaken moves of their respective types."
+      }
+    ]
+  },
+  {
+    "id": "primordial_sea",
+    "api_id": 189,
+    "name": "Primordial Sea",
+    "generation": 6,
+    "description": "Creates heavy rain, which has all the properties of Rain Dance, cannot be replaced, and causes damaging Fire moves to fail.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Creates heavy rain, which has all the properties of Rain Dance, cannot be replaced, and causes damaging Fire moves to fail."
+      }
+    ]
+  },
+  {
+    "id": "desolate_land",
+    "api_id": 190,
+    "name": "Desolate Land",
+    "generation": 6,
+    "description": "Creates extremely harsh sunlight, which has all the properties of Sunny Day, cannot be replaced, and causes damaging Water moves to fail.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Creates extremely harsh sunlight, which has all the properties of Sunny Day, cannot be replaced, and causes damaging Water moves to fail."
+      }
+    ]
+  },
+  {
+    "id": "delta_stream",
+    "api_id": 191,
+    "name": "Delta Stream",
+    "generation": 6,
+    "description": "Creates a mysterious air current, which cannot be replaced and causes moves to never be super effective against Flying Pokémon.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Creates a mysterious air current, which cannot be replaced and causes moves to never be super effective against Flying Pokémon."
+      }
+    ]
+  },
+  {
+    "id": "stamina",
+    "api_id": 192,
+    "name": "Stamina",
+    "generation": 7,
+    "description": "Raises this Pokémon's Defense by one stage when it takes damage from a move.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Raises this Pokémon's Defense by one stage when it takes damage from a move."
+      }
+    ]
+  },
+  {
+    "id": "wimp_out",
+    "api_id": 193,
+    "name": "Wimp Out",
+    "generation": 7,
+    "description": "This Pokémon automatically switches out when its HP drops below half.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "This Pokémon automatically switches out when its HP drops below half."
+      }
+    ]
+  },
+  {
+    "id": "emergency_exit",
+    "api_id": 194,
+    "name": "Emergency Exit",
+    "generation": 7,
+    "description": "This Pokémon automatically switches out when its HP drops below half.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "This Pokémon automatically switches out when its HP drops below half."
+      }
+    ]
+  },
+  {
+    "id": "water_compaction",
+    "api_id": 195,
+    "name": "Water Compaction",
+    "generation": 7,
+    "description": "Raises this Pokémon's Defense by two stages when it's hit by a Water move.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Raises this Pokémon's Defense by two stages when it's hit by a Water move."
+      }
+    ]
+  },
+  {
+    "id": "merciless",
+    "api_id": 196,
+    "name": "Merciless",
+    "generation": 7,
+    "description": "This Pokémon's moves critical hit against poisoned targets.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "This Pokémon's moves critical hit against poisoned targets."
+      }
+    ]
+  },
+  {
+    "id": "shields_down",
+    "api_id": 197,
+    "name": "Shields Down",
+    "generation": 7,
+    "description": "Transforms this Minior between Core Form and Meteor Form. Prevents major status ailments and drowsiness while in Meteor Form.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Transforms this Minior between Core Form and Meteor Form. Prevents major status ailments and drowsiness while in Meteor Form."
+      }
+    ]
+  },
+  {
+    "id": "stakeout",
+    "api_id": 198,
+    "name": "Stakeout",
+    "generation": 7,
+    "description": "This Pokémon's moves have double power against Pokémon that switched in this turn.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "This Pokémon's moves have double power against Pokémon that switched in this turn."
+      }
+    ]
+  },
+  {
+    "id": "water_bubble",
+    "api_id": 199,
+    "name": "Water Bubble",
+    "generation": 7,
+    "description": "Halves damage from Fire moves, doubles damage of Water moves, and prevents burns.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Halves damage from Fire moves, doubles damage of Water moves, and prevents burns."
+      }
+    ]
+  },
+  {
+    "id": "steelworker",
+    "api_id": 200,
+    "name": "Steelworker",
+    "generation": 7,
+    "description": "This Pokémon's Steel moves have 1.5× power.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "This Pokémon's Steel moves have 1.5× power."
+      }
+    ]
+  },
+  {
+    "id": "berserk",
+    "api_id": 201,
+    "name": "Berserk",
+    "generation": 7,
+    "description": "Raises this Pokémon's Special Attack by one stage every time its HP drops below half.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Raises this Pokémon's Special Attack by one stage every time its HP drops below half."
+      }
+    ]
+  },
+  {
+    "id": "slush_rush",
+    "api_id": 202,
+    "name": "Slush Rush",
+    "generation": 7,
+    "description": "During Hail, this Pokémon has double Speed.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "During Hail, this Pokémon has double Speed."
+      }
+    ]
+  },
+  {
+    "id": "long_reach",
+    "api_id": 203,
+    "name": "Long Reach",
+    "generation": 7,
+    "description": "This Pokémon's moves do not make contact.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "This Pokémon's moves do not make contact."
+      }
+    ]
+  },
+  {
+    "id": "liquid_voice",
+    "api_id": 204,
+    "name": "Liquid Voice",
+    "generation": 7,
+    "description": "Sound-based moves become Water-type.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Sound-based moves become Water-type."
+      }
+    ]
+  },
+  {
+    "id": "triage",
+    "api_id": 205,
+    "name": "Triage",
+    "generation": 7,
+    "description": "This Pokémon's healing moves have their priority increased by 3.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "This Pokémon's healing moves have their priority increased by 3."
+      }
+    ]
+  },
+  {
+    "id": "galvanize",
+    "api_id": 206,
+    "name": "Galvanize",
+    "generation": 7,
+    "description": "This Pokémon's Normal moves are Electric and have their power increased to 1.2×.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "This Pokémon's Normal moves are Electric and have their power increased to 1.2×."
+      }
+    ]
+  },
+  {
+    "id": "surge_surfer",
+    "api_id": 207,
+    "name": "Surge Surfer",
+    "generation": 7,
+    "description": "Doubles this Pokémon's Speed on Electric Terrain.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Doubles this Pokémon's Speed on Electric Terrain."
+      }
+    ]
+  },
+  {
+    "id": "schooling",
+    "api_id": 208,
+    "name": "Schooling",
+    "generation": 7,
+    "description": "Wishiwashi becomes Schooling Form when its HP is 25% or higher.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Wishiwashi becomes Schooling Form when its HP is 25% or higher."
+      }
+    ]
+  },
+  {
+    "id": "disguise",
+    "api_id": 209,
+    "name": "Disguise",
+    "generation": 7,
+    "description": "Prevents the first instance of battle damage.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Prevents the first instance of battle damage."
+      }
+    ]
+  },
+  {
+    "id": "battle_bond",
+    "api_id": 210,
+    "name": "Battle Bond",
+    "generation": 7,
+    "description": "Transforms this Pokémon into Ash-Greninja after fainting an opponent. Water Shuriken's power is 20 and always hits three times.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Transforms this Pokémon into Ash-Greninja after fainting an opponent. Water Shuriken's power is 20 and always hits three times."
+      }
+    ]
+  },
+  {
+    "id": "power_construct",
+    "api_id": 211,
+    "name": "Power Construct",
+    "generation": 7,
+    "description": "Transforms 10% or 50% Zygarde into Complete Forme when its HP is below 50%.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Transforms 10% or 50% Zygarde into Complete Forme when its HP is below 50%."
+      }
+    ]
+  },
+  {
+    "id": "corrosion",
+    "api_id": 212,
+    "name": "Corrosion",
+    "generation": 7,
+    "description": "This Pokémon can inflict poison on Poison and Steel Pokémon.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "This Pokémon can inflict poison on Poison and Steel Pokémon."
+      }
+    ]
+  },
+  {
+    "id": "comatose",
+    "api_id": 213,
+    "name": "Comatose",
+    "generation": 7,
+    "description": "This Pokémon always acts as though it were Asleep.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "This Pokémon always acts as though it were Asleep."
+      }
+    ]
+  },
+  {
+    "id": "queenly_majesty",
+    "api_id": 214,
+    "name": "Queenly Majesty",
+    "generation": 7,
+    "description": "Opposing Pokémon cannot use priority attacks.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Opposing Pokémon cannot use priority attacks."
+      }
+    ]
+  },
+  {
+    "id": "innards_out",
+    "api_id": 215,
+    "name": "Innards Out",
+    "generation": 7,
+    "description": "When this Pokémon faints from an opponent's move, that opponent takes damage equal to the HP this Pokémon had remaining.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "When this Pokémon faints from an opponent's move, that opponent takes damage equal to the HP this Pokémon had remaining."
+      }
+    ]
+  },
+  {
+    "id": "dancer",
+    "api_id": 216,
+    "name": "Dancer",
+    "generation": 7,
+    "description": "Whenever another Pokémon uses a dance move, this Pokémon will use the same move immediately afterwards.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Whenever another Pokémon uses a dance move, this Pokémon will use the same move immediately afterwards."
+      }
+    ]
+  },
+  {
+    "id": "battery",
+    "api_id": 217,
+    "name": "Battery",
+    "generation": 7,
+    "description": "Ally Pokémon's moves have their power increased to 1.3×.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Ally Pokémon's moves have their power increased to 1.3×."
+      }
+    ]
+  },
+  {
+    "id": "fluffy",
+    "api_id": 218,
+    "name": "Fluffy",
+    "generation": 7,
+    "description": "Damage from contact moves is halved. Damage from Fire moves is doubled.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Damage from contact moves is halved. Damage from Fire moves is doubled."
+      }
+    ]
+  },
+  {
+    "id": "dazzling",
+    "api_id": 219,
+    "name": "Dazzling",
+    "generation": 7,
+    "description": "Opposing Pokémon cannot use priority attacks.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Opposing Pokémon cannot use priority attacks."
+      }
+    ]
+  },
+  {
+    "id": "soul_heart",
+    "api_id": 220,
+    "name": "Soul-Heart",
+    "generation": 7,
+    "description": "This Pokémon's Special Attack rises by one stage every time any Pokémon faints.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "This Pokémon's Special Attack rises by one stage every time any Pokémon faints."
+      }
+    ]
+  },
+  {
+    "id": "tangling_hair",
+    "api_id": 221,
+    "name": "Tangling Hair",
+    "generation": 7,
+    "description": "When this Pokémon takes regular damage from a contact move, the attacking Pokémon's Speed lowers by one stage.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "When this Pokémon takes regular damage from a contact move, the attacking Pokémon's Speed lowers by one stage."
+      }
+    ]
+  },
+  {
+    "id": "receiver",
+    "api_id": 222,
+    "name": "Receiver",
+    "generation": 7,
+    "description": "When an ally faints, this Pokémon gains its Ability.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "When an ally faints, this Pokémon gains its Ability."
+      }
+    ]
+  },
+  {
+    "id": "power_of_alchemy",
+    "api_id": 223,
+    "name": "Power of Alchemy",
+    "generation": 7,
+    "description": "When an ally faints, this Pokémon gains its Ability.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "When an ally faints, this Pokémon gains its Ability."
+      }
+    ]
+  },
+  {
+    "id": "beast_boost",
+    "api_id": 224,
+    "name": "Beast Boost",
+    "generation": 7,
+    "description": "Raises this Pokémon's highest stat by one stage when it faints another Pokémon.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Raises this Pokémon's highest stat by one stage when it faints another Pokémon."
+      }
+    ]
+  },
+  {
+    "id": "rks_system",
+    "api_id": 225,
+    "name": "RKS System",
+    "generation": 7,
+    "description": "Changes this Pokémon's type to match its held Memory.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Changes this Pokémon's type to match its held Memory."
+      }
+    ]
+  },
+  {
+    "id": "electric_surge",
+    "api_id": 226,
+    "name": "Electric Surge",
+    "generation": 7,
+    "description": "When this Pokémon enters battle, it changes the terrain to Electric Terrain.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "When this Pokémon enters battle, it changes the terrain to Electric Terrain."
+      }
+    ]
+  },
+  {
+    "id": "psychic_surge",
+    "api_id": 227,
+    "name": "Psychic Surge",
+    "generation": 7,
+    "description": "When this Pokémon enters battle, it changes the terrain to Psychic Terrain.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "When this Pokémon enters battle, it changes the terrain to Psychic Terrain."
+      }
+    ]
+  },
+  {
+    "id": "misty_surge",
+    "api_id": 228,
+    "name": "Misty Surge",
+    "generation": 7,
+    "description": "When this Pokémon enters battle, it changes the terrain to Misty Terrain.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "When this Pokémon enters battle, it changes the terrain to Misty Terrain."
+      }
+    ]
+  },
+  {
+    "id": "grassy_surge",
+    "api_id": 229,
+    "name": "Grassy Surge",
+    "generation": 7,
+    "description": "When this Pokémon enters battle, it changes the terrain to Grassy Terrain.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "When this Pokémon enters battle, it changes the terrain to Grassy Terrain."
+      }
+    ]
+  },
+  {
+    "id": "full_metal_body",
+    "api_id": 230,
+    "name": "Full Metal Body",
+    "generation": 7,
+    "description": "Other Pokémon cannot lower this Pokémon's stats.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Other Pokémon cannot lower this Pokémon's stats."
+      }
+    ]
+  },
+  {
+    "id": "shadow_shield",
+    "api_id": 231,
+    "name": "Shadow Shield",
+    "generation": 7,
+    "description": "When this Pokémon has full HP, regular damage from moves is halved.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "When this Pokémon has full HP, regular damage from moves is halved."
+      }
+    ]
+  },
+  {
+    "id": "prism_armor",
+    "api_id": 232,
+    "name": "Prism Armor",
+    "generation": 7,
+    "description": "Reduces super-effective damage to 0.75×.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Reduces super-effective damage to 0.75×."
+      }
+    ]
+  },
+  {
+    "id": "neuroforce",
+    "api_id": 233,
+    "name": "Neuroforce",
+    "generation": 7,
+    "description": "Increases super-effective damage dealt to 1.25×.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Increases super-effective damage dealt to 1.25×."
+      }
+    ]
+  },
+  {
+    "id": "intrepid_sword",
+    "api_id": 234,
+    "name": "Intrepid Sword",
+    "generation": 8,
+    "description": "Boosts Attack in battle.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Boosts Attack in battle."
+      }
+    ]
+  },
+  {
+    "id": "dauntless_shield",
+    "api_id": 235,
+    "name": "Dauntless Shield",
+    "generation": 8,
+    "description": "Boosts Defense in battle.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Boosts Defense in battle."
+      }
+    ]
+  },
+  {
+    "id": "libero",
+    "api_id": 236,
+    "name": "Libero",
+    "generation": 8,
+    "description": "Libero changes the Pokémon's type to that of its previously used attack.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Libero changes the Pokémon's type to that of its previously used attack."
+      }
+    ]
+  },
+  {
+    "id": "ball_fetch",
+    "api_id": 237,
+    "name": "Ball Fetch",
+    "generation": 8,
+    "description": "If the Pokémon is not holding an item, it will fetch the Poké Ball from the first failed throw of the battle.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "If the Pokémon is not holding an item, it will fetch the Poké Ball from the first failed throw of the battle."
+      }
+    ]
+  },
+  {
+    "id": "cotton_down",
+    "api_id": 238,
+    "name": "Cotton Down",
+    "generation": 8,
+    "description": "When Ignores moves and abilities that draw in moves.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "When Ignores moves and abilities that draw in moves."
+      }
+    ]
+  },
+  {
+    "id": "propeller_tail",
+    "api_id": 239,
+    "name": "Propeller Tail",
+    "generation": 8,
+    "description": "Ignores moves and abilities that draw in moves.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Ignores moves and abilities that draw in moves."
+      }
+    ]
+  },
+  {
+    "id": "mirror_armor",
+    "api_id": 240,
+    "name": "Mirror Armor",
+    "generation": 8,
+    "description": "Reflects any stat-lowering effects.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Reflects any stat-lowering effects."
+      }
+    ]
+  },
+  {
+    "id": "gulp_missile",
+    "api_id": 241,
+    "name": "Gulp Missile",
+    "generation": 8,
+    "description": "If a Cramorant with Gulp Missile uses Surf or Dive, it catches prey and changes its form depending on its remaining HP.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "If a Cramorant with Gulp Missile uses Surf or Dive, it catches prey and changes its form depending on its remaining HP."
+      }
+    ]
+  },
+  {
+    "id": "stalwart",
+    "api_id": 242,
+    "name": "Stalwart",
+    "generation": 8,
+    "description": "Ignores moves and abilities that draw in moves.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Ignores moves and abilities that draw in moves."
+      }
+    ]
+  },
+  {
+    "id": "steam_engine",
+    "api_id": 243,
+    "name": "Steam Engine",
+    "generation": 8,
+    "description": "Boosts the Speed stat drastically when the Pokémon is hit by a Fire- or Water-type move.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Boosts the Speed stat drastically when the Pokémon is hit by a Fire- or Water-type move."
+      }
+    ]
+  },
+  {
+    "id": "punk_rock",
+    "api_id": 244,
+    "name": "Punk Rock",
+    "generation": 8,
+    "description": "Boosts sound-based moves and halves damage from the same moves.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Boosts sound-based moves and halves damage from the same moves."
+      }
+    ]
+  },
+  {
+    "id": "sand_spit",
+    "api_id": 245,
+    "name": "Sand Spit",
+    "generation": 8,
+    "description": "Creates a sandstorm when hit by an attack.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Creates a sandstorm when hit by an attack."
+      }
+    ]
+  },
+  {
+    "id": "ice_scales",
+    "api_id": 246,
+    "name": "Ice Scales",
+    "generation": 8,
+    "description": "Halves damage from Special moves.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Halves damage from Special moves."
+      }
+    ]
+  },
+  {
+    "id": "ripen",
+    "api_id": 247,
+    "name": "Ripen",
+    "generation": 8,
+    "description": "Doubles the effect of berries.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Doubles the effect of berries."
+      }
+    ]
+  },
+  {
+    "id": "ice_face",
+    "api_id": 248,
+    "name": "Ice Face",
+    "generation": 8,
+    "description": "The Pokémon’s ice head can take a physical attack as a substitute, but the attack also changes the Pokémon’s appearance. The ice will be restored when it snows.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "The Pokémon’s ice head can take a physical attack as a substitute, but the attack also changes the Pokémon’s appearance. The ice will be restored when it snows."
+      }
+    ]
+  },
+  {
+    "id": "power_spot",
+    "api_id": 249,
+    "name": "Power Spot",
+    "generation": 8,
+    "description": "Just being next to the Pokémon powers up moves.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Just being next to the Pokémon powers up moves."
+      }
+    ]
+  },
+  {
+    "id": "mimicry",
+    "api_id": 250,
+    "name": "Mimicry",
+    "generation": 8,
+    "description": "Changes type depending on the terrain.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Changes type depending on the terrain."
+      }
+    ]
+  },
+  {
+    "id": "screen_cleaner",
+    "api_id": 251,
+    "name": "Screen Cleaner",
+    "generation": 8,
+    "description": "Nullifies effects of Light Screen, Reflect, and Aurora Veil.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Nullifies effects of Light Screen, Reflect, and Aurora Veil."
+      }
+    ]
+  },
+  {
+    "id": "steely_spirit",
+    "api_id": 252,
+    "name": "Steely Spirit",
+    "generation": 8,
+    "description": "Powers up ally Pokémon's Steel-type moves.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Powers up ally Pokémon's Steel-type moves."
+      }
+    ]
+  },
+  {
+    "id": "perish_body",
+    "api_id": 253,
+    "name": "Perish Body",
+    "generation": 8,
+    "description": "When hit by a move that makes direct contact, the Pokémon and the attacker will faint after three turns unless they switch out of battle.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "When hit by a move that makes direct contact, the Pokémon and the attacker will faint after three turns unless they switch out of battle."
+      }
+    ]
+  },
+  {
+    "id": "wandering_spirit",
+    "api_id": 254,
+    "name": "Wandering Spirit",
+    "generation": 8,
+    "description": "Swaps abilities with opponents on contact.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Swaps abilities with opponents on contact."
+      }
+    ]
+  },
+  {
+    "id": "gorilla_tactics",
+    "api_id": 255,
+    "name": "Gorilla Tactics",
+    "generation": 8,
+    "description": "Boosts the Pokémon's Attack stat but only allows the use of the first selected move.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Boosts the Pokémon's Attack stat but only allows the use of the first selected move."
+      }
+    ]
+  },
+  {
+    "id": "neutralizing_gas",
+    "api_id": 256,
+    "name": "Neutralizing Gas",
+    "generation": 8,
+    "description": "Neutralizes abilities of all Pokémon in battle.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Neutralizes abilities of all Pokémon in battle."
+      }
+    ]
+  },
+  {
+    "id": "pastel_veil",
+    "api_id": 257,
+    "name": "Pastel Veil",
+    "generation": 8,
+    "description": "Prevents the Pokémon and its allies from being poisoned.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Prevents the Pokémon and its allies from being poisoned."
+      }
+    ]
+  },
+  {
+    "id": "hunger_switch",
+    "api_id": 258,
+    "name": "Hunger Switch",
+    "generation": 8,
+    "description": "Causes Morpeko to change its form each turn, alternating between Full Belly Mode and Hangry Mode",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Causes Morpeko to change its form each turn, alternating between Full Belly Mode and Hangry Mode"
+      }
+    ]
+  },
+  {
+    "id": "quick_draw",
+    "api_id": 259,
+    "name": "Quick Draw",
+    "generation": 8,
+    "description": "Enables the Pokémon to move first occasionally.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Enables the Pokémon to move first occasionally."
+      }
+    ]
+  },
+  {
+    "id": "unseen_fist",
+    "api_id": 260,
+    "name": "Unseen Fist",
+    "generation": 8,
+    "description": "Contact moves can strike through Protect/Detect.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Contact moves can strike through Protect/Detect."
+      }
+    ]
+  },
+  {
+    "id": "curious_medicine",
+    "api_id": 261,
+    "name": "Curious Medicine",
+    "generation": 8,
+    "description": "Resets all stat changes upon entering battlefield.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Resets all stat changes upon entering battlefield."
+      }
+    ]
+  },
+  {
+    "id": "transistor",
+    "api_id": 262,
+    "name": "Transistor",
+    "generation": 8,
+    "description": "Powers up Electric-type moves.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Powers up Electric-type moves."
+      }
+    ]
+  },
+  {
+    "id": "dragons_maw",
+    "api_id": 263,
+    "name": "Dragon’s Maw",
+    "generation": 8,
+    "description": "Powers up Dragon-type moves.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Powers up Dragon-type moves."
+      }
+    ]
+  },
+  {
+    "id": "chilling_neigh",
+    "api_id": 264,
+    "name": "Chilling Neigh",
+    "generation": 8,
+    "description": "Boosts Attack after knocking out a Pokémon.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Boosts Attack after knocking out a Pokémon."
+      }
+    ]
+  },
+  {
+    "id": "grim_neigh",
+    "api_id": 265,
+    "name": "Grim Neigh",
+    "generation": 8,
+    "description": "Boosts Special Attack after knocking out a Pokémon.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "Boosts Special Attack after knocking out a Pokémon."
+      }
+    ]
+  },
+  {
+    "id": "as_one_glastrier",
+    "api_id": 266,
+    "name": "As One",
+    "generation": 8,
+    "description": "This Ability combines the effects of both Calyrex’s Unnerve Ability and Glastrier’s Chilling Neigh Ability.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "This Ability combines the effects of both Calyrex’s Unnerve Ability and Glastrier’s Chilling Neigh Ability."
+      }
+    ]
+  },
+  {
+    "id": "as_one_spectrier",
+    "api_id": 267,
+    "name": "As One",
+    "generation": 8,
+    "description": "This Ability combines the effects of both Calyrex’s Unnerve Ability and Spectrier’s Grim Neigh Ability.",
+    "triggers": [],
+    "effects": [
+      {
+        "type": "future_dependency",
+        "target": "battle",
+        "implemented": false,
+        "description": "This Ability combines the effects of both Calyrex’s Unnerve Ability and Spectrier’s Grim Neigh Ability."
+      }
+    ]
+  }
+]

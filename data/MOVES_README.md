@@ -60,8 +60,10 @@ reduce to an existing generic effect. The original effect is kept in
 `effect_text` and in the `special.text` field.
 
 The Pokemon collection move editor lists the moves available to a Pokemon from
-its species learnset in `data/pokemon_species.json`. To make a new move usable
-later, add the move record here in `data/moves.json`, then add that move's
-display name to the species learnset level where it should become available.
-The save normalizer will keep old Pokemon compatible and the editor will refill
-PP for the replaced move automatically.
+its species learnset in `data/pokemon/gen*/pokemon.json` through the Pokemon
+index. To make a new move usable later, add the move record here in
+`data/moves.json`, then add that move's display name to the species learnset
+level where it should become available. Regenerate `data/pokemon_species.json`
+afterward so older compatibility paths stay in sync. The save normalizer will
+keep old Pokemon compatible and the editor will refill PP for the replaced move
+automatically.

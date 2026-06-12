@@ -1,0 +1,5298 @@
+{
+  "bulbasaur": [
+    {
+      "target": "ivysaur",
+      "target_dex_number": 2,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 16,
+      "min_level": 16
+    }
+  ],
+  "ivysaur": [
+    {
+      "target": "venusaur",
+      "target_dex_number": 3,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 32,
+      "min_level": 32
+    }
+  ],
+  "venusaur": [],
+  "charmander": [
+    {
+      "target": "charmeleon",
+      "target_dex_number": 5,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 16,
+      "min_level": 16
+    }
+  ],
+  "charmeleon": [
+    {
+      "target": "charizard",
+      "target_dex_number": 6,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 36,
+      "min_level": 36
+    }
+  ],
+  "charizard": [],
+  "squirtle": [
+    {
+      "target": "wartortle",
+      "target_dex_number": 8,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 16,
+      "min_level": 16
+    }
+  ],
+  "wartortle": [
+    {
+      "target": "blastoise",
+      "target_dex_number": 9,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 36,
+      "min_level": 36
+    }
+  ],
+  "blastoise": [],
+  "caterpie": [
+    {
+      "target": "metapod",
+      "target_dex_number": 11,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 7,
+      "min_level": 7
+    }
+  ],
+  "metapod": [
+    {
+      "target": "butterfree",
+      "target_dex_number": 12,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 10,
+      "min_level": 10
+    }
+  ],
+  "butterfree": [],
+  "weedle": [
+    {
+      "target": "kakuna",
+      "target_dex_number": 14,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 7,
+      "min_level": 7
+    }
+  ],
+  "kakuna": [
+    {
+      "target": "beedrill",
+      "target_dex_number": 15,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 10,
+      "min_level": 10
+    }
+  ],
+  "beedrill": [],
+  "pidgey": [
+    {
+      "target": "pidgeotto",
+      "target_dex_number": 17,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 18,
+      "min_level": 18
+    }
+  ],
+  "pidgeotto": [
+    {
+      "target": "pidgeot",
+      "target_dex_number": 18,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 36,
+      "min_level": 36
+    }
+  ],
+  "pidgeot": [],
+  "rattata": [
+    {
+      "target": "raticate",
+      "target_dex_number": 20,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 20,
+      "min_level": 20
+    },
+    {
+      "target": "raticate",
+      "target_dex_number": 20,
+      "method": "time",
+      "trigger": "level-up",
+      "level": 20,
+      "min_level": 20,
+      "time_of_day": "night"
+    }
+  ],
+  "raticate": [],
+  "spearow": [
+    {
+      "target": "fearow",
+      "target_dex_number": 22,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 20,
+      "min_level": 20
+    }
+  ],
+  "fearow": [],
+  "ekans": [
+    {
+      "target": "arbok",
+      "target_dex_number": 24,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 22,
+      "min_level": 22
+    }
+  ],
+  "arbok": [],
+  "pikachu": [
+    {
+      "target": "raichu",
+      "target_dex_number": 26,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Thunder Stone",
+      "item_id": "thunder_stone"
+    },
+    {
+      "target": "raichu",
+      "target_dex_number": 26,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Thunder Stone",
+      "item_id": "thunder_stone"
+    }
+  ],
+  "raichu": [],
+  "sandshrew": [
+    {
+      "target": "sandslash",
+      "target_dex_number": 28,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 22,
+      "min_level": 22
+    },
+    {
+      "target": "sandslash",
+      "target_dex_number": 28,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Ice Stone",
+      "item_id": "ice_stone"
+    }
+  ],
+  "sandslash": [],
+  "nidoran_f": [
+    {
+      "target": "nidorina",
+      "target_dex_number": 30,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 16,
+      "min_level": 16
+    }
+  ],
+  "nidorina": [
+    {
+      "target": "nidoqueen",
+      "target_dex_number": 31,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Moon Stone",
+      "item_id": "moon_stone"
+    }
+  ],
+  "nidoqueen": [],
+  "nidoran_m": [
+    {
+      "target": "nidorino",
+      "target_dex_number": 33,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 16,
+      "min_level": 16
+    }
+  ],
+  "nidorino": [
+    {
+      "target": "nidoking",
+      "target_dex_number": 34,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Moon Stone",
+      "item_id": "moon_stone"
+    }
+  ],
+  "nidoking": [],
+  "clefairy": [
+    {
+      "target": "clefable",
+      "target_dex_number": 36,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Moon Stone",
+      "item_id": "moon_stone"
+    }
+  ],
+  "clefable": [],
+  "vulpix": [
+    {
+      "target": "ninetales",
+      "target_dex_number": 38,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Fire Stone",
+      "item_id": "fire_stone"
+    },
+    {
+      "target": "ninetales",
+      "target_dex_number": 38,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Ice Stone",
+      "item_id": "ice_stone"
+    }
+  ],
+  "ninetales": [],
+  "jigglypuff": [
+    {
+      "target": "wigglytuff",
+      "target_dex_number": 40,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Moon Stone",
+      "item_id": "moon_stone"
+    }
+  ],
+  "wigglytuff": [],
+  "zubat": [
+    {
+      "target": "golbat",
+      "target_dex_number": 42,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 22,
+      "min_level": 22
+    }
+  ],
+  "golbat": [
+    {
+      "target": "crobat",
+      "target_dex_number": 169,
+      "method": "friendship",
+      "trigger": "level-up",
+      "min_happiness": 160
+    }
+  ],
+  "oddish": [
+    {
+      "target": "gloom",
+      "target_dex_number": 44,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 21,
+      "min_level": 21
+    }
+  ],
+  "gloom": [
+    {
+      "target": "vileplume",
+      "target_dex_number": 45,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Leaf Stone",
+      "item_id": "leaf_stone"
+    },
+    {
+      "target": "bellossom",
+      "target_dex_number": 182,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Sun Stone",
+      "item_id": "sun_stone"
+    }
+  ],
+  "vileplume": [],
+  "paras": [
+    {
+      "target": "parasect",
+      "target_dex_number": 47,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 24,
+      "min_level": 24
+    }
+  ],
+  "parasect": [],
+  "venonat": [
+    {
+      "target": "venomoth",
+      "target_dex_number": 49,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 31,
+      "min_level": 31
+    }
+  ],
+  "venomoth": [],
+  "diglett": [
+    {
+      "target": "dugtrio",
+      "target_dex_number": 51,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 26,
+      "min_level": 26
+    },
+    {
+      "target": "dugtrio",
+      "target_dex_number": 51,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 26,
+      "min_level": 26
+    }
+  ],
+  "dugtrio": [],
+  "meowth": [
+    {
+      "target": "persian",
+      "target_dex_number": 53,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 28,
+      "min_level": 28
+    },
+    {
+      "target": "persian",
+      "target_dex_number": 53,
+      "method": "friendship",
+      "trigger": "level-up",
+      "min_happiness": 160
+    },
+    {
+      "target": "perrserker",
+      "target_dex_number": 863,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 28,
+      "min_level": 28
+    }
+  ],
+  "persian": [],
+  "psyduck": [
+    {
+      "target": "golduck",
+      "target_dex_number": 55,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 33,
+      "min_level": 33
+    }
+  ],
+  "golduck": [],
+  "mankey": [
+    {
+      "target": "primeape",
+      "target_dex_number": 57,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 28,
+      "min_level": 28
+    }
+  ],
+  "primeape": [
+    {
+      "target": "annihilape",
+      "target_dex_number": 979,
+      "method": "use-move",
+      "trigger": "use-move"
+    }
+  ],
+  "growlithe": [
+    {
+      "target": "arcanine",
+      "target_dex_number": 59,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Fire Stone",
+      "item_id": "fire_stone"
+    },
+    {
+      "target": "arcanine",
+      "target_dex_number": 59,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Fire Stone",
+      "item_id": "fire_stone"
+    }
+  ],
+  "arcanine": [],
+  "poliwag": [
+    {
+      "target": "poliwhirl",
+      "target_dex_number": 61,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 25,
+      "min_level": 25
+    }
+  ],
+  "poliwhirl": [
+    {
+      "target": "poliwrath",
+      "target_dex_number": 62,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Water Stone",
+      "item_id": "water_stone"
+    },
+    {
+      "target": "politoed",
+      "target_dex_number": 186,
+      "method": "trade",
+      "trigger": "trade",
+      "held_item": "Kings Rock",
+      "held_item_id": "kings_rock"
+    }
+  ],
+  "poliwrath": [],
+  "abra": [
+    {
+      "target": "kadabra",
+      "target_dex_number": 64,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 16,
+      "min_level": 16
+    }
+  ],
+  "kadabra": [
+    {
+      "target": "alakazam",
+      "target_dex_number": 65,
+      "method": "trade",
+      "trigger": "trade"
+    }
+  ],
+  "alakazam": [],
+  "machop": [
+    {
+      "target": "machoke",
+      "target_dex_number": 67,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 28,
+      "min_level": 28
+    }
+  ],
+  "machoke": [
+    {
+      "target": "machamp",
+      "target_dex_number": 68,
+      "method": "trade",
+      "trigger": "trade"
+    }
+  ],
+  "machamp": [],
+  "bellsprout": [
+    {
+      "target": "weepinbell",
+      "target_dex_number": 70,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 21,
+      "min_level": 21
+    }
+  ],
+  "weepinbell": [
+    {
+      "target": "victreebel",
+      "target_dex_number": 71,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Leaf Stone",
+      "item_id": "leaf_stone"
+    }
+  ],
+  "victreebel": [],
+  "tentacool": [
+    {
+      "target": "tentacruel",
+      "target_dex_number": 73,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30
+    }
+  ],
+  "tentacruel": [],
+  "geodude": [
+    {
+      "target": "graveler",
+      "target_dex_number": 75,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 25,
+      "min_level": 25
+    },
+    {
+      "target": "graveler",
+      "target_dex_number": 75,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 25,
+      "min_level": 25
+    }
+  ],
+  "graveler": [
+    {
+      "target": "golem",
+      "target_dex_number": 76,
+      "method": "trade",
+      "trigger": "trade"
+    },
+    {
+      "target": "golem",
+      "target_dex_number": 76,
+      "method": "trade",
+      "trigger": "trade"
+    }
+  ],
+  "golem": [],
+  "ponyta": [
+    {
+      "target": "rapidash",
+      "target_dex_number": 78,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 40,
+      "min_level": 40
+    },
+    {
+      "target": "rapidash",
+      "target_dex_number": 78,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 40,
+      "min_level": 40
+    }
+  ],
+  "rapidash": [],
+  "slowpoke": [
+    {
+      "target": "slowbro",
+      "target_dex_number": 80,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 37,
+      "min_level": 37
+    },
+    {
+      "target": "slowbro",
+      "target_dex_number": 80,
+      "method": "item",
+      "trigger": "use-item",
+      "item": "Galarica Cuff",
+      "item_id": "galarica_cuff"
+    },
+    {
+      "target": "slowking",
+      "target_dex_number": 199,
+      "method": "trade",
+      "trigger": "trade",
+      "held_item": "Kings Rock",
+      "held_item_id": "kings_rock"
+    },
+    {
+      "target": "slowking",
+      "target_dex_number": 199,
+      "method": "item",
+      "trigger": "use-item",
+      "item": "Galarica Wreath",
+      "item_id": "galarica_wreath"
+    }
+  ],
+  "slowbro": [],
+  "magnemite": [
+    {
+      "target": "magneton",
+      "target_dex_number": 82,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30
+    }
+  ],
+  "magneton": [
+    {
+      "target": "magnezone",
+      "target_dex_number": 462,
+      "method": "location",
+      "trigger": "level-up",
+      "location": "Mt Coronet",
+      "location_id": "mt_coronet"
+    },
+    {
+      "target": "magnezone",
+      "target_dex_number": 462,
+      "method": "location",
+      "trigger": "level-up",
+      "location": "Chargestone Cave",
+      "location_id": "chargestone_cave"
+    },
+    {
+      "target": "magnezone",
+      "target_dex_number": 462,
+      "method": "location",
+      "trigger": "level-up",
+      "location": "Kalos Route 13",
+      "location_id": "kalos_route_13"
+    },
+    {
+      "target": "magnezone",
+      "target_dex_number": 462,
+      "method": "location",
+      "trigger": "level-up",
+      "location": "Blush Mountain",
+      "location_id": "blush_mountain"
+    },
+    {
+      "target": "magnezone",
+      "target_dex_number": 462,
+      "method": "location",
+      "trigger": "level-up",
+      "location": "Vast Poni Canyon",
+      "location_id": "vast_poni_canyon"
+    },
+    {
+      "target": "magnezone",
+      "target_dex_number": 462,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Thunder Stone",
+      "item_id": "thunder_stone"
+    }
+  ],
+  "farfetchd": [
+    {
+      "target": "sirfetchd",
+      "target_dex_number": 865,
+      "method": "three-critical-hits",
+      "trigger": "three-critical-hits"
+    }
+  ],
+  "doduo": [
+    {
+      "target": "dodrio",
+      "target_dex_number": 85,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 31,
+      "min_level": 31
+    }
+  ],
+  "dodrio": [],
+  "seel": [
+    {
+      "target": "dewgong",
+      "target_dex_number": 87,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 34,
+      "min_level": 34
+    }
+  ],
+  "dewgong": [],
+  "grimer": [
+    {
+      "target": "muk",
+      "target_dex_number": 89,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 38,
+      "min_level": 38
+    },
+    {
+      "target": "muk",
+      "target_dex_number": 89,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 38,
+      "min_level": 38
+    }
+  ],
+  "muk": [],
+  "shellder": [
+    {
+      "target": "cloyster",
+      "target_dex_number": 91,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Water Stone",
+      "item_id": "water_stone"
+    }
+  ],
+  "cloyster": [],
+  "gastly": [
+    {
+      "target": "haunter",
+      "target_dex_number": 93,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 25,
+      "min_level": 25
+    }
+  ],
+  "haunter": [
+    {
+      "target": "gengar",
+      "target_dex_number": 94,
+      "method": "trade",
+      "trigger": "trade"
+    }
+  ],
+  "gengar": [],
+  "onix": [
+    {
+      "target": "steelix",
+      "target_dex_number": 208,
+      "method": "trade",
+      "trigger": "trade",
+      "held_item": "Metal Coat",
+      "held_item_id": "metal_coat"
+    }
+  ],
+  "drowzee": [
+    {
+      "target": "hypno",
+      "target_dex_number": 97,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 26,
+      "min_level": 26
+    }
+  ],
+  "hypno": [],
+  "krabby": [
+    {
+      "target": "kingler",
+      "target_dex_number": 99,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 28,
+      "min_level": 28
+    }
+  ],
+  "kingler": [],
+  "voltorb": [
+    {
+      "target": "electrode",
+      "target_dex_number": 101,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30
+    },
+    {
+      "target": "electrode",
+      "target_dex_number": 101,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Leaf Stone",
+      "item_id": "leaf_stone"
+    }
+  ],
+  "electrode": [],
+  "exeggcute": [
+    {
+      "target": "exeggutor",
+      "target_dex_number": 103,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Leaf Stone",
+      "item_id": "leaf_stone"
+    },
+    {
+      "target": "exeggutor",
+      "target_dex_number": 103,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Leaf Stone",
+      "item_id": "leaf_stone"
+    }
+  ],
+  "exeggutor": [],
+  "cubone": [
+    {
+      "target": "marowak",
+      "target_dex_number": 105,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 28,
+      "min_level": 28
+    },
+    {
+      "target": "marowak",
+      "target_dex_number": 105,
+      "method": "time",
+      "trigger": "level-up",
+      "level": 28,
+      "min_level": 28,
+      "time_of_day": "night"
+    }
+  ],
+  "marowak": [],
+  "hitmonlee": [],
+  "hitmonchan": [],
+  "lickitung": [
+    {
+      "target": "lickilicky",
+      "target_dex_number": 463,
+      "method": "known_move",
+      "trigger": "level-up",
+      "known_move": "Rollout",
+      "known_move_id": "rollout"
+    }
+  ],
+  "koffing": [
+    {
+      "target": "weezing",
+      "target_dex_number": 110,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 35,
+      "min_level": 35
+    },
+    {
+      "target": "weezing",
+      "target_dex_number": 110,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 35,
+      "min_level": 35
+    }
+  ],
+  "weezing": [],
+  "rhyhorn": [
+    {
+      "target": "rhydon",
+      "target_dex_number": 112,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 42,
+      "min_level": 42
+    }
+  ],
+  "rhydon": [
+    {
+      "target": "rhyperior",
+      "target_dex_number": 464,
+      "method": "trade",
+      "trigger": "trade",
+      "held_item": "Protector",
+      "held_item_id": "protector"
+    }
+  ],
+  "chansey": [
+    {
+      "target": "blissey",
+      "target_dex_number": 242,
+      "method": "friendship",
+      "trigger": "level-up",
+      "min_happiness": 160
+    }
+  ],
+  "tangela": [
+    {
+      "target": "tangrowth",
+      "target_dex_number": 465,
+      "method": "known_move",
+      "trigger": "level-up",
+      "known_move": "Ancient Power",
+      "known_move_id": "ancient_power"
+    }
+  ],
+  "kangaskhan": [],
+  "horsea": [
+    {
+      "target": "seadra",
+      "target_dex_number": 117,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 32,
+      "min_level": 32
+    }
+  ],
+  "seadra": [
+    {
+      "target": "kingdra",
+      "target_dex_number": 230,
+      "method": "trade",
+      "trigger": "trade",
+      "held_item": "Dragon Scale",
+      "held_item_id": "dragon_scale"
+    }
+  ],
+  "goldeen": [
+    {
+      "target": "seaking",
+      "target_dex_number": 119,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 33,
+      "min_level": 33
+    }
+  ],
+  "seaking": [],
+  "staryu": [
+    {
+      "target": "starmie",
+      "target_dex_number": 121,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Water Stone",
+      "item_id": "water_stone"
+    }
+  ],
+  "starmie": [],
+  "mr_mime": [
+    {
+      "target": "mr_rime",
+      "target_dex_number": 866,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 42,
+      "min_level": 42
+    }
+  ],
+  "scyther": [
+    {
+      "target": "scizor",
+      "target_dex_number": 212,
+      "method": "trade",
+      "trigger": "trade",
+      "held_item": "Metal Coat",
+      "held_item_id": "metal_coat"
+    },
+    {
+      "target": "kleavor",
+      "target_dex_number": 900,
+      "method": "item",
+      "trigger": "use-item",
+      "item": "Black Augurite",
+      "item_id": "black_augurite"
+    }
+  ],
+  "jynx": [],
+  "electabuzz": [
+    {
+      "target": "electivire",
+      "target_dex_number": 466,
+      "method": "trade",
+      "trigger": "trade",
+      "held_item": "Electirizer",
+      "held_item_id": "electirizer"
+    }
+  ],
+  "magmar": [
+    {
+      "target": "magmortar",
+      "target_dex_number": 467,
+      "method": "trade",
+      "trigger": "trade",
+      "held_item": "Magmarizer",
+      "held_item_id": "magmarizer"
+    }
+  ],
+  "pinsir": [],
+  "tauros": [],
+  "magikarp": [
+    {
+      "target": "gyarados",
+      "target_dex_number": 130,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 20,
+      "min_level": 20
+    }
+  ],
+  "gyarados": [],
+  "lapras": [],
+  "ditto": [],
+  "eevee": [
+    {
+      "target": "vaporeon",
+      "target_dex_number": 134,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Water Stone",
+      "item_id": "water_stone"
+    },
+    {
+      "target": "jolteon",
+      "target_dex_number": 135,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Thunder Stone",
+      "item_id": "thunder_stone"
+    },
+    {
+      "target": "flareon",
+      "target_dex_number": 136,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Fire Stone",
+      "item_id": "fire_stone"
+    },
+    {
+      "target": "espeon",
+      "target_dex_number": 196,
+      "method": "friendship",
+      "trigger": "level-up",
+      "min_happiness": 160,
+      "time_of_day": "day"
+    },
+    {
+      "target": "umbreon",
+      "target_dex_number": 197,
+      "method": "friendship",
+      "trigger": "level-up",
+      "min_happiness": 160,
+      "time_of_day": "night"
+    },
+    {
+      "target": "leafeon",
+      "target_dex_number": 470,
+      "method": "location",
+      "trigger": "level-up",
+      "location": "Eterna Forest",
+      "location_id": "eterna_forest"
+    },
+    {
+      "target": "leafeon",
+      "target_dex_number": 470,
+      "method": "location",
+      "trigger": "level-up",
+      "location": "Pinwheel Forest",
+      "location_id": "pinwheel_forest"
+    },
+    {
+      "target": "leafeon",
+      "target_dex_number": 470,
+      "method": "location",
+      "trigger": "level-up",
+      "location": "Kalos Route 20",
+      "location_id": "kalos_route_20"
+    },
+    {
+      "target": "leafeon",
+      "target_dex_number": 470,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Leaf Stone",
+      "item_id": "leaf_stone"
+    },
+    {
+      "target": "glaceon",
+      "target_dex_number": 471,
+      "method": "location",
+      "trigger": "level-up",
+      "location": "Sinnoh Route 217",
+      "location_id": "sinnoh_route_217"
+    },
+    {
+      "target": "glaceon",
+      "target_dex_number": 471,
+      "method": "location",
+      "trigger": "level-up",
+      "location": "Twist Mountain",
+      "location_id": "twist_mountain"
+    },
+    {
+      "target": "glaceon",
+      "target_dex_number": 471,
+      "method": "location",
+      "trigger": "level-up",
+      "location": "Frost Cavern",
+      "location_id": "frost_cavern"
+    },
+    {
+      "target": "glaceon",
+      "target_dex_number": 471,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Ice Stone",
+      "item_id": "ice_stone"
+    },
+    {
+      "target": "sylveon",
+      "target_dex_number": 700,
+      "method": "affection",
+      "trigger": "level-up",
+      "min_affection": 2,
+      "known_move_type": "Fairy"
+    },
+    {
+      "target": "sylveon",
+      "target_dex_number": 700,
+      "method": "friendship",
+      "trigger": "level-up",
+      "min_happiness": 160,
+      "known_move_type": "Fairy"
+    }
+  ],
+  "vaporeon": [],
+  "jolteon": [],
+  "flareon": [],
+  "porygon": [
+    {
+      "target": "porygon2",
+      "target_dex_number": 233,
+      "method": "trade",
+      "trigger": "trade",
+      "held_item": "Up Grade",
+      "held_item_id": "up_grade"
+    }
+  ],
+  "omanyte": [
+    {
+      "target": "omastar",
+      "target_dex_number": 139,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 40,
+      "min_level": 40
+    }
+  ],
+  "omastar": [],
+  "kabuto": [
+    {
+      "target": "kabutops",
+      "target_dex_number": 141,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 40,
+      "min_level": 40
+    }
+  ],
+  "kabutops": [],
+  "aerodactyl": [],
+  "snorlax": [],
+  "articuno": [],
+  "zapdos": [],
+  "moltres": [],
+  "dratini": [
+    {
+      "target": "dragonair",
+      "target_dex_number": 148,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30
+    }
+  ],
+  "dragonair": [
+    {
+      "target": "dragonite",
+      "target_dex_number": 149,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 55,
+      "min_level": 55
+    }
+  ],
+  "dragonite": [],
+  "mewtwo": [],
+  "mew": [],
+  "chikorita": [
+    {
+      "target": "bayleef",
+      "target_dex_number": 153,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 16,
+      "min_level": 16
+    }
+  ],
+  "bayleef": [
+    {
+      "target": "meganium",
+      "target_dex_number": 154,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 32,
+      "min_level": 32
+    }
+  ],
+  "meganium": [],
+  "cyndaquil": [
+    {
+      "target": "quilava",
+      "target_dex_number": 156,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 14,
+      "min_level": 14
+    },
+    {
+      "target": "quilava",
+      "target_dex_number": 156,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 17,
+      "min_level": 17
+    }
+  ],
+  "quilava": [
+    {
+      "target": "typhlosion",
+      "target_dex_number": 157,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 36,
+      "min_level": 36
+    },
+    {
+      "target": "typhlosion",
+      "target_dex_number": 157,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 36,
+      "min_level": 36
+    }
+  ],
+  "typhlosion": [],
+  "totodile": [
+    {
+      "target": "croconaw",
+      "target_dex_number": 159,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 18,
+      "min_level": 18
+    }
+  ],
+  "croconaw": [
+    {
+      "target": "feraligatr",
+      "target_dex_number": 160,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30
+    }
+  ],
+  "feraligatr": [],
+  "sentret": [
+    {
+      "target": "furret",
+      "target_dex_number": 162,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 15,
+      "min_level": 15
+    }
+  ],
+  "furret": [],
+  "hoothoot": [
+    {
+      "target": "noctowl",
+      "target_dex_number": 164,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 20,
+      "min_level": 20
+    }
+  ],
+  "noctowl": [],
+  "ledyba": [
+    {
+      "target": "ledian",
+      "target_dex_number": 166,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 18,
+      "min_level": 18
+    }
+  ],
+  "ledian": [],
+  "spinarak": [
+    {
+      "target": "ariados",
+      "target_dex_number": 168,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 22,
+      "min_level": 22
+    }
+  ],
+  "ariados": [],
+  "crobat": [],
+  "chinchou": [
+    {
+      "target": "lanturn",
+      "target_dex_number": 171,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 27,
+      "min_level": 27
+    }
+  ],
+  "lanturn": [],
+  "pichu": [
+    {
+      "target": "pikachu",
+      "target_dex_number": 25,
+      "method": "friendship",
+      "trigger": "level-up",
+      "min_happiness": 220
+    }
+  ],
+  "cleffa": [
+    {
+      "target": "clefairy",
+      "target_dex_number": 35,
+      "method": "friendship",
+      "trigger": "level-up",
+      "min_happiness": 160
+    }
+  ],
+  "igglybuff": [
+    {
+      "target": "jigglypuff",
+      "target_dex_number": 39,
+      "method": "friendship",
+      "trigger": "level-up",
+      "min_happiness": 160
+    }
+  ],
+  "togepi": [
+    {
+      "target": "togetic",
+      "target_dex_number": 176,
+      "method": "friendship",
+      "trigger": "level-up",
+      "min_happiness": 160
+    }
+  ],
+  "togetic": [
+    {
+      "target": "togekiss",
+      "target_dex_number": 468,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Shiny Stone",
+      "item_id": "shiny_stone"
+    }
+  ],
+  "natu": [
+    {
+      "target": "xatu",
+      "target_dex_number": 178,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 25,
+      "min_level": 25
+    }
+  ],
+  "xatu": [],
+  "mareep": [
+    {
+      "target": "flaaffy",
+      "target_dex_number": 180,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 15,
+      "min_level": 15
+    }
+  ],
+  "flaaffy": [
+    {
+      "target": "ampharos",
+      "target_dex_number": 181,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30
+    }
+  ],
+  "ampharos": [],
+  "bellossom": [],
+  "marill": [
+    {
+      "target": "azumarill",
+      "target_dex_number": 184,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 18,
+      "min_level": 18
+    }
+  ],
+  "azumarill": [],
+  "sudowoodo": [],
+  "politoed": [],
+  "hoppip": [
+    {
+      "target": "skiploom",
+      "target_dex_number": 188,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 18,
+      "min_level": 18
+    }
+  ],
+  "skiploom": [
+    {
+      "target": "jumpluff",
+      "target_dex_number": 189,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 27,
+      "min_level": 27
+    }
+  ],
+  "jumpluff": [],
+  "aipom": [
+    {
+      "target": "ambipom",
+      "target_dex_number": 424,
+      "method": "known_move",
+      "trigger": "level-up",
+      "known_move": "Double Hit",
+      "known_move_id": "double_hit"
+    }
+  ],
+  "sunkern": [
+    {
+      "target": "sunflora",
+      "target_dex_number": 192,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Sun Stone",
+      "item_id": "sun_stone"
+    }
+  ],
+  "sunflora": [],
+  "yanma": [
+    {
+      "target": "yanmega",
+      "target_dex_number": 469,
+      "method": "known_move",
+      "trigger": "level-up",
+      "known_move": "Ancient Power",
+      "known_move_id": "ancient_power"
+    }
+  ],
+  "wooper": [
+    {
+      "target": "quagsire",
+      "target_dex_number": 195,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 20,
+      "min_level": 20
+    },
+    {
+      "target": "clodsire",
+      "target_dex_number": 980,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 20,
+      "min_level": 20
+    }
+  ],
+  "quagsire": [],
+  "espeon": [],
+  "umbreon": [],
+  "murkrow": [
+    {
+      "target": "honchkrow",
+      "target_dex_number": 430,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Dusk Stone",
+      "item_id": "dusk_stone"
+    }
+  ],
+  "slowking": [],
+  "misdreavus": [
+    {
+      "target": "mismagius",
+      "target_dex_number": 429,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Dusk Stone",
+      "item_id": "dusk_stone"
+    }
+  ],
+  "unown": [],
+  "wobbuffet": [],
+  "girafarig": [
+    {
+      "target": "farigiraf",
+      "target_dex_number": 981,
+      "method": "known_move",
+      "trigger": "level-up",
+      "known_move": "Twin Beam",
+      "known_move_id": "twin_beam"
+    }
+  ],
+  "pineco": [
+    {
+      "target": "forretress",
+      "target_dex_number": 205,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 31,
+      "min_level": 31
+    }
+  ],
+  "forretress": [],
+  "dunsparce": [
+    {
+      "target": "dudunsparce",
+      "target_dex_number": 982,
+      "method": "known_move",
+      "trigger": "level-up",
+      "known_move": "Hyper Drill",
+      "known_move_id": "hyper_drill"
+    }
+  ],
+  "gligar": [
+    {
+      "target": "gliscor",
+      "target_dex_number": 472,
+      "method": "time",
+      "trigger": "level-up",
+      "held_item": "Razor Fang",
+      "held_item_id": "razor_fang",
+      "time_of_day": "night"
+    }
+  ],
+  "steelix": [],
+  "snubbull": [
+    {
+      "target": "granbull",
+      "target_dex_number": 210,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 23,
+      "min_level": 23
+    }
+  ],
+  "granbull": [],
+  "qwilfish": [
+    {
+      "target": "overqwil",
+      "target_dex_number": 904,
+      "method": "strong-style-move",
+      "trigger": "strong-style-move"
+    },
+    {
+      "target": "overqwil",
+      "target_dex_number": 904,
+      "method": "known_move",
+      "trigger": "level-up",
+      "known_move": "Barb Barrage",
+      "known_move_id": "barb_barrage"
+    },
+    {
+      "target": "overqwil",
+      "target_dex_number": 904,
+      "method": "use-move",
+      "trigger": "use-move"
+    }
+  ],
+  "scizor": [],
+  "shuckle": [],
+  "heracross": [],
+  "sneasel": [
+    {
+      "target": "weavile",
+      "target_dex_number": 461,
+      "method": "time",
+      "trigger": "level-up",
+      "held_item": "Razor Claw",
+      "held_item_id": "razor_claw",
+      "time_of_day": "night"
+    },
+    {
+      "target": "sneasler",
+      "target_dex_number": 903,
+      "method": "time",
+      "trigger": "level-up",
+      "held_item": "Razor Claw",
+      "held_item_id": "razor_claw",
+      "time_of_day": "day"
+    }
+  ],
+  "teddiursa": [
+    {
+      "target": "ursaring",
+      "target_dex_number": 217,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30
+    }
+  ],
+  "ursaring": [
+    {
+      "target": "ursaluna",
+      "target_dex_number": 901,
+      "method": "item",
+      "trigger": "use-item",
+      "item": "Peat Block",
+      "item_id": "peat_block",
+      "time_of_day": "full-moon"
+    }
+  ],
+  "slugma": [
+    {
+      "target": "magcargo",
+      "target_dex_number": 219,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 38,
+      "min_level": 38
+    }
+  ],
+  "magcargo": [],
+  "swinub": [
+    {
+      "target": "piloswine",
+      "target_dex_number": 221,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 33,
+      "min_level": 33
+    }
+  ],
+  "piloswine": [
+    {
+      "target": "mamoswine",
+      "target_dex_number": 473,
+      "method": "known_move",
+      "trigger": "level-up",
+      "known_move": "Ancient Power",
+      "known_move_id": "ancient_power"
+    }
+  ],
+  "corsola": [
+    {
+      "target": "cursola",
+      "target_dex_number": 864,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 38,
+      "min_level": 38
+    }
+  ],
+  "remoraid": [
+    {
+      "target": "octillery",
+      "target_dex_number": 224,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 25,
+      "min_level": 25
+    }
+  ],
+  "octillery": [],
+  "delibird": [],
+  "mantine": [],
+  "skarmory": [],
+  "houndour": [
+    {
+      "target": "houndoom",
+      "target_dex_number": 229,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 24,
+      "min_level": 24
+    }
+  ],
+  "houndoom": [],
+  "kingdra": [],
+  "phanpy": [
+    {
+      "target": "donphan",
+      "target_dex_number": 232,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 25,
+      "min_level": 25
+    }
+  ],
+  "donphan": [],
+  "porygon2": [
+    {
+      "target": "porygon_z",
+      "target_dex_number": 474,
+      "method": "trade",
+      "trigger": "trade",
+      "held_item": "Dubious Disc",
+      "held_item_id": "dubious_disc"
+    }
+  ],
+  "stantler": [
+    {
+      "target": "wyrdeer",
+      "target_dex_number": 899,
+      "method": "agile-style-move",
+      "trigger": "agile-style-move"
+    }
+  ],
+  "smeargle": [],
+  "tyrogue": [
+    {
+      "target": "hitmonlee",
+      "target_dex_number": 106,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 20,
+      "min_level": 20,
+      "relative_physical_stats": 1
+    },
+    {
+      "target": "hitmonchan",
+      "target_dex_number": 107,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 20,
+      "min_level": 20,
+      "relative_physical_stats": -1
+    },
+    {
+      "target": "hitmontop",
+      "target_dex_number": 237,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 20,
+      "min_level": 20
+    }
+  ],
+  "hitmontop": [],
+  "smoochum": [
+    {
+      "target": "jynx",
+      "target_dex_number": 124,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30
+    }
+  ],
+  "elekid": [
+    {
+      "target": "electabuzz",
+      "target_dex_number": 125,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30
+    }
+  ],
+  "magby": [
+    {
+      "target": "magmar",
+      "target_dex_number": 126,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30
+    }
+  ],
+  "miltank": [],
+  "blissey": [],
+  "raikou": [],
+  "entei": [],
+  "suicune": [],
+  "larvitar": [
+    {
+      "target": "pupitar",
+      "target_dex_number": 247,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30
+    }
+  ],
+  "pupitar": [
+    {
+      "target": "tyranitar",
+      "target_dex_number": 248,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 55,
+      "min_level": 55
+    }
+  ],
+  "tyranitar": [],
+  "lugia": [],
+  "ho_oh": [],
+  "celebi": [],
+  "treecko": [
+    {
+      "target": "grovyle",
+      "target_dex_number": 253,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 16,
+      "min_level": 16
+    }
+  ],
+  "grovyle": [
+    {
+      "target": "sceptile",
+      "target_dex_number": 254,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 36,
+      "min_level": 36
+    }
+  ],
+  "sceptile": [],
+  "torchic": [
+    {
+      "target": "combusken",
+      "target_dex_number": 256,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 16,
+      "min_level": 16
+    }
+  ],
+  "combusken": [
+    {
+      "target": "blaziken",
+      "target_dex_number": 257,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 36,
+      "min_level": 36
+    }
+  ],
+  "blaziken": [],
+  "mudkip": [
+    {
+      "target": "marshtomp",
+      "target_dex_number": 259,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 16,
+      "min_level": 16
+    }
+  ],
+  "marshtomp": [
+    {
+      "target": "swampert",
+      "target_dex_number": 260,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 36,
+      "min_level": 36
+    }
+  ],
+  "swampert": [],
+  "poochyena": [
+    {
+      "target": "mightyena",
+      "target_dex_number": 262,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 18,
+      "min_level": 18
+    }
+  ],
+  "mightyena": [],
+  "zigzagoon": [
+    {
+      "target": "linoone",
+      "target_dex_number": 264,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 20,
+      "min_level": 20
+    },
+    {
+      "target": "linoone",
+      "target_dex_number": 264,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 20,
+      "min_level": 20
+    }
+  ],
+  "linoone": [
+    {
+      "target": "obstagoon",
+      "target_dex_number": 862,
+      "method": "time",
+      "trigger": "level-up",
+      "level": 35,
+      "min_level": 35,
+      "time_of_day": "night"
+    }
+  ],
+  "wurmple": [
+    {
+      "target": "silcoon",
+      "target_dex_number": 266,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 7,
+      "min_level": 7
+    },
+    {
+      "target": "cascoon",
+      "target_dex_number": 268,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 7,
+      "min_level": 7
+    }
+  ],
+  "silcoon": [
+    {
+      "target": "beautifly",
+      "target_dex_number": 267,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 10,
+      "min_level": 10
+    }
+  ],
+  "beautifly": [],
+  "cascoon": [
+    {
+      "target": "dustox",
+      "target_dex_number": 269,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 10,
+      "min_level": 10
+    }
+  ],
+  "dustox": [],
+  "lotad": [
+    {
+      "target": "lombre",
+      "target_dex_number": 271,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 14,
+      "min_level": 14
+    }
+  ],
+  "lombre": [
+    {
+      "target": "ludicolo",
+      "target_dex_number": 272,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Water Stone",
+      "item_id": "water_stone"
+    }
+  ],
+  "ludicolo": [],
+  "seedot": [
+    {
+      "target": "nuzleaf",
+      "target_dex_number": 274,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 14,
+      "min_level": 14
+    }
+  ],
+  "nuzleaf": [
+    {
+      "target": "shiftry",
+      "target_dex_number": 275,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Leaf Stone",
+      "item_id": "leaf_stone"
+    }
+  ],
+  "shiftry": [],
+  "taillow": [
+    {
+      "target": "swellow",
+      "target_dex_number": 277,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 22,
+      "min_level": 22
+    }
+  ],
+  "swellow": [],
+  "wingull": [
+    {
+      "target": "pelipper",
+      "target_dex_number": 279,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 25,
+      "min_level": 25
+    }
+  ],
+  "pelipper": [],
+  "ralts": [
+    {
+      "target": "kirlia",
+      "target_dex_number": 281,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 20,
+      "min_level": 20
+    }
+  ],
+  "kirlia": [
+    {
+      "target": "gardevoir",
+      "target_dex_number": 282,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30
+    },
+    {
+      "target": "gallade",
+      "target_dex_number": 475,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Dawn Stone",
+      "item_id": "dawn_stone",
+      "gender": "male"
+    }
+  ],
+  "gardevoir": [],
+  "surskit": [
+    {
+      "target": "masquerain",
+      "target_dex_number": 284,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 22,
+      "min_level": 22
+    }
+  ],
+  "masquerain": [],
+  "shroomish": [
+    {
+      "target": "breloom",
+      "target_dex_number": 286,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 23,
+      "min_level": 23
+    }
+  ],
+  "breloom": [],
+  "slakoth": [
+    {
+      "target": "vigoroth",
+      "target_dex_number": 288,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 18,
+      "min_level": 18
+    }
+  ],
+  "vigoroth": [
+    {
+      "target": "slaking",
+      "target_dex_number": 289,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 36,
+      "min_level": 36
+    }
+  ],
+  "slaking": [],
+  "nincada": [
+    {
+      "target": "ninjask",
+      "target_dex_number": 291,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 20,
+      "min_level": 20
+    },
+    {
+      "target": "shedinja",
+      "target_dex_number": 292,
+      "method": "shed",
+      "trigger": "shed"
+    }
+  ],
+  "ninjask": [],
+  "shedinja": [],
+  "whismur": [
+    {
+      "target": "loudred",
+      "target_dex_number": 294,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 20,
+      "min_level": 20
+    }
+  ],
+  "loudred": [
+    {
+      "target": "exploud",
+      "target_dex_number": 295,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 40,
+      "min_level": 40
+    }
+  ],
+  "exploud": [],
+  "makuhita": [
+    {
+      "target": "hariyama",
+      "target_dex_number": 297,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 24,
+      "min_level": 24
+    }
+  ],
+  "hariyama": [],
+  "azurill": [
+    {
+      "target": "marill",
+      "target_dex_number": 183,
+      "method": "friendship",
+      "trigger": "level-up",
+      "min_happiness": 160
+    }
+  ],
+  "nosepass": [
+    {
+      "target": "probopass",
+      "target_dex_number": 476,
+      "method": "location",
+      "trigger": "level-up",
+      "location": "Mt Coronet",
+      "location_id": "mt_coronet"
+    },
+    {
+      "target": "probopass",
+      "target_dex_number": 476,
+      "method": "location",
+      "trigger": "level-up",
+      "location": "Chargestone Cave",
+      "location_id": "chargestone_cave"
+    },
+    {
+      "target": "probopass",
+      "target_dex_number": 476,
+      "method": "location",
+      "trigger": "level-up",
+      "location": "Kalos Route 13",
+      "location_id": "kalos_route_13"
+    },
+    {
+      "target": "probopass",
+      "target_dex_number": 476,
+      "method": "location",
+      "trigger": "level-up",
+      "location": "Blush Mountain",
+      "location_id": "blush_mountain"
+    },
+    {
+      "target": "probopass",
+      "target_dex_number": 476,
+      "method": "location",
+      "trigger": "level-up",
+      "location": "Vast Poni Canyon",
+      "location_id": "vast_poni_canyon"
+    },
+    {
+      "target": "probopass",
+      "target_dex_number": 476,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Thunder Stone",
+      "item_id": "thunder_stone"
+    }
+  ],
+  "skitty": [
+    {
+      "target": "delcatty",
+      "target_dex_number": 301,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Moon Stone",
+      "item_id": "moon_stone"
+    }
+  ],
+  "delcatty": [],
+  "sableye": [],
+  "mawile": [],
+  "aron": [
+    {
+      "target": "lairon",
+      "target_dex_number": 305,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 32,
+      "min_level": 32
+    }
+  ],
+  "lairon": [
+    {
+      "target": "aggron",
+      "target_dex_number": 306,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 42,
+      "min_level": 42
+    }
+  ],
+  "aggron": [],
+  "meditite": [
+    {
+      "target": "medicham",
+      "target_dex_number": 308,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 37,
+      "min_level": 37
+    }
+  ],
+  "medicham": [],
+  "electrike": [
+    {
+      "target": "manectric",
+      "target_dex_number": 310,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 26,
+      "min_level": 26
+    }
+  ],
+  "manectric": [],
+  "plusle": [],
+  "minun": [],
+  "volbeat": [],
+  "illumise": [],
+  "roselia": [
+    {
+      "target": "roserade",
+      "target_dex_number": 407,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Shiny Stone",
+      "item_id": "shiny_stone"
+    }
+  ],
+  "gulpin": [
+    {
+      "target": "swalot",
+      "target_dex_number": 317,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 26,
+      "min_level": 26
+    }
+  ],
+  "swalot": [],
+  "carvanha": [
+    {
+      "target": "sharpedo",
+      "target_dex_number": 319,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30
+    }
+  ],
+  "sharpedo": [],
+  "wailmer": [
+    {
+      "target": "wailord",
+      "target_dex_number": 321,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 40,
+      "min_level": 40
+    }
+  ],
+  "wailord": [],
+  "numel": [
+    {
+      "target": "camerupt",
+      "target_dex_number": 323,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 33,
+      "min_level": 33
+    }
+  ],
+  "camerupt": [],
+  "torkoal": [],
+  "spoink": [
+    {
+      "target": "grumpig",
+      "target_dex_number": 326,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 32,
+      "min_level": 32
+    }
+  ],
+  "grumpig": [],
+  "spinda": [],
+  "trapinch": [
+    {
+      "target": "vibrava",
+      "target_dex_number": 329,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 35,
+      "min_level": 35
+    }
+  ],
+  "vibrava": [
+    {
+      "target": "flygon",
+      "target_dex_number": 330,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 45,
+      "min_level": 45
+    }
+  ],
+  "flygon": [],
+  "cacnea": [
+    {
+      "target": "cacturne",
+      "target_dex_number": 332,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 32,
+      "min_level": 32
+    }
+  ],
+  "cacturne": [],
+  "swablu": [
+    {
+      "target": "altaria",
+      "target_dex_number": 334,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 35,
+      "min_level": 35
+    }
+  ],
+  "altaria": [],
+  "zangoose": [],
+  "seviper": [],
+  "lunatone": [],
+  "solrock": [],
+  "barboach": [
+    {
+      "target": "whiscash",
+      "target_dex_number": 340,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30
+    }
+  ],
+  "whiscash": [],
+  "corphish": [
+    {
+      "target": "crawdaunt",
+      "target_dex_number": 342,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30
+    }
+  ],
+  "crawdaunt": [],
+  "baltoy": [
+    {
+      "target": "claydol",
+      "target_dex_number": 344,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 36,
+      "min_level": 36
+    }
+  ],
+  "claydol": [],
+  "lileep": [
+    {
+      "target": "cradily",
+      "target_dex_number": 346,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 40,
+      "min_level": 40
+    }
+  ],
+  "cradily": [],
+  "anorith": [
+    {
+      "target": "armaldo",
+      "target_dex_number": 348,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 40,
+      "min_level": 40
+    }
+  ],
+  "armaldo": [],
+  "feebas": [
+    {
+      "target": "milotic",
+      "target_dex_number": 350,
+      "method": "level",
+      "trigger": "level-up",
+      "min_beauty": 170
+    },
+    {
+      "target": "milotic",
+      "target_dex_number": 350,
+      "method": "trade",
+      "trigger": "trade",
+      "held_item": "Prism Scale",
+      "held_item_id": "prism_scale"
+    }
+  ],
+  "milotic": [],
+  "castform": [],
+  "kecleon": [],
+  "shuppet": [
+    {
+      "target": "banette",
+      "target_dex_number": 354,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 37,
+      "min_level": 37
+    }
+  ],
+  "banette": [],
+  "duskull": [
+    {
+      "target": "dusclops",
+      "target_dex_number": 356,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 37,
+      "min_level": 37
+    }
+  ],
+  "dusclops": [
+    {
+      "target": "dusknoir",
+      "target_dex_number": 477,
+      "method": "trade",
+      "trigger": "trade",
+      "held_item": "Reaper Cloth",
+      "held_item_id": "reaper_cloth"
+    }
+  ],
+  "tropius": [],
+  "chimecho": [],
+  "absol": [],
+  "wynaut": [
+    {
+      "target": "wobbuffet",
+      "target_dex_number": 202,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 15,
+      "min_level": 15
+    }
+  ],
+  "snorunt": [
+    {
+      "target": "glalie",
+      "target_dex_number": 362,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 42,
+      "min_level": 42
+    },
+    {
+      "target": "froslass",
+      "target_dex_number": 478,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Dawn Stone",
+      "item_id": "dawn_stone",
+      "gender": "female"
+    }
+  ],
+  "glalie": [],
+  "spheal": [
+    {
+      "target": "sealeo",
+      "target_dex_number": 364,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 32,
+      "min_level": 32
+    }
+  ],
+  "sealeo": [
+    {
+      "target": "walrein",
+      "target_dex_number": 365,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 44,
+      "min_level": 44
+    }
+  ],
+  "walrein": [],
+  "clamperl": [
+    {
+      "target": "huntail",
+      "target_dex_number": 367,
+      "method": "trade",
+      "trigger": "trade",
+      "held_item": "Deep Sea Tooth",
+      "held_item_id": "deep_sea_tooth"
+    },
+    {
+      "target": "gorebyss",
+      "target_dex_number": 368,
+      "method": "trade",
+      "trigger": "trade",
+      "held_item": "Deep Sea Scale",
+      "held_item_id": "deep_sea_scale"
+    }
+  ],
+  "huntail": [],
+  "gorebyss": [],
+  "relicanth": [],
+  "luvdisc": [],
+  "bagon": [
+    {
+      "target": "shelgon",
+      "target_dex_number": 372,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30
+    }
+  ],
+  "shelgon": [
+    {
+      "target": "salamence",
+      "target_dex_number": 373,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 50,
+      "min_level": 50
+    }
+  ],
+  "salamence": [],
+  "beldum": [
+    {
+      "target": "metang",
+      "target_dex_number": 375,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 20,
+      "min_level": 20
+    }
+  ],
+  "metang": [
+    {
+      "target": "metagross",
+      "target_dex_number": 376,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 45,
+      "min_level": 45
+    }
+  ],
+  "metagross": [],
+  "regirock": [],
+  "regice": [],
+  "registeel": [],
+  "latias": [],
+  "latios": [],
+  "kyogre": [],
+  "groudon": [],
+  "rayquaza": [],
+  "jirachi": [],
+  "deoxys": [],
+  "turtwig": [
+    {
+      "target": "grotle",
+      "target_dex_number": 388,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 18,
+      "min_level": 18
+    }
+  ],
+  "grotle": [
+    {
+      "target": "torterra",
+      "target_dex_number": 389,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 32,
+      "min_level": 32
+    }
+  ],
+  "torterra": [],
+  "chimchar": [
+    {
+      "target": "monferno",
+      "target_dex_number": 391,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 14,
+      "min_level": 14
+    }
+  ],
+  "monferno": [
+    {
+      "target": "infernape",
+      "target_dex_number": 392,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 36,
+      "min_level": 36
+    }
+  ],
+  "infernape": [],
+  "piplup": [
+    {
+      "target": "prinplup",
+      "target_dex_number": 394,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 16,
+      "min_level": 16
+    }
+  ],
+  "prinplup": [
+    {
+      "target": "empoleon",
+      "target_dex_number": 395,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 36,
+      "min_level": 36
+    }
+  ],
+  "empoleon": [],
+  "starly": [
+    {
+      "target": "staravia",
+      "target_dex_number": 397,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 14,
+      "min_level": 14
+    }
+  ],
+  "staravia": [
+    {
+      "target": "staraptor",
+      "target_dex_number": 398,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 34,
+      "min_level": 34
+    }
+  ],
+  "staraptor": [],
+  "bidoof": [
+    {
+      "target": "bibarel",
+      "target_dex_number": 400,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 15,
+      "min_level": 15
+    }
+  ],
+  "bibarel": [],
+  "kricketot": [
+    {
+      "target": "kricketune",
+      "target_dex_number": 402,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 10,
+      "min_level": 10
+    }
+  ],
+  "kricketune": [],
+  "shinx": [
+    {
+      "target": "luxio",
+      "target_dex_number": 404,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 15,
+      "min_level": 15
+    }
+  ],
+  "luxio": [
+    {
+      "target": "luxray",
+      "target_dex_number": 405,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30
+    }
+  ],
+  "luxray": [],
+  "budew": [
+    {
+      "target": "roselia",
+      "target_dex_number": 315,
+      "method": "friendship",
+      "trigger": "level-up",
+      "min_happiness": 160,
+      "time_of_day": "day"
+    }
+  ],
+  "roserade": [],
+  "cranidos": [
+    {
+      "target": "rampardos",
+      "target_dex_number": 409,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30
+    }
+  ],
+  "rampardos": [],
+  "shieldon": [
+    {
+      "target": "bastiodon",
+      "target_dex_number": 411,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30
+    }
+  ],
+  "bastiodon": [],
+  "burmy": [
+    {
+      "target": "wormadam",
+      "target_dex_number": 413,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 20,
+      "min_level": 20,
+      "gender": "female"
+    },
+    {
+      "target": "mothim",
+      "target_dex_number": 414,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 20,
+      "min_level": 20,
+      "gender": "male"
+    }
+  ],
+  "wormadam": [],
+  "mothim": [],
+  "combee": [
+    {
+      "target": "vespiquen",
+      "target_dex_number": 416,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 21,
+      "min_level": 21,
+      "gender": "female"
+    }
+  ],
+  "vespiquen": [],
+  "pachirisu": [],
+  "buizel": [
+    {
+      "target": "floatzel",
+      "target_dex_number": 419,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 26,
+      "min_level": 26
+    }
+  ],
+  "floatzel": [],
+  "cherubi": [
+    {
+      "target": "cherrim",
+      "target_dex_number": 421,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 25,
+      "min_level": 25
+    }
+  ],
+  "cherrim": [],
+  "shellos": [
+    {
+      "target": "gastrodon",
+      "target_dex_number": 423,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30
+    }
+  ],
+  "gastrodon": [],
+  "ambipom": [],
+  "drifloon": [
+    {
+      "target": "drifblim",
+      "target_dex_number": 426,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 28,
+      "min_level": 28
+    }
+  ],
+  "drifblim": [],
+  "buneary": [
+    {
+      "target": "lopunny",
+      "target_dex_number": 428,
+      "method": "friendship",
+      "trigger": "level-up",
+      "min_happiness": 160
+    }
+  ],
+  "lopunny": [],
+  "mismagius": [],
+  "honchkrow": [],
+  "glameow": [
+    {
+      "target": "purugly",
+      "target_dex_number": 432,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 38,
+      "min_level": 38
+    }
+  ],
+  "purugly": [],
+  "chingling": [
+    {
+      "target": "chimecho",
+      "target_dex_number": 358,
+      "method": "friendship",
+      "trigger": "level-up",
+      "min_happiness": 220,
+      "time_of_day": "night"
+    }
+  ],
+  "stunky": [
+    {
+      "target": "skuntank",
+      "target_dex_number": 435,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 34,
+      "min_level": 34
+    }
+  ],
+  "skuntank": [],
+  "bronzor": [
+    {
+      "target": "bronzong",
+      "target_dex_number": 437,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 33,
+      "min_level": 33
+    }
+  ],
+  "bronzong": [],
+  "bonsly": [
+    {
+      "target": "sudowoodo",
+      "target_dex_number": 185,
+      "method": "known_move",
+      "trigger": "level-up",
+      "known_move": "Mimic",
+      "known_move_id": "mimic"
+    }
+  ],
+  "mime_jr": [
+    {
+      "target": "mr_mime",
+      "target_dex_number": 122,
+      "method": "known_move",
+      "trigger": "level-up",
+      "known_move": "Mimic",
+      "known_move_id": "mimic"
+    },
+    {
+      "target": "mr_mime",
+      "target_dex_number": 122,
+      "method": "known_move",
+      "trigger": "level-up",
+      "known_move": "Mimic",
+      "known_move_id": "mimic"
+    }
+  ],
+  "happiny": [
+    {
+      "target": "chansey",
+      "target_dex_number": 113,
+      "method": "time",
+      "trigger": "level-up",
+      "held_item": "Oval Stone",
+      "held_item_id": "oval_stone",
+      "time_of_day": "day"
+    }
+  ],
+  "chatot": [],
+  "spiritomb": [],
+  "gible": [
+    {
+      "target": "gabite",
+      "target_dex_number": 444,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 24,
+      "min_level": 24
+    }
+  ],
+  "gabite": [
+    {
+      "target": "garchomp",
+      "target_dex_number": 445,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 48,
+      "min_level": 48
+    }
+  ],
+  "garchomp": [],
+  "munchlax": [
+    {
+      "target": "snorlax",
+      "target_dex_number": 143,
+      "method": "friendship",
+      "trigger": "level-up",
+      "min_happiness": 160
+    }
+  ],
+  "riolu": [
+    {
+      "target": "lucario",
+      "target_dex_number": 448,
+      "method": "friendship",
+      "trigger": "level-up",
+      "min_happiness": 160,
+      "time_of_day": "day"
+    }
+  ],
+  "lucario": [],
+  "hippopotas": [
+    {
+      "target": "hippowdon",
+      "target_dex_number": 450,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 34,
+      "min_level": 34
+    }
+  ],
+  "hippowdon": [],
+  "skorupi": [
+    {
+      "target": "drapion",
+      "target_dex_number": 452,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 40,
+      "min_level": 40
+    }
+  ],
+  "drapion": [],
+  "croagunk": [
+    {
+      "target": "toxicroak",
+      "target_dex_number": 454,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 37,
+      "min_level": 37
+    }
+  ],
+  "toxicroak": [],
+  "carnivine": [],
+  "finneon": [
+    {
+      "target": "lumineon",
+      "target_dex_number": 457,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 31,
+      "min_level": 31
+    }
+  ],
+  "lumineon": [],
+  "mantyke": [
+    {
+      "target": "mantine",
+      "target_dex_number": 226,
+      "method": "level",
+      "trigger": "level-up",
+      "party_species": "remoraid"
+    }
+  ],
+  "snover": [
+    {
+      "target": "abomasnow",
+      "target_dex_number": 460,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 40,
+      "min_level": 40
+    }
+  ],
+  "abomasnow": [],
+  "weavile": [],
+  "magnezone": [],
+  "lickilicky": [],
+  "rhyperior": [],
+  "tangrowth": [],
+  "electivire": [],
+  "magmortar": [],
+  "togekiss": [],
+  "yanmega": [],
+  "leafeon": [],
+  "glaceon": [],
+  "gliscor": [],
+  "mamoswine": [],
+  "porygon_z": [],
+  "gallade": [],
+  "probopass": [],
+  "dusknoir": [],
+  "froslass": [],
+  "rotom": [],
+  "uxie": [],
+  "mesprit": [],
+  "azelf": [],
+  "dialga": [],
+  "palkia": [],
+  "heatran": [],
+  "regigigas": [],
+  "giratina": [],
+  "cresselia": [],
+  "phione": [
+    {
+      "target": "manaphy",
+      "target_dex_number": 490,
+      "method": "unknown",
+      "trigger": "unknown"
+    }
+  ],
+  "manaphy": [],
+  "darkrai": [],
+  "shaymin": [],
+  "arceus": [],
+  "victini": [],
+  "snivy": [
+    {
+      "target": "servine",
+      "target_dex_number": 496,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 17,
+      "min_level": 17
+    }
+  ],
+  "servine": [
+    {
+      "target": "serperior",
+      "target_dex_number": 497,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 36,
+      "min_level": 36
+    }
+  ],
+  "serperior": [],
+  "tepig": [
+    {
+      "target": "pignite",
+      "target_dex_number": 499,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 17,
+      "min_level": 17
+    }
+  ],
+  "pignite": [
+    {
+      "target": "emboar",
+      "target_dex_number": 500,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 36,
+      "min_level": 36
+    }
+  ],
+  "emboar": [],
+  "oshawott": [
+    {
+      "target": "dewott",
+      "target_dex_number": 502,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 17,
+      "min_level": 17
+    }
+  ],
+  "dewott": [
+    {
+      "target": "samurott",
+      "target_dex_number": 503,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 36,
+      "min_level": 36
+    },
+    {
+      "target": "samurott",
+      "target_dex_number": 503,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 36,
+      "min_level": 36
+    }
+  ],
+  "samurott": [],
+  "patrat": [
+    {
+      "target": "watchog",
+      "target_dex_number": 505,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 20,
+      "min_level": 20
+    }
+  ],
+  "watchog": [],
+  "lillipup": [
+    {
+      "target": "herdier",
+      "target_dex_number": 507,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 16,
+      "min_level": 16
+    }
+  ],
+  "herdier": [
+    {
+      "target": "stoutland",
+      "target_dex_number": 508,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 32,
+      "min_level": 32
+    }
+  ],
+  "stoutland": [],
+  "purrloin": [
+    {
+      "target": "liepard",
+      "target_dex_number": 510,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 20,
+      "min_level": 20
+    }
+  ],
+  "liepard": [],
+  "pansage": [
+    {
+      "target": "simisage",
+      "target_dex_number": 512,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Leaf Stone",
+      "item_id": "leaf_stone"
+    }
+  ],
+  "simisage": [],
+  "pansear": [
+    {
+      "target": "simisear",
+      "target_dex_number": 514,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Fire Stone",
+      "item_id": "fire_stone"
+    }
+  ],
+  "simisear": [],
+  "panpour": [
+    {
+      "target": "simipour",
+      "target_dex_number": 516,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Water Stone",
+      "item_id": "water_stone"
+    }
+  ],
+  "simipour": [],
+  "munna": [
+    {
+      "target": "musharna",
+      "target_dex_number": 518,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Moon Stone",
+      "item_id": "moon_stone"
+    }
+  ],
+  "musharna": [],
+  "pidove": [
+    {
+      "target": "tranquill",
+      "target_dex_number": 520,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 21,
+      "min_level": 21
+    }
+  ],
+  "tranquill": [
+    {
+      "target": "unfezant",
+      "target_dex_number": 521,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 32,
+      "min_level": 32
+    }
+  ],
+  "unfezant": [],
+  "blitzle": [
+    {
+      "target": "zebstrika",
+      "target_dex_number": 523,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 27,
+      "min_level": 27
+    }
+  ],
+  "zebstrika": [],
+  "roggenrola": [
+    {
+      "target": "boldore",
+      "target_dex_number": 525,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 25,
+      "min_level": 25
+    }
+  ],
+  "boldore": [
+    {
+      "target": "gigalith",
+      "target_dex_number": 526,
+      "method": "trade",
+      "trigger": "trade"
+    }
+  ],
+  "gigalith": [],
+  "woobat": [
+    {
+      "target": "swoobat",
+      "target_dex_number": 528,
+      "method": "friendship",
+      "trigger": "level-up",
+      "min_happiness": 160
+    }
+  ],
+  "swoobat": [],
+  "drilbur": [
+    {
+      "target": "excadrill",
+      "target_dex_number": 530,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 31,
+      "min_level": 31
+    }
+  ],
+  "excadrill": [],
+  "audino": [],
+  "timburr": [
+    {
+      "target": "gurdurr",
+      "target_dex_number": 533,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 25,
+      "min_level": 25
+    }
+  ],
+  "gurdurr": [
+    {
+      "target": "conkeldurr",
+      "target_dex_number": 534,
+      "method": "trade",
+      "trigger": "trade"
+    }
+  ],
+  "conkeldurr": [],
+  "tympole": [
+    {
+      "target": "palpitoad",
+      "target_dex_number": 536,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 25,
+      "min_level": 25
+    }
+  ],
+  "palpitoad": [
+    {
+      "target": "seismitoad",
+      "target_dex_number": 537,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 36,
+      "min_level": 36
+    }
+  ],
+  "seismitoad": [],
+  "throh": [],
+  "sawk": [],
+  "sewaddle": [
+    {
+      "target": "swadloon",
+      "target_dex_number": 541,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 20,
+      "min_level": 20
+    }
+  ],
+  "swadloon": [
+    {
+      "target": "leavanny",
+      "target_dex_number": 542,
+      "method": "friendship",
+      "trigger": "level-up",
+      "min_happiness": 220
+    }
+  ],
+  "leavanny": [],
+  "venipede": [
+    {
+      "target": "whirlipede",
+      "target_dex_number": 544,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 22,
+      "min_level": 22
+    }
+  ],
+  "whirlipede": [
+    {
+      "target": "scolipede",
+      "target_dex_number": 545,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30
+    }
+  ],
+  "scolipede": [],
+  "cottonee": [
+    {
+      "target": "whimsicott",
+      "target_dex_number": 547,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Sun Stone",
+      "item_id": "sun_stone"
+    }
+  ],
+  "whimsicott": [],
+  "petilil": [
+    {
+      "target": "lilligant",
+      "target_dex_number": 549,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Sun Stone",
+      "item_id": "sun_stone"
+    },
+    {
+      "target": "lilligant",
+      "target_dex_number": 549,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Sun Stone",
+      "item_id": "sun_stone"
+    }
+  ],
+  "lilligant": [],
+  "basculin": [
+    {
+      "target": "basculegion",
+      "target_dex_number": 902,
+      "method": "recoil-damage",
+      "trigger": "recoil-damage"
+    }
+  ],
+  "sandile": [
+    {
+      "target": "krokorok",
+      "target_dex_number": 552,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 29,
+      "min_level": 29
+    }
+  ],
+  "krokorok": [
+    {
+      "target": "krookodile",
+      "target_dex_number": 553,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 40,
+      "min_level": 40
+    }
+  ],
+  "krookodile": [],
+  "darumaka": [
+    {
+      "target": "darmanitan",
+      "target_dex_number": 555,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 35,
+      "min_level": 35
+    },
+    {
+      "target": "darmanitan",
+      "target_dex_number": 555,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Ice Stone",
+      "item_id": "ice_stone"
+    }
+  ],
+  "darmanitan": [],
+  "maractus": [],
+  "dwebble": [
+    {
+      "target": "crustle",
+      "target_dex_number": 558,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 34,
+      "min_level": 34
+    }
+  ],
+  "crustle": [],
+  "scraggy": [
+    {
+      "target": "scrafty",
+      "target_dex_number": 560,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 39,
+      "min_level": 39
+    }
+  ],
+  "scrafty": [],
+  "sigilyph": [],
+  "yamask": [
+    {
+      "target": "cofagrigus",
+      "target_dex_number": 563,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 34,
+      "min_level": 34
+    },
+    {
+      "target": "runerigus",
+      "target_dex_number": 867,
+      "method": "take-damage",
+      "trigger": "take-damage"
+    }
+  ],
+  "cofagrigus": [],
+  "tirtouga": [
+    {
+      "target": "carracosta",
+      "target_dex_number": 565,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 37,
+      "min_level": 37
+    }
+  ],
+  "carracosta": [],
+  "archen": [
+    {
+      "target": "archeops",
+      "target_dex_number": 567,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 37,
+      "min_level": 37
+    }
+  ],
+  "archeops": [],
+  "trubbish": [
+    {
+      "target": "garbodor",
+      "target_dex_number": 569,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 36,
+      "min_level": 36
+    }
+  ],
+  "garbodor": [],
+  "zorua": [
+    {
+      "target": "zoroark",
+      "target_dex_number": 571,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30
+    },
+    {
+      "target": "zoroark",
+      "target_dex_number": 571,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30
+    }
+  ],
+  "zoroark": [],
+  "minccino": [
+    {
+      "target": "cinccino",
+      "target_dex_number": 573,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Shiny Stone",
+      "item_id": "shiny_stone"
+    }
+  ],
+  "cinccino": [],
+  "gothita": [
+    {
+      "target": "gothorita",
+      "target_dex_number": 575,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 32,
+      "min_level": 32
+    }
+  ],
+  "gothorita": [
+    {
+      "target": "gothitelle",
+      "target_dex_number": 576,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 41,
+      "min_level": 41
+    }
+  ],
+  "gothitelle": [],
+  "solosis": [
+    {
+      "target": "duosion",
+      "target_dex_number": 578,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 32,
+      "min_level": 32
+    }
+  ],
+  "duosion": [
+    {
+      "target": "reuniclus",
+      "target_dex_number": 579,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 41,
+      "min_level": 41
+    }
+  ],
+  "reuniclus": [],
+  "ducklett": [
+    {
+      "target": "swanna",
+      "target_dex_number": 581,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 35,
+      "min_level": 35
+    }
+  ],
+  "swanna": [],
+  "vanillite": [
+    {
+      "target": "vanillish",
+      "target_dex_number": 583,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 35,
+      "min_level": 35
+    }
+  ],
+  "vanillish": [
+    {
+      "target": "vanilluxe",
+      "target_dex_number": 584,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 47,
+      "min_level": 47
+    }
+  ],
+  "vanilluxe": [],
+  "deerling": [
+    {
+      "target": "sawsbuck",
+      "target_dex_number": 586,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 34,
+      "min_level": 34
+    }
+  ],
+  "sawsbuck": [],
+  "emolga": [],
+  "karrablast": [
+    {
+      "target": "escavalier",
+      "target_dex_number": 589,
+      "method": "trade",
+      "trigger": "trade",
+      "trade_species": "shelmet"
+    }
+  ],
+  "escavalier": [],
+  "foongus": [
+    {
+      "target": "amoonguss",
+      "target_dex_number": 591,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 39,
+      "min_level": 39
+    }
+  ],
+  "amoonguss": [],
+  "frillish": [
+    {
+      "target": "jellicent",
+      "target_dex_number": 593,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 40,
+      "min_level": 40
+    }
+  ],
+  "jellicent": [],
+  "alomomola": [],
+  "joltik": [
+    {
+      "target": "galvantula",
+      "target_dex_number": 596,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 36,
+      "min_level": 36
+    }
+  ],
+  "galvantula": [],
+  "ferroseed": [
+    {
+      "target": "ferrothorn",
+      "target_dex_number": 598,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 40,
+      "min_level": 40
+    }
+  ],
+  "ferrothorn": [],
+  "klink": [
+    {
+      "target": "klang",
+      "target_dex_number": 600,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 38,
+      "min_level": 38
+    }
+  ],
+  "klang": [
+    {
+      "target": "klinklang",
+      "target_dex_number": 601,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 49,
+      "min_level": 49
+    }
+  ],
+  "klinklang": [],
+  "tynamo": [
+    {
+      "target": "eelektrik",
+      "target_dex_number": 603,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 39,
+      "min_level": 39
+    }
+  ],
+  "eelektrik": [
+    {
+      "target": "eelektross",
+      "target_dex_number": 604,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Thunder Stone",
+      "item_id": "thunder_stone"
+    }
+  ],
+  "eelektross": [],
+  "elgyem": [
+    {
+      "target": "beheeyem",
+      "target_dex_number": 606,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 42,
+      "min_level": 42
+    }
+  ],
+  "beheeyem": [],
+  "litwick": [
+    {
+      "target": "lampent",
+      "target_dex_number": 608,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 41,
+      "min_level": 41
+    }
+  ],
+  "lampent": [
+    {
+      "target": "chandelure",
+      "target_dex_number": 609,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Dusk Stone",
+      "item_id": "dusk_stone"
+    }
+  ],
+  "chandelure": [],
+  "axew": [
+    {
+      "target": "fraxure",
+      "target_dex_number": 611,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 38,
+      "min_level": 38
+    }
+  ],
+  "fraxure": [
+    {
+      "target": "haxorus",
+      "target_dex_number": 612,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 48,
+      "min_level": 48
+    }
+  ],
+  "haxorus": [],
+  "cubchoo": [
+    {
+      "target": "beartic",
+      "target_dex_number": 614,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 37,
+      "min_level": 37
+    }
+  ],
+  "beartic": [],
+  "cryogonal": [],
+  "shelmet": [
+    {
+      "target": "accelgor",
+      "target_dex_number": 617,
+      "method": "trade",
+      "trigger": "trade",
+      "trade_species": "karrablast"
+    }
+  ],
+  "accelgor": [],
+  "stunfisk": [],
+  "mienfoo": [
+    {
+      "target": "mienshao",
+      "target_dex_number": 620,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 50,
+      "min_level": 50
+    }
+  ],
+  "mienshao": [],
+  "druddigon": [],
+  "golett": [
+    {
+      "target": "golurk",
+      "target_dex_number": 623,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 43,
+      "min_level": 43
+    }
+  ],
+  "golurk": [],
+  "pawniard": [
+    {
+      "target": "bisharp",
+      "target_dex_number": 625,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 52,
+      "min_level": 52
+    }
+  ],
+  "bisharp": [
+    {
+      "target": "kingambit",
+      "target_dex_number": 983,
+      "method": "three-defeated-bisharp",
+      "trigger": "three-defeated-bisharp"
+    }
+  ],
+  "bouffalant": [],
+  "rufflet": [
+    {
+      "target": "braviary",
+      "target_dex_number": 628,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 54,
+      "min_level": 54
+    },
+    {
+      "target": "braviary",
+      "target_dex_number": 628,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 54,
+      "min_level": 54
+    }
+  ],
+  "braviary": [],
+  "vullaby": [
+    {
+      "target": "mandibuzz",
+      "target_dex_number": 630,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 54,
+      "min_level": 54
+    }
+  ],
+  "mandibuzz": [],
+  "heatmor": [],
+  "durant": [],
+  "deino": [
+    {
+      "target": "zweilous",
+      "target_dex_number": 634,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 50,
+      "min_level": 50
+    }
+  ],
+  "zweilous": [
+    {
+      "target": "hydreigon",
+      "target_dex_number": 635,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 64,
+      "min_level": 64
+    }
+  ],
+  "hydreigon": [],
+  "larvesta": [
+    {
+      "target": "volcarona",
+      "target_dex_number": 637,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 59,
+      "min_level": 59
+    }
+  ],
+  "volcarona": [],
+  "cobalion": [],
+  "terrakion": [],
+  "virizion": [],
+  "tornadus": [],
+  "thundurus": [],
+  "reshiram": [],
+  "zekrom": [],
+  "landorus": [],
+  "kyurem": [],
+  "keldeo": [],
+  "meloetta": [],
+  "genesect": [],
+  "chespin": [
+    {
+      "target": "quilladin",
+      "target_dex_number": 651,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 16,
+      "min_level": 16
+    }
+  ],
+  "quilladin": [
+    {
+      "target": "chesnaught",
+      "target_dex_number": 652,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 36,
+      "min_level": 36
+    }
+  ],
+  "chesnaught": [],
+  "fennekin": [
+    {
+      "target": "braixen",
+      "target_dex_number": 654,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 16,
+      "min_level": 16
+    }
+  ],
+  "braixen": [
+    {
+      "target": "delphox",
+      "target_dex_number": 655,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 36,
+      "min_level": 36
+    }
+  ],
+  "delphox": [],
+  "froakie": [
+    {
+      "target": "frogadier",
+      "target_dex_number": 657,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 16,
+      "min_level": 16
+    }
+  ],
+  "frogadier": [
+    {
+      "target": "greninja",
+      "target_dex_number": 658,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 36,
+      "min_level": 36
+    }
+  ],
+  "greninja": [],
+  "bunnelby": [
+    {
+      "target": "diggersby",
+      "target_dex_number": 660,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 20,
+      "min_level": 20
+    }
+  ],
+  "diggersby": [],
+  "fletchling": [
+    {
+      "target": "fletchinder",
+      "target_dex_number": 662,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 17,
+      "min_level": 17
+    }
+  ],
+  "fletchinder": [
+    {
+      "target": "talonflame",
+      "target_dex_number": 663,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 35,
+      "min_level": 35
+    }
+  ],
+  "talonflame": [],
+  "scatterbug": [
+    {
+      "target": "spewpa",
+      "target_dex_number": 665,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 9,
+      "min_level": 9
+    }
+  ],
+  "spewpa": [
+    {
+      "target": "vivillon",
+      "target_dex_number": 666,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 12,
+      "min_level": 12
+    }
+  ],
+  "vivillon": [],
+  "litleo": [
+    {
+      "target": "pyroar",
+      "target_dex_number": 668,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 35,
+      "min_level": 35
+    }
+  ],
+  "pyroar": [],
+  "flabebe": [
+    {
+      "target": "floette",
+      "target_dex_number": 670,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 19,
+      "min_level": 19
+    }
+  ],
+  "floette": [
+    {
+      "target": "florges",
+      "target_dex_number": 671,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Shiny Stone",
+      "item_id": "shiny_stone"
+    }
+  ],
+  "florges": [],
+  "skiddo": [
+    {
+      "target": "gogoat",
+      "target_dex_number": 673,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 32,
+      "min_level": 32
+    }
+  ],
+  "gogoat": [],
+  "pancham": [
+    {
+      "target": "pangoro",
+      "target_dex_number": 675,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 32,
+      "min_level": 32,
+      "party_type": "Dark"
+    }
+  ],
+  "pangoro": [],
+  "furfrou": [],
+  "espurr": [
+    {
+      "target": "meowstic",
+      "target_dex_number": 678,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 25,
+      "min_level": 25
+    }
+  ],
+  "meowstic": [],
+  "honedge": [
+    {
+      "target": "doublade",
+      "target_dex_number": 680,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 35,
+      "min_level": 35
+    }
+  ],
+  "doublade": [
+    {
+      "target": "aegislash",
+      "target_dex_number": 681,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Dusk Stone",
+      "item_id": "dusk_stone"
+    }
+  ],
+  "aegislash": [],
+  "spritzee": [
+    {
+      "target": "aromatisse",
+      "target_dex_number": 683,
+      "method": "trade",
+      "trigger": "trade",
+      "held_item": "Sachet",
+      "held_item_id": "sachet"
+    }
+  ],
+  "aromatisse": [],
+  "swirlix": [
+    {
+      "target": "slurpuff",
+      "target_dex_number": 685,
+      "method": "trade",
+      "trigger": "trade",
+      "held_item": "Whipped Dream",
+      "held_item_id": "whipped_dream"
+    }
+  ],
+  "slurpuff": [],
+  "inkay": [
+    {
+      "target": "malamar",
+      "target_dex_number": 687,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30,
+      "turn_upside_down": true
+    }
+  ],
+  "malamar": [],
+  "binacle": [
+    {
+      "target": "barbaracle",
+      "target_dex_number": 689,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 39,
+      "min_level": 39
+    }
+  ],
+  "barbaracle": [],
+  "skrelp": [
+    {
+      "target": "dragalge",
+      "target_dex_number": 691,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 48,
+      "min_level": 48
+    }
+  ],
+  "dragalge": [],
+  "clauncher": [
+    {
+      "target": "clawitzer",
+      "target_dex_number": 693,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 37,
+      "min_level": 37
+    }
+  ],
+  "clawitzer": [],
+  "helioptile": [
+    {
+      "target": "heliolisk",
+      "target_dex_number": 695,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Sun Stone",
+      "item_id": "sun_stone"
+    }
+  ],
+  "heliolisk": [],
+  "tyrunt": [
+    {
+      "target": "tyrantrum",
+      "target_dex_number": 697,
+      "method": "time",
+      "trigger": "level-up",
+      "level": 39,
+      "min_level": 39,
+      "time_of_day": "day"
+    }
+  ],
+  "tyrantrum": [],
+  "amaura": [
+    {
+      "target": "aurorus",
+      "target_dex_number": 699,
+      "method": "time",
+      "trigger": "level-up",
+      "level": 39,
+      "min_level": 39,
+      "time_of_day": "night"
+    }
+  ],
+  "aurorus": [],
+  "sylveon": [],
+  "hawlucha": [],
+  "dedenne": [],
+  "carbink": [],
+  "goomy": [
+    {
+      "target": "sliggoo",
+      "target_dex_number": 705,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 40,
+      "min_level": 40
+    },
+    {
+      "target": "sliggoo",
+      "target_dex_number": 705,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 40,
+      "min_level": 40
+    }
+  ],
+  "sliggoo": [
+    {
+      "target": "goodra",
+      "target_dex_number": 706,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 50,
+      "min_level": 50,
+      "needs_overworld_rain": true
+    },
+    {
+      "target": "goodra",
+      "target_dex_number": 706,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 50,
+      "min_level": 50,
+      "needs_overworld_rain": true
+    }
+  ],
+  "goodra": [],
+  "klefki": [],
+  "phantump": [
+    {
+      "target": "trevenant",
+      "target_dex_number": 709,
+      "method": "trade",
+      "trigger": "trade"
+    }
+  ],
+  "trevenant": [],
+  "pumpkaboo": [
+    {
+      "target": "gourgeist",
+      "target_dex_number": 711,
+      "method": "trade",
+      "trigger": "trade"
+    }
+  ],
+  "gourgeist": [],
+  "bergmite": [
+    {
+      "target": "avalugg",
+      "target_dex_number": 713,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 37,
+      "min_level": 37
+    },
+    {
+      "target": "avalugg",
+      "target_dex_number": 713,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 37,
+      "min_level": 37
+    }
+  ],
+  "avalugg": [],
+  "noibat": [
+    {
+      "target": "noivern",
+      "target_dex_number": 715,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 48,
+      "min_level": 48
+    }
+  ],
+  "noivern": [],
+  "xerneas": [],
+  "yveltal": [],
+  "zygarde": [],
+  "diancie": [],
+  "hoopa": [],
+  "volcanion": [],
+  "rowlet": [
+    {
+      "target": "dartrix",
+      "target_dex_number": 723,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 17,
+      "min_level": 17
+    }
+  ],
+  "dartrix": [
+    {
+      "target": "decidueye",
+      "target_dex_number": 724,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 34,
+      "min_level": 34
+    },
+    {
+      "target": "decidueye",
+      "target_dex_number": 724,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 36,
+      "min_level": 36
+    }
+  ],
+  "decidueye": [],
+  "litten": [
+    {
+      "target": "torracat",
+      "target_dex_number": 726,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 17,
+      "min_level": 17
+    }
+  ],
+  "torracat": [
+    {
+      "target": "incineroar",
+      "target_dex_number": 727,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 34,
+      "min_level": 34
+    }
+  ],
+  "incineroar": [],
+  "popplio": [
+    {
+      "target": "brionne",
+      "target_dex_number": 729,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 17,
+      "min_level": 17
+    }
+  ],
+  "brionne": [
+    {
+      "target": "primarina",
+      "target_dex_number": 730,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 34,
+      "min_level": 34
+    }
+  ],
+  "primarina": [],
+  "pikipek": [
+    {
+      "target": "trumbeak",
+      "target_dex_number": 732,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 14,
+      "min_level": 14
+    }
+  ],
+  "trumbeak": [
+    {
+      "target": "toucannon",
+      "target_dex_number": 733,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 28,
+      "min_level": 28
+    }
+  ],
+  "toucannon": [],
+  "yungoos": [
+    {
+      "target": "gumshoos",
+      "target_dex_number": 735,
+      "method": "time",
+      "trigger": "level-up",
+      "level": 20,
+      "min_level": 20,
+      "time_of_day": "day"
+    }
+  ],
+  "gumshoos": [],
+  "grubbin": [
+    {
+      "target": "charjabug",
+      "target_dex_number": 737,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 20,
+      "min_level": 20
+    }
+  ],
+  "charjabug": [
+    {
+      "target": "vikavolt",
+      "target_dex_number": 738,
+      "method": "location",
+      "trigger": "level-up",
+      "location": "Vast Poni Canyon",
+      "location_id": "vast_poni_canyon"
+    },
+    {
+      "target": "vikavolt",
+      "target_dex_number": 738,
+      "method": "location",
+      "trigger": "level-up",
+      "location": "Blush Mountain",
+      "location_id": "blush_mountain"
+    },
+    {
+      "target": "vikavolt",
+      "target_dex_number": 738,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Thunder Stone",
+      "item_id": "thunder_stone"
+    }
+  ],
+  "vikavolt": [],
+  "crabrawler": [
+    {
+      "target": "crabominable",
+      "target_dex_number": 740,
+      "method": "location",
+      "trigger": "level-up",
+      "location": "Mount Lanakila",
+      "location_id": "mount_lanakila"
+    },
+    {
+      "target": "crabominable",
+      "target_dex_number": 740,
+      "method": "stone",
+      "trigger": "use-item",
+      "item": "Ice Stone",
+      "item_id": "ice_stone"
+    }
+  ],
+  "crabominable": [],
+  "oricorio": [],
+  "cutiefly": [
+    {
+      "target": "ribombee",
+      "target_dex_number": 743,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 25,
+      "min_level": 25
+    }
+  ],
+  "ribombee": [],
+  "rockruff": [
+    {
+      "target": "lycanroc",
+      "target_dex_number": 745,
+      "method": "time",
+      "trigger": "level-up",
+      "level": 25,
+      "min_level": 25,
+      "time_of_day": "day"
+    },
+    {
+      "target": "lycanroc",
+      "target_dex_number": 745,
+      "method": "time",
+      "trigger": "level-up",
+      "level": 25,
+      "min_level": 25,
+      "time_of_day": "night"
+    },
+    {
+      "target": "lycanroc",
+      "target_dex_number": 745,
+      "method": "time",
+      "trigger": "level-up",
+      "level": 25,
+      "min_level": 25,
+      "time_of_day": "dusk"
+    }
+  ],
+  "lycanroc": [],
+  "wishiwashi": [],
+  "mareanie": [
+    {
+      "target": "toxapex",
+      "target_dex_number": 748,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 38,
+      "min_level": 38
+    }
+  ],
+  "toxapex": [],
+  "mudbray": [
+    {
+      "target": "mudsdale",
+      "target_dex_number": 750,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30
+    }
+  ],
+  "mudsdale": [],
+  "dewpider": [
+    {
+      "target": "araquanid",
+      "target_dex_number": 752,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 22,
+      "min_level": 22
+    }
+  ],
+  "araquanid": [],
+  "fomantis": [
+    {
+      "target": "lurantis",
+      "target_dex_number": 754,
+      "method": "time",
+      "trigger": "level-up",
+      "level": 34,
+      "min_level": 34,
+      "time_of_day": "day"
+    }
+  ],
+  "lurantis": [],
+  "morelull": [
+    {
+      "target": "shiinotic",
+      "target_dex_number": 756,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 24,
+      "min_level": 24
+    }
+  ],
+  "shiinotic": [],
+  "salandit": [
+    {
+      "target": "salazzle",
+      "target_dex_number": 758,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 33,
+      "min_level": 33,
+      "gender": "female"
+    }
+  ],
+  "salazzle": [],
+  "stufful": [
+    {
+      "target": "bewear",
+      "target_dex_number": 760,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 27,
+      "min_level": 27
+    }
+  ],
+  "bewear": [],
+  "bounsweet": [
+    {
+      "target": "steenee",
+      "target_dex_number": 762,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 18,
+      "min_level": 18
+    }
+  ],
+  "steenee": [
+    {
+      "target": "tsareena",
+      "target_dex_number": 763,
+      "method": "known_move",
+      "trigger": "level-up",
+      "known_move": "Stomp",
+      "known_move_id": "stomp"
+    }
+  ],
+  "tsareena": [],
+  "comfey": [],
+  "oranguru": [],
+  "passimian": [],
+  "wimpod": [
+    {
+      "target": "golisopod",
+      "target_dex_number": 768,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30
+    }
+  ],
+  "golisopod": [],
+  "sandygast": [
+    {
+      "target": "palossand",
+      "target_dex_number": 770,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 42,
+      "min_level": 42
+    }
+  ],
+  "palossand": [],
+  "pyukumuku": [],
+  "type_null": [
+    {
+      "target": "silvally",
+      "target_dex_number": 773,
+      "method": "friendship",
+      "trigger": "level-up",
+      "min_happiness": 160
+    }
+  ],
+  "silvally": [],
+  "minior": [],
+  "komala": [],
+  "turtonator": [],
+  "togedemaru": [],
+  "mimikyu": [],
+  "bruxish": [],
+  "drampa": [],
+  "dhelmise": [],
+  "jangmo_o": [
+    {
+      "target": "hakamo_o",
+      "target_dex_number": 783,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 35,
+      "min_level": 35
+    }
+  ],
+  "hakamo_o": [
+    {
+      "target": "kommo_o",
+      "target_dex_number": 784,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 45,
+      "min_level": 45
+    }
+  ],
+  "kommo_o": [],
+  "tapu_koko": [],
+  "tapu_lele": [],
+  "tapu_bulu": [],
+  "tapu_fini": [],
+  "cosmog": [
+    {
+      "target": "cosmoem",
+      "target_dex_number": 790,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 43,
+      "min_level": 43
+    }
+  ],
+  "cosmoem": [
+    {
+      "target": "solgaleo",
+      "target_dex_number": 791,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 53,
+      "min_level": 53
+    },
+    {
+      "target": "lunala",
+      "target_dex_number": 792,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 53,
+      "min_level": 53
+    }
+  ],
+  "solgaleo": [],
+  "lunala": [],
+  "nihilego": [],
+  "buzzwole": [],
+  "pheromosa": [],
+  "xurkitree": [],
+  "celesteela": [],
+  "kartana": [],
+  "guzzlord": [],
+  "necrozma": [],
+  "magearna": [],
+  "marshadow": [],
+  "poipole": [
+    {
+      "target": "naganadel",
+      "target_dex_number": 804,
+      "method": "known_move",
+      "trigger": "level-up",
+      "known_move": "Dragon Pulse",
+      "known_move_id": "dragon_pulse"
+    }
+  ],
+  "naganadel": [],
+  "stakataka": [],
+  "blacephalon": [],
+  "zeraora": [],
+  "meltan": [],
+  "melmetal": [],
+  "grookey": [
+    {
+      "target": "thwackey",
+      "target_dex_number": 811,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 16,
+      "min_level": 16
+    }
+  ],
+  "thwackey": [
+    {
+      "target": "rillaboom",
+      "target_dex_number": 812,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 35,
+      "min_level": 35
+    }
+  ],
+  "rillaboom": [],
+  "scorbunny": [
+    {
+      "target": "raboot",
+      "target_dex_number": 814,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 16,
+      "min_level": 16
+    }
+  ],
+  "raboot": [
+    {
+      "target": "cinderace",
+      "target_dex_number": 815,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 35,
+      "min_level": 35
+    }
+  ],
+  "cinderace": [],
+  "sobble": [
+    {
+      "target": "drizzile",
+      "target_dex_number": 817,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 16,
+      "min_level": 16
+    }
+  ],
+  "drizzile": [
+    {
+      "target": "inteleon",
+      "target_dex_number": 818,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 35,
+      "min_level": 35
+    }
+  ],
+  "inteleon": [],
+  "skwovet": [
+    {
+      "target": "greedent",
+      "target_dex_number": 820,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 24,
+      "min_level": 24
+    }
+  ],
+  "greedent": [],
+  "rookidee": [
+    {
+      "target": "corvisquire",
+      "target_dex_number": 822,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 18,
+      "min_level": 18
+    }
+  ],
+  "corvisquire": [
+    {
+      "target": "corviknight",
+      "target_dex_number": 823,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 38,
+      "min_level": 38
+    }
+  ],
+  "corviknight": [],
+  "blipbug": [
+    {
+      "target": "dottler",
+      "target_dex_number": 825,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 10,
+      "min_level": 10
+    }
+  ],
+  "dottler": [
+    {
+      "target": "orbeetle",
+      "target_dex_number": 826,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30
+    }
+  ],
+  "orbeetle": [],
+  "nickit": [
+    {
+      "target": "thievul",
+      "target_dex_number": 828,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 18,
+      "min_level": 18
+    }
+  ],
+  "thievul": [],
+  "gossifleur": [
+    {
+      "target": "eldegoss",
+      "target_dex_number": 830,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 20,
+      "min_level": 20
+    }
+  ],
+  "eldegoss": [],
+  "wooloo": [
+    {
+      "target": "dubwool",
+      "target_dex_number": 832,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 24,
+      "min_level": 24
+    }
+  ],
+  "dubwool": [],
+  "chewtle": [
+    {
+      "target": "drednaw",
+      "target_dex_number": 834,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 22,
+      "min_level": 22
+    }
+  ],
+  "drednaw": [],
+  "yamper": [
+    {
+      "target": "boltund",
+      "target_dex_number": 836,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 25,
+      "min_level": 25
+    }
+  ],
+  "boltund": [],
+  "rolycoly": [
+    {
+      "target": "carkol",
+      "target_dex_number": 838,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 18,
+      "min_level": 18
+    }
+  ],
+  "carkol": [
+    {
+      "target": "coalossal",
+      "target_dex_number": 839,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 34,
+      "min_level": 34
+    }
+  ],
+  "coalossal": [],
+  "applin": [
+    {
+      "target": "flapple",
+      "target_dex_number": 841,
+      "method": "item",
+      "trigger": "use-item",
+      "item": "Tart Apple",
+      "item_id": "tart_apple"
+    },
+    {
+      "target": "appletun",
+      "target_dex_number": 842,
+      "method": "item",
+      "trigger": "use-item",
+      "item": "Sweet Apple",
+      "item_id": "sweet_apple"
+    },
+    {
+      "target": "dipplin",
+      "target_dex_number": 1011,
+      "method": "item",
+      "trigger": "use-item",
+      "item": "Syrupy Apple",
+      "item_id": "syrupy_apple"
+    }
+  ],
+  "flapple": [],
+  "appletun": [],
+  "silicobra": [
+    {
+      "target": "sandaconda",
+      "target_dex_number": 844,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 36,
+      "min_level": 36
+    }
+  ],
+  "sandaconda": [],
+  "cramorant": [],
+  "arrokuda": [
+    {
+      "target": "barraskewda",
+      "target_dex_number": 847,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 26,
+      "min_level": 26
+    }
+  ],
+  "barraskewda": [],
+  "toxel": [
+    {
+      "target": "toxtricity",
+      "target_dex_number": 849,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 30,
+      "min_level": 30
+    }
+  ],
+  "toxtricity": [],
+  "sizzlipede": [
+    {
+      "target": "centiskorch",
+      "target_dex_number": 851,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 28,
+      "min_level": 28
+    }
+  ],
+  "centiskorch": [],
+  "clobbopus": [
+    {
+      "target": "grapploct",
+      "target_dex_number": 853,
+      "method": "known_move",
+      "trigger": "level-up",
+      "known_move": "Taunt",
+      "known_move_id": "taunt"
+    }
+  ],
+  "grapploct": [],
+  "sinistea": [
+    {
+      "target": "polteageist",
+      "target_dex_number": 855,
+      "method": "item",
+      "trigger": "use-item",
+      "item": "Cracked Pot",
+      "item_id": "cracked_pot"
+    }
+  ],
+  "polteageist": [],
+  "hatenna": [
+    {
+      "target": "hattrem",
+      "target_dex_number": 857,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 32,
+      "min_level": 32
+    }
+  ],
+  "hattrem": [
+    {
+      "target": "hatterene",
+      "target_dex_number": 858,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 42,
+      "min_level": 42
+    }
+  ],
+  "hatterene": [],
+  "impidimp": [
+    {
+      "target": "morgrem",
+      "target_dex_number": 860,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 32,
+      "min_level": 32
+    }
+  ],
+  "morgrem": [
+    {
+      "target": "grimmsnarl",
+      "target_dex_number": 861,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 42,
+      "min_level": 42
+    }
+  ],
+  "grimmsnarl": [],
+  "obstagoon": [],
+  "perrserker": [],
+  "cursola": [],
+  "sirfetchd": [],
+  "mr_rime": [],
+  "runerigus": [],
+  "milcery": [
+    {
+      "target": "alcremie",
+      "target_dex_number": 869,
+      "method": "spin",
+      "trigger": "spin"
+    }
+  ],
+  "alcremie": [],
+  "falinks": [],
+  "pincurchin": [],
+  "snom": [
+    {
+      "target": "frosmoth",
+      "target_dex_number": 873,
+      "method": "friendship",
+      "trigger": "level-up",
+      "min_happiness": 160,
+      "time_of_day": "night"
+    }
+  ],
+  "frosmoth": [],
+  "stonjourner": [],
+  "eiscue": [],
+  "indeedee": [],
+  "morpeko": [],
+  "cufant": [
+    {
+      "target": "copperajah",
+      "target_dex_number": 879,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 34,
+      "min_level": 34
+    }
+  ],
+  "copperajah": [],
+  "dracozolt": [],
+  "arctozolt": [],
+  "dracovish": [],
+  "arctovish": [],
+  "duraludon": [
+    {
+      "target": "archaludon",
+      "target_dex_number": 1018,
+      "method": "item",
+      "trigger": "use-item",
+      "item": "Metal Alloy",
+      "item_id": "metal_alloy"
+    }
+  ],
+  "dreepy": [
+    {
+      "target": "drakloak",
+      "target_dex_number": 886,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 50,
+      "min_level": 50
+    }
+  ],
+  "drakloak": [
+    {
+      "target": "dragapult",
+      "target_dex_number": 887,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 60,
+      "min_level": 60
+    }
+  ],
+  "dragapult": [],
+  "zacian": [],
+  "zamazenta": [],
+  "eternatus": [],
+  "kubfu": [
+    {
+      "target": "urshifu",
+      "target_dex_number": 892,
+      "method": "tower-of-darkness",
+      "trigger": "tower-of-darkness"
+    },
+    {
+      "target": "urshifu",
+      "target_dex_number": 892,
+      "method": "tower-of-waters",
+      "trigger": "tower-of-waters"
+    },
+    {
+      "target": "urshifu",
+      "target_dex_number": 892,
+      "method": "item",
+      "trigger": "use-item",
+      "item": "Scroll Of Darkness",
+      "item_id": "scroll_of_darkness"
+    },
+    {
+      "target": "urshifu",
+      "target_dex_number": 892,
+      "method": "item",
+      "trigger": "use-item",
+      "item": "Scroll Of Waters",
+      "item_id": "scroll_of_waters"
+    }
+  ],
+  "urshifu": [],
+  "zarude": [],
+  "regieleki": [],
+  "regidrago": [],
+  "glastrier": [],
+  "spectrier": [],
+  "calyrex": [],
+  "wyrdeer": [],
+  "kleavor": [],
+  "ursaluna": [],
+  "basculegion": [],
+  "sneasler": [],
+  "overqwil": [],
+  "enamorus": []
+}
