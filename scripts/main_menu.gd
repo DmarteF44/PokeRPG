@@ -53,6 +53,8 @@ const TEXT = {
 		"custom_help": "Place your image at user://custom_avatar.png and reload the profile.",
 		"choose_generation": "Choose starter generation",
 		"choose_starter": "Choose starter",
+		"starter_nickname": "Starter nickname",
+		"starter_nickname_placeholder": "Optional nickname",
 		"start_game": "Start Game",
 		"empty_slot": "Empty Slot",
 		"empty_save_slot": "Empty save slot.",
@@ -92,6 +94,8 @@ const TEXT = {
 		"custom_help": "Coloque sua imagem em user://custom_avatar.png e recarregue o perfil.",
 		"choose_generation": "Escolha a geração inicial",
 		"choose_starter": "Escolha o inicial",
+		"starter_nickname": "Apelido do inicial",
+		"starter_nickname_placeholder": "Apelido opcional",
 		"start_game": "Iniciar Jogo",
 		"empty_slot": "Slot Vazio",
 		"empty_save_slot": "Slot de save vazio.",
@@ -127,6 +131,7 @@ var custom_avatar_button: Button
 var generation_buttons: Array = []
 var starter_buttons: Array = []
 var player_name_edit: LineEdit
+var starter_nickname_edit: LineEdit
 var start_game_button: TextureButton
 var load_popup: Control
 
@@ -281,7 +286,7 @@ func _show_new_game() -> void:
 
 	var content := Control.new()
 	content.name = "NewGameContent"
-	content.custom_minimum_size = Vector2(304, 740)
+	content.custom_minimum_size = Vector2(304, 830)
 	scroll.add_child(content)
 
 	_build_new_game_content(content)
@@ -335,6 +340,17 @@ func _build_new_game_content(content: Control) -> void:
 	UI.add_panel_label(content, _text("choose_starter"), Vector2(0, 600), Vector2(296, 28), 17, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "StarterLabel")
 	for i in range(STARTERS.size()):
 		_add_starter_button(content, STARTERS[i], Vector2(float(i) * 102.0, 636.0))
+
+	UI.add_panel_label(content, _text("starter_nickname"), Vector2(0, 736), Vector2(296, 24), 15, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "StarterNicknameLabel")
+	starter_nickname_edit = LineEdit.new()
+	starter_nickname_edit.name = "StarterNickname"
+	starter_nickname_edit.position = Vector2(0, 764)
+	starter_nickname_edit.size = Vector2(296, 40)
+	starter_nickname_edit.placeholder_text = _text("starter_nickname_placeholder")
+	starter_nickname_edit.max_length = 24
+	starter_nickname_edit.add_theme_font_size_override("font_size", 16)
+	starter_nickname_edit.add_theme_color_override("font_color", UI.PANEL_TEXT)
+	content.add_child(starter_nickname_edit)
 
 
 func _add_avatar_button(parent: Control, avatar_id: int, pos: Vector2) -> void:
@@ -518,6 +534,10 @@ func _create_save_and_start() -> void:
 		player_name = _text("player_default")
 
 	var starter_pokemon := PokemonHelpers.starter_save_data(selected_starter_id)
+	var starter_nickname := starter_nickname_edit.text.strip_edges() if starter_nickname_edit != null else ""
+	if starter_nickname != "":
+		starter_pokemon["nickname"] = starter_nickname
+		starter_pokemon["name"] = starter_nickname
 	var save_data := SaveManager.create_save(1, {
 		"player_name": player_name,
 		"avatar_id": selected_avatar_id,
@@ -526,6 +546,7 @@ func _create_save_and_start() -> void:
 		"starter_generation": selected_generation,
 		"starter_id": selected_starter_id,
 		"starter_name": selected_starter_name,
+		"starter_nickname": starter_nickname,
 		"starter_dex_number": selected_starter_dex,
 		"money": 3000,
 		"level": 1,
@@ -536,7 +557,7 @@ func _create_save_and_start() -> void:
 			"town_map": 1,
 		},
 		"team": [starter_pokemon],
-		"seen_pokemon": PokemonHelpers.starter_ids(),
+		"seen_pokemon": [selected_starter_id],
 		"owned_pokemon": [selected_starter_id],
 		"current_scene": "HomeScreen",
 		"current_map": "",

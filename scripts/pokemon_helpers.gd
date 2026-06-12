@@ -12,6 +12,9 @@ const DEFAULT_FRIENDSHIP = 70
 const MAX_MOVE_SLOTS = 4
 const MAX_LEVEL = 100
 const STAT_BOOST_AMOUNT = 5
+const HEALING_LIGHT_SECONDS = 15 * 60
+const HEALING_NORMAL_SECONDS = 30 * 60
+const HEALING_INTENSIVE_SECONDS = 60 * 60
 const STAT_KEYS = ["max_hp", "attack", "defense", "sp_attack", "sp_defense", "speed"]
 const STAT_LIMITS = {
 	"max_hp": 999,
@@ -24,16 +27,16 @@ const STAT_LIMITS = {
 const AnimatedTextureRect = preload("res://scripts/pokemon_animated_texture_rect.gd")
 
 const FALLBACK_MOVES = {
-	"Tackle": {"name": "Tackle", "type": "Normal", "category": "Physical", "power": 40, "accuracy": 100, "pp": 35},
-	"Growl": {"name": "Growl", "type": "Normal", "category": "Status", "power": 0, "accuracy": 100, "pp": 40},
-	"Vine Whip": {"name": "Vine Whip", "type": "Grass", "category": "Physical", "power": 45, "accuracy": 100, "pp": 25},
-	"Leech Seed": {"name": "Leech Seed", "type": "Grass", "category": "Status", "power": 0, "accuracy": 90, "pp": 10},
-	"Scratch": {"name": "Scratch", "type": "Normal", "category": "Physical", "power": 40, "accuracy": 100, "pp": 35},
-	"Ember": {"name": "Ember", "type": "Fire", "category": "Special", "power": 40, "accuracy": 100, "pp": 25},
-	"Smokescreen": {"name": "Smokescreen", "type": "Normal", "category": "Status", "power": 0, "accuracy": 100, "pp": 20},
-	"Tail Whip": {"name": "Tail Whip", "type": "Normal", "category": "Status", "power": 0, "accuracy": 100, "pp": 30},
-	"Water Gun": {"name": "Water Gun", "type": "Water", "category": "Special", "power": 40, "accuracy": 100, "pp": 25},
-	"Bubble": {"name": "Bubble", "type": "Water", "category": "Special", "power": 40, "accuracy": 100, "pp": 30},
+	"Tackle": {"id": "tackle", "name": "Tackle", "type": "Normal", "category": "Physical", "power": 40, "accuracy": 100, "pp": 35, "priority": 0, "target": "enemy", "effects": []},
+	"Growl": {"id": "growl", "name": "Growl", "type": "Normal", "category": "Status", "power": 0, "accuracy": 100, "pp": 40, "priority": 0, "target": "enemy", "effects": [{"type": "modify_stat", "target": "enemy", "stat": "attack", "stages": -1, "chance": 100}]},
+	"Vine Whip": {"id": "vine_whip", "name": "Vine Whip", "type": "Grass", "category": "Physical", "power": 45, "accuracy": 100, "pp": 25, "priority": 0, "target": "enemy", "effects": []},
+	"Leech Seed": {"id": "leech_seed", "name": "Leech Seed", "type": "Grass", "category": "Status", "power": 0, "accuracy": 90, "pp": 10, "priority": 0, "target": "enemy", "effects": [{"type": "drain", "target": "enemy", "timing": "end_turn", "fraction": 0.125, "chance": 100}]},
+	"Scratch": {"id": "scratch", "name": "Scratch", "type": "Normal", "category": "Physical", "power": 40, "accuracy": 100, "pp": 35, "priority": 0, "target": "enemy", "effects": []},
+	"Ember": {"id": "ember", "name": "Ember", "type": "Fire", "category": "Special", "power": 40, "accuracy": 100, "pp": 25, "priority": 0, "target": "enemy", "effects": []},
+	"Smokescreen": {"id": "smokescreen", "name": "Smokescreen", "type": "Normal", "category": "Status", "power": 0, "accuracy": 100, "pp": 20, "priority": 0, "target": "enemy", "effects": [{"type": "modify_stat", "target": "enemy", "stat": "accuracy", "stages": -1, "chance": 100}]},
+	"Tail Whip": {"id": "tail_whip", "name": "Tail Whip", "type": "Normal", "category": "Status", "power": 0, "accuracy": 100, "pp": 30, "priority": 0, "target": "enemy", "effects": [{"type": "modify_stat", "target": "enemy", "stat": "defense", "stages": -1, "chance": 100}]},
+	"Water Gun": {"id": "water_gun", "name": "Water Gun", "type": "Water", "category": "Special", "power": 40, "accuracy": 100, "pp": 25, "priority": 0, "target": "enemy", "effects": []},
+	"Bubble": {"id": "bubble", "name": "Bubble", "type": "Water", "category": "Special", "power": 40, "accuracy": 100, "pp": 30, "priority": 0, "target": "enemy", "effects": []},
 }
 
 const FALLBACK_DEFINITIONS = {
@@ -99,7 +102,8 @@ static func starter_ids() -> Array:
 
 
 static func species_ids() -> Array:
-	return SPECIES_IDS.duplicate()
+	var loaded := _loaded_species_ids()
+	return loaded if not loaded.is_empty() else SPECIES_IDS.duplicate()
 
 
 static func is_starter_id(pokemon_id: String) -> bool:
@@ -164,7 +168,7 @@ static func starter_save_data(pokemon_id: String) -> Dictionary:
 		"xp_to_next_level": xp_to_next_level_for(level),
 		"nature": "Hardy",
 		"ability": str(definition.get("ability", "Blaze")),
-		"gender": "Unknown",
+		"gender": str(definition.get("gender", "Unknown")),
 		"shiny": false,
 		"types": _normalized_types(definition.get("types", ["Fire"])),
 		"hp": int(stats.get("max_hp", base_stats.get("hp", 39))),
@@ -180,14 +184,23 @@ static func starter_save_data(pokemon_id: String) -> Dictionary:
 		"pp_current": pp_max.duplicate(true),
 		"pp_max": pp_max,
 		"friendship": int(definition.get("friendship", DEFAULT_FRIENDSHIP)),
+		"capture_rate": int(definition.get("capture_rate", definition.get("catch_rate", 120))),
+		"catch_rate": int(definition.get("catch_rate", definition.get("capture_rate", 120))),
+		"growth_rate": str(definition.get("growth_rate", "Medium Fast")),
+		"base_experience": int(definition.get("base_experience", definition.get("xp_yield", 0))),
+		"xp_yield": int(definition.get("xp_yield", definition.get("base_experience", 0))),
 		"capture_date": "",
 		"stat_boosts": _empty_stat_boosts(),
-		"starter": true,
+		"healing": false,
+		"healing_finish_timestamp": 0,
+		"starter": is_starter_id(safe_id),
 	}
 
 
 static func normalize_pokemon(value: Dictionary, fallback_id: String = DEFAULT_STARTER_ID) -> Dictionary:
 	var pokemon_id := _species_id_from_value(value, fallback_id)
+	if not has_definition(pokemon_id):
+		return _normalize_generic_pokemon(value, pokemon_id)
 	var definition := get_definition(pokemon_id)
 	var base_stats: Dictionary = definition.get("base_stats", {})
 	var normalized := starter_save_data(pokemon_id)
@@ -213,7 +226,7 @@ static func normalize_pokemon(value: Dictionary, fallback_id: String = DEFAULT_S
 	normalized["xp_to_next_level"] = xp_to_next_level_for(int(normalized["level"]))
 	normalized["nature"] = str(normalized.get("nature", "Hardy"))
 	normalized["ability"] = str(definition.get("ability", normalized.get("ability", "Unknown")))
-	normalized["gender"] = str(normalized.get("gender", "Unknown"))
+	normalized["gender"] = str(normalized.get("gender", definition.get("gender", "Unknown")))
 	normalized["shiny"] = bool(normalized.get("shiny", false))
 	normalized["types"] = _normalized_types(definition.get("types", normalized.get("types", ["Fire"])))
 	normalized["max_hp"] = maxi(1, int(normalized.get("max_hp", base_stats.get("hp", 39))))
@@ -236,6 +249,14 @@ static func normalize_pokemon(value: Dictionary, fallback_id: String = DEFAULT_S
 	normalized["friendship"] = clampi(int(normalized.get("friendship", definition.get("friendship", DEFAULT_FRIENDSHIP))), 0, 255)
 	var capture_date_value = normalized.get("capture_date", "")
 	normalized["capture_date"] = "" if capture_date_value == null else str(capture_date_value)
+	normalized["capture_rate"] = int(normalized.get("capture_rate", definition.get("capture_rate", definition.get("catch_rate", 120))))
+	normalized["catch_rate"] = int(normalized.get("catch_rate", definition.get("catch_rate", normalized["capture_rate"])))
+	normalized["growth_rate"] = str(normalized.get("growth_rate", definition.get("growth_rate", "Medium Fast")))
+	normalized["base_experience"] = int(normalized.get("base_experience", definition.get("base_experience", definition.get("xp_yield", 0))))
+	normalized["xp_yield"] = int(normalized.get("xp_yield", definition.get("xp_yield", normalized["base_experience"])))
+	normalized["healing"] = bool(normalized.get("healing", false))
+	normalized["healing_finish_timestamp"] = maxi(0, int(normalized.get("healing_finish_timestamp", 0)))
+	_complete_healing_if_finished(normalized)
 	normalized["starter"] = bool(normalized.get("starter", false))
 	return normalized
 
@@ -244,6 +265,28 @@ static func moves_for(pokemon_id: String, level: int = -1) -> Array:
 	var definition := get_definition(pokemon_id)
 	var target_level: int = int(definition.get("base_level", 5)) if level < 0 else maxi(1, level)
 	return _moves_for_learnset(definition, target_level)
+
+
+static func available_moves_for(pokemon: Dictionary) -> Array:
+	var pokemon_id := str(pokemon.get("id", DEFAULT_STARTER_ID))
+	var level := int(pokemon.get("level", 1))
+	var definition := get_definition(pokemon_id)
+	var moves := _moves_for_learnset(definition, level, false) if has_definition(pokemon_id) else []
+	var seen := {}
+	for move in moves:
+		if typeof(move) == TYPE_DICTIONARY:
+			seen[str(move.get("name", ""))] = true
+	var current_moves = pokemon.get("moves", [])
+	if typeof(current_moves) == TYPE_ARRAY:
+		for entry in current_moves:
+			var move := _move_from_saved_value(entry)
+			var move_name := str(move.get("name", ""))
+			if move_name != "" and not seen.has(move_name):
+				moves.append(move)
+				seen[move_name] = true
+	if moves.is_empty():
+		moves.append(move_by_name("Tackle"))
+	return moves
 
 
 static func xp_to_next_level_for(level: int) -> int:
@@ -268,6 +311,47 @@ static func stats_for_level(pokemon_id: String, level: int) -> Dictionary:
 
 static func stat_keys() -> Array:
 	return STAT_KEYS.duplicate()
+
+
+static func current_unix_time() -> int:
+	return int(Time.get_unix_time_from_system())
+
+
+static func healing_tier_for(pokemon: Dictionary) -> Dictionary:
+	var normalized := normalize_pokemon(pokemon)
+	var max_hp := maxi(1, int(normalized.get("max_hp", 1)))
+	var hp := clampi(int(normalized.get("hp", max_hp)), 0, max_hp)
+	var status_value = normalized.get("status_condition", null)
+	var has_status := status_value != null and str(status_value) != ""
+	var hp_ratio := float(hp) / float(max_hp)
+	if hp <= 0 or hp_ratio < 0.30:
+		return {"key": "intensive", "seconds": HEALING_INTENSIVE_SECONDS}
+	if hp_ratio <= 0.70 or has_status:
+		return {"key": "normal", "seconds": HEALING_NORMAL_SECONDS}
+	return {"key": "light", "seconds": HEALING_LIGHT_SECONDS}
+
+
+static func start_healing(pokemon: Dictionary) -> Dictionary:
+	var updated := normalize_pokemon(pokemon)
+	var tier := healing_tier_for(updated)
+	updated["healing"] = true
+	updated["healing_finish_timestamp"] = current_unix_time() + int(tier.get("seconds", HEALING_LIGHT_SECONDS))
+	return updated
+
+
+static func is_healing(pokemon: Dictionary) -> bool:
+	var normalized := normalize_pokemon(pokemon)
+	return bool(normalized.get("healing", false)) and healing_remaining_seconds(normalized) > 0
+
+
+static func healing_remaining_seconds(pokemon: Dictionary) -> int:
+	if not bool(pokemon.get("healing", false)):
+		return 0
+	return maxi(0, int(pokemon.get("healing_finish_timestamp", 0)) - current_unix_time())
+
+
+static func complete_healing_if_ready(pokemon: Dictionary) -> Dictionary:
+	return normalize_pokemon(pokemon)
 
 
 static func stat_limit(stat_key: String) -> int:
@@ -431,10 +515,26 @@ static func _textures_from_folder(folder: String) -> Array:
 			if index == 0:
 				return textures
 			break
-		var texture = load(path)
+		var texture := _texture_from_png(path)
 		if texture != null:
 			textures.append(texture)
 	return textures
+
+
+static func _texture_from_png(path: String) -> Texture2D:
+	if path == "" or not FileAccess.file_exists(path):
+		return null
+	if FileAccess.file_exists("%s.import" % path):
+		var imported_texture = load(path)
+		if imported_texture != null:
+			return imported_texture
+	var image := Image.new()
+	var err := image.load(path)
+	if err != OK:
+		err = image.load(ProjectSettings.globalize_path(path))
+	if err != OK:
+		return null
+	return ImageTexture.create_from_image(image)
 
 
 static func _fallback_texture(pokemon: Dictionary) -> Texture2D:
@@ -448,7 +548,9 @@ static func _fallback_texture(pokemon: Dictionary) -> Texture2D:
 	]
 	for path in candidates:
 		if path != "" and FileAccess.file_exists(path):
-			return load(path)
+			var texture := _texture_from_png(path)
+			if texture != null:
+				return texture
 	return null
 
 
@@ -469,6 +571,21 @@ static func _loaded_definitions() -> Dictionary:
 	return definitions
 
 
+static func _loaded_species_ids() -> Array:
+	var definitions := _loaded_definitions()
+	var ids := definitions.keys()
+	ids.sort_custom(func(a, b):
+		var a_definition: Dictionary = definitions.get(str(a), {})
+		var b_definition: Dictionary = definitions.get(str(b), {})
+		var a_dex := int(a_definition.get("dex_number", 999999))
+		var b_dex := int(b_definition.get("dex_number", 999999))
+		if a_dex == b_dex:
+			return str(a) < str(b)
+		return a_dex < b_dex
+	)
+	return ids
+
+
 static func _loaded_moves() -> Dictionary:
 	var moves_database: Dictionary = FALLBACK_MOVES.duplicate(true)
 	if not FileAccess.file_exists(MOVES_PATH):
@@ -485,6 +602,10 @@ static func _loaded_moves() -> Dictionary:
 	return moves_database
 
 
+# Add future moves by editing data/moves.json. If a species can learn the new
+# move, add its display name to data/pokemon_species.json under that species'
+# learnset; the collection move editor and battle PP setup read those JSON
+# records automatically.
 static func _with_asset_paths(definition: Dictionary) -> Dictionary:
 	var manifest := _asset_manifest()
 	var pokemon_id := str(definition.get("id", DEFAULT_STARTER_ID))
@@ -531,6 +652,11 @@ static func _complete_species_definition(definition: Dictionary) -> Dictionary:
 	definition["generation"] = maxi(1, int(definition.get("generation", fallback.get("generation", 1))))
 	definition["types"] = _normalized_types(definition.get("types", fallback.get("types", ["Fire"])))
 	definition["ability"] = str(definition.get("ability", fallback.get("ability", "Unknown")))
+	definition["capture_rate"] = clampi(int(definition.get("capture_rate", definition.get("catch_rate", fallback.get("capture_rate", 120)))), 1, 255)
+	definition["catch_rate"] = clampi(int(definition.get("catch_rate", definition["capture_rate"])), 1, 255)
+	definition["growth_rate"] = str(definition.get("growth_rate", fallback.get("growth_rate", "Medium Fast")))
+	definition["base_experience"] = maxi(0, int(definition.get("base_experience", definition.get("xp_yield", fallback.get("base_experience", 0)))))
+	definition["xp_yield"] = maxi(0, int(definition.get("xp_yield", definition["base_experience"])))
 	definition["base_level"] = maxi(1, int(definition.get("base_level", fallback.get("base_level", 5))))
 	definition["base_stats"] = base_stats
 	definition["hp"] = int(base_stats.get("hp", 39))
@@ -543,8 +669,8 @@ static func _complete_species_definition(definition: Dictionary) -> Dictionary:
 	definition["friendship"] = clampi(int(definition.get("friendship", fallback.get("friendship", DEFAULT_FRIENDSHIP))), 0, 255)
 	definition["learnset"] = learnset
 	definition["evolutions"] = evolutions
-	definition["starter"] = bool(definition.get("starter", true))
-	definition["seen"] = bool(definition.get("seen", true))
+	definition["starter"] = bool(definition.get("starter", is_starter_id(pokemon_id)))
+	definition["seen"] = bool(definition.get("seen", definition["starter"]))
 	definition["owned"] = bool(definition.get("owned", false))
 	return definition
 
@@ -564,7 +690,7 @@ static func _base_stats_from_definition(definition: Dictionary, fallback: Dictio
 	}
 
 
-static func _moves_for_learnset(definition: Dictionary, level: int) -> Array:
+static func _moves_for_learnset(definition: Dictionary, level: int, limit_to_slots: bool = true) -> Array:
 	var learnset_value = definition.get("learnset", {})
 	if typeof(learnset_value) != TYPE_DICTIONARY:
 		return [move_by_name("Tackle")]
@@ -589,8 +715,9 @@ static func _moves_for_learnset(definition: Dictionary, level: int) -> Array:
 				learned_moves.append(move)
 				seen_names[canonical_name] = true
 
-	while learned_moves.size() > MAX_MOVE_SLOTS:
-		learned_moves.pop_front()
+	if limit_to_slots:
+		while learned_moves.size() > MAX_MOVE_SLOTS:
+			learned_moves.pop_front()
 	if learned_moves.is_empty():
 		learned_moves.append(move_by_name("Tackle"))
 	return learned_moves
@@ -641,13 +768,18 @@ static func _move_from_saved_value(value) -> Dictionary:
 
 
 static func _canonical_move(source: Dictionary) -> Dictionary:
+	var effects = source.get("effects", [])
 	return {
+		"id": _safe_id(str(source.get("id", source.get("name", "Tackle")))),
 		"name": str(source.get("name", "Tackle")),
 		"type": str(source.get("type", "Normal")),
 		"category": str(source.get("category", "Physical")),
 		"power": maxi(0, int(source.get("power", 40))),
 		"accuracy": clampi(int(source.get("accuracy", 100)), 0, 100),
 		"pp": maxi(1, int(source.get("pp", 35))),
+		"priority": int(source.get("priority", 0)),
+		"target": str(source.get("target", "enemy")),
+		"effects": effects if typeof(effects) == TYPE_ARRAY else [],
 	}
 
 
@@ -669,6 +801,20 @@ static func _normalized_pp_current(value, pp_max: Array) -> Array:
 	if pp_current.size() > pp_max.size():
 		pp_current.resize(pp_max.size())
 	return pp_current
+
+
+static func _complete_healing_if_finished(pokemon: Dictionary) -> void:
+	if not bool(pokemon.get("healing", false)):
+		pokemon["healing"] = false
+		pokemon["healing_finish_timestamp"] = 0
+		return
+	if int(pokemon.get("healing_finish_timestamp", 0)) > current_unix_time():
+		return
+	pokemon["hp"] = int(pokemon.get("max_hp", 1))
+	pokemon["pp_current"] = pokemon.get("pp_max", []).duplicate(true)
+	pokemon["status_condition"] = null
+	pokemon["healing"] = false
+	pokemon["healing_finish_timestamp"] = 0
 
 
 static func _normalized_types(value) -> Array:
@@ -700,14 +846,84 @@ static func _normalized_stat_boosts(value) -> Dictionary:
 	return boosts
 
 
+static func _normalize_generic_pokemon(value: Dictionary, pokemon_id: String) -> Dictionary:
+	var species := str(value.get("species", value.get("name", "Pokemon")))
+	var nickname := str(value.get("nickname", ""))
+	var name := str(value.get("name", nickname if nickname != "" else species))
+	var level := clampi(int(value.get("level", 1)), 1, MAX_LEVEL)
+	var moves := _normalized_generic_moves(value.get("moves", []))
+	var pp_max := _pp_max_for_moves(moves)
+	var max_hp := maxi(1, int(value.get("max_hp", value.get("hp", 1))))
+	var generic := {
+		"id": _safe_id(pokemon_id) if _safe_id(pokemon_id) != "" else _safe_id(species),
+		"dex_number": int(value.get("dex_number", 0)),
+		"species": species,
+		"nickname": nickname,
+		"name": name,
+		"generation": maxi(1, int(value.get("generation", 1))),
+		"level": level,
+		"xp": maxi(0, int(value.get("xp", 0))),
+		"xp_to_next_level": xp_to_next_level_for(level),
+		"nature": str(value.get("nature", "Hardy")),
+		"ability": str(value.get("ability", "Unknown")),
+		"gender": str(value.get("gender", "Unknown")),
+		"shiny": bool(value.get("shiny", false)),
+		"types": _normalized_types(value.get("types", ["Normal"])),
+		"hp": clampi(int(value.get("hp", max_hp)), 0, max_hp),
+		"max_hp": max_hp,
+		"attack": maxi(1, int(value.get("attack", 1))),
+		"defense": maxi(1, int(value.get("defense", 1))),
+		"sp_attack": maxi(1, int(value.get("sp_attack", value.get("attack", 1)))),
+		"sp_defense": maxi(1, int(value.get("sp_defense", value.get("defense", 1)))),
+		"speed": maxi(1, int(value.get("speed", 1))),
+		"status_condition": null,
+		"held_item": null,
+		"moves": moves,
+		"pp_current": _normalized_pp_current(value.get("pp_current", []), pp_max),
+		"pp_max": pp_max,
+		"friendship": clampi(int(value.get("friendship", DEFAULT_FRIENDSHIP)), 0, 255),
+		"capture_date": "" if value.get("capture_date", "") == null else str(value.get("capture_date", "")),
+		"stat_boosts": _normalized_stat_boosts(value.get("stat_boosts", {})),
+		"healing": bool(value.get("healing", false)),
+		"healing_finish_timestamp": maxi(0, int(value.get("healing_finish_timestamp", 0))),
+		"starter": bool(value.get("starter", false)),
+		"icon_path": str(value.get("icon_path", "")),
+	}
+	var status_value = value.get("status_condition", null)
+	generic["status_condition"] = null if status_value == null or str(status_value) == "" else str(status_value)
+	var held_item_value = value.get("held_item", null)
+	generic["held_item"] = null if held_item_value == null or str(held_item_value) == "" else str(held_item_value)
+	_complete_healing_if_finished(generic)
+	return generic
+
+
+static func _normalized_generic_moves(value) -> Array:
+	var moves := []
+	if typeof(value) == TYPE_ARRAY:
+		for entry in value:
+			var move := _move_from_saved_value(entry)
+			if not move.is_empty():
+				moves.append(move)
+			if moves.size() >= MAX_MOVE_SLOTS:
+				break
+	if moves.is_empty():
+		moves.append(move_by_name("Tackle"))
+	return moves
+
+
 static func _species_id_from_value(value: Dictionary, fallback_id: String) -> String:
 	var raw_id := str(value.get("id", fallback_id))
 	if has_definition(raw_id):
 		return _safe_id(raw_id)
 	var species_name := str(value.get("species", value.get("name", "")))
 	if species_name != "":
-		return id_from_name(species_name)
-	return DEFAULT_STARTER_ID if not has_definition(fallback_id) else _safe_id(fallback_id)
+		var named_id := id_from_name(species_name)
+		if has_definition(named_id):
+			var named_definition := get_definition(named_id)
+			var named_species := str(named_definition.get("species", named_definition.get("name", ""))).to_lower()
+			if named_species == species_name.strip_edges().to_lower():
+				return named_id
+	return _safe_id(raw_id) if _safe_id(raw_id) != "" else (DEFAULT_STARTER_ID if not has_definition(fallback_id) else _safe_id(fallback_id))
 
 
 static func _recalculate_stats(pokemon: Dictionary, old_max_hp_override: int = -1) -> void:

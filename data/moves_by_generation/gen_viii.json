@@ -1,0 +1,3897 @@
+[
+  {
+    "id": "apple_acid",
+    "api_id": 787,
+    "name": "Apple Acid",
+    "type": "Grass",
+    "category": "Special",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "enemy",
+        "stat": "sp_defense",
+        "stages": -1,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Lowers target's Special Defense.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "astral_barrage",
+    "api_id": 825,
+    "name": "Astral Barrage",
+    "type": "Ghost",
+    "category": "Special",
+    "power": 120,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "all-opponents",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "The user attacks by sending a frightful amount of small ghosts at opposing Pok\u00e9mon."
+      }
+    ],
+    "effect_text": "The user attacks by sending a frightful amount of small ghosts at opposing Pok\u00e9mon.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "aura_wheel",
+    "api_id": 783,
+    "name": "Aura Wheel",
+    "type": "Electric",
+    "category": "Physical",
+    "power": 110,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "speed",
+        "stages": 1,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Changes type based on Morpeko's Mode.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "barb_barrage",
+    "api_id": 839,
+    "name": "Barb Barrage",
+    "type": "Poison",
+    "category": "Physical",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "text_effect",
+        "chance": 100,
+        "text": "May poison opponent; inflicts double damage if the target is already poisoned."
+      }
+    ],
+    "effect_text": "May poison opponent; inflicts double damage if the target is already poisoned.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "behemoth_bash",
+    "api_id": 782,
+    "name": "Behemoth Bash",
+    "type": "Steel",
+    "category": "Physical",
+    "power": 100,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Damage doubles if target is Dynamaxed."
+      }
+    ],
+    "effect_text": "Damage doubles if target is Dynamaxed.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "behemoth_blade",
+    "api_id": 781,
+    "name": "Behemoth Blade",
+    "type": "Steel",
+    "category": "Physical",
+    "power": 100,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Damage doubles if target is Dynamaxed."
+      }
+    ],
+    "effect_text": "Damage doubles if target is Dynamaxed.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "bitter_malice",
+    "api_id": 841,
+    "name": "Bitter Malice",
+    "type": "Ghost",
+    "category": "Special",
+    "power": 75,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "text_effect",
+        "chance": 100,
+        "text": "Lowers opponent's Attack."
+      }
+    ],
+    "effect_text": "Lowers opponent's Attack.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "bleakwind_storm",
+    "api_id": 846,
+    "name": "Bleakwind Storm",
+    "type": "Flying",
+    "category": "Special",
+    "power": 100,
+    "accuracy": 80,
+    "pp": 10,
+    "priority": 0,
+    "target": "all-opponents",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "text_effect",
+        "chance": 100,
+        "text": "May lower opponent's Speed."
+      }
+    ],
+    "effect_text": "May lower opponent's Speed.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "body_press",
+    "api_id": 776,
+    "name": "Body Press",
+    "type": "Fighting",
+    "category": "Physical",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "The higher the user's Defense, the stronger the attack."
+      }
+    ],
+    "effect_text": "The higher the user's Defense, the stronger the attack.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "bolt_beak",
+    "api_id": 754,
+    "name": "Bolt Beak",
+    "type": "Electric",
+    "category": "Physical",
+    "power": 85,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "If the user attacks before the target, the power of this move is doubled."
+      }
+    ],
+    "effect_text": "If the user attacks before the target, the power of this move is doubled.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "branch_poke",
+    "api_id": 785,
+    "name": "Branch Poke",
+    "type": "Grass",
+    "category": "Physical",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 40,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [],
+    "effect_text": "Inflicts regular damage with no additional effect.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "breaking_swipe",
+    "api_id": 784,
+    "name": "Breaking Swipe",
+    "type": "Dragon",
+    "category": "Physical",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "all-opponents",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "enemy",
+        "stat": "attack",
+        "stages": -1,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Hits multiple opponents and lowers their attack.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "burning_jealousy",
+    "api_id": 807,
+    "name": "Burning Jealousy",
+    "type": "Fire",
+    "category": "Special",
+    "power": 70,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "all-opponents",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "apply_status",
+        "target": "enemy",
+        "status": "burn",
+        "chance": 100
+      }
+    ],
+    "effect_text": "Hits all opponents, and burns any that have had their stats boosted.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "ceaseless_edge",
+    "api_id": 845,
+    "name": "Ceaseless Edge",
+    "type": "Dark",
+    "category": "Physical",
+    "power": 65,
+    "accuracy": 90,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "text_effect",
+        "chance": 100,
+        "text": "Sets up Spikes."
+      }
+    ],
+    "effect_text": "Sets up Spikes.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "chloroblast",
+    "api_id": 835,
+    "name": "Chloroblast",
+    "type": "Grass",
+    "category": "Special",
+    "power": 150,
+    "accuracy": 95,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "text_effect",
+        "chance": 100,
+        "text": "User receives recoil damage."
+      }
+    ],
+    "effect_text": "User receives recoil damage.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "clangorous_soul",
+    "api_id": 775,
+    "name": "Clangorous Soul",
+    "type": "Dragon",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "user",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "attack",
+        "stages": 1,
+        "chance": 100
+      },
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "defense",
+        "stages": 1,
+        "chance": 100
+      },
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "sp_attack",
+        "stages": 1,
+        "chance": 100
+      },
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "sp_defense",
+        "stages": 1,
+        "chance": 100
+      },
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "speed",
+        "stages": 1,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Raises all user's stats but loses HP.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "coaching",
+    "api_id": 811,
+    "name": "Coaching",
+    "type": "Fighting",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "user-and-allies",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "enemy",
+        "stat": "attack",
+        "stages": 1,
+        "chance": 100
+      },
+      {
+        "type": "modify_stat",
+        "target": "enemy",
+        "stat": "defense",
+        "stages": 1,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Boosts Attack and Defense of a teammate.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "corrosive_gas",
+    "api_id": 810,
+    "name": "Corrosive Gas",
+    "type": "Poison",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 40,
+    "priority": 0,
+    "target": "all-other-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "unique",
+        "chance": 100,
+        "text": "Removes opponent's items."
+      }
+    ],
+    "effect_text": "Removes opponent's items.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "court_change",
+    "api_id": 756,
+    "name": "Court Change",
+    "type": "Normal",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "entire-field",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "field",
+        "category": "unique",
+        "chance": 100,
+        "text": "Swaps the effects on either side of the field."
+      }
+    ],
+    "effect_text": "Swaps the effects on either side of the field.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "decorate",
+    "api_id": 777,
+    "name": "Decorate",
+    "type": "Fairy",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "enemy",
+        "stat": "attack",
+        "stages": 2,
+        "chance": 100
+      },
+      {
+        "type": "modify_stat",
+        "target": "enemy",
+        "stat": "sp_attack",
+        "stages": 2,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Sharply raises target's Attack and Special Attack.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "dire_claw",
+    "api_id": 827,
+    "name": "Dire Claw",
+    "type": "Poison",
+    "category": "Physical",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "text_effect",
+        "chance": 100,
+        "text": "May poison, paralyze or put the opponent to sleep."
+      }
+    ],
+    "effect_text": "May poison, paralyze or put the opponent to sleep.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "dragon_darts",
+    "api_id": 751,
+    "name": "Dragon Darts",
+    "type": "Dragon",
+    "category": "Physical",
+    "power": 50,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "multi_hit",
+        "target": "enemy",
+        "min_hits": 2,
+        "max_hits": 2,
+        "chance": 100
+      }
+    ],
+    "effect_text": "User attacks twice.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "dragon_energy",
+    "api_id": 820,
+    "name": "Dragon Energy",
+    "type": "Dragon",
+    "category": "Special",
+    "power": 150,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "all-opponents",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "The higher the user's HP, the higher the power."
+      }
+    ],
+    "effect_text": "The higher the user's HP, the higher the power.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "drum_beating",
+    "api_id": 778,
+    "name": "Drum Beating",
+    "type": "Grass",
+    "category": "Physical",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "enemy",
+        "stat": "speed",
+        "stages": -1,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Lowers opponent's Speed.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "dual_wingbeat",
+    "api_id": 814,
+    "name": "Dual Wingbeat",
+    "type": "Flying",
+    "category": "Physical",
+    "power": 40,
+    "accuracy": 90,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "multi_hit",
+        "target": "enemy",
+        "min_hits": 2,
+        "max_hits": 2,
+        "chance": 100
+      }
+    ],
+    "effect_text": "The user slams the target with its wings. The target is hit twice in a row.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "dynamax_cannon",
+    "api_id": 744,
+    "name": "Dynamax Cannon",
+    "type": "Dragon",
+    "category": "Special",
+    "power": 100,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Damage doubles if opponent is Dynamaxed."
+      }
+    ],
+    "effect_text": "Damage doubles if opponent is Dynamaxed.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "eerie_spell",
+    "api_id": 826,
+    "name": "Eerie Spell",
+    "type": "Psychic",
+    "category": "Special",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Deals damage and reduces opponent's PP."
+      }
+    ],
+    "effect_text": "Deals damage and reduces opponent's PP.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "esper_wing",
+    "api_id": 840,
+    "name": "Esper Wing",
+    "type": "Psychic",
+    "category": "Special",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "text_effect",
+        "chance": 100,
+        "text": "High critical hit ratio. Raises user's Speed."
+      }
+    ],
+    "effect_text": "High critical hit ratio. Raises user's Speed.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "eternabeam",
+    "api_id": 795,
+    "name": "Eternabeam",
+    "type": "Dragon",
+    "category": "Special",
+    "power": 160,
+    "accuracy": 90,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "User can't move on the next turn."
+      }
+    ],
+    "effect_text": "User can't move on the next turn.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "expanding_force",
+    "api_id": 797,
+    "name": "Expanding Force",
+    "type": "Psychic",
+    "category": "Special",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Increases power and hits all opponents on Psychic Terrain."
+      }
+    ],
+    "effect_text": "Increases power and hits all opponents on Psychic Terrain.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "false_surrender",
+    "api_id": 793,
+    "name": "False Surrender",
+    "type": "Dark",
+    "category": "Physical",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Ignores Accuracy and Evasiveness."
+      }
+    ],
+    "effect_text": "Ignores Accuracy and Evasiveness.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "fiery_wrath",
+    "api_id": 822,
+    "name": "Fiery Wrath",
+    "type": "Dark",
+    "category": "Special",
+    "power": 90,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "all-opponents",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "flinch",
+        "target": "enemy",
+        "chance": 20
+      }
+    ],
+    "effect_text": "May cause flinching.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "fishious_rend",
+    "api_id": 755,
+    "name": "Fishious Rend",
+    "type": "Water",
+    "category": "Physical",
+    "power": 85,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "If the user attacks before the target, the power of this move is doubled."
+      }
+    ],
+    "effect_text": "If the user attacks before the target, the power of this move is doubled.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "flip_turn",
+    "api_id": 812,
+    "name": "Flip Turn",
+    "type": "Water",
+    "category": "Physical",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 20,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "After making its attack, the user rushes back to switch places with a party Pok\u00e9mon in waiting."
+      }
+    ],
+    "effect_text": "After making its attack, the user rushes back to switch places with a party Pok\u00e9mon in waiting.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "freezing_glare",
+    "api_id": 821,
+    "name": "Freezing Glare",
+    "type": "Psychic",
+    "category": "Special",
+    "power": 90,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "apply_status",
+        "target": "enemy",
+        "status": "freeze",
+        "chance": 10
+      }
+    ],
+    "effect_text": "May freeze opponent.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "g_max_befuddle",
+    "name": "G-Max Befuddle",
+    "type": "Bug",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Butterfree-exclusive G-Max Move. Poisons, paralyzes, or puts opponent to sleep."
+      }
+    ],
+    "effect_text": "Butterfree-exclusive G-Max Move. Poisons, paralyzes, or puts opponent to sleep.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_cannonade",
+    "name": "G-Max Cannonade",
+    "type": "Water",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Blastoise-exclusive G-Max Move. Damages non-Water types for 4 turns."
+      }
+    ],
+    "effect_text": "Blastoise-exclusive G-Max Move. Damages non-Water types for 4 turns.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_centiferno",
+    "name": "G-Max Centiferno",
+    "type": "Fire",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Centiskorch-exclusive G-Max Move. Traps opponents for 4-5 turns."
+      }
+    ],
+    "effect_text": "Centiskorch-exclusive G-Max Move. Traps opponents for 4-5 turns.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_chi_strike",
+    "name": "G-Max Chi Strike",
+    "type": "Fighting",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Machamp-exclusive G-Max Move. Increases critical hit ratio."
+      }
+    ],
+    "effect_text": "Machamp-exclusive G-Max Move. Increases critical hit ratio.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_cuddle",
+    "name": "G-Max Cuddle",
+    "type": "Normal",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Eevee-exclusive G-Max Move. Infatuates opponents."
+      }
+    ],
+    "effect_text": "Eevee-exclusive G-Max Move. Infatuates opponents.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_depletion",
+    "name": "G-Max Depletion",
+    "type": "Dragon",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Duraludon-exclusive G-Max Move. Reduces opponent's PP."
+      }
+    ],
+    "effect_text": "Duraludon-exclusive G-Max Move. Reduces opponent's PP.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_drum_solo",
+    "name": "G-Max Drum Solo",
+    "type": "Grass",
+    "category": "Variable",
+    "power": 160,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Rillaboom-exclusive G-Max Move. Ignores target's ability."
+      }
+    ],
+    "effect_text": "Rillaboom-exclusive G-Max Move. Ignores target's ability.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_finale",
+    "name": "G-Max Finale",
+    "type": "Fairy",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Alcremie-exclusive G-Max Move. Heals the user's team."
+      }
+    ],
+    "effect_text": "Alcremie-exclusive G-Max Move. Heals the user's team.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_fireball",
+    "name": "G-Max Fireball",
+    "type": "Fire",
+    "category": "Variable",
+    "power": 160,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Cinderace-exclusive G-Max Move. Ignores target's ability."
+      }
+    ],
+    "effect_text": "Cinderace-exclusive G-Max Move. Ignores target's ability.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_foam_burst",
+    "name": "G-Max Foam Burst",
+    "type": "Water",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Kingler-exclusive G-Max Move. Harshly lowers opponents' Speed."
+      }
+    ],
+    "effect_text": "Kingler-exclusive G-Max Move. Harshly lowers opponents' Speed.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_gold_rush",
+    "name": "G-Max Gold Rush",
+    "type": "Normal",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Meowth-exclusive G-Max Move. Confuses opponents and earns more money."
+      }
+    ],
+    "effect_text": "Meowth-exclusive G-Max Move. Confuses opponents and earns more money.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_gravitas",
+    "name": "G-Max Gravitas",
+    "type": "Psychic",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Orbeetle-exclusive G-Max Move. Summons Gravity for 5 turns."
+      }
+    ],
+    "effect_text": "Orbeetle-exclusive G-Max Move. Summons Gravity for 5 turns.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_hydrosnipe",
+    "name": "G-Max Hydrosnipe",
+    "type": "Water",
+    "category": "Variable",
+    "power": 160,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Inteleon-exclusive G-Max Move. Ignores target's ability."
+      }
+    ],
+    "effect_text": "Inteleon-exclusive G-Max Move. Ignores target's ability.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_malodor",
+    "name": "G-Max Malodor",
+    "type": "Poison",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Garbodor-exclusive G-Max Move. Poisons opponents."
+      }
+    ],
+    "effect_text": "Garbodor-exclusive G-Max Move. Poisons opponents.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_meltdown",
+    "name": "G-Max Meltdown",
+    "type": "Steel",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Melmetal-exclusive G-Max Move. Prevents opponents using the same move twice in a row."
+      }
+    ],
+    "effect_text": "Melmetal-exclusive G-Max Move. Prevents opponents using the same move twice in a row.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_one_blow",
+    "name": "G-Max One Blow",
+    "type": "Dark",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Urshifu Single-Strike Style-exclusive G-Max Move. Strikes through Max Guard and Protect."
+      }
+    ],
+    "effect_text": "Urshifu Single-Strike Style-exclusive G-Max Move. Strikes through Max Guard and Protect.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_rapid_flow",
+    "name": "G-Max Rapid Flow",
+    "type": "Water",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Urshifu Rapid-Strike Style-exclusive G-Max Move. Strikes through Max Guard and Protect."
+      }
+    ],
+    "effect_text": "Urshifu Rapid-Strike Style-exclusive G-Max Move. Strikes through Max Guard and Protect.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_replenish",
+    "name": "G-Max Replenish",
+    "type": "Normal",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Snorlax-exclusive G-Max Move. Recycles Berries."
+      }
+    ],
+    "effect_text": "Snorlax-exclusive G-Max Move. Recycles Berries.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_resonance",
+    "name": "G-Max Resonance",
+    "type": "Ice",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Lapras-exclusive G-Max Move. Reduces damage for 5 turns."
+      }
+    ],
+    "effect_text": "Lapras-exclusive G-Max Move. Reduces damage for 5 turns.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_sandblast",
+    "name": "G-Max Sandblast",
+    "type": "Ground",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Sandaconda-exclusive G-Max Move. Traps opponents for 4-5 turns."
+      }
+    ],
+    "effect_text": "Sandaconda-exclusive G-Max Move. Traps opponents for 4-5 turns.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_smite",
+    "name": "G-Max Smite",
+    "type": "Fairy",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Hatterene-exclusive G-Max Move. Confuses opponents."
+      }
+    ],
+    "effect_text": "Hatterene-exclusive G-Max Move. Confuses opponents.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_snooze",
+    "name": "G-Max Snooze",
+    "type": "Dark",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Grimmsnarl-exclusive G-Max Move. Makes opponents drowsy."
+      }
+    ],
+    "effect_text": "Grimmsnarl-exclusive G-Max Move. Makes opponents drowsy.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_steelsurge",
+    "name": "G-Max Steelsurge",
+    "type": "Steel",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Copperajah-exclusive G-Max Move. Sets up Spikes on the field."
+      }
+    ],
+    "effect_text": "Copperajah-exclusive G-Max Move. Sets up Spikes on the field.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_stonesurge",
+    "name": "G-Max Stonesurge",
+    "type": "Water",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Drednaw-exclusive G-Max Move. Sets up Stealth Rock."
+      }
+    ],
+    "effect_text": "Drednaw-exclusive G-Max Move. Sets up Stealth Rock.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_stun_shock",
+    "name": "G-Max Stun Shock",
+    "type": "Electric",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Toxtricity-exclusive G-Max Move. Poisons or paralyzes opponents."
+      }
+    ],
+    "effect_text": "Toxtricity-exclusive G-Max Move. Poisons or paralyzes opponents.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_sweetness",
+    "name": "G-Max Sweetness",
+    "type": "Grass",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Appletun-exclusive G-Max Move. Heals status conditions of user's team."
+      }
+    ],
+    "effect_text": "Appletun-exclusive G-Max Move. Heals status conditions of user's team.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_tartness",
+    "name": "G-Max Tartness",
+    "type": "Grass",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Flapple-exclusive G-Max Move. Reduces opponents' evasiveness."
+      }
+    ],
+    "effect_text": "Flapple-exclusive G-Max Move. Reduces opponents' evasiveness.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_terror",
+    "name": "G-Max Terror",
+    "type": "Ghost",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Gengar-exclusive G-Max Move. Prevents opponent from switching out."
+      }
+    ],
+    "effect_text": "Gengar-exclusive G-Max Move. Prevents opponent from switching out.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_vine_lash",
+    "name": "G-Max Vine Lash",
+    "type": "Grass",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Venusaur-exclusive G-Max Move. Damages non-Grass types for 4 turns."
+      }
+    ],
+    "effect_text": "Venusaur-exclusive G-Max Move. Damages non-Grass types for 4 turns.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_volcalith",
+    "name": "G-Max Volcalith",
+    "type": "Rock",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Coalossal-exclusive G-Max Move. Deals damage for 4 turns."
+      }
+    ],
+    "effect_text": "Coalossal-exclusive G-Max Move. Deals damage for 4 turns.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_volt_crash",
+    "name": "G-Max Volt Crash",
+    "type": "Electric",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Pikachu-exclusive G-Max Move. Paralyzes opponents."
+      }
+    ],
+    "effect_text": "Pikachu-exclusive G-Max Move. Paralyzes opponents.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_wildfire",
+    "name": "G-Max Wildfire",
+    "type": "Fire",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Charizard-exclusive G-Max Move. Damages non-Fire types for 4 turns."
+      }
+    ],
+    "effect_text": "Charizard-exclusive G-Max Move. Damages non-Fire types for 4 turns.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "g_max_wind_rage",
+    "name": "G-Max Wind Rage",
+    "type": "Flying",
+    "category": "Variable",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "g_max",
+        "chance": 100,
+        "text": "Corviknight-exclusive G-Max Move. Removes battlefield hazards."
+      }
+    ],
+    "effect_text": "Corviknight-exclusive G-Max Move. Removes battlefield hazards.",
+    "sources": [
+      "pokemondb"
+    ],
+    "variable_power": true,
+    "always_hits": true
+  },
+  {
+    "id": "glacial_lance",
+    "api_id": 824,
+    "name": "Glacial Lance",
+    "type": "Ice",
+    "category": "Physical",
+    "power": 120,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "all-opponents",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "The user attacks by hurling a blizzard-cloaked icicle lance at opposing Pok\u00e9mon."
+      }
+    ],
+    "effect_text": "The user attacks by hurling a blizzard-cloaked icicle lance at opposing Pok\u00e9mon.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "grassy_glide",
+    "api_id": 803,
+    "name": "Grassy Glide",
+    "type": "Grass",
+    "category": "Physical",
+    "power": 55,
+    "accuracy": 100,
+    "pp": 20,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "High priority during Grassy Terrain."
+      }
+    ],
+    "effect_text": "High priority during Grassy Terrain.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "grav_apple",
+    "api_id": 788,
+    "name": "Grav Apple",
+    "type": "Grass",
+    "category": "Physical",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "enemy",
+        "stat": "defense",
+        "stages": -1,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Lowers the opponent's Defense stat.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "headlong_rush",
+    "api_id": 838,
+    "name": "Headlong Rush",
+    "type": "Ground",
+    "category": "Physical",
+    "power": 120,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "text_effect",
+        "chance": 100,
+        "text": "Lowers user's Defense."
+      }
+    ],
+    "effect_text": "Lowers user's Defense.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "infernal_parade",
+    "api_id": 844,
+    "name": "Infernal Parade",
+    "type": "Ghost",
+    "category": "Special",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "text_effect",
+        "chance": 100,
+        "text": "Inflicts double damage if the target has a status condition."
+      }
+    ],
+    "effect_text": "Inflicts double damage if the target has a status condition.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "jaw_lock",
+    "api_id": 746,
+    "name": "Jaw Lock",
+    "type": "Dark",
+    "category": "Physical",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Prevents user and opponent from switching out."
+      }
+    ],
+    "effect_text": "Prevents user and opponent from switching out.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "jungle_healing",
+    "api_id": 816,
+    "name": "Jungle Healing",
+    "type": "Grass",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "user-and-allies",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "heal",
+        "target": "self",
+        "fraction": 0.25,
+        "chance": 100
+      },
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "unique",
+        "chance": 100,
+        "text": "Restores team's HP and cures status conditions."
+      }
+    ],
+    "effect_text": "Restores team's HP and cures status conditions.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "lash_out",
+    "api_id": 808,
+    "name": "Lash Out",
+    "type": "Dark",
+    "category": "Physical",
+    "power": 75,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Double power if stats were lowered during the turn."
+      }
+    ],
+    "effect_text": "Double power if stats were lowered during the turn.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "life_dew",
+    "api_id": 791,
+    "name": "Life Dew",
+    "type": "Water",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "user-and-allies",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "heal",
+        "target": "self",
+        "fraction": 0.25,
+        "chance": 100
+      }
+    ],
+    "effect_text": "User and teammates recover HP.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "lunar_blessing",
+    "api_id": 849,
+    "name": "Lunar Blessing",
+    "type": "Psychic",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "all-allies",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "ally",
+        "category": "text_effect",
+        "chance": 100,
+        "text": "Heals user's status conditions and recovers HP."
+      }
+    ],
+    "effect_text": "Heals user's status conditions and recovers HP.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "magic_powder",
+    "api_id": 750,
+    "name": "Magic Powder",
+    "type": "Psychic",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "unique",
+        "chance": 100,
+        "text": "Changes target's type to Psychic."
+      }
+    ],
+    "effect_text": "Changes target's type to Psychic.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "max_airstream",
+    "api_id": 766,
+    "name": "Max Airstream",
+    "type": "Flying",
+    "category": "Physical",
+    "power": 10,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon-me-first",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Flying type Dynamax move. Raises the team's Speed."
+      }
+    ],
+    "effect_text": "Flying type Dynamax move. Raises the team's Speed.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "max_darkness",
+    "api_id": 772,
+    "name": "Max Darkness",
+    "type": "Dark",
+    "category": "Physical",
+    "power": 10,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon-me-first",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Dark type Dynamax move. Lowers the target's Special Defense."
+      }
+    ],
+    "effect_text": "Dark type Dynamax move. Lowers the target's Special Defense.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "max_flare",
+    "api_id": 757,
+    "name": "Max Flare",
+    "type": "Fire",
+    "category": "Physical",
+    "power": 100,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon-me-first",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Fire type Dynamax move. Summons harsh sunlight."
+      }
+    ],
+    "effect_text": "Fire type Dynamax move. Summons harsh sunlight.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "max_flutterby",
+    "api_id": 758,
+    "name": "Max Flutterby",
+    "type": "Bug",
+    "category": "Physical",
+    "power": 10,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon-me-first",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Bug type Dynamax move. Lowers the target's Special Attack."
+      }
+    ],
+    "effect_text": "Bug type Dynamax move. Lowers the target's Special Attack.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "max_geyser",
+    "api_id": 765,
+    "name": "Max Geyser",
+    "type": "Water",
+    "category": "Physical",
+    "power": 10,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon-me-first",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Water type Dynamax move. Summons heavy rain."
+      }
+    ],
+    "effect_text": "Water type Dynamax move. Summons heavy rain.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "max_guard",
+    "api_id": 743,
+    "name": "Max Guard",
+    "type": "Normal",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 4,
+    "target": "user",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "self",
+        "category": "unique",
+        "chance": 100,
+        "text": "Status category Dynamax move. Protects the user."
+      }
+    ],
+    "effect_text": "Status category Dynamax move. Protects the user.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "max_hailstorm",
+    "api_id": 763,
+    "name": "Max Hailstorm",
+    "type": "Ice",
+    "category": "Physical",
+    "power": 10,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon-me-first",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Ice type Dynamax move. Summons hail."
+      }
+    ],
+    "effect_text": "Ice type Dynamax move. Summons hail.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "max_knuckle",
+    "api_id": 761,
+    "name": "Max Knuckle",
+    "type": "Fighting",
+    "category": "Physical",
+    "power": 10,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon-me-first",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Fighting type Dynamax move. Increases the team's Attack."
+      }
+    ],
+    "effect_text": "Fighting type Dynamax move. Increases the team's Attack.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "max_lightning",
+    "api_id": 759,
+    "name": "Max Lightning",
+    "type": "Electric",
+    "category": "Physical",
+    "power": 10,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon-me-first",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Electric type Dynamax move. Summons Electric Terrain."
+      }
+    ],
+    "effect_text": "Electric type Dynamax move. Summons Electric Terrain.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "max_mindstorm",
+    "api_id": 769,
+    "name": "Max Mindstorm",
+    "type": "Psychic",
+    "category": "Physical",
+    "power": 10,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon-me-first",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Psychic type Dynamax move. Summons Psychic Terrain."
+      }
+    ],
+    "effect_text": "Psychic type Dynamax move. Summons Psychic Terrain.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "max_ooze",
+    "api_id": 764,
+    "name": "Max Ooze",
+    "type": "Poison",
+    "category": "Physical",
+    "power": 10,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon-me-first",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Poison type Dynamax move. Increases the team's Special Attack."
+      }
+    ],
+    "effect_text": "Poison type Dynamax move. Increases the team's Special Attack.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "max_overgrowth",
+    "api_id": 773,
+    "name": "Max Overgrowth",
+    "type": "Grass",
+    "category": "Physical",
+    "power": 10,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon-me-first",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Grass type Dynamax move. Summons Grassy Terrain."
+      }
+    ],
+    "effect_text": "Grass type Dynamax move. Summons Grassy Terrain.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "max_phantasm",
+    "api_id": 762,
+    "name": "Max Phantasm",
+    "type": "Ghost",
+    "category": "Physical",
+    "power": 10,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon-me-first",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Ghost type Dynamax move. Lowers the target's Defense."
+      }
+    ],
+    "effect_text": "Ghost type Dynamax move. Lowers the target's Defense.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "max_quake",
+    "api_id": 771,
+    "name": "Max Quake",
+    "type": "Ground",
+    "category": "Physical",
+    "power": 10,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon-me-first",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Ground type Dynamax move. Increases the team's Special Defense."
+      }
+    ],
+    "effect_text": "Ground type Dynamax move. Increases the team's Special Defense.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "max_rockfall",
+    "api_id": 770,
+    "name": "Max Rockfall",
+    "type": "Rock",
+    "category": "Physical",
+    "power": 10,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon-me-first",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Rock type Dynamax move. Summons a sandstorm."
+      }
+    ],
+    "effect_text": "Rock type Dynamax move. Summons a sandstorm.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "max_starfall",
+    "api_id": 767,
+    "name": "Max Starfall",
+    "type": "Fairy",
+    "category": "Physical",
+    "power": 10,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon-me-first",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Fairy type Dynamax move. Summons Misty Terrain."
+      }
+    ],
+    "effect_text": "Fairy type Dynamax move. Summons Misty Terrain.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "max_steelspike",
+    "api_id": 774,
+    "name": "Max Steelspike",
+    "type": "Steel",
+    "category": "Physical",
+    "power": 10,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon-me-first",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Steel type Dynamax move. Raises the team's Defense."
+      }
+    ],
+    "effect_text": "Steel type Dynamax move. Raises the team's Defense.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "max_strike",
+    "api_id": 760,
+    "name": "Max Strike",
+    "type": "Normal",
+    "category": "Physical",
+    "power": 10,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon-me-first",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Normal type Dynamax move. Lowers the target's Speed."
+      }
+    ],
+    "effect_text": "Normal type Dynamax move. Lowers the target's Speed.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "max_wyrmwind",
+    "api_id": 768,
+    "name": "Max Wyrmwind",
+    "type": "Dragon",
+    "category": "Physical",
+    "power": 10,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon-me-first",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Dragon type Dynamax move. Lowers the target's Attack."
+      }
+    ],
+    "effect_text": "Dragon type Dynamax move. Lowers the target's Attack.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "meteor_assault",
+    "api_id": 794,
+    "name": "Meteor Assault",
+    "type": "Fighting",
+    "category": "Physical",
+    "power": 150,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "User must recharge next turn."
+      }
+    ],
+    "effect_text": "User must recharge next turn.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "meteor_beam",
+    "api_id": 800,
+    "name": "Meteor Beam",
+    "type": "Rock",
+    "category": "Special",
+    "power": 120,
+    "accuracy": 90,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "User gathers space power and boosts its Sp. Atk stat, then attacks the target on the next turn."
+      }
+    ],
+    "effect_text": "User gathers space power and boosts its Sp. Atk stat, then attacks the target on the next turn.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "misty_explosion",
+    "api_id": 802,
+    "name": "Misty Explosion",
+    "type": "Fairy",
+    "category": "Special",
+    "power": 100,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "all-other-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Power increases on Misty Terrain."
+      }
+    ],
+    "effect_text": "Power increases on Misty Terrain.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "mountain_gale",
+    "api_id": 836,
+    "name": "Mountain Gale",
+    "type": "Ice",
+    "category": "Physical",
+    "power": 100,
+    "accuracy": 85,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "text_effect",
+        "chance": 100,
+        "text": "Lowers user's Speed."
+      }
+    ],
+    "effect_text": "Lowers user's Speed.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "mystical_power",
+    "api_id": 832,
+    "name": "Mystical Power",
+    "type": "Psychic",
+    "category": "Special",
+    "power": 70,
+    "accuracy": 90,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "text_effect",
+        "chance": 100,
+        "text": "Raises user's Special Attack."
+      }
+    ],
+    "effect_text": "Raises user's Special Attack.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "no_retreat",
+    "api_id": 748,
+    "name": "No Retreat",
+    "type": "Fighting",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "user",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "attack",
+        "stages": 1,
+        "chance": 100
+      },
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "defense",
+        "stages": 1,
+        "chance": 100
+      },
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "sp_attack",
+        "stages": 1,
+        "chance": 100
+      },
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "sp_defense",
+        "stages": 1,
+        "chance": 100
+      },
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "speed",
+        "stages": 1,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Raises all stats but user cannot switch out.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "obstruct",
+    "api_id": 792,
+    "name": "Obstruct",
+    "type": "Dark",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 4,
+    "target": "user",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "self",
+        "category": "unique",
+        "chance": 100,
+        "text": "Protects the user and sharply lowers Defence on contact."
+      }
+    ],
+    "effect_text": "Protects the user and sharply lowers Defence on contact.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "octolock",
+    "api_id": 753,
+    "name": "Octolock",
+    "type": "Fighting",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "unique",
+        "chance": 100,
+        "text": "Lowers opponent's Defense and Special Defense every turn, and they cannot flee or switch out."
+      }
+    ],
+    "effect_text": "Lowers opponent's Defense and Special Defense every turn, and they cannot flee or switch out.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "overdrive",
+    "api_id": 786,
+    "name": "Overdrive",
+    "type": "Electric",
+    "category": "Special",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "all-opponents",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Hits all adjacent opponents."
+      }
+    ],
+    "effect_text": "Hits all adjacent opponents.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "poltergeist",
+    "api_id": 809,
+    "name": "Poltergeist",
+    "type": "Ghost",
+    "category": "Physical",
+    "power": 110,
+    "accuracy": 90,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Fails if the target doesn't have an item."
+      }
+    ],
+    "effect_text": "Fails if the target doesn't have an item.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "power_shift",
+    "api_id": 829,
+    "name": "Power Shift",
+    "type": "Normal",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "user",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "self",
+        "category": "text_effect",
+        "chance": 100,
+        "text": "Switches Attack and Defense stats."
+      }
+    ],
+    "effect_text": "Switches Attack and Defense stats.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "psyshield_bash",
+    "api_id": 828,
+    "name": "Psyshield Bash",
+    "type": "Psychic",
+    "category": "Physical",
+    "power": 70,
+    "accuracy": 90,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "text_effect",
+        "chance": 100,
+        "text": "Raises user's Defense and Special Defense."
+      }
+    ],
+    "effect_text": "Raises user's Defense and Special Defense.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "pyro_ball",
+    "api_id": 780,
+    "name": "Pyro Ball",
+    "type": "Fire",
+    "category": "Physical",
+    "power": 120,
+    "accuracy": 90,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "apply_status",
+        "target": "enemy",
+        "status": "burn",
+        "chance": 10
+      }
+    ],
+    "effect_text": "May burn opponent.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "raging_fury",
+    "api_id": 833,
+    "name": "Raging Fury",
+    "type": "Fire",
+    "category": "Physical",
+    "power": 120,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "random-opponent",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "text_effect",
+        "chance": 100,
+        "text": "User attacks for 2-3 turns but then becomes confused."
+      }
+    ],
+    "effect_text": "User attacks for 2-3 turns but then becomes confused.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "rising_voltage",
+    "api_id": 804,
+    "name": "Rising Voltage",
+    "type": "Electric",
+    "category": "Special",
+    "power": 70,
+    "accuracy": 100,
+    "pp": 20,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Power doubles on Electric Terrain."
+      }
+    ],
+    "effect_text": "Power doubles on Electric Terrain.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "sandsear_storm",
+    "api_id": 848,
+    "name": "Sandsear Storm",
+    "type": "Ground",
+    "category": "Special",
+    "power": 100,
+    "accuracy": 80,
+    "pp": 10,
+    "priority": 0,
+    "target": "all-opponents",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "text_effect",
+        "chance": 100,
+        "text": "May burn target."
+      }
+    ],
+    "effect_text": "May burn target.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "scale_shot",
+    "api_id": 799,
+    "name": "Scale Shot",
+    "type": "Dragon",
+    "category": "Physical",
+    "power": 25,
+    "accuracy": 90,
+    "pp": 20,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "multi_hit",
+        "target": "enemy",
+        "min_hits": 2,
+        "max_hits": 5,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Hits 2-5 times in one turn. Boosts user's Speed but lowers its Defense.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "scorching_sands",
+    "api_id": 815,
+    "name": "Scorching Sands",
+    "type": "Ground",
+    "category": "Special",
+    "power": 70,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "apply_status",
+        "target": "enemy",
+        "status": "burn",
+        "chance": 30
+      }
+    ],
+    "effect_text": "May burn the target.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "shell_side_arm",
+    "api_id": 801,
+    "name": "Shell Side Arm",
+    "type": "Poison",
+    "category": "Special",
+    "power": 90,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "apply_status",
+        "target": "enemy",
+        "status": "poison",
+        "chance": 20
+      }
+    ],
+    "effect_text": "May poison opponent. Inflicts either Special or Physical damage, whichever is better.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "shelter",
+    "api_id": 842,
+    "name": "Shelter",
+    "type": "Steel",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "user",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "self",
+        "category": "text_effect",
+        "chance": 100,
+        "text": "Raises user's Defense."
+      }
+    ],
+    "effect_text": "Raises user's Defense.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "skitter_smack",
+    "api_id": 806,
+    "name": "Skitter Smack",
+    "type": "Bug",
+    "category": "Physical",
+    "power": 70,
+    "accuracy": 90,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "enemy",
+        "stat": "sp_attack",
+        "stages": -1,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Lowers opponent's Sp. Attack.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "snap_trap",
+    "api_id": 779,
+    "name": "Snap Trap",
+    "type": "Grass",
+    "category": "Physical",
+    "power": 35,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "apply_status",
+        "target": "enemy",
+        "status": "trap",
+        "chance": 100
+      },
+      {
+        "type": "multi_turn",
+        "target": "enemy",
+        "min_turns": 5,
+        "max_turns": 6,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Traps opponent, damaging them for 4-5 turns.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "snipe_shot",
+    "api_id": 745,
+    "name": "Snipe Shot",
+    "type": "Water",
+    "category": "Special",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "critical_modifier",
+        "target": "self",
+        "stages": 1,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Ignores moves and abilities that draw in moves. High critical hit ratio.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "spirit_break",
+    "api_id": 789,
+    "name": "Spirit Break",
+    "type": "Fairy",
+    "category": "Physical",
+    "power": 75,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "enemy",
+        "stat": "sp_attack",
+        "stages": -1,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Lowers opponent's Special Attack.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "springtide_storm",
+    "api_id": 831,
+    "name": "Springtide Storm",
+    "type": "Fairy",
+    "category": "Special",
+    "power": 100,
+    "accuracy": 80,
+    "pp": 5,
+    "priority": 0,
+    "target": "all-opponents",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "text_effect",
+        "chance": 100,
+        "text": "Boosts user's stats in Incarnate Forme, or lowers opponent's stats in Therian Forme."
+      }
+    ],
+    "effect_text": "Boosts user's stats in Incarnate Forme, or lowers opponent's stats in Therian Forme.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "steel_beam",
+    "api_id": 796,
+    "name": "Steel Beam",
+    "type": "Steel",
+    "category": "Special",
+    "power": 140,
+    "accuracy": 95,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "User loses 50% of its HP."
+      }
+    ],
+    "effect_text": "User loses 50% of its HP.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "steel_roller",
+    "api_id": 798,
+    "name": "Steel Roller",
+    "type": "Steel",
+    "category": "Physical",
+    "power": 130,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Fails if no Terrain in effect."
+      }
+    ],
+    "effect_text": "Fails if no Terrain in effect.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "stone_axe",
+    "api_id": 830,
+    "name": "Stone Axe",
+    "type": "Rock",
+    "category": "Physical",
+    "power": 65,
+    "accuracy": 90,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "text_effect",
+        "chance": 100,
+        "text": "Sets up Stealth Rock."
+      }
+    ],
+    "effect_text": "Sets up Stealth Rock.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "strange_steam",
+    "api_id": 790,
+    "name": "Strange Steam",
+    "type": "Fairy",
+    "category": "Special",
+    "power": 90,
+    "accuracy": 95,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "apply_status",
+        "target": "enemy",
+        "status": "confusion",
+        "chance": 20
+      },
+      {
+        "type": "multi_turn",
+        "target": "enemy",
+        "min_turns": 2,
+        "max_turns": 5,
+        "chance": 100
+      }
+    ],
+    "effect_text": "May confuse opponent.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "stuff_cheeks",
+    "api_id": 747,
+    "name": "Stuff Cheeks",
+    "type": "Normal",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "user",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "defense",
+        "stages": 2,
+        "chance": 100
+      }
+    ],
+    "effect_text": "The user eats its held Berry, then sharply raises its Defense stat.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "surging_strikes",
+    "api_id": 818,
+    "name": "Surging Strikes",
+    "type": "Water",
+    "category": "Physical",
+    "power": 25,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "multi_hit",
+        "target": "enemy",
+        "min_hits": 3,
+        "max_hits": 3,
+        "chance": 100
+      },
+      {
+        "type": "critical_modifier",
+        "target": "self",
+        "stages": 6,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Always results in a critical hit and ignores stat changes.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "take_heart",
+    "api_id": 850,
+    "name": "Take Heart",
+    "type": "Psychic",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "all-allies",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "ally",
+        "category": "text_effect",
+        "chance": 100,
+        "text": "Heals user's status conditions and raises its stats."
+      }
+    ],
+    "effect_text": "Heals user's status conditions and raises its stats.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "tar_shot",
+    "api_id": 749,
+    "name": "Tar Shot",
+    "type": "Rock",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "enemy",
+        "stat": "speed",
+        "stages": -1,
+        "chance": 100
+      },
+      {
+        "type": "apply_status",
+        "target": "enemy",
+        "status": "tar-shot",
+        "chance": 100
+      }
+    ],
+    "effect_text": "Lowers the opponent's Speed and makes them weaker to Fire-type moves.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "teatime",
+    "api_id": 752,
+    "name": "Teatime",
+    "type": "Normal",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "all-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "field",
+        "category": "unique",
+        "chance": 100,
+        "text": "Forces all Pok\u00e9mon on the field to eat their berries."
+      }
+    ],
+    "effect_text": "Forces all Pok\u00e9mon on the field to eat their berries.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "terrain_pulse",
+    "api_id": 805,
+    "name": "Terrain Pulse",
+    "type": "Normal",
+    "category": "Special",
+    "power": 50,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Type and power change depending on the Terrain in effect."
+      }
+    ],
+    "effect_text": "Type and power change depending on the Terrain in effect.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "thunder_cage",
+    "api_id": 819,
+    "name": "Thunder Cage",
+    "type": "Electric",
+    "category": "Special",
+    "power": 80,
+    "accuracy": 90,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "apply_status",
+        "target": "enemy",
+        "status": "trap",
+        "chance": 100
+      },
+      {
+        "type": "multi_turn",
+        "target": "enemy",
+        "min_turns": 5,
+        "max_turns": 6,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Deals damage and traps opponent, damaging them for 4-5 turns.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "thunderous_kick",
+    "api_id": 823,
+    "name": "Thunderous Kick",
+    "type": "Fighting",
+    "category": "Physical",
+    "power": 90,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "enemy",
+        "stat": "defense",
+        "stages": -1,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Lowers opponent's Defense.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "triple_arrows",
+    "api_id": 843,
+    "name": "Triple Arrows",
+    "type": "Fighting",
+    "category": "Physical",
+    "power": 90,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "text_effect",
+        "chance": 100,
+        "text": "High critical hit ratio. May lower opponent's Defense or cause them to flinch."
+      }
+    ],
+    "effect_text": "High critical hit ratio. May lower opponent's Defense or cause them to flinch.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "triple_axel",
+    "api_id": 813,
+    "name": "Triple Axel",
+    "type": "Ice",
+    "category": "Physical",
+    "power": 20,
+    "accuracy": 90,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "multi_hit",
+        "target": "enemy",
+        "min_hits": 3,
+        "max_hits": 3,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Attacks thrice with more power each time.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "victory_dance",
+    "api_id": 837,
+    "name": "Victory Dance",
+    "type": "Fighting",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "user",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "self",
+        "category": "text_effect",
+        "chance": 100,
+        "text": "Raises Attack and Defense."
+      }
+    ],
+    "effect_text": "Raises Attack and Defense.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "wave_crash",
+    "api_id": 834,
+    "name": "Wave Crash",
+    "type": "Water",
+    "category": "Physical",
+    "power": 120,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "text_effect",
+        "chance": 100,
+        "text": "User receives recoil damage."
+      }
+    ],
+    "effect_text": "User receives recoil damage.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "wicked_blow",
+    "api_id": 817,
+    "name": "Wicked Blow",
+    "type": "Dark",
+    "category": "Physical",
+    "power": 75,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "critical_modifier",
+        "target": "self",
+        "stages": 6,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Always results in a critical hit and ignores stat changes.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "wildbolt_storm",
+    "api_id": 847,
+    "name": "Wildbolt Storm",
+    "type": "Electric",
+    "category": "Special",
+    "power": 100,
+    "accuracy": 80,
+    "pp": 10,
+    "priority": 0,
+    "target": "all-opponents",
+    "generation": "gen_viii",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "text_effect",
+        "chance": 100,
+        "text": "May paralyze target."
+      }
+    ],
+    "effect_text": "May paralyze target.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  }
+]
