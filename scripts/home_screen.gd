@@ -1695,7 +1695,9 @@ func _add_empty_team_slot(parent: Control, slot: int, y: float, slot_height: flo
 
 func _add_pokedex_entry(parent: Control, pokemon_id: String, index: int) -> void:
 	var definition := PokemonHelpers.get_definition(pokemon_id)
-	var known := _seen_pokemon_ids().has(pokemon_id) or _owned_pokemon_ids().has(pokemon_id)
+	var seen := _seen_pokemon_ids().has(pokemon_id)
+	var owned := _owned_pokemon_ids().has(pokemon_id)
+	var registered := seen or owned
 	var panel := Panel.new()
 	panel.name = "%sDex" % str(definition.get("name", "Pokemon"))
 	panel.position = Vector2(0, float(index) * 168.0)
@@ -1704,17 +1706,17 @@ func _add_pokedex_entry(parent: Control, pokemon_id: String, index: int) -> void
 	UI.style_panel_button(panel, Color(0.86, 0.92, 0.96), Color(0.34, 0.50, 0.62), 2)
 
 	var dex_number := int(definition.get("dex_number", 0))
-	var pokemon_name := str(definition.get("name", "Pokemon")) if known else "????"
-	if known:
+	var pokemon_name := str(definition.get("name", "Pokemon")) if registered else "????"
+	if registered:
 		PokemonHelpers.add_animated_sprite(panel, definition, Vector2(12, 18), Vector2(58, 58), false, "DexSprite")
 	else:
 		_add_placeholder_icon(panel, Vector2(18, 22), Vector2(46, 46), "?")
 	var name_label := UI.add_panel_label(panel, "#%03d %s" % [dex_number, pokemon_name], Vector2(84, 12), Vector2(190, 22), 16, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Name")
 	_fit_label(name_label, false)
-	var type_text := _pokemon_types_text(definition) if known else "???"
+	var type_text := _pokemon_types_text(definition) if owned else "???"
 	var info_label := UI.add_panel_label(panel, "%s: %s\n%s: %s" % [_text("type"), type_text, _text("status"), _pokedex_status(pokemon_id)], Vector2(84, 38), Vector2(190, 42), 11, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Info")
 	_fit_label(info_label, true)
-	var description_label := UI.add_panel_label(panel, _pokemon_description(definition) if known else _text("unknown"), Vector2(12, 84), Vector2(272, 62), 10, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Description")
+	var description_label := UI.add_panel_label(panel, _pokemon_description(definition) if owned else _text("unknown"), Vector2(12, 84), Vector2(272, 62), 10, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Description")
 	_fit_label(description_label, true)
 
 
