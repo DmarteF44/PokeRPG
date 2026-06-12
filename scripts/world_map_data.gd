@@ -9,6 +9,9 @@ const RARE_WEIGHT = 4.0
 const VERY_RARE_WEIGHT = 1.0
 const DEFAULT_NOTHING_CHANCE = 25.0
 const DEFAULT_ITEM_CHANCE = 20.0
+const MAP_ENCOUNTERS_PATH = "res://data/map_encounters.json"
+
+static var _map_encounters_cache := {}
 
 static func _map_definitions() -> Array:
 	return [
@@ -22,7 +25,7 @@ static func _map_definitions() -> Array:
 		"min_badges": 0,
 		"nothing_chance": DEFAULT_NOTHING_CHANCE,
 		"item_table": _forest_item_table(),
-		"encounters": _forest_encounters(),
+		"encounters": _encounters_for_map("forest", _forest_encounters()),
 	},
 	{
 		"key": "fire",
@@ -34,7 +37,7 @@ static func _map_definitions() -> Array:
 		"min_badges": 0,
 		"nothing_chance": DEFAULT_NOTHING_CHANCE,
 		"item_table": _fire_item_table(),
-		"encounters": _fire_encounters(),
+		"encounters": _encounters_for_map("fire", _fire_encounters()),
 	},
 	{
 		"key": "cave",
@@ -46,7 +49,7 @@ static func _map_definitions() -> Array:
 		"min_badges": 1,
 		"nothing_chance": DEFAULT_NOTHING_CHANCE,
 		"item_table": _default_item_table(),
-		"encounters": _cave_encounters(),
+		"encounters": _encounters_for_map("cave", _cave_encounters()),
 	},
 	{
 		"key": "ice",
@@ -58,7 +61,7 @@ static func _map_definitions() -> Array:
 		"min_badges": 2,
 		"nothing_chance": DEFAULT_NOTHING_CHANCE,
 		"item_table": _default_item_table(),
-		"encounters": _ice_encounters(),
+		"encounters": _encounters_for_map("ice", _ice_encounters()),
 	},
 	{
 		"key": "factory",
@@ -70,7 +73,7 @@ static func _map_definitions() -> Array:
 		"min_badges": 2,
 		"nothing_chance": DEFAULT_NOTHING_CHANCE,
 		"item_table": _default_item_table(),
-		"encounters": _factory_encounters(),
+		"encounters": _encounters_for_map("factory", _factory_encounters()),
 	},
 	{
 		"key": "water",
@@ -82,7 +85,7 @@ static func _map_definitions() -> Array:
 		"min_badges": 3,
 		"nothing_chance": DEFAULT_NOTHING_CHANCE,
 		"item_table": _water_item_table(),
-		"encounters": _water_encounters(),
+		"encounters": _encounters_for_map("water", _water_encounters()),
 	},
 	{
 		"key": "electric",
@@ -94,7 +97,7 @@ static func _map_definitions() -> Array:
 		"min_badges": 4,
 		"nothing_chance": DEFAULT_NOTHING_CHANCE,
 		"item_table": _default_item_table(),
-		"encounters": _electric_encounters(),
+		"encounters": _encounters_for_map("electric", _electric_encounters()),
 	},
 	{
 		"key": "desert",
@@ -106,7 +109,7 @@ static func _map_definitions() -> Array:
 		"min_badges": 5,
 		"nothing_chance": DEFAULT_NOTHING_CHANCE,
 		"item_table": _default_item_table(),
-		"encounters": _desert_encounters(),
+		"encounters": _encounters_for_map("desert", _desert_encounters()),
 	},
 	{
 		"key": "ghost",
@@ -118,7 +121,7 @@ static func _map_definitions() -> Array:
 		"min_badges": 6,
 		"nothing_chance": DEFAULT_NOTHING_CHANCE,
 		"item_table": _default_item_table(),
-		"encounters": _ghost_encounters(),
+		"encounters": _encounters_for_map("ghost", _ghost_encounters()),
 	},
 	{
 		"key": "dragon",
@@ -130,7 +133,7 @@ static func _map_definitions() -> Array:
 		"min_badges": 7,
 		"nothing_chance": DEFAULT_NOTHING_CHANCE,
 		"item_table": _default_item_table(),
-		"encounters": _dragon_encounters(),
+		"encounters": _encounters_for_map("dragon", _dragon_encounters()),
 	},
 	{
 		"key": "safari",
@@ -142,7 +145,7 @@ static func _map_definitions() -> Array:
 		"min_badges": 8,
 		"nothing_chance": DEFAULT_NOTHING_CHANCE,
 		"item_table": _default_item_table(),
-		"encounters": _safari_encounters(),
+		"encounters": _encounters_for_map("safari", _safari_encounters()),
 	},
 ]
 
@@ -198,6 +201,10 @@ static func _roll_pokemon_encounter(map_data: Dictionary) -> Dictionary:
 	var entry := _roll_weighted_entry(table)
 	if entry.is_empty() or str(entry.get("rarity", "")) == "none":
 		return {}
+	if entry.has("pokemon_id"):
+		var pokemon_id := str(entry.get("pokemon_id", ""))
+		if pokemon_id != "" and PokemonHelpers.has_definition(pokemon_id):
+			return _starter_pokemon(pokemon_id, maxi(1, int(entry.get("level", 5))))
 	var pokemon = entry.get("pokemon", {})
 	if typeof(pokemon) == TYPE_DICTIONARY:
 		return _complete_pokemon_model(pokemon)
@@ -220,6 +227,41 @@ static func _roll_weighted_entry(table: Array) -> Dictionary:
 		if roll <= 0.0:
 			return entry
 	return {}
+
+
+static func _encounters_for_map(map_key: String, fallback: Array) -> Array:
+	var all_tables := _loaded_map_encounters()
+	var rows_value = all_tables.get(map_key, [])
+	if typeof(rows_value) != TYPE_ARRAY:
+		return fallback
+	var rows: Array = rows_value
+	var encounters := []
+	for row in rows:
+		if typeof(row) != TYPE_DICTIONARY:
+			continue
+		var pokemon_id := str(row.get("pokemon_id", row.get("id", "")))
+		if pokemon_id == "" or not PokemonHelpers.has_definition(pokemon_id):
+			continue
+		encounters.append({
+			"rarity": str(row.get("rarity", "common")),
+			"weight": maxf(0.0, float(row.get("weight", COMMON_WEIGHT))),
+			"pokemon_id": pokemon_id,
+			"level": maxi(1, int(row.get("level", 5))),
+		})
+	return encounters if not encounters.is_empty() else fallback
+
+
+static func _loaded_map_encounters() -> Dictionary:
+	if not _map_encounters_cache.is_empty():
+		return _map_encounters_cache
+	if not FileAccess.file_exists(MAP_ENCOUNTERS_PATH):
+		return {}
+	var file := FileAccess.open(MAP_ENCOUNTERS_PATH, FileAccess.READ)
+	if file == null:
+		return {}
+	var parsed = JSON.parse_string(file.get_as_text())
+	_map_encounters_cache = parsed if typeof(parsed) == TYPE_DICTIONARY else {}
+	return _map_encounters_cache
 
 
 static func _forest_encounters() -> Array:
