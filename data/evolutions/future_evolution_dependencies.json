@@ -1,0 +1,82 @@
+{
+  "primeape": [
+    {
+      "target": "annihilape",
+      "target_dex_number": 979,
+      "method": "use-move",
+      "trigger": "use-move",
+      "reason": "target_outside_supported_dex",
+      "implemented": false
+    }
+  ],
+  "wooper": [
+    {
+      "target": "clodsire",
+      "target_dex_number": 980,
+      "method": "level",
+      "trigger": "level-up",
+      "level": 20,
+      "min_level": 20,
+      "reason": "target_outside_supported_dex",
+      "implemented": false
+    }
+  ],
+  "girafarig": [
+    {
+      "target": "farigiraf",
+      "target_dex_number": 981,
+      "method": "known_move",
+      "trigger": "level-up",
+      "known_move": "Twin Beam",
+      "known_move_id": "twin_beam",
+      "reason": "target_outside_supported_dex",
+      "implemented": false
+    }
+  ],
+  "dunsparce": [
+    {
+      "target": "dudunsparce",
+      "target_dex_number": 982,
+      "method": "known_move",
+      "trigger": "level-up",
+      "known_move": "Hyper Drill",
+      "known_move_id": "hyper_drill",
+      "reason": "target_outside_supported_dex",
+      "implemented": false
+    }
+  ],
+  "bisharp": [
+    {
+      "target": "kingambit",
+      "target_dex_number": 983,
+      "method": "three-defeated-bisharp",
+      "trigger": "three-defeated-bisharp",
+      "reason": "target_outside_supported_dex",
+      "implemented": false
+    }
+  ],
+  "applin": [
+    {
+      "target": "dipplin",
+      "target_dex_number": 1011,
+      "method": "item",
+      "trigger": "use-item",
+      "item": "Syrupy Apple",
+      "item_id": "syrupy_apple",
+      "reason": "target_outside_supported_dex",
+      "implemented": false
+    }
+  ],
+  "duraludon": [
+    {
+      "target": "archaludon",
+      "target_dex_number": 1018,
+      "method": "item",
+      "trigger": "use-item",
+      "item": "Metal Alloy",
+      "item_id": "metal_alloy",
+      "reason": "target_outside_supported_dex",
+      "implemented": false
+    }
+  ]
+}

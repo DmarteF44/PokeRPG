@@ -4238,14 +4238,6 @@
         "trigger": "level-up",
         "level": 20,
         "min_level": 20
-      },
-      {
-        "target": "clodsire",
-        "target_dex_number": 980,
-        "method": "level",
-        "trigger": "level-up",
-        "level": 20,
-        "min_level": 20
       }
     ],
     "evolves_from": "",
@@ -4259,7 +4251,19 @@
     "icon_path": "",
     "front_gif_source": "",
     "back_gif_source": "",
-    "has_animation": false
+    "has_animation": false,
+    "future_evolution_dependencies": [
+      {
+        "target": "clodsire",
+        "target_dex_number": 980,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 20,
+        "min_level": 20,
+        "reason": "target_outside_supported_dex",
+        "implemented": false
+      }
+    ]
   },
   {
     "id": "quagsire",
@@ -4985,16 +4989,7 @@
     },
     "learnset_source_version_group": "ultra-sun-ultra-moon",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "farigiraf",
-        "target_dex_number": 981,
-        "method": "known_move",
-        "trigger": "level-up",
-        "known_move": "Twin Beam",
-        "known_move_id": "twin_beam"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "",
     "description_en": "The head on its tail contains a small brain. It can instinctively fight even while facing backward.",
     "description_pt": "The head on its tail contains a small brain. It can instinctively fight even while facing backward.",
@@ -5006,7 +5001,19 @@
     "icon_path": "",
     "front_gif_source": "",
     "back_gif_source": "",
-    "has_animation": false
+    "has_animation": false,
+    "future_evolution_dependencies": [
+      {
+        "target": "farigiraf",
+        "target_dex_number": 981,
+        "method": "known_move",
+        "trigger": "level-up",
+        "known_move": "Twin Beam",
+        "known_move_id": "twin_beam",
+        "reason": "target_outside_supported_dex",
+        "implemented": false
+      }
+    ]
   },
   {
     "id": "pineco",
@@ -5310,16 +5317,7 @@
     },
     "learnset_source_version_group": "sword-shield",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "dudunsparce",
-        "target_dex_number": 982,
-        "method": "known_move",
-        "trigger": "level-up",
-        "known_move": "Hyper Drill",
-        "known_move_id": "hyper_drill"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "",
     "description_en": "It digs into the ground with its tail and makes a mazelike nest. It can fly just a little.",
     "description_pt": "It digs into the ground with its tail and makes a mazelike nest. It can fly just a little.",
@@ -5331,7 +5329,19 @@
     "icon_path": "",
     "front_gif_source": "",
     "back_gif_source": "",
-    "has_animation": false
+    "has_animation": false,
+    "future_evolution_dependencies": [
+      {
+        "target": "dudunsparce",
+        "target_dex_number": 982,
+        "method": "known_move",
+        "trigger": "level-up",
+        "known_move": "Hyper Drill",
+        "known_move_id": "hyper_drill",
+        "reason": "target_outside_supported_dex",
+        "implemented": false
+      }
+    ]
   },
   {
     "id": "gligar",

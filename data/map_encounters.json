@@ -844,7 +844,7 @@
       ],
       "rarity": "uncommon",
       "weight": 20,
-      "level": 6
+      "level": 8
     },
     {
       "pokemon_id": "pineco",
@@ -881,7 +881,7 @@
       ],
       "rarity": "uncommon",
       "weight": 20,
-      "level": 6
+      "level": 8
     },
     {
       "pokemon_id": "scizor",
@@ -4449,9 +4449,9 @@
       "types": [
         "Fighting"
       ],
-      "rarity": "uncommon",
-      "weight": 20,
-      "level": 15
+      "rarity": "rare",
+      "weight": 4,
+      "level": 22
     },
     {
       "pokemon_id": "machop",
@@ -5763,7 +5763,7 @@
       ],
       "rarity": "rare",
       "weight": 4,
-      "level": 22
+      "level": 26
     },
     {
       "pokemon_id": "vullaby",
@@ -8184,7 +8184,7 @@
       ],
       "rarity": "rare",
       "weight": 4,
-      "level": 30
+      "level": 34
     },
     {
       "pokemon_id": "durant",
@@ -8771,7 +8771,7 @@
       ],
       "rarity": "rare",
       "weight": 4,
-      "level": 29
+      "level": 31
     },
     {
       "pokemon_id": "eternatus",
@@ -13846,7 +13846,7 @@
       ],
       "rarity": "rare",
       "weight": 4,
-      "level": 39
+      "level": 43
     },
     {
       "pokemon_id": "vullaby",
@@ -15188,7 +15188,7 @@
       ],
       "rarity": "rare",
       "weight": 4,
-      "level": 44
+      "level": 46
     },
     {
       "pokemon_id": "dreepy",
@@ -16346,7 +16346,7 @@
       ],
       "rarity": "uncommon",
       "weight": 20,
-      "level": 38
+      "level": 40
     },
     {
       "pokemon_id": "pineco",
@@ -16370,7 +16370,7 @@
       ],
       "rarity": "uncommon",
       "weight": 20,
-      "level": 38
+      "level": 40
     },
     {
       "pokemon_id": "snubbull",

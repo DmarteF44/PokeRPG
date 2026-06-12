@@ -13,6 +13,7 @@ const GENERATION_FILES = {
 	8: "res://data/pokemon/gen8/pokemon.json",
 }
 const MOVES_PATH = "res://data/moves.json"
+const ABILITIES_PATH = "res://data/abilities/abilities.json"
 const MANIFEST_PATH = "res://data/pokemon_assets_manifest.json"
 const SPECIES_IDS = ["bulbasaur", "ivysaur", "venusaur", "charmander", "charmeleon", "charizard", "squirtle", "wartortle", "blastoise"]
 const STARTER_IDS = ["bulbasaur", "charmander", "squirtle"]
@@ -41,6 +42,7 @@ static var _species_index_cache := {}
 static var _generation_definitions_cache := {}
 static var _legacy_definitions_cache := {}
 static var _moves_cache := {}
+static var _abilities_cache := {}
 static var _asset_manifest_cache := {}
 
 const FALLBACK_MOVES = {
@@ -121,6 +123,21 @@ static func starter_ids() -> Array:
 static func species_ids() -> Array:
 	var loaded := _loaded_species_ids()
 	return loaded if not loaded.is_empty() else SPECIES_IDS.duplicate()
+
+
+static func species_index_entry(pokemon_id: String) -> Dictionary:
+	var safe_id := _safe_id(pokemon_id)
+	var index := _loaded_species_index()
+	if index.has(safe_id):
+		return index[safe_id].duplicate(true)
+	var definition := get_definition(safe_id)
+	return {
+		"id": str(definition.get("id", safe_id)),
+		"dex_number": int(definition.get("dex_number", 0)),
+		"name": str(definition.get("name", definition.get("species", safe_id))),
+		"generation": int(definition.get("generation", 1)),
+		"file": "",
+	}
 
 
 static func is_starter_id(pokemon_id: String) -> bool:
@@ -506,6 +523,29 @@ static func evolution_target_for_item(pokemon: Dictionary, item_id: String) -> S
 	return evolution_target_for_context(pokemon, {"method": "item", "item_id": item_id})
 
 
+static func ability_by_name(ability_name: String) -> Dictionary:
+	var safe_id := _safe_id(ability_name)
+	var abilities := _loaded_abilities()
+	if abilities.has(safe_id):
+		return abilities[safe_id].duplicate(true)
+	return {
+		"id": safe_id,
+		"name": ability_name if ability_name != "" else "Unknown",
+		"description": "",
+		"triggers": [],
+		"effects": [{
+			"type": "future_dependency",
+			"target": "ability",
+			"implemented": false,
+			"description": "",
+		}],
+	}
+
+
+static func ability_for(pokemon: Dictionary) -> Dictionary:
+	return ability_by_name(str(pokemon.get("ability", "")))
+
+
 static func move_by_name(move_name: String) -> Dictionary:
 	var moves_database := _loaded_moves()
 	if moves_database.has(move_name):
@@ -750,6 +790,51 @@ static func _loaded_moves() -> Dictionary:
 	return moves_database
 
 
+static func _loaded_abilities() -> Dictionary:
+	if not _abilities_cache.is_empty():
+		return _abilities_cache
+	var abilities := {}
+	if not FileAccess.file_exists(ABILITIES_PATH):
+		_abilities_cache = abilities
+		return abilities
+	var file := FileAccess.open(ABILITIES_PATH, FileAccess.READ)
+	if file == null:
+		_abilities_cache = abilities
+		return abilities
+	var parsed = JSON.parse_string(file.get_as_text())
+	if typeof(parsed) == TYPE_ARRAY:
+		for entry in parsed:
+			if typeof(entry) == TYPE_DICTIONARY:
+				var ability := _canonical_ability(entry)
+				var ability_id := _safe_id(str(ability.get("id", ability.get("name", ""))))
+				if ability_id != "":
+					abilities[ability_id] = ability
+					abilities[_safe_id(str(ability.get("name", ability_id)))] = ability
+	_abilities_cache = abilities
+	return abilities
+
+
+static func _canonical_ability(source: Dictionary) -> Dictionary:
+	var effects = source.get("effects", [])
+	var triggers = source.get("triggers", [])
+	var description := str(source.get("description", source.get("effect_text", "")))
+	if typeof(effects) != TYPE_ARRAY or effects.is_empty():
+		effects = [{
+			"type": "future_dependency",
+			"target": "ability",
+			"implemented": false,
+			"description": description,
+		}]
+	return {
+		"id": _safe_id(str(source.get("id", source.get("name", "")))),
+		"name": str(source.get("name", "Unknown")),
+		"generation": maxi(1, int(source.get("generation", 1))),
+		"description": description,
+		"triggers": triggers if typeof(triggers) == TYPE_ARRAY else [],
+		"effects": effects,
+	}
+
+
 # Add future moves by editing data/moves.json. If a species can learn the new
 # move, add its display name to that species' learnset in data/pokemon/gen*/
 # pokemon.json, then regenerate data/pokemon_species.json for compatibility.
@@ -813,11 +898,20 @@ static func _complete_species_definition(definition: Dictionary) -> Dictionary:
 	definition["generation"] = maxi(1, int(definition.get("generation", fallback.get("generation", 1))))
 	definition["types"] = _normalized_types(definition.get("types", fallback.get("types", ["Fire"])))
 	definition["ability"] = str(definition.get("ability", fallback.get("ability", "Unknown")))
+	var abilities_value = definition.get("abilities", [])
+	definition["abilities"] = abilities_value if typeof(abilities_value) == TYPE_ARRAY else [definition["ability"]]
+	definition["hidden_ability"] = str(definition.get("hidden_ability", definition.get("hiddenAbility", "")))
+	definition["gender"] = str(definition.get("gender", fallback.get("gender", "Unknown")))
+	definition["gender_rate"] = int(definition.get("gender_rate", fallback.get("gender_rate", -1)))
 	definition["capture_rate"] = clampi(int(definition.get("capture_rate", definition.get("catch_rate", fallback.get("capture_rate", 120)))), 1, 255)
 	definition["catch_rate"] = clampi(int(definition.get("catch_rate", definition["capture_rate"])), 1, 255)
 	definition["growth_rate"] = str(definition.get("growth_rate", fallback.get("growth_rate", "Medium Fast")))
 	definition["base_experience"] = maxi(0, int(definition.get("base_experience", definition.get("xp_yield", fallback.get("base_experience", 0)))))
 	definition["xp_yield"] = maxi(0, int(definition.get("xp_yield", definition["base_experience"])))
+	definition["weight"] = maxi(0, int(definition.get("weight", fallback.get("weight", 0))))
+	definition["height"] = maxi(0, int(definition.get("height", fallback.get("height", 0))))
+	var egg_groups_value = definition.get("egg_groups", [])
+	definition["egg_groups"] = egg_groups_value if typeof(egg_groups_value) == TYPE_ARRAY else []
 	definition["base_level"] = maxi(1, int(definition.get("base_level", fallback.get("base_level", 5))))
 	definition["base_stats"] = base_stats
 	definition["hp"] = int(base_stats.get("hp", 39))
@@ -1103,17 +1197,29 @@ static func _recalculate_stats(pokemon: Dictionary, old_max_hp_override: int = -
 
 
 static func _evolution_target_for_level(pokemon: Dictionary) -> String:
-	return evolution_target_for_context(pokemon, {"method": "level"})
+	return evolution_target_for_context(pokemon, {
+		"method": "level_up",
+		"trigger": "level-up",
+		"time_of_day": _current_time_of_day(),
+	})
 
 
 static func _evolution_matches_context(pokemon: Dictionary, entry: Dictionary, context: Dictionary) -> bool:
 	var entry_method := _safe_id(str(entry.get("method", entry.get("trigger", ""))))
 	var context_method := _safe_id(str(context.get("method", "")))
+	var entry_trigger := _safe_id(str(entry.get("trigger", "")))
+	var context_trigger := _safe_id(str(context.get("trigger", "")))
+	if context_trigger != "" and entry_trigger != context_trigger:
+		return false
 	if context_method != "":
-		var normalized_context_method := "stone" if context_method == "item" and _safe_id(str(entry.get("method", ""))) == "stone" else context_method
-		if entry_method != normalized_context_method and _safe_id(str(entry.get("trigger", ""))) != normalized_context_method:
-			if not (context_method == "item" and entry_method == "stone"):
+		if context_method == "level_up" or context_method == "level":
+			if entry_trigger != "level_up" and not ["level", "friendship", "time", "known_move", "location", "affection"].has(entry_method):
 				return false
+		elif context_method == "item":
+			if entry_trigger != "use_item" and not ["item", "stone"].has(entry_method):
+				return false
+		elif entry_method != context_method and entry_trigger != context_method:
+			return false
 
 	var min_level := int(entry.get("min_level", entry.get("level", 0)))
 	if min_level > 0 and int(pokemon.get("level", 1)) < min_level:
@@ -1123,13 +1229,21 @@ static func _evolution_matches_context(pokemon: Dictionary, entry: Dictionary, c
 	if min_happiness > 0 and int(pokemon.get("friendship", 0)) < min_happiness:
 		return false
 
-	for key in ["item_id", "held_item_id", "location_id", "known_move_id", "party_species", "trade_species"]:
-		var expected := _safe_id(str(entry.get(key, "")))
-		if expected == "":
-			continue
-		var actual := _safe_id(str(context.get(key, context.get(key.replace("_id", ""), ""))))
-		if actual != expected:
-			return false
+	var min_affection := int(entry.get("min_affection", 0))
+	if min_affection > 0 and int(context.get("affection", context.get("min_affection", 0))) < min_affection:
+		return false
+
+	var min_beauty := int(entry.get("min_beauty", 0))
+	if min_beauty > 0 and int(context.get("beauty", context.get("min_beauty", 0))) < min_beauty:
+		return false
+
+	var expected_item := _safe_id(str(entry.get("item_id", entry.get("item", ""))))
+	if expected_item != "" and expected_item != _safe_id(str(context.get("item_id", context.get("item", "")))):
+		return false
+
+	var expected_location := _safe_id(str(entry.get("location_id", entry.get("location", ""))))
+	if expected_location != "" and expected_location != _safe_id(str(context.get("location_id", context.get("location", "")))):
+		return false
 
 	var expected_gender := _safe_id(str(entry.get("gender", "")))
 	if expected_gender != "" and expected_gender != _safe_id(str(pokemon.get("gender", context.get("gender", "")))):
@@ -1139,16 +1253,70 @@ static func _evolution_matches_context(pokemon: Dictionary, entry: Dictionary, c
 	if expected_time != "" and expected_time != _safe_id(str(context.get("time_of_day", ""))):
 		return false
 
-	var expected_move := _safe_id(str(entry.get("known_move", "")))
-	if expected_move != "" and not _pokemon_knows_move(pokemon, expected_move):
+	var expected_move := _safe_id(str(entry.get("known_move_id", entry.get("known_move", ""))))
+	var context_move := _safe_id(str(context.get("known_move_id", context.get("known_move", ""))))
+	if expected_move != "" and context_move != expected_move and not _pokemon_knows_move(pokemon, expected_move):
 		return false
 
-	var held_item := _safe_id(str(entry.get("held_item", "")))
-	if held_item != "" and held_item != _safe_id(str(pokemon.get("held_item", context.get("held_item", "")))):
+	var expected_move_type := _safe_id(str(entry.get("known_move_type", "")))
+	if expected_move_type != "" and not _pokemon_knows_move_type(pokemon, expected_move_type):
+		return false
+
+	var held_item := _safe_id(str(entry.get("held_item_id", entry.get("held_item", ""))))
+	var actual_held := _safe_id(str(context.get("held_item_id", context.get("held_item", pokemon.get("held_item", "")))))
+	if held_item != "" and held_item != actual_held:
+		return false
+
+	var expected_party_species := _safe_id(str(entry.get("party_species", "")))
+	if expected_party_species != "" and not _context_list_has(context, "party_species", expected_party_species):
+		return false
+
+	var expected_trade_species := _safe_id(str(entry.get("trade_species", "")))
+	if expected_trade_species != "" and expected_trade_species != _safe_id(str(context.get("trade_species", ""))):
+		return false
+
+	var expected_party_type := _safe_id(str(entry.get("party_type", "")))
+	if expected_party_type != "" and not _context_list_has(context, "party_types", expected_party_type):
+		return false
+
+	if entry.has("relative_physical_stats"):
+		var relation := int(entry.get("relative_physical_stats", 0))
+		var attack := int(pokemon.get("attack", 0))
+		var defense := int(pokemon.get("defense", 0))
+		if relation < 0 and attack >= defense:
+			return false
+		if relation == 0 and attack != defense:
+			return false
+		if relation > 0 and attack <= defense:
+			return false
+
+	for flag in ["needs_overworld_rain", "turn_upside_down"]:
+		if bool(entry.get(flag, false)) and not bool(context.get(flag, false)):
+			return false
+
+	var special_methods := ["use_move", "three_critical_hits", "strong_style_move", "agile_style_move", "shed", "recoil_damage", "take_damage", "three_defeated_bisharp", "spin", "tower_of_darkness", "tower_of_waters"]
+	if special_methods.has(entry_method) and context_method != entry_method:
 		return false
 
 	var target_id := _safe_id(str(entry.get("target", "")))
 	return target_id != "" and has_definition(target_id)
+
+
+static func _current_time_of_day() -> String:
+	var hour := int(Time.get_datetime_dict_from_system().get("hour", 12))
+	if hour >= 5 and hour < 18:
+		return "day"
+	return "night"
+
+
+static func _context_list_has(context: Dictionary, key: String, expected: String) -> bool:
+	var value = context.get(key, [])
+	if typeof(value) == TYPE_ARRAY:
+		for entry in value:
+			if _safe_id(str(entry)) == expected:
+				return true
+		return false
+	return _safe_id(str(value)) == expected
 
 
 static func _pokemon_knows_move(pokemon: Dictionary, move_id: String) -> bool:
@@ -1162,6 +1330,16 @@ static func _pokemon_knows_move(pokemon: Dictionary, move_id: String) -> bool:
 		else:
 			name = str(move)
 		if _safe_id(name) == move_id:
+			return true
+	return false
+
+
+static func _pokemon_knows_move_type(pokemon: Dictionary, move_type: String) -> bool:
+	var moves_value = pokemon.get("moves", [])
+	if typeof(moves_value) != TYPE_ARRAY:
+		return false
+	for move in moves_value:
+		if typeof(move) == TYPE_DICTIONARY and _safe_id(str(move.get("type", ""))) == move_type:
 			return true
 	return false
 

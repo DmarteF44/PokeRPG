@@ -2744,14 +2744,6 @@
         "trigger": "use-item",
         "item": "Sweet Apple",
         "item_id": "sweet_apple"
-      },
-      {
-        "target": "dipplin",
-        "target_dex_number": 1011,
-        "method": "item",
-        "trigger": "use-item",
-        "item": "Syrupy Apple",
-        "item_id": "syrupy_apple"
       }
     ],
     "evolves_from": "",
@@ -2765,7 +2757,19 @@
     "icon_path": "",
     "front_gif_source": "",
     "back_gif_source": "",
-    "has_animation": false
+    "has_animation": false,
+    "future_evolution_dependencies": [
+      {
+        "target": "dipplin",
+        "target_dex_number": 1011,
+        "method": "item",
+        "trigger": "use-item",
+        "item": "Syrupy Apple",
+        "item_id": "syrupy_apple",
+        "reason": "target_outside_supported_dex",
+        "implemented": false
+      }
+    ]
   },
   {
     "id": "flapple",
@@ -6863,16 +6867,7 @@
     },
     "learnset_source_version_group": "sword-shield",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "archaludon",
-        "target_dex_number": 1018,
-        "method": "item",
-        "trigger": "use-item",
-        "item": "Metal Alloy",
-        "item_id": "metal_alloy"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "",
     "description_en": "Its body resembles polished metal, and it’s both lightweight and strong. The only drawback is that it rusts easily.",
     "description_pt": "Its body resembles polished metal, and it’s both lightweight and strong. The only drawback is that it rusts easily.",
@@ -6884,7 +6879,19 @@
     "icon_path": "",
     "front_gif_source": "",
     "back_gif_source": "",
-    "has_animation": false
+    "has_animation": false,
+    "future_evolution_dependencies": [
+      {
+        "target": "archaludon",
+        "target_dex_number": 1018,
+        "method": "item",
+        "trigger": "use-item",
+        "item": "Metal Alloy",
+        "item_id": "metal_alloy",
+        "reason": "target_outside_supported_dex",
+        "implemented": false
+      }
+    ]
   },
   {
     "id": "dreepy",

@@ -4686,14 +4686,7 @@
     "learnset_source_version_group": "red-blue",
     "learnset_dependencies": [],
     "evolves_from": "mankey",
-    "evolutions": [
-      {
-        "target": "annihilape",
-        "target_dex_number": 979,
-        "method": "use-move",
-        "trigger": "use-move"
-      }
-    ],
+    "evolutions": [],
     "starter": false,
     "seen": false,
     "owned": false,
@@ -4712,6 +4705,16 @@
     "height": 10,
     "egg_groups": [
       "Ground"
+    ],
+    "future_evolution_dependencies": [
+      {
+        "target": "annihilape",
+        "target_dex_number": 979,
+        "method": "use-move",
+        "trigger": "use-move",
+        "reason": "target_outside_supported_dex",
+        "implemented": false
+      }
     ]
   },
   {
@@ -16938,14 +16941,6 @@
         "trigger": "level-up",
         "level": 20,
         "min_level": 20
-      },
-      {
-        "target": "clodsire",
-        "target_dex_number": 980,
-        "method": "level",
-        "trigger": "level-up",
-        "level": 20,
-        "min_level": 20
       }
     ],
     "evolves_from": "",
@@ -16959,7 +16954,19 @@
     "icon_path": "",
     "front_gif_source": "",
     "back_gif_source": "",
-    "has_animation": false
+    "has_animation": false,
+    "future_evolution_dependencies": [
+      {
+        "target": "clodsire",
+        "target_dex_number": 980,
+        "method": "level",
+        "trigger": "level-up",
+        "level": 20,
+        "min_level": 20,
+        "reason": "target_outside_supported_dex",
+        "implemented": false
+      }
+    ]
   },
   {
     "id": "quagsire",
@@ -17685,16 +17692,7 @@
     },
     "learnset_source_version_group": "ultra-sun-ultra-moon",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "farigiraf",
-        "target_dex_number": 981,
-        "method": "known_move",
-        "trigger": "level-up",
-        "known_move": "Twin Beam",
-        "known_move_id": "twin_beam"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "",
     "description_en": "The head on its tail contains a small brain. It can instinctively fight even while facing backward.",
     "description_pt": "The head on its tail contains a small brain. It can instinctively fight even while facing backward.",
@@ -17706,7 +17704,19 @@
     "icon_path": "",
     "front_gif_source": "",
     "back_gif_source": "",
-    "has_animation": false
+    "has_animation": false,
+    "future_evolution_dependencies": [
+      {
+        "target": "farigiraf",
+        "target_dex_number": 981,
+        "method": "known_move",
+        "trigger": "level-up",
+        "known_move": "Twin Beam",
+        "known_move_id": "twin_beam",
+        "reason": "target_outside_supported_dex",
+        "implemented": false
+      }
+    ]
   },
   {
     "id": "pineco",
@@ -18010,16 +18020,7 @@
     },
     "learnset_source_version_group": "sword-shield",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "dudunsparce",
-        "target_dex_number": 982,
-        "method": "known_move",
-        "trigger": "level-up",
-        "known_move": "Hyper Drill",
-        "known_move_id": "hyper_drill"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "",
     "description_en": "It digs into the ground with its tail and makes a mazelike nest. It can fly just a little.",
     "description_pt": "It digs into the ground with its tail and makes a mazelike nest. It can fly just a little.",
@@ -18031,7 +18032,19 @@
     "icon_path": "",
     "front_gif_source": "",
     "back_gif_source": "",
-    "has_animation": false
+    "has_animation": false,
+    "future_evolution_dependencies": [
+      {
+        "target": "dudunsparce",
+        "target_dex_number": 982,
+        "method": "known_move",
+        "trigger": "level-up",
+        "known_move": "Hyper Drill",
+        "known_move_id": "hyper_drill",
+        "reason": "target_outside_supported_dex",
+        "implemented": false
+      }
+    ]
   },
   {
     "id": "gligar",
@@ -57189,14 +57202,7 @@
     },
     "learnset_source_version_group": "sword-shield",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "kingambit",
-        "target_dex_number": 983,
-        "method": "three-defeated-bisharp",
-        "trigger": "three-defeated-bisharp"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "pawniard",
     "description_en": "It leads a group of Pawniard. It battles to become the boss, but will be driven from the group if it loses.",
     "description_pt": "It leads a group of Pawniard. It battles to become the boss, but will be driven from the group if it loses.",
@@ -57208,7 +57214,17 @@
     "icon_path": "",
     "front_gif_source": "",
     "back_gif_source": "",
-    "has_animation": false
+    "has_animation": false,
+    "future_evolution_dependencies": [
+      {
+        "target": "kingambit",
+        "target_dex_number": 983,
+        "method": "three-defeated-bisharp",
+        "trigger": "three-defeated-bisharp",
+        "reason": "target_outside_supported_dex",
+        "implemented": false
+      }
+    ]
   },
   {
     "id": "bouffalant",
@@ -77951,14 +77967,6 @@
         "trigger": "use-item",
         "item": "Sweet Apple",
         "item_id": "sweet_apple"
-      },
-      {
-        "target": "dipplin",
-        "target_dex_number": 1011,
-        "method": "item",
-        "trigger": "use-item",
-        "item": "Syrupy Apple",
-        "item_id": "syrupy_apple"
       }
     ],
     "evolves_from": "",
@@ -77972,7 +77980,19 @@
     "icon_path": "",
     "front_gif_source": "",
     "back_gif_source": "",
-    "has_animation": false
+    "has_animation": false,
+    "future_evolution_dependencies": [
+      {
+        "target": "dipplin",
+        "target_dex_number": 1011,
+        "method": "item",
+        "trigger": "use-item",
+        "item": "Syrupy Apple",
+        "item_id": "syrupy_apple",
+        "reason": "target_outside_supported_dex",
+        "implemented": false
+      }
+    ]
   },
   {
     "id": "flapple",
@@ -82070,16 +82090,7 @@
     },
     "learnset_source_version_group": "sword-shield",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "archaludon",
-        "target_dex_number": 1018,
-        "method": "item",
-        "trigger": "use-item",
-        "item": "Metal Alloy",
-        "item_id": "metal_alloy"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "",
     "description_en": "Its body resembles polished metal, and it’s both lightweight and strong. The only drawback is that it rusts easily.",
     "description_pt": "Its body resembles polished metal, and it’s both lightweight and strong. The only drawback is that it rusts easily.",
@@ -82091,7 +82102,19 @@
     "icon_path": "",
     "front_gif_source": "",
     "back_gif_source": "",
-    "has_animation": false
+    "has_animation": false,
+    "future_evolution_dependencies": [
+      {
+        "target": "archaludon",
+        "target_dex_number": 1018,
+        "method": "item",
+        "trigger": "use-item",
+        "item": "Metal Alloy",
+        "item_id": "metal_alloy",
+        "reason": "target_outside_supported_dex",
+        "implemented": false
+      }
+    ]
   },
   {
     "id": "dreepy",

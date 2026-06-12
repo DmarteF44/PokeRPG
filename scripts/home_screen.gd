@@ -1694,10 +1694,11 @@ func _add_empty_team_slot(parent: Control, slot: int, y: float, slot_height: flo
 
 
 func _add_pokedex_entry(parent: Control, pokemon_id: String, index: int) -> void:
-	var definition := PokemonHelpers.get_definition(pokemon_id)
 	var seen := _seen_pokemon_ids().has(pokemon_id)
 	var owned := _owned_pokemon_ids().has(pokemon_id)
 	var registered := seen or owned
+	var index_entry := PokemonHelpers.species_index_entry(pokemon_id)
+	var definition := PokemonHelpers.get_definition(pokemon_id) if registered else index_entry
 	var panel := Panel.new()
 	panel.name = "%sDex" % str(definition.get("name", "Pokemon"))
 	panel.position = Vector2(0, float(index) * 168.0)
