@@ -96350,8 +96350,23 @@
       safari: ["#479e56", "SZ"]
     };
     const phone = document.getElementById("phone");
-    let settings = JSON.parse(localStorage.getItem("pokerpg_settings") || "{\"language\":\"en\",\"music\":true,\"sfx\":true}");
-    let save = JSON.parse(localStorage.getItem("pokerpg_current_save") || localStorage.getItem("pokerpg_save") || "null");
+    const defaultSettings = { language: "en", music: true, sfx: true };
+    function readObjectStorage(key, fallback = null) {
+      const raw = localStorage.getItem(key);
+      if (!raw) return fallback;
+      try {
+        const parsed = JSON.parse(raw);
+        return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : fallback;
+      } catch (_error) {
+        localStorage.removeItem(key);
+        return fallback;
+      }
+    }
+    function readCurrentSave() {
+      return readObjectStorage("pokerpg_current_save", null) || readObjectStorage("pokerpg_save", null);
+    }
+    let settings = { ...defaultSettings, ...readObjectStorage("pokerpg_settings", defaultSettings) };
+    let save = readCurrentSave();
     let bagCategory = "pokeballs";
     let shopCategory = "pokeballs";
     let selectedItemId = "";
@@ -106412,12 +106427,16 @@
     function getSaveSlot(slot) {
       const stored = localStorage.getItem(saveKey(slot));
       if (stored) {
-        const data = normalizeSaveData(JSON.parse(stored));
+        const parsed = readObjectStorage(saveKey(slot), null);
+        if (!parsed) return null;
+        const data = normalizeSaveData(parsed);
         localStorage.setItem(saveKey(slot), JSON.stringify({ ...data, slot }));
         return { ...data, slot };
       }
       if (slot === 1 && localStorage.getItem("pokerpg_save")) {
-        const data = normalizeSaveData(JSON.parse(localStorage.getItem("pokerpg_save")));
+        const legacy = readObjectStorage("pokerpg_save", null);
+        if (!legacy) return null;
+        const data = normalizeSaveData(legacy);
         localStorage.setItem(saveKey(1), JSON.stringify({ ...data, slot: 1 }));
         localStorage.removeItem("pokerpg_save");
         return { ...data, slot: 1 };
