@@ -2,6 +2,7 @@ extends Control
 
 const UI = preload("res://scripts/ui_factory.gd")
 const WorldMapData = preload("res://scripts/world_map_data.gd")
+const PokemonHelpers = preload("res://scripts/pokemon_helpers.gd")
 
 const TEXT = {
 	"en": {
@@ -9,10 +10,12 @@ const TEXT = {
 		"explore": "Explore Map",
 		"types": "Pokemon types on this map:",
 		"requires": "Requires Lv. %d / %d badges",
-		"none_found": "None pokemon found",
+		"none_found": "You explored the area but found nothing.",
 		"found": "Pokemon %s found!",
+		"item_found": "Found item: %s x%d",
 		"fight": "Click here to fight",
-		"no_energy": "You are out of energy for today.",
+		"no_energy": "You are out of energy.",
+		"no_ready_pokemon": "No Pokemon is ready to explore.",
 		"level": "Level",
 		"forest": "Forest Map",
 		"fire": "Fire Map",
@@ -31,10 +34,12 @@ const TEXT = {
 		"explore": "Explorar Mapa",
 		"types": "Tipos de Pokemon neste mapa:",
 		"requires": "Requer Nv. %d / %d insígnias",
-		"none_found": "None pokemon found",
+		"none_found": "Você explorou a área, mas não encontrou nada.",
 		"found": "Pokemon %s found!",
+		"item_found": "Item encontrado: %s x%d",
 		"fight": "Click here to fight",
-		"no_energy": "Você está sem energia para explorar hoje.",
+		"no_energy": "Você está sem energia.",
+		"no_ready_pokemon": "Nenhum Pokémon está pronto para explorar.",
 		"level": "Nível",
 		"forest": "Floresta",
 		"fire": "Mapa de Fogo",
@@ -149,40 +154,59 @@ func _explore_map() -> void:
 		_show_center_result(_requirements_text(), Color.WHITE)
 		return
 
+	if not _has_battle_ready_pokemon():
+		_show_center_result(_text("no_ready_pokemon"), Color.WHITE)
+		return
+
 	var energy_current := int(save_data.get("energy_current", 30))
 	if energy_current <= 0:
 		_show_center_result(_text("no_energy"), Color.WHITE)
 		return
 
 	var next_energy: int = max(0, energy_current - 1)
-	current_encounter = WorldMapData.roll_encounter(current_map_key)
+	var exploration_result := WorldMapData.roll_exploration(current_map_key)
 	var changes: Dictionary = {
 		"energy_current": next_energy,
 		"current_map": current_map_key,
-		"pending_encounter": current_encounter,
+		"pending_encounter": {},
 	}
 	SaveManager.update_current_save(changes)
 	_refresh_save_data()
 	_update_energy_label()
 
+	var result_type := str(exploration_result.get("type", "nothing"))
+	if result_type == "nothing":
+		_show_center_result(_text("none_found"), Color.WHITE)
+		return
+
+	if result_type == "item":
+		var item_id := str(exploration_result.get("item_id", "potion"))
+		var amount := maxi(1, int(exploration_result.get("amount", 1)))
+		InventoryManager.add_item(item_id, amount)
+		_show_center_result(_text("item_found") % [_item_display_name(item_id), amount], Color(0.96, 0.86, 0.32))
+		return
+
+	current_encounter = exploration_result.get("pokemon", {})
 	if current_encounter.is_empty():
 		_show_center_result(_text("none_found"), Color.WHITE)
 		return
 
+	var seen = save_data.get("seen_pokemon", [])
+	if typeof(seen) != TYPE_ARRAY:
+		seen = []
+	var encounter_id := str(current_encounter.get("id", ""))
+	if encounter_id != "" and not seen.has(encounter_id):
+		seen.append(encounter_id)
+	SaveManager.update_current_save({"pending_encounter": current_encounter, "current_map": current_map_key, "seen_pokemon": seen})
+	_refresh_save_data()
 	_show_encounter_result(current_encounter)
+	await get_tree().create_timer(0.55).timeout
+	_open_battle_scene()
 
 
 func _show_encounter_result(pokemon: Dictionary) -> void:
-	var icon_path := str(pokemon.get("icon_path", ""))
-	if icon_path != "" and FileAccess.file_exists(icon_path):
-		UI.add_texture(result_container, icon_path, Vector2(28, 8), Vector2(96, 96), "EncounterSprite", TextureRect.STRETCH_KEEP_ASPECT_CENTERED)
-	else:
-		var placeholder := ColorRect.new()
-		placeholder.name = "EncounterPlaceholder"
-		placeholder.position = Vector2(28, 8)
-		placeholder.size = Vector2(96, 96)
-		placeholder.color = Color(0.28, 0.42, 0.54, 0.95)
-		result_container.add_child(placeholder)
+	var display_pokemon := PokemonHelpers.normalize_pokemon(pokemon, str(pokemon.get("id", PokemonHelpers.DEFAULT_STARTER_ID)))
+	PokemonHelpers.add_animated_sprite(result_container, display_pokemon, Vector2(28, 0), Vector2(96, 96), false, "EncounterSprite")
 
 	_add_fit_label(result_container, _text("found") % str(pokemon.get("name", "Pokemon")), Vector2(128, 8), Vector2(204, 40), 16, Color(0.2, 0.62, 1.0), HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "FoundText", true)
 	_add_fit_label(result_container, "%s: %d" % [_text("level"), int(pokemon.get("level", 1))], Vector2(128, 54), Vector2(204, 28), 15, Color.WHITE, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Level", false)
@@ -203,6 +227,26 @@ func _open_battle_scene() -> void:
 		return
 	SaveManager.update_current_save({"pending_encounter": current_encounter, "current_map": current_map_key})
 	get_tree().change_scene_to_file("res://scenes/BattleScene.tscn")
+
+
+func _has_battle_ready_pokemon() -> bool:
+	var team_value = save_data.get("team", [])
+	if typeof(team_value) != TYPE_ARRAY:
+		return false
+	for entry in team_value:
+		if typeof(entry) != TYPE_DICTIONARY:
+			continue
+		var pokemon := PokemonHelpers.complete_healing_if_ready(entry)
+		if int(pokemon.get("hp", 0)) > 0 and not PokemonHelpers.is_healing(pokemon):
+			return true
+	return false
+
+
+func _item_display_name(item_id: String) -> String:
+	var formatted := []
+	for word in item_id.split("_", false):
+		formatted.append(str(word).capitalize())
+	return " ".join(formatted)
 
 
 func _update_energy_label() -> void:

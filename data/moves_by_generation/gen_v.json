@@ -1,0 +1,2580 @@
+[
+  {
+    "id": "acid_spray",
+    "api_id": 491,
+    "name": "Acid Spray",
+    "type": "Poison",
+    "category": "Special",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 20,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "enemy",
+        "stat": "sp_defense",
+        "stages": -2,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Sharply lowers opponent's Special Defense.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "acrobatics",
+    "api_id": 512,
+    "name": "Acrobatics",
+    "type": "Flying",
+    "category": "Physical",
+    "power": 55,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Stronger when the user does not have a held item."
+      }
+    ],
+    "effect_text": "Stronger when the user does not have a held item.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "after_you",
+    "api_id": 495,
+    "name": "After You",
+    "type": "Normal",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "unique",
+        "chance": 100,
+        "text": "Gives target priority in the next turn."
+      }
+    ],
+    "effect_text": "Gives target priority in the next turn.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "ally_switch",
+    "api_id": 502,
+    "name": "Ally Switch",
+    "type": "Psychic",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 2,
+    "target": "user",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "self",
+        "category": "unique",
+        "chance": 100,
+        "text": "User switches with opposite teammate."
+      }
+    ],
+    "effect_text": "User switches with opposite teammate.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "autotomize",
+    "api_id": 475,
+    "name": "Autotomize",
+    "type": "Steel",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "user",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "speed",
+        "stages": 2,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Reduces weight and sharply raises Speed.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "bestow",
+    "api_id": 516,
+    "name": "Bestow",
+    "type": "Normal",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "unique",
+        "chance": 100,
+        "text": "Gives the user's held item to the target."
+      }
+    ],
+    "effect_text": "Gives the user's held item to the target.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "blue_flare",
+    "api_id": 551,
+    "name": "Blue Flare",
+    "type": "Fire",
+    "category": "Special",
+    "power": 130,
+    "accuracy": 85,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "apply_status",
+        "target": "enemy",
+        "status": "burn",
+        "chance": 20
+      }
+    ],
+    "effect_text": "May burn opponent.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "bolt_strike",
+    "api_id": 550,
+    "name": "Bolt Strike",
+    "type": "Electric",
+    "category": "Physical",
+    "power": 130,
+    "accuracy": 85,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "apply_status",
+        "target": "enemy",
+        "status": "paralysis",
+        "chance": 20
+      }
+    ],
+    "effect_text": "May paralyze opponent.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "bulldoze",
+    "api_id": 523,
+    "name": "Bulldoze",
+    "type": "Ground",
+    "category": "Physical",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 20,
+    "priority": 0,
+    "target": "all-other-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "enemy",
+        "stat": "speed",
+        "stages": -1,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Lowers opponent's Speed.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "chip_away",
+    "api_id": 498,
+    "name": "Chip Away",
+    "type": "Normal",
+    "category": "Physical",
+    "power": 70,
+    "accuracy": 100,
+    "pp": 20,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Ignores opponent's stat changes."
+      }
+    ],
+    "effect_text": "Ignores opponent's stat changes.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "circle_throw",
+    "api_id": 509,
+    "name": "Circle Throw",
+    "type": "Fighting",
+    "category": "Physical",
+    "power": 60,
+    "accuracy": 90,
+    "pp": 10,
+    "priority": -6,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "In battles, the opponent switches. In the wild, the Pok\u00e9mon runs."
+      }
+    ],
+    "effect_text": "In battles, the opponent switches. In the wild, the Pok\u00e9mon runs.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "clear_smog",
+    "api_id": 499,
+    "name": "Clear Smog",
+    "type": "Poison",
+    "category": "Special",
+    "power": 50,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Removes all of the target's stat changes."
+      }
+    ],
+    "effect_text": "Removes all of the target's stat changes.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "coil",
+    "api_id": 489,
+    "name": "Coil",
+    "type": "Poison",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20,
+    "priority": 0,
+    "target": "user",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "attack",
+        "stages": 1,
+        "chance": 100
+      },
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "defense",
+        "stages": 1,
+        "chance": 100
+      },
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "accuracy",
+        "stages": 1,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Raises user's Attack, Defense and Accuracy.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "cotton_guard",
+    "api_id": 538,
+    "name": "Cotton Guard",
+    "type": "Grass",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "user",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "defense",
+        "stages": 3,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Drastically raises user's Defense.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "dragon_tail",
+    "api_id": 525,
+    "name": "Dragon Tail",
+    "type": "Dragon",
+    "category": "Physical",
+    "power": 60,
+    "accuracy": 90,
+    "pp": 10,
+    "priority": -6,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "In battles, the opponent switches. In the wild, the Pok\u00e9mon runs."
+      }
+    ],
+    "effect_text": "In battles, the opponent switches. In the wild, the Pok\u00e9mon runs.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "drill_run",
+    "api_id": 529,
+    "name": "Drill Run",
+    "type": "Ground",
+    "category": "Physical",
+    "power": 80,
+    "accuracy": 95,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "critical_modifier",
+        "target": "self",
+        "stages": 1,
+        "chance": 100
+      }
+    ],
+    "effect_text": "High critical hit ratio.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "dual_chop",
+    "api_id": 530,
+    "name": "Dual Chop",
+    "type": "Dragon",
+    "category": "Physical",
+    "power": 40,
+    "accuracy": 90,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "multi_hit",
+        "target": "enemy",
+        "min_hits": 2,
+        "max_hits": 2,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Hits twice in one turn.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "echoed_voice",
+    "api_id": 497,
+    "name": "Echoed Voice",
+    "type": "Normal",
+    "category": "Special",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Power increases each turn."
+      }
+    ],
+    "effect_text": "Power increases each turn.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "electro_ball",
+    "api_id": 486,
+    "name": "Electro Ball",
+    "type": "Electric",
+    "category": "Special",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "The faster the user, the stronger the attack."
+      }
+    ],
+    "effect_text": "The faster the user, the stronger the attack.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "electroweb",
+    "api_id": 527,
+    "name": "Electroweb",
+    "type": "Electric",
+    "category": "Special",
+    "power": 55,
+    "accuracy": 95,
+    "pp": 15,
+    "priority": 0,
+    "target": "all-opponents",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "enemy",
+        "stat": "speed",
+        "stages": -1,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Lowers opponent's Speed.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "entrainment",
+    "api_id": 494,
+    "name": "Entrainment",
+    "type": "Normal",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "unique",
+        "chance": 100,
+        "text": "Makes target's ability same as user's."
+      }
+    ],
+    "effect_text": "Makes target's ability same as user's.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "fiery_dance",
+    "api_id": 552,
+    "name": "Fiery Dance",
+    "type": "Fire",
+    "category": "Special",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "sp_attack",
+        "stages": 1,
+        "chance": 50
+      }
+    ],
+    "effect_text": "May raise user's Special Attack.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "final_gambit",
+    "api_id": 515,
+    "name": "Final Gambit",
+    "type": "Fighting",
+    "category": "Special",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Inflicts damage equal to the user's remaining HP. User faints."
+      }
+    ],
+    "effect_text": "Inflicts damage equal to the user's remaining HP. User faints.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "fire_pledge",
+    "api_id": 519,
+    "name": "Fire Pledge",
+    "type": "Fire",
+    "category": "Special",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Added effects appear if combined with Grass Pledge or Water Pledge."
+      }
+    ],
+    "effect_text": "Added effects appear if combined with Grass Pledge or Water Pledge.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "flame_burst",
+    "api_id": 481,
+    "name": "Flame Burst",
+    "type": "Fire",
+    "category": "Special",
+    "power": 70,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "May also injure nearby Pok\u00e9mon."
+      }
+    ],
+    "effect_text": "May also injure nearby Pok\u00e9mon.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "flame_charge",
+    "api_id": 488,
+    "name": "Flame Charge",
+    "type": "Fire",
+    "category": "Physical",
+    "power": 50,
+    "accuracy": 100,
+    "pp": 20,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "speed",
+        "stages": 1,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Raises user's Speed.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "foul_play",
+    "api_id": 492,
+    "name": "Foul Play",
+    "type": "Dark",
+    "category": "Physical",
+    "power": 95,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Uses the opponent's Attack stat."
+      }
+    ],
+    "effect_text": "Uses the opponent's Attack stat.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "freeze_shock",
+    "api_id": 553,
+    "name": "Freeze Shock",
+    "type": "Ice",
+    "category": "Physical",
+    "power": 140,
+    "accuracy": 90,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "apply_status",
+        "target": "enemy",
+        "status": "paralysis",
+        "chance": 30
+      }
+    ],
+    "effect_text": "Charges on first turn, attacks on second. May paralyze opponent.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "frost_breath",
+    "api_id": 524,
+    "name": "Frost Breath",
+    "type": "Ice",
+    "category": "Special",
+    "power": 60,
+    "accuracy": 90,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "critical_modifier",
+        "target": "self",
+        "stages": 6,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Always results in a critical hit.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "fusion_bolt",
+    "api_id": 559,
+    "name": "Fusion Bolt",
+    "type": "Electric",
+    "category": "Physical",
+    "power": 100,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Power increases if Fusion Flare is used in the same turn."
+      }
+    ],
+    "effect_text": "Power increases if Fusion Flare is used in the same turn.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "fusion_flare",
+    "api_id": 558,
+    "name": "Fusion Flare",
+    "type": "Fire",
+    "category": "Special",
+    "power": 100,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Power increases if Fusion Bolt is used in the same turn."
+      }
+    ],
+    "effect_text": "Power increases if Fusion Bolt is used in the same turn.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "gear_grind",
+    "api_id": 544,
+    "name": "Gear Grind",
+    "type": "Steel",
+    "category": "Physical",
+    "power": 50,
+    "accuracy": 85,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "multi_hit",
+        "target": "enemy",
+        "min_hits": 2,
+        "max_hits": 2,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Hits twice in one turn.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "glaciate",
+    "api_id": 549,
+    "name": "Glaciate",
+    "type": "Ice",
+    "category": "Special",
+    "power": 65,
+    "accuracy": 95,
+    "pp": 10,
+    "priority": 0,
+    "target": "all-opponents",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "enemy",
+        "stat": "speed",
+        "stages": -1,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Lowers opponent's Speed.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "grass_pledge",
+    "api_id": 520,
+    "name": "Grass Pledge",
+    "type": "Grass",
+    "category": "Special",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Added effects appear if preceded by Water Pledge or succeeded by Fire Pledge."
+      }
+    ],
+    "effect_text": "Added effects appear if preceded by Water Pledge or succeeded by Fire Pledge.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "guard_split",
+    "api_id": 470,
+    "name": "Guard Split",
+    "type": "Psychic",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "unique",
+        "chance": 100,
+        "text": "Averages Defense and Special Defense with the target."
+      }
+    ],
+    "effect_text": "Averages Defense and Special Defense with the target.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "head_charge",
+    "api_id": 543,
+    "name": "Head Charge",
+    "type": "Normal",
+    "category": "Physical",
+    "power": 120,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "recoil",
+        "target": "self",
+        "fraction": 0.25,
+        "chance": 100
+      }
+    ],
+    "effect_text": "User receives recoil damage.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "heal_pulse",
+    "api_id": 505,
+    "name": "Heal Pulse",
+    "type": "Psychic",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "heal",
+        "target": "self",
+        "fraction": 0.5,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Restores half the target's max HP.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "heart_stamp",
+    "api_id": 531,
+    "name": "Heart Stamp",
+    "type": "Psychic",
+    "category": "Physical",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 25,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "flinch",
+        "target": "enemy",
+        "chance": 30
+      }
+    ],
+    "effect_text": "May cause flinching.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "heat_crash",
+    "api_id": 535,
+    "name": "Heat Crash",
+    "type": "Fire",
+    "category": "Physical",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "The heavier the user, the stronger the attack."
+      }
+    ],
+    "effect_text": "The heavier the user, the stronger the attack.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "heavy_slam",
+    "api_id": 484,
+    "name": "Heavy Slam",
+    "type": "Steel",
+    "category": "Physical",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "The heavier the user, the stronger the attack."
+      }
+    ],
+    "effect_text": "The heavier the user, the stronger the attack.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "hex",
+    "api_id": 506,
+    "name": "Hex",
+    "type": "Ghost",
+    "category": "Special",
+    "power": 65,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Inflicts more damage if the target has a status condition."
+      }
+    ],
+    "effect_text": "Inflicts more damage if the target has a status condition.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "hone_claws",
+    "api_id": 468,
+    "name": "Hone Claws",
+    "type": "Dark",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "user",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "attack",
+        "stages": 1,
+        "chance": 100
+      },
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "accuracy",
+        "stages": 1,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Raises user's Attack and Accuracy.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "horn_leech",
+    "api_id": 532,
+    "name": "Horn Leech",
+    "type": "Grass",
+    "category": "Physical",
+    "power": 75,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "drain",
+        "target": "enemy",
+        "fraction": 0.5,
+        "chance": 100
+      }
+    ],
+    "effect_text": "User recovers half the HP inflicted on opponent.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "hurricane",
+    "api_id": 542,
+    "name": "Hurricane",
+    "type": "Flying",
+    "category": "Special",
+    "power": 110,
+    "accuracy": 70,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "apply_status",
+        "target": "enemy",
+        "status": "confusion",
+        "chance": 30
+      },
+      {
+        "type": "multi_turn",
+        "target": "enemy",
+        "min_turns": 2,
+        "max_turns": 5,
+        "chance": 100
+      }
+    ],
+    "effect_text": "May confuse opponent.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "ice_burn",
+    "api_id": 554,
+    "name": "Ice Burn",
+    "type": "Ice",
+    "category": "Special",
+    "power": 140,
+    "accuracy": 90,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "apply_status",
+        "target": "enemy",
+        "status": "burn",
+        "chance": 30
+      }
+    ],
+    "effect_text": "Charges on first turn, attacks on second. May burn opponent.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "icicle_crash",
+    "api_id": 556,
+    "name": "Icicle Crash",
+    "type": "Ice",
+    "category": "Physical",
+    "power": 85,
+    "accuracy": 90,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "flinch",
+        "target": "enemy",
+        "chance": 30
+      }
+    ],
+    "effect_text": "May cause flinching.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "incinerate",
+    "api_id": 510,
+    "name": "Incinerate",
+    "type": "Fire",
+    "category": "Special",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "all-opponents",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Destroys the target's held berry."
+      }
+    ],
+    "effect_text": "Destroys the target's held berry.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "inferno",
+    "api_id": 517,
+    "name": "Inferno",
+    "type": "Fire",
+    "category": "Special",
+    "power": 100,
+    "accuracy": 50,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "apply_status",
+        "target": "enemy",
+        "status": "burn",
+        "chance": 100
+      }
+    ],
+    "effect_text": "Burns opponent.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "leaf_tornado",
+    "api_id": 536,
+    "name": "Leaf Tornado",
+    "type": "Grass",
+    "category": "Special",
+    "power": 65,
+    "accuracy": 90,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "enemy",
+        "stat": "accuracy",
+        "stages": -1,
+        "chance": 50
+      }
+    ],
+    "effect_text": "May lower opponent's Accuracy.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "low_sweep",
+    "api_id": 490,
+    "name": "Low Sweep",
+    "type": "Fighting",
+    "category": "Physical",
+    "power": 65,
+    "accuracy": 100,
+    "pp": 20,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "enemy",
+        "stat": "speed",
+        "stages": -1,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Lowers opponent's Speed.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "magic_room",
+    "api_id": 478,
+    "name": "Magic Room",
+    "type": "Psychic",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "entire-field",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "field",
+        "category": "whole-field-effect",
+        "chance": 100,
+        "text": "Suppresses the effects of held items for five turns."
+      }
+    ],
+    "effect_text": "Suppresses the effects of held items for five turns.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "night_daze",
+    "api_id": 539,
+    "name": "Night Daze",
+    "type": "Dark",
+    "category": "Special",
+    "power": 85,
+    "accuracy": 95,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "enemy",
+        "stat": "accuracy",
+        "stages": -1,
+        "chance": 40
+      }
+    ],
+    "effect_text": "May lower opponent's Accuracy.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "power_split",
+    "api_id": 471,
+    "name": "Power Split",
+    "type": "Psychic",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "unique",
+        "chance": 100,
+        "text": "Averages Attack and Special Attack with the target."
+      }
+    ],
+    "effect_text": "Averages Attack and Special Attack with the target.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "psyshock",
+    "api_id": 473,
+    "name": "Psyshock",
+    "type": "Psychic",
+    "category": "Special",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Inflicts damage based on the target's Defense, not Special Defense."
+      }
+    ],
+    "effect_text": "Inflicts damage based on the target's Defense, not Special Defense.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "psystrike",
+    "api_id": 540,
+    "name": "Psystrike",
+    "type": "Psychic",
+    "category": "Special",
+    "power": 100,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Inflicts damage based on the target's Defense, not Special Defense."
+      }
+    ],
+    "effect_text": "Inflicts damage based on the target's Defense, not Special Defense.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "quash",
+    "api_id": 511,
+    "name": "Quash",
+    "type": "Dark",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "unique",
+        "chance": 100,
+        "text": "Makes the target act last this turn."
+      }
+    ],
+    "effect_text": "Makes the target act last this turn.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "quick_guard",
+    "api_id": 501,
+    "name": "Quick Guard",
+    "type": "Fighting",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 3,
+    "target": "users-field",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "self",
+        "category": "field-effect",
+        "chance": 100,
+        "text": "Protects the user's team from high-priority moves."
+      }
+    ],
+    "effect_text": "Protects the user's team from high-priority moves.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "quiver_dance",
+    "api_id": 483,
+    "name": "Quiver Dance",
+    "type": "Bug",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20,
+    "priority": 0,
+    "target": "user",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "sp_attack",
+        "stages": 1,
+        "chance": 100
+      },
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "sp_defense",
+        "stages": 1,
+        "chance": 100
+      },
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "speed",
+        "stages": 1,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Raises user's Special Attack, Special Defense and Speed.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "rage_powder",
+    "api_id": 476,
+    "name": "Rage Powder",
+    "type": "Bug",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20,
+    "priority": 2,
+    "target": "user",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "self",
+        "category": "unique",
+        "chance": 100,
+        "text": "Forces attacks to hit user, not team-mates."
+      }
+    ],
+    "effect_text": "Forces attacks to hit user, not team-mates.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "razor_shell",
+    "api_id": 534,
+    "name": "Razor Shell",
+    "type": "Water",
+    "category": "Physical",
+    "power": 75,
+    "accuracy": 95,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "enemy",
+        "stat": "defense",
+        "stages": -1,
+        "chance": 50
+      }
+    ],
+    "effect_text": "May lower opponent's Defense.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "reflect_type",
+    "api_id": 513,
+    "name": "Reflect Type",
+    "type": "Normal",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "unique",
+        "chance": 100,
+        "text": "User becomes the target's type."
+      }
+    ],
+    "effect_text": "User becomes the target's type.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "relic_song",
+    "api_id": 547,
+    "name": "Relic Song",
+    "type": "Normal",
+    "category": "Special",
+    "power": 75,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "all-opponents",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "apply_status",
+        "target": "enemy",
+        "status": "sleep",
+        "chance": 10
+      },
+      {
+        "type": "multi_turn",
+        "target": "enemy",
+        "min_turns": 2,
+        "max_turns": 4,
+        "chance": 100
+      }
+    ],
+    "effect_text": "May put the target to sleep.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "retaliate",
+    "api_id": 514,
+    "name": "Retaliate",
+    "type": "Normal",
+    "category": "Physical",
+    "power": 70,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Inflicts double damage if a teammate fainted on the last turn."
+      }
+    ],
+    "effect_text": "Inflicts double damage if a teammate fainted on the last turn.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "round",
+    "api_id": 496,
+    "name": "Round",
+    "type": "Normal",
+    "category": "Special",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Power increases if teammates use it in the same turn."
+      }
+    ],
+    "effect_text": "Power increases if teammates use it in the same turn.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "sacred_sword",
+    "api_id": 533,
+    "name": "Sacred Sword",
+    "type": "Fighting",
+    "category": "Physical",
+    "power": 90,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Ignores opponent's stat changes."
+      }
+    ],
+    "effect_text": "Ignores opponent's stat changes.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "scald",
+    "api_id": 503,
+    "name": "Scald",
+    "type": "Water",
+    "category": "Special",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "apply_status",
+        "target": "enemy",
+        "status": "burn",
+        "chance": 30
+      }
+    ],
+    "effect_text": "May burn opponent.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "searing_shot",
+    "api_id": 545,
+    "name": "Searing Shot",
+    "type": "Fire",
+    "category": "Special",
+    "power": 100,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "all-other-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "apply_status",
+        "target": "enemy",
+        "status": "burn",
+        "chance": 30
+      }
+    ],
+    "effect_text": "May burn opponent.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "secret_sword",
+    "api_id": 548,
+    "name": "Secret Sword",
+    "type": "Fighting",
+    "category": "Special",
+    "power": 85,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Inflicts damage based on the target's Defense, not Special Defense."
+      }
+    ],
+    "effect_text": "Inflicts damage based on the target's Defense, not Special Defense.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "shell_smash",
+    "api_id": 504,
+    "name": "Shell Smash",
+    "type": "Normal",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "user",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "defense",
+        "stages": -1,
+        "chance": 100
+      },
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "sp_defense",
+        "stages": -1,
+        "chance": 100
+      },
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "attack",
+        "stages": 2,
+        "chance": 100
+      },
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "sp_attack",
+        "stages": 2,
+        "chance": 100
+      },
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "speed",
+        "stages": 2,
+        "chance": 100
+      },
+      {
+        "type": "special",
+        "target": "self",
+        "category": "unique",
+        "chance": 100,
+        "text": "Sharply raises user's Attack, Special Attack and Speed but lowers Defense and Special Defense."
+      }
+    ],
+    "effect_text": "Sharply raises user's Attack, Special Attack and Speed but lowers Defense and Special Defense.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "shift_gear",
+    "api_id": 508,
+    "name": "Shift Gear",
+    "type": "Steel",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "user",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "attack",
+        "stages": 1,
+        "chance": 100
+      },
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "speed",
+        "stages": 2,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Raises user's Attack and sharply raises Speed.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "simple_beam",
+    "api_id": 493,
+    "name": "Simple Beam",
+    "type": "Normal",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "unique",
+        "chance": 100,
+        "text": "Changes target's ability to Simple."
+      }
+    ],
+    "effect_text": "Changes target's ability to Simple.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "sky_drop",
+    "api_id": 507,
+    "name": "Sky Drop",
+    "type": "Flying",
+    "category": "Physical",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Takes opponent into the air on first turn, drops them on second turn."
+      }
+    ],
+    "effect_text": "Takes opponent into the air on first turn, drops them on second turn.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "sludge_wave",
+    "api_id": 482,
+    "name": "Sludge Wave",
+    "type": "Poison",
+    "category": "Special",
+    "power": 95,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "all-other-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "apply_status",
+        "target": "enemy",
+        "status": "poison",
+        "chance": 10
+      }
+    ],
+    "effect_text": "May poison opponent.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "smack_down",
+    "api_id": 479,
+    "name": "Smack Down",
+    "type": "Rock",
+    "category": "Physical",
+    "power": 50,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "apply_status",
+        "target": "enemy",
+        "status": "unknown",
+        "chance": 100
+      }
+    ],
+    "effect_text": "Makes Flying-type Pok\u00e9mon vulnerable to Ground moves.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "snarl",
+    "api_id": 555,
+    "name": "Snarl",
+    "type": "Dark",
+    "category": "Special",
+    "power": 55,
+    "accuracy": 95,
+    "pp": 15,
+    "priority": 0,
+    "target": "all-opponents",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "enemy",
+        "stat": "sp_attack",
+        "stages": -1,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Lowers opponent's Special Attack.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "soak",
+    "api_id": 487,
+    "name": "Soak",
+    "type": "Water",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "unique",
+        "chance": 100,
+        "text": "Changes the target's type to water."
+      }
+    ],
+    "effect_text": "Changes the target's type to water.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "steamroller",
+    "api_id": 537,
+    "name": "Steamroller",
+    "type": "Bug",
+    "category": "Physical",
+    "power": 65,
+    "accuracy": 100,
+    "pp": 20,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "flinch",
+        "target": "enemy",
+        "chance": 30
+      }
+    ],
+    "effect_text": "May cause flinching.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "stored_power",
+    "api_id": 500,
+    "name": "Stored Power",
+    "type": "Psychic",
+    "category": "Special",
+    "power": 20,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Power increases when user's stats have been raised."
+      }
+    ],
+    "effect_text": "Power increases when user's stats have been raised.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "storm_throw",
+    "api_id": 480,
+    "name": "Storm Throw",
+    "type": "Fighting",
+    "category": "Physical",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "critical_modifier",
+        "target": "self",
+        "stages": 6,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Always results in a critical hit.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "struggle_bug",
+    "api_id": 522,
+    "name": "Struggle Bug",
+    "type": "Bug",
+    "category": "Special",
+    "power": 50,
+    "accuracy": 100,
+    "pp": 20,
+    "priority": 0,
+    "target": "all-opponents",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "enemy",
+        "stat": "sp_attack",
+        "stages": -1,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Lowers opponent's Special Attack.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "synchronoise",
+    "api_id": 485,
+    "name": "Synchronoise",
+    "type": "Psychic",
+    "category": "Special",
+    "power": 120,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "all-other-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Hits any Pok\u00e9mon that shares a type with the user."
+      }
+    ],
+    "effect_text": "Hits any Pok\u00e9mon that shares a type with the user.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "tail_slap",
+    "api_id": 541,
+    "name": "Tail Slap",
+    "type": "Normal",
+    "category": "Physical",
+    "power": 25,
+    "accuracy": 85,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "multi_hit",
+        "target": "enemy",
+        "min_hits": 2,
+        "max_hits": 5,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Hits 2-5 times in one turn.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "techno_blast",
+    "api_id": 546,
+    "name": "Techno Blast",
+    "type": "Normal",
+    "category": "Special",
+    "power": 120,
+    "accuracy": 100,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Type depends on the Drive being held."
+      }
+    ],
+    "effect_text": "Type depends on the Drive being held.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "telekinesis",
+    "api_id": 477,
+    "name": "Telekinesis",
+    "type": "Psychic",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "apply_status",
+        "target": "enemy",
+        "status": "unknown",
+        "chance": 100
+      },
+      {
+        "type": "multi_turn",
+        "target": "enemy",
+        "min_turns": 3,
+        "max_turns": 3,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Ignores opponent's Evasiveness for three turns, add Ground immunity.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "v_create",
+    "api_id": 557,
+    "name": "V-create",
+    "type": "Fire",
+    "category": "Physical",
+    "power": 180,
+    "accuracy": 95,
+    "pp": 5,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "defense",
+        "stages": -1,
+        "chance": 100
+      },
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "sp_defense",
+        "stages": -1,
+        "chance": 100
+      },
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "speed",
+        "stages": -1,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Lowers user's Defense, Special Defense and Speed.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "venoshock",
+    "api_id": 474,
+    "name": "Venoshock",
+    "type": "Poison",
+    "category": "Special",
+    "power": 65,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Inflicts double damage if the target is poisoned."
+      }
+    ],
+    "effect_text": "Inflicts double damage if the target is poisoned.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "volt_switch",
+    "api_id": 521,
+    "name": "Volt Switch",
+    "type": "Electric",
+    "category": "Special",
+    "power": 70,
+    "accuracy": 100,
+    "pp": 20,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "User must switch out after attacking."
+      }
+    ],
+    "effect_text": "User must switch out after attacking.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "water_pledge",
+    "api_id": 518,
+    "name": "Water Pledge",
+    "type": "Water",
+    "category": "Special",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "enemy",
+        "category": "damage",
+        "chance": 100,
+        "text": "Added effects appear if preceded by Fire Pledge or succeeded by Grass Pledge."
+      }
+    ],
+    "effect_text": "Added effects appear if preceded by Fire Pledge or succeeded by Grass Pledge.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "wide_guard",
+    "api_id": 469,
+    "name": "Wide Guard",
+    "type": "Rock",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 3,
+    "target": "users-field",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "self",
+        "category": "field-effect",
+        "chance": 100,
+        "text": "Protects the user's team from multi-target attacks."
+      }
+    ],
+    "effect_text": "Protects the user's team from multi-target attacks.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "wild_charge",
+    "api_id": 528,
+    "name": "Wild Charge",
+    "type": "Electric",
+    "category": "Physical",
+    "power": 90,
+    "accuracy": 100,
+    "pp": 15,
+    "priority": 0,
+    "target": "selected-pokemon",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "recoil",
+        "target": "self",
+        "fraction": 0.25,
+        "chance": 100
+      }
+    ],
+    "effect_text": "User receives recoil damage.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "wonder_room",
+    "api_id": 472,
+    "name": "Wonder Room",
+    "type": "Psychic",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10,
+    "priority": 0,
+    "target": "entire-field",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "special",
+        "target": "field",
+        "category": "whole-field-effect",
+        "chance": 100,
+        "text": "Swaps every Pok\u00e9mon's Defense and Special Defense for 5 turns."
+      }
+    ],
+    "effect_text": "Swaps every Pok\u00e9mon's Defense and Special Defense for 5 turns.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  },
+  {
+    "id": "work_up",
+    "api_id": 526,
+    "name": "Work Up",
+    "type": "Normal",
+    "category": "Status",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 30,
+    "priority": 0,
+    "target": "user",
+    "generation": "gen_v",
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "attack",
+        "stages": 1,
+        "chance": 100
+      },
+      {
+        "type": "modify_stat",
+        "target": "self",
+        "stat": "sp_attack",
+        "stages": 1,
+        "chance": 100
+      }
+    ],
+    "effect_text": "Raises user's Attack and Special Attack.",
+    "sources": [
+      "pokeapi",
+      "pokemondb"
+    ]
+  }
+]
