@@ -4686,14 +4686,7 @@
     "learnset_source_version_group": "red-blue",
     "learnset_dependencies": [],
     "evolves_from": "mankey",
-    "evolutions": [
-      {
-        "target": "annihilape",
-        "target_dex_number": 979,
-        "method": "use-move",
-        "trigger": "use-move"
-      }
-    ],
+    "evolutions": [],
     "starter": false,
     "seen": false,
     "owned": false,
@@ -4712,6 +4705,16 @@
     "height": 10,
     "egg_groups": [
       "Ground"
+    ],
+    "future_evolution_dependencies": [
+      {
+        "target": "annihilape",
+        "target_dex_number": 979,
+        "method": "use-move",
+        "trigger": "use-move",
+        "reason": "target_outside_supported_dex",
+        "implemented": false
+      }
     ]
   },
   {

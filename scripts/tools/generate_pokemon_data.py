@@ -423,6 +423,25 @@ def build_species_entry(dex_number: int, pokemon: dict, species: dict, existing:
     return entry
 
 
+def split_supported_evolutions(entry: dict) -> None:
+    supported: list[dict] = []
+    future_dependencies: list[dict] = []
+    for evolution in entry.get("evolutions", []):
+        target_dex = int(evolution.get("target_dex_number") or 0)
+        if target_dex > MAX_DEX:
+            dependency = dict(evolution)
+            dependency["reason"] = "target_outside_supported_dex"
+            dependency["implemented"] = False
+            future_dependencies.append(dependency)
+        else:
+            supported.append(evolution)
+    entry["evolutions"] = supported
+    if future_dependencies:
+        entry["future_evolution_dependencies"] = future_dependencies
+    else:
+        entry.pop("future_evolution_dependencies", None)
+
+
 def build_abilities() -> list[dict]:
     listing = api_get("ability?limit=1000")
     urls = [item["url"] for item in listing.get("results", [])]
@@ -494,6 +513,7 @@ def main() -> None:
         pokemon, species = bundles[dex]
         existing = existing_entries.get(safe_id(species.get("name", pokemon.get("name", ""))))
         entry = build_species_entry(dex, pokemon, species, existing, move_lookup, known_moves, evolutions, evolves_from)
+        split_supported_evolutions(entry)
         all_entries.append(entry)
         if entry.get("learnset_dependencies"):
             missing_moves[entry["id"]] = entry["learnset_dependencies"]
@@ -521,6 +541,11 @@ def main() -> None:
 
     write_json(ROOT / "data/pokemon/pokemon_index.json", index)
     write_json(ROOT / "data/evolutions/evolutions.json", {entry["id"]: entry.get("evolutions", []) for entry in all_entries})
+    write_json(ROOT / "data/evolutions/future_evolution_dependencies.json", {
+        entry["id"]: entry.get("future_evolution_dependencies", [])
+        for entry in all_entries
+        if entry.get("future_evolution_dependencies")
+    })
     write_json(ROOT / "data/pokedex/pokedex.json", [
         {
             "id": entry["id"],

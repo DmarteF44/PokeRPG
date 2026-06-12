@@ -13017,14 +13017,7 @@
     },
     "learnset_source_version_group": "sword-shield",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "kingambit",
-        "target_dex_number": 983,
-        "method": "three-defeated-bisharp",
-        "trigger": "three-defeated-bisharp"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "pawniard",
     "description_en": "It leads a group of Pawniard. It battles to become the boss, but will be driven from the group if it loses.",
     "description_pt": "It leads a group of Pawniard. It battles to become the boss, but will be driven from the group if it loses.",
@@ -13036,7 +13029,17 @@
     "icon_path": "",
     "front_gif_source": "",
     "back_gif_source": "",
-    "has_animation": false
+    "has_animation": false,
+    "future_evolution_dependencies": [
+      {
+        "target": "kingambit",
+        "target_dex_number": 983,
+        "method": "three-defeated-bisharp",
+        "trigger": "three-defeated-bisharp",
+        "reason": "target_outside_supported_dex",
+        "implemented": false
+      }
+    ]
   },
   {
     "id": "bouffalant",
