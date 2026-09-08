@@ -107344,7 +107344,8 @@
     function showWorldMap() {
       ensureSave();
       phone.innerHTML = phone.innerHTML + overlay(t("world_map"), 34, 580) + `
-        <div class="scroll" style="left:28px;top:104px;width:304px;height:468px">
+        <p class="label" style="left:42px;top:94px;width:276px;height:20px;color:#0c1d31;text-shadow:none;font-size:12px;text-align:center">${t("energy")} ${save.energy_current ?? 30}/${save.energy_max ?? 30}</p>
+        <div class="scroll" style="left:28px;top:120px;width:304px;height:452px">
           ${maps.map(map => {
             const [key, typeKey, img] = map;
             const open = canExploreMap(map);
