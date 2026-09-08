@@ -203,7 +203,7 @@ static func _roll_pokemon_encounter(map_data: Dictionary) -> Dictionary:
 		return {}
 	if entry.has("pokemon_id"):
 		var pokemon_id := str(entry.get("pokemon_id", ""))
-		if pokemon_id != "" and PokemonHelpers.has_definition(pokemon_id):
+		if pokemon_id != "" and PokemonHelpers.is_available(pokemon_id):
 			return _starter_pokemon(pokemon_id, maxi(1, int(entry.get("level", 5))))
 	var pokemon = entry.get("pokemon", {})
 	if typeof(pokemon) == TYPE_DICTIONARY:
@@ -240,7 +240,7 @@ static func _encounters_for_map(map_key: String, fallback: Array) -> Array:
 		if typeof(row) != TYPE_DICTIONARY:
 			continue
 		var pokemon_id := str(row.get("pokemon_id", row.get("id", "")))
-		if pokemon_id == "" or not PokemonHelpers.has_definition(pokemon_id):
+		if pokemon_id == "" or not PokemonHelpers.is_available(pokemon_id):
 			continue
 		encounters.append({
 			"rarity": str(row.get("rarity", "common")),
