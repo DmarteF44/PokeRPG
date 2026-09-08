@@ -363,14 +363,20 @@
       box-shadow: 0 5px 18px rgba(0, 0, 0, 0.25);
     }
     .debug-secret {
+      /* Bottom-right corner of the Home screen, below the Tutorial button.
+         Sized well past the glyph itself (44x44 tap target around a 16px
+         sparkle) so it's actually easy to find and tap on a phone, while
+         still reading as a subtle decoration rather than a normal button. */
       position: absolute;
-      left: 332px;
-      top: 606px;
-      width: 22px;
-      height: 22px;
-      color: rgba(255, 255, 255, 0.52);
+      left: 310px;
+      top: 590px;
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      color: rgba(255, 255, 255, 0.65);
       background: transparent;
-      font: 700 12px Arial, Helvetica, sans-serif;
+      font: 700 16px Arial, Helvetica, sans-serif;
     }
   </style>
 </head>
