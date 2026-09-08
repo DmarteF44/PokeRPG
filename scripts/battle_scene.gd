@@ -93,6 +93,11 @@ const TEXT = {
 		"level_up": "%s grew to level %d!",
 		"evolution_start": "What? %s is evolving!",
 		"evolution_done": "Congratulations! Your %s evolved into %s!",
+		"move_learn_wants": "%s wants to learn %s!",
+		"move_learn_full": "But %s already knows 4 moves. Choose a move to forget, or give up learning %s.",
+		"move_learn_replaced": "%s forgot %s and learned %s!",
+		"move_learn_cancelled": "%s did not learn %s.",
+		"give_up_learning": "Give Up",
 		"no_pp": "No PP left.",
 		"miss": "The attack missed!",
 		"critical": "A critical hit!",
@@ -159,6 +164,11 @@ const TEXT = {
 		"level_up": "%s subiu para o nível %d!",
 		"evolution_start": "O quê? %s está evoluindo!",
 		"evolution_done": "Parabéns! Seu %s evoluiu para %s!",
+		"move_learn_wants": "%s quer aprender %s!",
+		"move_learn_full": "Mas %s já conhece 4 golpes. Escolha um golpe para esquecer, ou desista de aprender %s.",
+		"move_learn_replaced": "%s esqueceu %s e aprendeu %s!",
+		"move_learn_cancelled": "%s não aprendeu %s.",
+		"give_up_learning": "Desistir",
 		"no_pp": "Sem PP suficientes.",
 		"miss": "O ataque errou!",
 		"critical": "Acerto crítico!",
@@ -984,6 +994,12 @@ func _grant_victory_xp() -> String:
 		lines.append(_text("evolution_start") % before_name)
 		lines.append(_text("evolution_done") % [before_name, after_name])
 		call_deferred("_show_evolution_popup", before, after)
+
+	var pending_move_learns: Array = xp_result.get("pending_move_learns", [])
+	for pending in pending_move_learns:
+		if typeof(pending) != TYPE_DICTIONARY:
+			continue
+		call_deferred("_show_move_learn_popup", str(pending.get("move_name", "")))
 	return _join_lines(lines)
 
 
@@ -1594,6 +1610,80 @@ func _show_evolution_popup(before: Dictionary, after: Dictionary) -> void:
 	var close_callback = func():
 		overlay.queue_free()
 	UI.add_orange_button(overlay, "OK", Vector2(70, 396), Vector2(220, 48), close_callback, "CloseEvolution")
+
+
+func _show_move_learn_popup(move_name: String) -> void:
+	var pokemon_name := str(player_pokemon.get("name", "Pokemon"))
+	var new_move := PokemonHelpers.move_by_name(move_name)
+	var current_moves: Array = player_pokemon.get("moves", [])
+
+	var overlay := Control.new()
+	overlay.name = "MoveLearnPopup"
+	overlay.position = Vector2.ZERO
+	overlay.size = UI.SCREEN_SIZE
+	overlay.mouse_filter = Control.MOUSE_FILTER_STOP
+	add_child(overlay)
+
+	var shade := ColorRect.new()
+	shade.name = "Shade"
+	shade.position = Vector2.ZERO
+	shade.size = UI.SCREEN_SIZE
+	shade.color = Color(0, 0, 0, 0.48)
+	overlay.add_child(shade)
+
+	UI.add_texture(overlay, UI.POPUP_PANEL, Vector2(15, 90), Vector2(330, 460), "Panel", TextureRect.STRETCH_SCALE)
+	UI.add_panel_label(overlay, _text("move_learn_wants") % [pokemon_name, move_name], Vector2(38, 112), Vector2(284, 42), 15, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "WantsText")
+	var info_label := UI.add_panel_label(overlay, _text("move_learn_full") % [pokemon_name, move_name], Vector2(38, 156), Vector2(284, 56), 12, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "InfoText")
+	info_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+
+	for i in range(current_moves.size()):
+		var move: Dictionary = current_moves[i] if typeof(current_moves[i]) == TYPE_DICTIONARY else {}
+		var row := Button.new()
+		row.name = "MoveSlot%d" % i
+		row.position = Vector2(38, 220.0 + float(i) * 52.0)
+		row.size = Vector2(284, 46)
+		row.focus_mode = Control.FOCUS_NONE
+		UI.style_panel_button(row, Color(0.86, 0.92, 0.96), Color(0.34, 0.50, 0.62), 2)
+		overlay.add_child(row)
+		var move_text := "%s | %s | PP %d" % [str(move.get("name", "Move")), str(move.get("type", "Normal")), int(move.get("pp", 35))]
+		var label := UI.add_panel_label(row, move_text, Vector2(10, 0), Vector2(264, 46), 12, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "MoveText")
+		label.clip_text = true
+		row.pressed.connect(Callable(self, "_resolve_move_learn").bind(overlay, i, new_move))
+
+	var cancel_callback = func():
+		message_label.text = "%s\n%s" % [message_label.text, _text("move_learn_cancelled") % [pokemon_name, move_name]]
+		overlay.queue_free()
+	UI.add_orange_button(overlay, _text("give_up_learning"), Vector2(70, 452), Vector2(220, 48), cancel_callback, "GiveUpLearning")
+
+
+func _resolve_move_learn(overlay: Control, slot: int, new_move: Dictionary) -> void:
+	var moves: Array = player_pokemon.get("moves", [])
+	if slot < 0 or slot >= moves.size():
+		overlay.queue_free()
+		return
+	var old_move: Dictionary = moves[slot] if typeof(moves[slot]) == TYPE_DICTIONARY else {}
+	var old_name := str(old_move.get("name", "Move"))
+	moves[slot] = new_move
+	player_pokemon["moves"] = moves
+
+	var pp_max = player_pokemon.get("pp_max", [])
+	var pp_current = player_pokemon.get("pp_current", [])
+	if typeof(pp_max) != TYPE_ARRAY:
+		pp_max = []
+	if typeof(pp_current) != TYPE_ARRAY:
+		pp_current = []
+	while pp_max.size() <= slot:
+		pp_max.append(1)
+	while pp_current.size() <= slot:
+		pp_current.append(1)
+	pp_max[slot] = int(new_move.get("pp", 35))
+	pp_current[slot] = int(new_move.get("pp", 35))
+	player_pokemon["pp_max"] = pp_max
+	player_pokemon["pp_current"] = pp_current
+
+	_persist_player_pokemon()
+	message_label.text = "%s\n%s" % [message_label.text, _text("move_learn_replaced") % [str(player_pokemon.get("name", "Pokemon")), old_name, str(new_move.get("name", "Move"))]]
+	overlay.queue_free()
 
 
 func _add_hp_bar(pos: Vector2, node_size: Vector2, node_name: String) -> ColorRect:

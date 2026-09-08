@@ -464,6 +464,7 @@
         battle: "Battle", fight: "Fight", attack: "Attack", run: "Run", enemy_fainted: "Enemy fainted!", your_fainted: "Your Pokemon fainted!", choose_next: "Choose another Pokemon.",
         xp_gain: "{name} gained {xp} XP!", level_up: "{name} grew to level {level}!",
         evolution_start: "What? {from} is evolving!", evolution_done: "Congratulations! {from} evolved into {to}!",
+        move_learn_wants_full: "{name} wants to learn {move}, but already knows 4 moves! Open Collection to swap a move.",
         no_pp: "No PP left.", miss: "The attack missed!", critical: "A critical hit!",
         super_effective: "It's super effective!", not_very_effective: "It's not very effective...", no_effect: "It had no effect...",
         item_used: "{name} used {item}!", item_empty: "No item left.", item_no_effect: "It had no effect.",
@@ -550,6 +551,7 @@
         battle: "Batalha", fight: "Fight", attack: "Atacar", run: "Fugir", enemy_fainted: "O inimigo desmaiou!", your_fainted: "Seu Pokémon desmaiou!", choose_next: "Escolha outro Pokémon.",
         xp_gain: "{name} ganhou {xp} XP!", level_up: "{name} subiu para o nível {level}!",
         evolution_start: "O quê? {from} está evoluindo!", evolution_done: "Parabéns! {from} evoluiu para {to}!",
+        move_learn_wants_full: "{name} quer aprender {move}, mas já conhece 4 golpes! Abra a Coleção para trocar um golpe.",
         no_pp: "Sem PP suficientes.", miss: "O ataque errou!", critical: "Acerto crítico!",
         super_effective: "É super efetivo!", not_very_effective: "Não foi muito efetivo...", no_effect: "Não teve efeito...",
         item_used: "{name} usou {item}!", item_empty: "Item esgotado.", item_no_effect: "Não teve efeito.",
@@ -106224,9 +106226,14 @@
 	        moves: Array.isArray(pokemon.moves) && pokemon.moves.length ? pokemon.moves : movesForLevel(target.id, pokemon.level)
 	      }, oldMaxHp);
 	    }
+	    function movesAtExactLevel(id, level) {
+	      const def = starterDefs[id] || starterDefs.charmander;
+	      const names = (def.learnset || {})[level] || (def.learnset || {})[String(level)] || [];
+	      return names.map(name => moveForName(name).name).filter(Boolean);
+	    }
 	    function grantXP(pokemon, amount) {
 	      let updated = pokemonModel(pokemon);
-	      const result = { pokemon: updated, xpGained: 0, levelUps: [], evolutions: [] };
+	      const result = { pokemon: updated, xpGained: 0, levelUps: [], evolutions: [], pendingMoveLearns: [] };
 	      if (amount <= 0 || updated.level >= 100) {
 	        updated.xp = updated.level >= 100 ? 0 : updated.xp;
 	        updated.xp_to_next_level = xpToNextLevel(updated.level);
@@ -106240,9 +106247,22 @@
 	        const oldMaxHp = updated.max_hp;
 	        updated.level += 1;
 	        updated = applyStatsForLevel(updated, oldMaxHp);
-	        updated.moves = movesForLevel(updated.id, updated.level);
-	        updated.pp_max = updated.moves.map(move => move.pp || 35);
-	        updated.pp_current = [...updated.pp_max];
+
+	        const knownNames = new Set((updated.moves || []).map(move => move?.name).filter(Boolean));
+	        let slotsFree = Math.max(0, 4 - (updated.moves || []).length);
+	        for (const moveName of movesAtExactLevel(updated.id, updated.level)) {
+	          if (knownNames.has(moveName)) continue;
+	          if (slotsFree > 0) {
+	            slotsFree -= 1;
+	            updated.moves = [...(updated.moves || []), moveForName(moveName)];
+	            updated.pp_max = [...(updated.pp_max || []), moveForName(moveName).pp || 35];
+	            updated.pp_current = [...(updated.pp_current || []), moveForName(moveName).pp || 35];
+	            knownNames.add(moveName);
+	            continue;
+	          }
+	          result.pendingMoveLearns.push({ pokemonId: updated.id, moveName, level: updated.level });
+	        }
+
 	        result.levelUps.push(updated.level);
 	        let target = (starterDefs[updated.id]?.evolutions || []).find(evo => updated.level >= evo.level)?.target || "";
 	        while (target) {
@@ -107816,6 +107836,9 @@
 	        battle.over = true;
 	        const xpLines = [t("enemy_fainted"), t("xp_gain", { name: battle.player.name, xp: xpResult.xpGained })];
 	        for (const level of xpResult.levelUps) xpLines.push(t("level_up", { name: battle.player.name, level }));
+	        for (const pending of xpResult.pendingMoveLearns || []) {
+	          xpLines.push(t("move_learn_wants_full", { name: battle.player.name, move: pending.moveName }));
+	        }
 	        for (const evo of xpResult.evolutions) {
 	          xpLines.push(t("evolution_start", { from: evo.from.species || evo.from.name }));
 	          xpLines.push(t("evolution_done", { from: evo.from.species || evo.from.name, to: evo.to.species || evo.to.name }));
