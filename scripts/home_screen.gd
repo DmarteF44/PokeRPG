@@ -151,6 +151,12 @@ const TEXT = {
 		"type_ghost": "Ghost",
 		"type_dragon": "Dragon",
 		"type_mixed": "Mixed",
+		"type_bug": "Bug",
+		"type_flying": "Flying",
+		"type_fighting": "Fighting",
+		"type_psychic": "Psychic",
+		"type_fairy": "Fairy",
+		"type_dark": "Dark",
 		"forest": "Forest Map",
 		"fire": "Fire Map",
 		"water": "Water Map",
@@ -181,6 +187,14 @@ const TEXT = {
 		"requires": "Requires Lv. %d and %d badges.",
 		"available_status": "Available",
 		"locked": "Locked",
+		"filters": "Filters",
+		"filters_active": "Filters (active)",
+		"filter_status": "Status",
+		"filter_generation": "Generation",
+		"filter_type": "Type",
+		"filter_all": "All",
+		"generation_short": "Gen",
+		"clear_filters": "Clear Filters",
 		"not_enough_money": "Not enough Gold.",
 		"bought": "Bought %s!",
 		"energy_full": "Your energy is already full.",
@@ -355,6 +369,12 @@ const TEXT = {
 		"type_ghost": "Fantasma",
 		"type_dragon": "Dragão",
 		"type_mixed": "Misto",
+		"type_bug": "Inseto",
+		"type_flying": "Voador",
+		"type_fighting": "Lutador",
+		"type_psychic": "Psíquico",
+		"type_fairy": "Fada",
+		"type_dark": "Sombrio",
 		"forest": "Floresta",
 		"fire": "Mapa de Fogo",
 		"water": "Mapa de Água",
@@ -385,6 +405,14 @@ const TEXT = {
 		"requires": "Requer Nv. %d e %d insígnias.",
 		"available_status": "Disponível",
 		"locked": "Bloqueado",
+		"filters": "Filtros",
+		"filters_active": "Filtros (ativos)",
+		"filter_status": "Status",
+		"filter_generation": "Geração",
+		"filter_type": "Tipo",
+		"filter_all": "Todos",
+		"generation_short": "Ger.",
+		"clear_filters": "Limpar Filtros",
 		"not_enough_money": "Gold insuficiente.",
 		"bought": "%s comprado!",
 		"energy_full": "Sua energia já está completa.",
@@ -446,6 +474,9 @@ var storage_sort_mode := "level"
 var selected_collection_tab := "team"
 var selected_collection_source := "team"
 var selected_collection_index := 0
+var pokedex_filter_type := ""
+var pokedex_filter_generation := 0
+var pokedex_filter_status := ""
 var debug_click_count := 0
 var debug_click_deadline_msec := 0
 var debug_enabled := true
@@ -1754,36 +1785,170 @@ func _collection_description(pokemon: Dictionary) -> String:
 	return str(pokemon.get(key, pokemon.get("species", "Pokemon")))
 
 
+func _pokedex_filters_active() -> bool:
+	return pokedex_filter_type != "" or pokedex_filter_generation != 0 or pokedex_filter_status != ""
+
+
+func _filtered_pokedex_species_ids() -> Array:
+	var result := []
+	for pokemon_id in PokemonHelpers.available_species_ids():
+		var definition := PokemonHelpers.get_definition(str(pokemon_id))
+		if pokedex_filter_type != "":
+			var types_value = definition.get("types", [])
+			var types: Array = types_value if typeof(types_value) == TYPE_ARRAY else []
+			var has_type := false
+			for type_name in types:
+				if str(type_name) == pokedex_filter_type:
+					has_type = true
+					break
+			if not has_type:
+				continue
+		if pokedex_filter_generation != 0 and int(definition.get("generation", 1)) != pokedex_filter_generation:
+			continue
+		if pokedex_filter_status != "" and _pokedex_status_key(str(pokemon_id)) != pokedex_filter_status:
+			continue
+		result.append(pokemon_id)
+	return result
+
+
 func _show_pokedex() -> void:
 	_close_pokemon_popup()
 	var popup := _create_popup(_text("pokedex"), "PokeDexPopup", 34.0, 580.0, Callable(self, "_show_pokemon_collection"))
-	var species_ids := PokemonHelpers.available_species_ids()
-	var total := species_ids.size()
-	var seen_count := _count_registered_species(_seen_pokemon_ids(), species_ids)
-	var owned_count := _count_registered_species(_owned_pokemon_ids(), species_ids)
+	var all_species_ids := PokemonHelpers.available_species_ids()
+	var species_ids := _filtered_pokedex_species_ids()
+	var total := all_species_ids.size()
+	var seen_count := _count_registered_species(_seen_pokemon_ids(), all_species_ids)
+	var owned_count := _count_registered_species(_owned_pokemon_ids(), all_species_ids)
 	UI.add_panel_label(
 		popup,
 		"%s\n%s" % [_text("seen_count") % [seen_count, total], _text("captured_count") % [owned_count, total]],
 		Vector2(42, 92),
-		Vector2(276, 42),
+		Vector2(276, 34),
 		13,
 		HORIZONTAL_ALIGNMENT_CENTER,
 		VERTICAL_ALIGNMENT_CENTER,
 		"PokedexCounts"
 	)
+	var filter_label := _text("filters_active") if _pokedex_filters_active() else _text("filters")
+	var filter_button := _add_small_button(popup, filter_label, Vector2(42, 136), Vector2(276, 28), Callable(self, "_show_pokedex_filters"), "FilterButton")
+	if _pokedex_filters_active():
+		UI.style_panel_button(filter_button, Color(0.95, 0.78, 0.32), Color(0.92, 0.46, 0.08), 2)
+
 	var scroll := ScrollContainer.new()
 	scroll.name = "PokeDexScroll"
-	scroll.position = Vector2(28, 142)
-	scroll.size = Vector2(304, 430)
+	scroll.position = Vector2(28, 172)
+	scroll.size = Vector2(304, 400)
 	popup.add_child(scroll)
 
 	var content := Control.new()
 	content.name = "PokeDexContent"
-	content.custom_minimum_size = Vector2(304, species_ids.size() * 168)
+	content.custom_minimum_size = Vector2(304, max(400, species_ids.size() * 168))
 	scroll.add_child(content)
+
+	if species_ids.is_empty():
+		UI.add_panel_label(content, _text("category_empty"), Vector2(0, 16), Vector2(296, 60), 13, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "NoResults")
+		return
 
 	for i in range(species_ids.size()):
 		_add_pokedex_entry(content, str(species_ids[i]), i)
+
+
+func _show_pokedex_filters() -> void:
+	_close_pokemon_popup()
+	var popup := _create_popup(_text("filters"), "PokedexFiltersPopup", 34.0, 580.0, Callable(self, "_show_pokedex"))
+
+	var scroll := ScrollContainer.new()
+	scroll.name = "PokedexFiltersScroll"
+	scroll.position = Vector2(28, 92)
+	scroll.size = Vector2(304, 440)
+	popup.add_child(scroll)
+
+	var content := Control.new()
+	content.name = "PokedexFiltersContent"
+	scroll.add_child(content)
+
+	var y := 0.0
+	UI.add_panel_label(content, _text("filter_status"), Vector2(0, y), Vector2(296, 22), 14, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "StatusTitle")
+	y += 26.0
+	var statuses := ["", "seen", "owned", "unknown"]
+	for i in range(statuses.size()):
+		var status_value: String = statuses[i]
+		var label := _text("filter_all") if status_value == "" else _text(status_value)
+		var col := i % 3
+		var row := i / 3
+		var button := _add_small_button(content, label, Vector2(float(col) * 100.0, y + float(row) * 34.0), Vector2(96, 30), Callable(self, "_set_pokedex_status_filter").bind(status_value), "Status%d" % i)
+		if pokedex_filter_status == status_value:
+			UI.style_panel_button(button, Color(0.95, 0.78, 0.32), Color(0.92, 0.46, 0.08), 2)
+	y += ceili(float(statuses.size()) / 3.0) * 34.0 + 16.0
+
+	UI.add_panel_label(content, _text("filter_generation"), Vector2(0, y), Vector2(296, 22), 14, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "GenTitle")
+	y += 26.0
+	var generations := [0, 1, 2, 3, 4, 5, 6, 7, 8]
+	for i in range(generations.size()):
+		var generation: int = generations[i]
+		var label := _text("filter_all") if generation == 0 else "%s %d" % [_text("generation_short"), generation]
+		var col := i % 3
+		var row := i / 3
+		var button := _add_small_button(content, label, Vector2(float(col) * 100.0, y + float(row) * 34.0), Vector2(96, 30), Callable(self, "_set_pokedex_generation_filter").bind(generation), "Gen%d" % i)
+		if pokedex_filter_generation == generation:
+			UI.style_panel_button(button, Color(0.95, 0.78, 0.32), Color(0.92, 0.46, 0.08), 2)
+	y += ceili(float(generations.size()) / 3.0) * 34.0 + 16.0
+
+	UI.add_panel_label(content, _text("filter_type"), Vector2(0, y), Vector2(296, 22), 14, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "TypeTitle")
+	y += 26.0
+	var types := _pokedex_available_types()
+	var type_options := [""] + types
+	for i in range(type_options.size()):
+		var type_value: String = type_options[i]
+		var label := _text("filter_all") if type_value == "" else _text("type_%s" % type_value.to_lower())
+		var col := i % 3
+		var row := i / 3
+		var button := _add_small_button(content, label, Vector2(float(col) * 100.0, y + float(row) * 34.0), Vector2(96, 30), Callable(self, "_set_pokedex_type_filter").bind(type_value), "Type%d" % i)
+		if pokedex_filter_type == type_value:
+			UI.style_panel_button(button, Color(0.95, 0.78, 0.32), Color(0.92, 0.46, 0.08), 2)
+	y += ceili(float(type_options.size()) / 3.0) * 34.0 + 24.0
+
+	content.custom_minimum_size = Vector2(304, y + 60.0)
+	_add_small_button(content, _text("clear_filters"), Vector2(0, y), Vector2(296, 36), Callable(self, "_clear_pokedex_filters"), "ClearFilters")
+
+
+func _pokedex_available_types() -> Array:
+	var seen := {}
+	var result := []
+	for pokemon_id in PokemonHelpers.available_species_ids():
+		var definition := PokemonHelpers.get_definition(str(pokemon_id))
+		var types_value = definition.get("types", [])
+		if typeof(types_value) != TYPE_ARRAY:
+			continue
+		for type_name in types_value:
+			var key := str(type_name)
+			if not seen.has(key):
+				seen[key] = true
+				result.append(key)
+	result.sort()
+	return result
+
+
+func _set_pokedex_status_filter(status_value: String) -> void:
+	pokedex_filter_status = status_value
+	_show_pokedex_filters()
+
+
+func _set_pokedex_generation_filter(generation: int) -> void:
+	pokedex_filter_generation = generation
+	_show_pokedex_filters()
+
+
+func _set_pokedex_type_filter(type_value: String) -> void:
+	pokedex_filter_type = type_value
+	_show_pokedex_filters()
+
+
+func _clear_pokedex_filters() -> void:
+	pokedex_filter_type = ""
+	pokedex_filter_generation = 0
+	pokedex_filter_status = ""
+	_show_pokedex_filters()
 
 
 func _show_pokemon_center() -> void:
@@ -1981,11 +2146,15 @@ func _pokemon_types_text(pokemon: Dictionary) -> String:
 
 
 func _pokedex_status(pokemon_id: String) -> String:
+	return _text(_pokedex_status_key(pokemon_id))
+
+
+func _pokedex_status_key(pokemon_id: String) -> String:
 	if _owned_pokemon_ids().has(pokemon_id):
-		return _text("owned")
+		return "owned"
 	if _seen_pokemon_ids().has(pokemon_id):
-		return _text("seen")
-	return _text("unknown")
+		return "seen"
+	return "unknown"
 
 
 func _pokemon_description(pokemon: Dictionary) -> String:
