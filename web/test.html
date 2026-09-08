@@ -237,7 +237,7 @@
     .center-status {
       position: absolute;
       left: 42px;
-      top: 500px;
+      top: 456px;
       width: 276px;
       height: 36px;
       display: grid;
@@ -386,7 +386,8 @@
   <script>
     const A = "../assets/";
     const defaultInventory = { poke_ball: 5, potion: 3, town_map: 1 };
-    const categories = ["pokeballs", "potions", "evolution", "key_items"];
+    const categories = ["pokeballs", "cura", "evolution", "atributos", "xp", "buffs", "pesca", "key_items", "outros"];
+    const categoryTabsPerRow = 3;
     const pokemonCenterCost = 250;
     const healingLightSeconds = 15 * 60;
     const healingNormalSeconds = 30 * 60;
@@ -443,6 +444,7 @@
         type_electric: "Electric", type_ground: "Ground", type_ghost: "Ghost",
         type_dragon: "Dragon", type_mixed: "Mixed",
         pokeballs: "Pokeballs", potions: "Potions", evolution: "Evolution", key_items: "Key Items",
+        cura: "Healing", atributos: "Attributes", xp: "XP", buffs: "Buffs", pesca: "Fishing", outros: "Other", category_empty: "No items in this category yet.",
         qty: "Qty", use: "Use", buy: "Buy", price: "Price", locked: "Locked",
         requires: "Requires Lv. {level} and {badges} badges.", no_energy: "You are out of energy.",
         none_found: "You explored the area but found nothing.", found_pokemon: "Pokemon {name} found!", item_found: "Found item: {item} x{amount}", no_ready_pokemon: "No Pokemon is ready to explore.",
@@ -530,6 +532,7 @@
         type_electric: "Elétrico", type_ground: "Terra", type_ghost: "Fantasma",
         type_dragon: "Dragão", type_mixed: "Misto",
         pokeballs: "Pokébolas", potions: "Poções", evolution: "Evolução", key_items: "Itens-chave",
+        cura: "Cura", atributos: "Atributos", xp: "XP", buffs: "Buffs", pesca: "Pesca", outros: "Outros", category_empty: "Nenhum item nesta categoria ainda.",
         qty: "Qtd", use: "Usar", buy: "Comprar", price: "Preço", locked: "Bloqueado",
         requires: "Requer Nv. {level} e {badges} insígnias.", no_energy: "Você está sem energia.",
         none_found: "Você explorou a área, mas não encontrou nada.", found_pokemon: "Pokemon {name} found!", item_found: "Item encontrado: {item} x{amount}", no_ready_pokemon: "Nenhum Pokémon está pronto para explorar.",
@@ -568,38 +571,38 @@
       }
     };
     const items = [
-      ["poke_ball", "Poke Ball", "Pokébola", "pokeballs", 200, 0, 0, "A basic ball used to catch wild Pokemon.", "Uma bola básica usada para capturar Pokémon selvagens."],
-      ["great_ball", "Great Ball", "Great Ball", "pokeballs", 600, 5, 1, "A stronger ball with a better catch rate.", "Uma bola melhor, com chance maior de captura."],
-      ["ultra_ball", "Ultra Ball", "Ultra Ball", "pokeballs", 1200, 15, 3, "A high-performance ball for tougher Pokemon.", "Uma bola de alto desempenho para Pokémon difíceis."],
-      ["master_ball", "Master Ball", "Master Ball", "pokeballs", 50000, 50, 8, "The ultimate ball. Extremely rare and expensive.", "A bola definitiva. Extremamente rara e cara."],
-      ["potion", "Potion", "Poção", "potions", 300, 0, 0, "A simple healing item for battle preparation.", "Um item simples de cura para preparar batalhas."],
-      ["super_potion", "Super Potion", "Super Poção", "potions", 700, 8, 1, "A stronger healing item for longer journeys.", "Um item de cura mais forte para jornadas longas."],
-      ["hyper_potion", "Hyper Potion", "Hiper Poção", "potions", 1200, 18, 3, "A powerful potion for difficult fights.", "Uma poção poderosa para lutas difíceis."],
-      ["max_potion", "Max Potion", "Poção Máxima", "potions", 2500, 30, 5, "A premium potion for late-game battles.", "Uma poção premium para batalhas avançadas."],
-      ["revive", "Revive", "Reviver", "potions", 1500, 12, 2, "Helps a fainted Pokemon return to battle soon.", "Ajuda um Pokémon nocauteado a voltar à batalha em breve."],
-      ["max_revive", "Max Revive", "Reviver Máximo", "potions", 4000, 35, 6, "A rare revive item for advanced trainers.", "Um item raro de reviver para treinadores avançados."],
-      ["hp_boost_potion", "HP Boost Potion", "Poção de HP", "potions", 30000, 8, 1, "Raises a Pokemon's max HP by 5, up to the stat limit.", "Aumenta o HP máximo de um Pokémon em 5, até o limite do atributo.", "stat_boost", 5, "max_hp"],
-      ["attack_boost_potion", "Attack Boost Potion", "Poção de Ataque", "potions", 35000, 10, 2, "Raises a Pokemon's Attack by 5, up to the stat limit.", "Aumenta o Ataque de um Pokémon em 5, até o limite do atributo.", "stat_boost", 5, "attack"],
-      ["defense_boost_potion", "Defense Boost Potion", "Poção de Defesa", "potions", 35000, 10, 2, "Raises a Pokemon's Defense by 5, up to the stat limit.", "Aumenta a Defesa de um Pokémon em 5, até o limite do atributo.", "stat_boost", 5, "defense"],
-      ["sp_attack_boost_potion", "Sp. Attack Boost Potion", "Poção de Ataque Especial", "potions", 45000, 15, 3, "Raises a Pokemon's Sp. Attack by 5, up to the stat limit.", "Aumenta o Ataque Especial de um Pokémon em 5, até o limite do atributo.", "stat_boost", 5, "sp_attack"],
-      ["sp_defense_boost_potion", "Sp. Defense Boost Potion", "Poção de Defesa Especial", "potions", 45000, 15, 3, "Raises a Pokemon's Sp. Defense by 5, up to the stat limit.", "Aumenta a Defesa Especial de um Pokémon em 5, até o limite do atributo.", "stat_boost", 5, "sp_defense"],
-      ["speed_boost_potion", "Speed Boost Potion", "Poção de Velocidade", "potions", 40000, 12, 2, "Raises a Pokemon's Speed by 5, up to the stat limit.", "Aumenta a Velocidade de um Pokémon em 5, até o limite do atributo.", "stat_boost", 5, "speed"],
-      ["energy_snack", "Energy Snack", "Energy Snack", "potions", 5000, 0, 0, "Restores 5 exploration energy.", "Restaura 5 de energia de exploração.", "restore_energy", 5],
-      ["energy_drink", "Energy Drink", "Energy Drink", "potions", 12500, 0, 0, "Restores 10 exploration energy.", "Restaura 10 de energia de exploração.", "restore_energy", 10],
-      ["energy_capsule", "Energy Capsule", "Energy Capsule", "potions", 22500, 0, 0, "Restores 15 exploration energy.", "Restaura 15 de energia de exploração.", "restore_energy", 15],
-      ["energy_crystal", "Energy Crystal", "Energy Crystal", "potions", 50000, 0, 0, "Restores 30 exploration energy.", "Restaura 30 de energia de exploração.", "restore_energy", 30],
-      ["fire_stone", "Fire Stone", "Pedra de Fogo", "evolution", 2100, 15, 2, "A stone connected to fiery evolutions.", "Uma pedra ligada a evoluções de fogo.", "evolve_stone"],
-      ["water_stone", "Water Stone", "Pedra de Água", "evolution", 2100, 15, 2, "A stone connected to water evolutions.", "Uma pedra ligada a evoluções de água.", "evolve_stone"],
-      ["thunder_stone", "Thunder Stone", "Pedra do Trovão", "evolution", 2100, 15, 2, "A stone connected to electric evolutions.", "Uma pedra ligada a evoluções elétricas.", "evolve_stone"],
-      ["leaf_stone", "Leaf Stone", "Pedra da Folha", "evolution", 2100, 15, 2, "A stone connected to grass evolutions.", "Uma pedra ligada a evoluções de grama.", "evolve_stone"],
-      ["moon_stone", "Moon Stone", "Pedra da Lua", "evolution", 3500, 20, 3, "A mysterious stone connected to moonlight.", "Uma pedra misteriosa ligada ao luar.", "evolve_stone"],
-      ["sun_stone", "Sun Stone", "Pedra do Sol", "evolution", 3500, 20, 3, "A bright stone connected to sunlight.", "Uma pedra brilhante ligada à luz do sol.", "evolve_stone"],
-      ["town_map", "Town Map", "Mapa da Cidade", "key_items", 0, 0, 0, "A useful map for checking nearby regions.", "Um mapa útil para consultar regiões próximas."],
-      ["old_rod", "Old Rod", "Vara Velha", "key_items", 500, 3, 0, "A simple fishing rod for future fishing spots.", "Uma vara simples para futuros pontos de pescaria."],
-      ["good_rod", "Good Rod", "Vara Boa", "key_items", 2500, 15, 2, "A better rod for future fishing features.", "Uma vara melhor para recursos futuros de pescaria."],
-      ["super_rod", "Super Rod", "Super Vara", "key_items", 7000, 30, 5, "A high-quality rod for future rare fishing.", "Uma vara de alta qualidade para futuras pescarias raras."]
-    ].map(([id, name_en, name_pt, category, price, min_level, min_badges, description_en, description_pt, effect_type = "", effect_value = 0, effect_stat = ""]) => ({
-      id, name_en, name_pt, category, price, min_level, min_badges, description_en, description_pt, effect_type, effect_value, effect_stat
+      ["poke_ball", "Poke Ball", "Pokébola", "pokeballs", 200, 0, 0, "A basic ball used to catch wild Pokemon.", "Uma bola básica usada para capturar Pokémon selvagens.", "", 0, "", ""],
+      ["great_ball", "Great Ball", "Great Ball", "pokeballs", 600, 5, 1, "A stronger ball with a better catch rate.", "Uma bola melhor, com chance maior de captura.", "", 0, "", ""],
+      ["ultra_ball", "Ultra Ball", "Ultra Ball", "pokeballs", 1200, 15, 3, "A high-performance ball for tougher Pokemon.", "Uma bola de alto desempenho para Pokémon difíceis.", "", 0, "", ""],
+      ["master_ball", "Master Ball", "Master Ball", "pokeballs", 50000, 50, 8, "The ultimate ball. Extremely rare and expensive.", "A bola definitiva. Extremamente rara e cara.", "", 0, "", ""],
+      ["potion", "Potion", "Poção", "cura", 300, 0, 0, "A simple healing item for battle preparation.", "Um item simples de cura para preparar batalhas.", "", 0, "", "potions"],
+      ["super_potion", "Super Potion", "Super Poção", "cura", 700, 8, 1, "A stronger healing item for longer journeys.", "Um item de cura mais forte para jornadas longas.", "", 0, "", "potions"],
+      ["hyper_potion", "Hyper Potion", "Hiper Poção", "cura", 1200, 18, 3, "A powerful potion for difficult fights.", "Uma poção poderosa para lutas difíceis.", "", 0, "", "potions"],
+      ["max_potion", "Max Potion", "Poção Máxima", "cura", 2500, 30, 5, "A premium potion for late-game battles.", "Uma poção premium para batalhas avançadas.", "", 0, "", "potions"],
+      ["revive", "Revive", "Reviver", "cura", 1500, 12, 2, "Helps a fainted Pokemon return to battle soon.", "Ajuda um Pokémon nocauteado a voltar à batalha em breve.", "", 0, "", "potions"],
+      ["max_revive", "Max Revive", "Reviver Máximo", "cura", 4000, 35, 6, "A rare revive item for advanced trainers.", "Um item raro de reviver para treinadores avançados.", "", 0, "", "potions"],
+      ["hp_boost_potion", "HP Boost Potion", "Poção de HP", "atributos", 30000, 8, 1, "Raises a Pokemon's max HP by 5, up to the stat limit.", "Aumenta o HP máximo de um Pokémon em 5, até o limite do atributo.", "stat_boost", 5, "max_hp", "potions"],
+      ["attack_boost_potion", "Attack Boost Potion", "Poção de Ataque", "atributos", 35000, 10, 2, "Raises a Pokemon's Attack by 5, up to the stat limit.", "Aumenta o Ataque de um Pokémon em 5, até o limite do atributo.", "stat_boost", 5, "attack", "potions"],
+      ["defense_boost_potion", "Defense Boost Potion", "Poção de Defesa", "atributos", 35000, 10, 2, "Raises a Pokemon's Defense by 5, up to the stat limit.", "Aumenta a Defesa de um Pokémon em 5, até o limite do atributo.", "stat_boost", 5, "defense", "potions"],
+      ["sp_attack_boost_potion", "Sp. Attack Boost Potion", "Poção de Ataque Especial", "atributos", 45000, 15, 3, "Raises a Pokemon's Sp. Attack by 5, up to the stat limit.", "Aumenta o Ataque Especial de um Pokémon em 5, até o limite do atributo.", "stat_boost", 5, "sp_attack", "potions"],
+      ["sp_defense_boost_potion", "Sp. Defense Boost Potion", "Poção de Defesa Especial", "atributos", 45000, 15, 3, "Raises a Pokemon's Sp. Defense by 5, up to the stat limit.", "Aumenta a Defesa Especial de um Pokémon em 5, até o limite do atributo.", "stat_boost", 5, "sp_defense", "potions"],
+      ["speed_boost_potion", "Speed Boost Potion", "Poção de Velocidade", "atributos", 40000, 12, 2, "Raises a Pokemon's Speed by 5, up to the stat limit.", "Aumenta a Velocidade de um Pokémon em 5, até o limite do atributo.", "stat_boost", 5, "speed", "potions"],
+      ["energy_snack", "Energy Snack", "Energy Snack", "cura", 5000, 0, 0, "Restores 5 exploration energy.", "Restaura 5 de energia de exploração.", "restore_energy", 5, "", ""],
+      ["energy_drink", "Energy Drink", "Energy Drink", "cura", 12500, 0, 0, "Restores 10 exploration energy.", "Restaura 10 de energia de exploração.", "restore_energy", 10, "", ""],
+      ["energy_capsule", "Energy Capsule", "Energy Capsule", "cura", 22500, 0, 0, "Restores 15 exploration energy.", "Restaura 15 de energia de exploração.", "restore_energy", 15, "", ""],
+      ["energy_crystal", "Energy Crystal", "Energy Crystal", "cura", 50000, 0, 0, "Restores 30 exploration energy.", "Restaura 30 de energia de exploração.", "restore_energy", 30, "", ""],
+      ["fire_stone", "Fire Stone", "Pedra de Fogo", "evolution", 2100, 15, 2, "A stone connected to fiery evolutions.", "Uma pedra ligada a evoluções de fogo.", "evolve_stone", 0, "", ""],
+      ["water_stone", "Water Stone", "Pedra de Água", "evolution", 2100, 15, 2, "A stone connected to water evolutions.", "Uma pedra ligada a evoluções de água.", "evolve_stone", 0, "", ""],
+      ["thunder_stone", "Thunder Stone", "Pedra do Trovão", "evolution", 2100, 15, 2, "A stone connected to electric evolutions.", "Uma pedra ligada a evoluções elétricas.", "evolve_stone", 0, "", ""],
+      ["leaf_stone", "Leaf Stone", "Pedra da Folha", "evolution", 2100, 15, 2, "A stone connected to grass evolutions.", "Uma pedra ligada a evoluções de grama.", "evolve_stone", 0, "", ""],
+      ["moon_stone", "Moon Stone", "Pedra da Lua", "evolution", 3500, 20, 3, "A mysterious stone connected to moonlight.", "Uma pedra misteriosa ligada ao luar.", "evolve_stone", 0, "", ""],
+      ["sun_stone", "Sun Stone", "Pedra do Sol", "evolution", 3500, 20, 3, "A bright stone connected to sunlight.", "Uma pedra brilhante ligada à luz do sol.", "evolve_stone", 0, "", ""],
+      ["town_map", "Town Map", "Mapa da Cidade", "key_items", 0, 0, 0, "A useful map for checking nearby regions.", "Um mapa útil para consultar regiões próximas.", "", 0, "", ""],
+      ["old_rod", "Old Rod", "Vara Velha", "pesca", 500, 3, 0, "A simple fishing rod for future fishing spots.", "Uma vara simples para futuros pontos de pescaria.", "", 0, "", "key_items"],
+      ["good_rod", "Good Rod", "Vara Boa", "pesca", 2500, 15, 2, "A better rod for future fishing features.", "Uma vara melhor para recursos futuros de pescaria.", "", 0, "", "key_items"],
+      ["super_rod", "Super Rod", "Super Vara", "pesca", 7000, 30, 5, "A high-quality rod for future rare fishing.", "Uma vara de alta qualidade para futuras pescarias raras.", "", 0, "", "key_items"]
+    ].map(([id, name_en, name_pt, category, price, min_level, min_badges, description_en, description_pt, effect_type = "", effect_value = 0, effect_stat = "", icon_folder = ""]) => ({
+      id, name_en, name_pt, category, price, min_level, min_badges, description_en, description_pt, effect_type, effect_value, effect_stat, icon_folder
     }));
 	    const maps = [
 	      ["forest", "type_grass", "maps/thumbnails/map_forest_96x64.png", 1, 0],
@@ -96411,6 +96414,7 @@
     const pokemonFrameCache = new Map();
     const debugEnabled = true;
     const statLimits = { max_hp: 999, attack: 255, defense: 255, sp_attack: 255, sp_defense: 255, speed: 255 };
+    const teamLimit = 6;
     const battleEffectAssets = {
       Bug: "bug_slash", Dragon: "dragon_flare", Electric: "electric_spark", Fire: "fire_burst",
       Flying: "flying_gust", Ghost: "ghost_wisp", Grass: "grass_leaf", Ground: "ground_dust",
@@ -106479,7 +106483,7 @@
 	        const def = starterDefs[id];
 	        const name = def?.name || String(id).split("_").map(part => part.charAt(0).toUpperCase() + part.slice(1)).join(" ");
 	        const pokemon = def ? starterPokemon(id) : pokemonModel({ id, species: name, name, level: 1, types: ["Normal"], icon_path: "sprites/sprite_wurmple_96.png" });
-	        if (targetSave.team.length < 5) targetSave.team.push(pokemon);
+	        if (targetSave.team.length < teamLimit) targetSave.team.push(pokemon);
 	        else if (targetSave.storage.length < 500) targetSave.storage.push(pokemon);
 	        represented.add(id);
 	      }
@@ -106535,7 +106539,7 @@
     }
     function itemIcon(item, left = 10, top = 8, size = 36) {
       const letter = itemName(item).charAt(0) || "?";
-      const src = item.effect_type === "restore_energy" ? `${A}ui/energy/${item.id}.png` : `${A}items/${item.category}/${item.id}.png`;
+      const src = item.effect_type === "restore_energy" ? `${A}ui/energy/${item.id}.png` : `${A}items/${item.icon_folder || item.category}/${item.id}.png`;
       return `<img src="${src}" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'" style="position:absolute;left:${left}px;top:${top}px;width:${size}px;height:${size}px;object-fit:contain" alt=""><div class="placeholder" style="display:none;left:${left}px;top:${top}px;width:${size}px;height:${size}px">${letter}</div>`;
     }
     function avatarPath(dataOrId) {
@@ -106994,7 +106998,7 @@
 	      const active = Math.max(0, Math.min(save.team.length - 1, Number(save.active_pokemon_index || 0)));
 	      const storageOnlyRows = storageRows();
 	      const isStorage = collectionTab === "storage";
-	      const listHeight = isStorage ? Math.max(170, 116 + Math.max(1, storageOnlyRows.length) * 62) : 360;
+	      const listHeight = isStorage ? Math.max(170, 116 + Math.max(1, storageOnlyRows.length) * 62) : 30 + teamLimit * 62 + 16;
 	      const detailsY = listHeight + 16;
 	      const contentHeight = Math.max(928, detailsY + 520);
 	      phone.innerHTML += overlay(t("pokemon_collection"), 34, 580) + `
@@ -107015,7 +107019,7 @@
 	              ${storageOnlyRows.length ? storageOnlyRows.map((row, i) => collectionRow(row.pokemon, "storage", row.index, 106 + i * 62)).join("") : `<p class="label" style="left:0;top:118px;width:296px;color:#0c1d31;text-shadow:none">${t("storage_empty")}</p>`}
 	            ` : `
 	              <p class="row-title" style="left:0;top:0;width:296px;font-size:15px">${t("team_current")}</p>
-	              ${[0,1,2,3,4].map(slot => save.team[slot]
+	              ${Array.from({ length: teamLimit }, (_, slot) => save.team[slot]
 	                ? collectionRow(save.team[slot], "team", slot, 30 + slot * 62, slot === active)
 	                : `<div class="row" style="position:absolute;left:0;top:${30 + slot * 62}px;width:296px;height:54px;display:grid;place-items:center">${t("empty_slot")} ${slot + 1}</div>`
 	              ).join("")}
@@ -107104,7 +107108,7 @@
 	      showPokemonCollection();
 	    }
 	    function collectionWithdraw(index) {
-	      if (save.team.length >= 5) {
+	      if (save.team.length >= teamLimit) {
 	        message(t("storage"), t("team_full"));
 	        return;
 	      }
@@ -107198,12 +107202,16 @@
 	      showHome();
 	      const canHeal = save.team.some(pokemon => pokemonNeedsCenter(pokemon));
 	      phone.innerHTML += overlay(t("pokemon_center"), 34, 580, "showPokemonCollection()") + `
-	        ${[0,1,2,3,4].map(slot => save.team[slot]
-	          ? pokemonCard(save.team[slot], 42, 112 + slot * 78, 276, 70)
-	          : `<div class="row" style="position:absolute;left:42px;top:${112 + slot * 78}px;width:276px;height:70px;display:grid;place-items:center">${t("empty_slot")} ${slot + 1}</div>`
-	        ).join("")}
+	        <div class="scroll" style="left:28px;top:112px;width:304px;height:330px">
+	          <div style="position:relative;width:296px;height:${Math.max(330, teamLimit * 78)}px">
+	            ${Array.from({ length: teamLimit }, (_, slot) => save.team[slot]
+	              ? pokemonCard(save.team[slot], 14, slot * 78, 276, 70)
+	              : `<div class="row" style="position:absolute;left:14px;top:${slot * 78}px;width:276px;height:70px;display:grid;place-items:center">${t("empty_slot")} ${slot + 1}</div>`
+	            ).join("")}
+	          </div>
+	        </div>
 	        <div id="centerStatus" class="center-status">${centerStatusText()}</div>
-	        ${orange(t("heal_team"), 70, 552, 220, 48, "healTeam()", canHeal ? "" : "disabled")}
+	        ${orange(t("heal_team"), 70, 508, 220, 48, "healTeam()", canHeal ? "" : "disabled")}
 	      </div>`;
 	      const button = document.querySelector(".orange.disabled");
 	      if (button) button.disabled = true;
@@ -107543,7 +107551,7 @@
 	          healing: false,
 	          healing_finish_timestamp: 0
 	        });
-	        const sentStorage = battle.team.length >= 5;
+	        const sentStorage = battle.team.length >= teamLimit;
 	        if (sentStorage) {
 	          save.storage ||= [];
 	          save.storage.push(battlePokemonCopy(captured));
@@ -107943,10 +107951,11 @@
       const desc = selected ? `${itemName(selected)}<br>${t("qty")}: ${save.inventory[selected.id] || 0}<br>${itemDesc(selected)}<br>${t("items_use_hint")}` : `${t("select_item")}<br>${t("items_use_hint")}`;
       const selectedUsable = selected?.effect_type === "restore_energy" || selected?.effect_type === "stat_boost" || selected?.effect_type === "evolve_stone";
       const actionLabel = selectedUsable ? t("use") : t("details");
+      const bagListTop = 102 + categoryTabsHeight() + 12;
       phone.innerHTML = phone.innerHTML + overlay(t("bag"), 42, 560) + `
         ${categoryTabs("bag")}
-        <div class="scroll" style="left:28px;top:146px;width:304px;height:250px">
-          ${list.map(item => {
+        <div class="scroll" style="left:28px;top:${bagListTop}px;width:304px;height:${396 - bagListTop}px">
+          ${list.length ? list.map(item => {
             const amount = save.inventory[item.id] || 0;
             return `<button class="row ${amount ? "" : "muted"}" onclick="selectBagItem('${item.id}')">
               ${itemIcon(item)}
@@ -107954,17 +107963,23 @@
               <span class="row-sub">${t("qty")}: ${amount}</span>
               <span style="position:absolute;right:20px;top:16px;font-weight:700">></span>
             </button>`;
-          }).join("")}
+          }).join("") : `<p class="label" style="position:absolute;left:0;top:16px;width:296px;color:#0c1d31;text-shadow:none">${t("category_empty")}</p>`}
         </div>
         <div class="desc">${desc}</div>
         ${orange(actionLabel, 110, 512, 140, 44, "useBagItem()", selectedUsable && !(save.inventory[selected.id] || 0) ? "small disabled" : "small")}
       </div>`;
     }
+    function categoryTabsHeight() {
+      return Math.ceil(categories.length / categoryTabsPerRow) * 38 - 6;
+    }
     function categoryTabs(kind) {
+      const baseY = kind === "bag" ? 102 : 126;
       return categories.map((cat, i) => {
         const active = (kind === "bag" ? bagCategory : shopCategory) === cat ? "active" : "";
         const action = kind === "bag" ? `chooseBagCategory('${cat}')` : `chooseShopCategory('${cat}')`;
-        return `<button class="tab ${active}" style="left:${20 + i * 80}px;top:${kind === "bag" ? 102 : 126}px" onclick="${action}">${t(cat)}</button>`;
+        const col = i % categoryTabsPerRow;
+        const row = Math.floor(i / categoryTabsPerRow);
+        return `<button class="tab ${active}" style="width:96px;left:${20 + col * 100}px;top:${baseY + row * 38}px" onclick="${action}">${t(cat)}</button>`;
       }).join("");
     }
     function chooseBagCategory(category) {
@@ -108108,13 +108123,14 @@
     function showShop(notice = "") {
       ensureSave();
       const list = items.filter(item => item.category === shopCategory && item.price > 0);
+      const shopListTop = 126 + categoryTabsHeight() + 12;
       phone.innerHTML = phone.innerHTML + overlay(t("shop"), 34, 580) + `
         <img src="${A}shop/shop_sign_220x80.png" style="position:absolute;left:36px;top:78px;width:110px;height:40px;object-fit:contain" alt="">
         <img src="${A}shop/shop_clerk_128.png" style="position:absolute;left:284px;top:78px;width:40px;height:40px;object-fit:contain" alt="">
         <p class="label" style="left:142px;top:92px;width:140px;color:#0c1d31;text-shadow:none;font-size:15px">${t("money")}: $${save.money}</p>
         ${categoryTabs("shop")}
-        <div class="scroll" style="left:28px;top:170px;width:304px;height:402px">
-          ${list.map(item => {
+        <div class="scroll" style="left:28px;top:${shopListTop}px;width:304px;height:${572 - shopListTop}px">
+          ${list.length ? list.map(item => {
             const locked = item.min_level > save.level || item.min_badges > save.badges;
             const req = t("requires", { level: item.min_level, badges: item.min_badges });
             return `<div class="row ${locked ? "locked" : ""}" style="height:118px;min-height:118px">
@@ -108125,7 +108141,7 @@
               <span style="position:absolute;left:58px;top:84px;width:166px;height:28px;font-size:9px;line-height:1.2;overflow:hidden">${locked ? t("locked") : t("available")}<br>${req}</span>
               <button class="buy" style="top:43px" ${locked ? "disabled" : ""} onclick="buyItem('${item.id}')">${t("buy")}</button>
             </div>`;
-          }).join("")}
+          }).join("") : `<p class="label" style="position:absolute;left:0;top:16px;width:296px;color:#0c1d31;text-shadow:none">${t("category_empty")}</p>`}
         </div>
         ${notice ? `<div class="notice">${notice}</div>` : ""}
       </div>`;
@@ -108303,7 +108319,7 @@
     function debugAddPokemon(id) {
       ensureSave();
       const pokemon = debugNewPokemon(id);
-      if (save.team.length < 5) save.team.push(pokemon);
+      if (save.team.length < teamLimit) save.team.push(pokemon);
       else if (save.storage.length < 500) save.storage.push(pokemon);
       debugMarkOwned([id]);
       saveDebug();
@@ -108311,7 +108327,7 @@
     function debugFillTeam() {
       ensureSave();
       let i = 0;
-      while (save.team.length < 5) {
+      while (save.team.length < teamLimit) {
         const id = starterIds[i % starterIds.length];
         save.team.push(debugNewPokemon(id));
         i += 1;
