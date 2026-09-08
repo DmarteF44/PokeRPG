@@ -590,7 +590,7 @@ func _avatar_texture_path(save: Dictionary) -> String:
 	if str(save.get("avatar_type", "preset")) == "custom" and FileAccess.file_exists(CUSTOM_AVATAR_PATH):
 		return CUSTOM_AVATAR_PATH
 	var avatar_id := clampi(int(save.get("avatar_id", 1)), 1, AVATAR_ASSETS_96.size())
-	var path := AVATAR_ASSETS_96[avatar_id - 1]
+	var path: String = AVATAR_ASSETS_96[avatar_id - 1]
 	return path if FileAccess.file_exists(path) else ""
 
 
@@ -625,7 +625,7 @@ func _add_profile_avatar_button(parent: Control, avatar_id: int, pos: Vector2, s
 	button.focus_mode = Control.FOCUS_NONE
 	parent.add_child(button)
 	UI.style_panel_button(button, Color(0.95, 0.78, 0.32) if selected else Color(0.86, 0.92, 0.96), Color(0.92, 0.46, 0.08) if selected else Color(0.34, 0.50, 0.62), 2)
-	var path := AVATAR_ASSETS_96[avatar_id - 1]
+	var path: String = AVATAR_ASSETS_96[avatar_id - 1]
 	if FileAccess.file_exists(path):
 		UI.add_texture(button, path, Vector2(18, 8), Vector2(56, 56), "AvatarImage", TextureRect.STRETCH_KEEP_ASPECT_CENTERED)
 	UI.add_panel_label(button, "%s %d" % [_text("profile"), avatar_id], Vector2(0, 66), Vector2(92, 20), 11, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "AvatarText")
@@ -2261,15 +2261,19 @@ func _close_pokemon_popup() -> void:
 
 
 func _add_secret_debug_emoji() -> void:
+	# Bottom-right corner of the Home screen, below the Tutorial button. Sized
+	# well past the glyph itself (44x44 tap target around a 16px sparkle) so
+	# it's actually easy to find and tap on a phone, while still reading as a
+	# subtle decoration rather than a normal button.
 	var button := Button.new()
 	button.name = "SecretDebug"
 	button.text = "✨"
-	button.position = Vector2(332, 606)
-	button.size = Vector2(22, 22)
+	button.position = Vector2(310, 590)
+	button.size = Vector2(44, 44)
 	button.focus_mode = Control.FOCUS_NONE
 	button.flat = true
-	button.modulate = Color(1, 1, 1, 0.48)
-	button.add_theme_font_size_override("font_size", 12)
+	button.modulate = Color(1, 1, 1, 0.65)
+	button.add_theme_font_size_override("font_size", 16)
 	button.add_theme_color_override("font_color", Color.WHITE)
 	button.add_theme_color_override("font_hover_color", Color.WHITE)
 	button.add_theme_color_override("font_pressed_color", Color.WHITE)
