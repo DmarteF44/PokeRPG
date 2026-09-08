@@ -315,7 +315,7 @@
     .newgame-content {
       position: relative;
       width: 304px;
-      height: 830px;
+      height: 1034px;
     }
     .desc {
       position: absolute;
@@ -418,7 +418,7 @@
         debug_add_bulbasaur: "Add Bulbasaur", debug_add_charmander: "Add Charmander", debug_add_squirtle: "Add Squirtle",
         debug_fill_team: "Fill team", debug_clear_team: "Clear team", debug_clear_storage: "Clear Storage",
         debug_starters_storage: "Starters to Storage",
-        exit: "Exit", exit_to_main_menu: "Exit to Main Menu", profile: "Profile", starter: "Starter", player_name: "Player Name",
+        exit: "Exit", exit_to_main_menu: "Exit to Main Menu", profile: "Profile", starter: "Starter", player_name: "Player Name", change_avatar: "Change Avatar",
         choose_avatar: "Choose your avatar", custom_image: "Custom Image",
         custom_help: "Place your image at user://custom_avatar.png and reload the profile.",
         choose_generation: "Choose starter generation",
@@ -444,6 +444,7 @@
         bought: "Bought {item}!", select_item: "Select an item to see details.",
         energy_full: "Your energy is already full.", energy_restored: "Energy restored by {n}.",
         choose_pokemon: "Choose Pokemon", stat_boosted: "{name} gained +{amount} {stat}!", stat_at_cap: "{name} cannot raise {stat} anymore.",
+        evolved_with_item: "{from} evolved into {to}!", no_evolution_target: "None of your Pokemon can evolve with this item.",
         stat_max_hp: "HP", stat_attack: "Attack", stat_defense: "Defense", stat_sp_attack: "Sp. Attack", stat_sp_defense: "Sp. Defense", stat_speed: "Speed",
         pokeball_use: "Pokeballs are used during wild battles.",
         potion_use: "Healing items will be usable in battle soon.",
@@ -464,7 +465,12 @@
         stat_stage_changed: "{name}'s {stat} fell!", seeded: "{name} was seeded!", drained: "{name} had energy drained!",
         run_failed: "Could not escape!", trainer_appeared: "{trainer} sent out {pokemon}!", cannot_capture_trainer: "You cannot capture a trainer's Pokemon.",
         cannot_run_trainer: "You cannot run from a gym battle.", gym_next: "Next gym battle: {name}.", gym_won: "{leader} defeated! {badge} earned.", next_battle: "Next Battle", back: "Back",
-        return_home: "Return Home", damage: "Damage"
+        return_home: "Return Home", damage: "Damage",
+        status_applied: "{name} is now {status}!", already_status: "{name} is already {status}!",
+        fully_paralyzed: "{name} is paralyzed! It can't move!", fast_asleep: "{name} is fast asleep.", woke_up: "{name} woke up!",
+        frozen_solid: "{name} is frozen solid!", thawed_out: "{name} thawed out!",
+        hurt_by_poison: "{name} is hurt by poison!", hurt_by_burn: "{name} is hurt by its burn!",
+        status_poison: "poisoned", status_burn: "burned", status_paralysis: "paralyzed", status_sleep: "asleep", status_freeze: "frozen"
       },
       pt: {
         load_game: "Carregar Jogo", new_game: "Novo Jogo", options: "Opções", about: "Sobre",
@@ -498,7 +504,7 @@
         debug_add_bulbasaur: "Adicionar Bulbasaur", debug_add_charmander: "Adicionar Charmander", debug_add_squirtle: "Adicionar Squirtle",
         debug_fill_team: "Preencher time", debug_clear_team: "Limpar time", debug_clear_storage: "Limpar Storage",
         debug_starters_storage: "Iniciais no Storage",
-        exit: "Sair", exit_to_main_menu: "Sair para o Menu", profile: "Perfil", starter: "Inicial", player_name: "Nome do jogador",
+        exit: "Sair", exit_to_main_menu: "Sair para o Menu", profile: "Perfil", starter: "Inicial", player_name: "Nome do jogador", change_avatar: "Trocar Avatar",
         choose_avatar: "Escolha seu avatar", custom_image: "Imagem própria",
         custom_help: "Coloque sua imagem em user://custom_avatar.png e recarregue o perfil.",
         choose_generation: "Escolha a geração inicial",
@@ -524,6 +530,7 @@
         bought: "{item} comprado!", select_item: "Selecione um item para ver detalhes.",
         energy_full: "Sua energia já está completa.", energy_restored: "Energia restaurada em {n}.",
         choose_pokemon: "Escolha o Pokemon", stat_boosted: "{name} ganhou +{amount} em {stat}!", stat_at_cap: "{name} nao pode aumentar mais {stat}.",
+        evolved_with_item: "{from} evoluiu para {to}!", no_evolution_target: "Nenhum dos seus Pokemon evolui com esse item.",
         stat_max_hp: "HP", stat_attack: "Ataque", stat_defense: "Defesa", stat_sp_attack: "Ataque Esp.", stat_sp_defense: "Defesa Esp.", stat_speed: "Velocidade",
         pokeball_use: "Pokébolas são usadas em batalhas selvagens.",
         potion_use: "Itens de cura poderão ser usados em batalha em breve.",
@@ -544,7 +551,12 @@
         stat_stage_changed: "{name} teve {stat} reduzido!", seeded: "{name} foi semeado!", drained: "{name} teve energia drenada!",
         run_failed: "Não conseguiu fugir!", trainer_appeared: "{trainer} enviou {pokemon}!", cannot_capture_trainer: "Você não pode capturar Pokémon de treinador.",
         cannot_run_trainer: "Você não pode fugir de uma batalha de ginásio.", gym_next: "Próxima batalha do ginásio: {name}.", gym_won: "{leader} derrotado! {badge} recebida.", next_battle: "Próxima batalha", back: "Voltar",
-        return_home: "Voltar para Home", damage: "Dano"
+        return_home: "Voltar para Home", damage: "Dano",
+        status_applied: "{name} agora está {status}!", already_status: "{name} já está {status}!",
+        fully_paralyzed: "{name} está paralisado e não conseguiu se mover!", fast_asleep: "{name} está dormindo.", woke_up: "{name} acordou!",
+        frozen_solid: "{name} está completamente congelado!", thawed_out: "{name} descongelou!",
+        hurt_by_poison: "{name} sofreu dano do veneno!", hurt_by_burn: "{name} sofreu dano da queimadura!",
+        status_poison: "envenenado", status_burn: "queimado", status_paralysis: "paralisado", status_sleep: "dormindo", status_freeze: "congelado"
       }
     };
     const items = [
@@ -568,12 +580,12 @@
       ["energy_drink", "Energy Drink", "Energy Drink", "potions", 12500, 0, 0, "Restores 10 exploration energy.", "Restaura 10 de energia de exploração.", "restore_energy", 10],
       ["energy_capsule", "Energy Capsule", "Energy Capsule", "potions", 22500, 0, 0, "Restores 15 exploration energy.", "Restaura 15 de energia de exploração.", "restore_energy", 15],
       ["energy_crystal", "Energy Crystal", "Energy Crystal", "potions", 50000, 0, 0, "Restores 30 exploration energy.", "Restaura 30 de energia de exploração.", "restore_energy", 30],
-      ["fire_stone", "Fire Stone", "Pedra de Fogo", "evolution", 2100, 15, 2, "A stone connected to fiery evolutions.", "Uma pedra ligada a evoluções de fogo."],
-      ["water_stone", "Water Stone", "Pedra de Água", "evolution", 2100, 15, 2, "A stone connected to water evolutions.", "Uma pedra ligada a evoluções de água."],
-      ["thunder_stone", "Thunder Stone", "Pedra do Trovão", "evolution", 2100, 15, 2, "A stone connected to electric evolutions.", "Uma pedra ligada a evoluções elétricas."],
-      ["leaf_stone", "Leaf Stone", "Pedra da Folha", "evolution", 2100, 15, 2, "A stone connected to grass evolutions.", "Uma pedra ligada a evoluções de grama."],
-      ["moon_stone", "Moon Stone", "Pedra da Lua", "evolution", 3500, 20, 3, "A mysterious stone connected to moonlight.", "Uma pedra misteriosa ligada ao luar."],
-      ["sun_stone", "Sun Stone", "Pedra do Sol", "evolution", 3500, 20, 3, "A bright stone connected to sunlight.", "Uma pedra brilhante ligada à luz do sol."],
+      ["fire_stone", "Fire Stone", "Pedra de Fogo", "evolution", 2100, 15, 2, "A stone connected to fiery evolutions.", "Uma pedra ligada a evoluções de fogo.", "evolve_stone"],
+      ["water_stone", "Water Stone", "Pedra de Água", "evolution", 2100, 15, 2, "A stone connected to water evolutions.", "Uma pedra ligada a evoluções de água.", "evolve_stone"],
+      ["thunder_stone", "Thunder Stone", "Pedra do Trovão", "evolution", 2100, 15, 2, "A stone connected to electric evolutions.", "Uma pedra ligada a evoluções elétricas.", "evolve_stone"],
+      ["leaf_stone", "Leaf Stone", "Pedra da Folha", "evolution", 2100, 15, 2, "A stone connected to grass evolutions.", "Uma pedra ligada a evoluções de grama.", "evolve_stone"],
+      ["moon_stone", "Moon Stone", "Pedra da Lua", "evolution", 3500, 20, 3, "A mysterious stone connected to moonlight.", "Uma pedra misteriosa ligada ao luar.", "evolve_stone"],
+      ["sun_stone", "Sun Stone", "Pedra do Sol", "evolution", 3500, 20, 3, "A bright stone connected to sunlight.", "Uma pedra brilhante ligada à luz do sol.", "evolve_stone"],
       ["town_map", "Town Map", "Mapa da Cidade", "key_items", 0, 0, 0, "A useful map for checking nearby regions.", "Um mapa útil para consultar regiões próximas."],
       ["old_rod", "Old Rod", "Vara Velha", "key_items", 500, 3, 0, "A simple fishing rod for future fishing spots.", "Uma vara simples para futuros pontos de pescaria."],
       ["good_rod", "Good Rod", "Vara Boa", "key_items", 2500, 15, 2, "A better rod for future fishing features.", "Uma vara melhor para recursos futuros de pescaria."],
@@ -96339,7 +96351,13 @@
       "avatars/96/avatar_03_trainer_green_96.png",
       "avatars/96/avatar_04_trainer_gold_96.png",
       "avatars/96/avatar_05_trainer_purple_96.png",
-      "avatars/96/avatar_06_trainer_black_96.png"
+      "avatars/96/avatar_06_trainer_black_96.png",
+      "avatars/96/avatar_07_trainer_orange_96.png",
+      "avatars/96/avatar_08_trainer_teal_96.png",
+      "avatars/96/avatar_09_trainer_pink_96.png",
+      "avatars/96/avatar_10_trainer_white_96.png",
+      "avatars/96/avatar_11_trainer_brown_96.png",
+      "avatars/96/avatar_12_trainer_silver_96.png"
     ];
     const mapFallbacks = {
       water: ["#287bc7", "WA"],
@@ -106668,19 +106686,19 @@
             <p class="label" style="left:0;top:0;width:296px;color:#0c1d31;text-shadow:none;text-align:left;font-size:15px">${t("player_name")}</p>
             <input id="playerNameInput" style="position:absolute;left:0;top:28px;width:296px;height:38px;border:2px solid #567f9d;border-radius:6px;padding:0 10px;font-size:16px" placeholder="${settings.language === "pt" ? "Digite seu nome" : "Enter your name"}">
             <p class="label" style="left:0;top:88px;width:296px;color:#0c1d31;text-shadow:none;font-size:16px">${t("choose_avatar")}</p>
-            ${[1,2,3,4,5,6].map((id, i) => avatarCard(id, i)).join("")}
-            <p class="label" style="left:0;top:322px;width:296px;color:#0c1d31;text-shadow:none;font-size:16px">${t("custom_image")}</p>
-            <button id="avatarCardCustom" class="avatar-card" style="left:102px;top:352px" onclick="selectCustomAvatar()">
+            ${[1,2,3,4,5,6,7,8,9,10,11,12].map((id, i) => avatarCard(id, i)).join("")}
+            <p class="label" style="left:0;top:526px;width:296px;color:#0c1d31;text-shadow:none;font-size:16px">${t("custom_image")}</p>
+            <button id="avatarCardCustom" class="avatar-card" style="left:102px;top:556px" onclick="selectCustomAvatar()">
               <img src="${A}avatars/avatar_card_custom_image.png" alt="">
               <span>${t("custom_image")}</span>
             </button>
-            <p id="customAvatarHint" class="label" style="display:none;left:8px;top:444px;width:288px;color:#0c1d31;text-shadow:none;font-size:11px">${t("custom_help")}</p>
-            <p class="label" style="left:0;top:466px;width:296px;color:#0c1d31;text-shadow:none;font-size:16px">${t("choose_generation")}</p>
-            ${[1,2,3,4,5,6,7,8].map((id, i) => `<button class="tab ${id === 1 ? "active" : ""}" style="left:${(i % 4) * 74}px;top:${502 + Math.floor(i / 4) * 42}px;width:68px" onclick="${id === 1 ? "" : "message('Gen " + id + "', t('coming_soon'))"}">Gen ${id}</button>`).join("")}
-            <p class="label" style="left:0;top:600px;width:296px;color:#0c1d31;text-shadow:none;font-size:16px">${t("choose_starter")}</p>
-	            ${starterIds.map((id, i) => starterDefs[id]).map((starter, i) => `<button id="starter_${starter.id}" class="tab ${starter.id === "charmander" ? "active" : ""}" style="left:${i * 102}px;top:636px;width:92px;height:42px" onclick="selectStarter('${starter.id}')">${starter.name}</button>`).join("")}
-            <p class="label" style="left:0;top:736px;width:296px;color:#0c1d31;text-shadow:none;text-align:left;font-size:15px">${t("starter_nickname")}</p>
-            <input id="starterNicknameInput" style="position:absolute;left:0;top:764px;width:296px;height:38px;border:2px solid #567f9d;border-radius:6px;padding:0 10px;font-size:16px" placeholder="${t("starter_nickname_placeholder")}">
+            <p id="customAvatarHint" class="label" style="display:none;left:8px;top:648px;width:288px;color:#0c1d31;text-shadow:none;font-size:11px">${t("custom_help")}</p>
+            <p class="label" style="left:0;top:670px;width:296px;color:#0c1d31;text-shadow:none;font-size:16px">${t("choose_generation")}</p>
+            ${[1,2,3,4,5,6,7,8].map((id, i) => `<button class="tab ${id === 1 ? "active" : ""}" style="left:${(i % 4) * 74}px;top:${706 + Math.floor(i / 4) * 42}px;width:68px" onclick="${id === 1 ? "" : "message('Gen " + id + "', t('coming_soon'))"}">Gen ${id}</button>`).join("")}
+            <p class="label" style="left:0;top:804px;width:296px;color:#0c1d31;text-shadow:none;font-size:16px">${t("choose_starter")}</p>
+	            ${starterIds.map((id, i) => starterDefs[id]).map((starter, i) => `<button id="starter_${starter.id}" class="tab ${starter.id === "charmander" ? "active" : ""}" style="left:${i * 102}px;top:840px;width:92px;height:42px" onclick="selectStarter('${starter.id}')">${starter.name}</button>`).join("")}
+            <p class="label" style="left:0;top:940px;width:296px;color:#0c1d31;text-shadow:none;text-align:left;font-size:15px">${t("starter_nickname")}</p>
+            <input id="starterNicknameInput" style="position:absolute;left:0;top:968px;width:296px;height:38px;border:2px solid #567f9d;border-radius:6px;padding:0 10px;font-size:16px" placeholder="${t("starter_nickname_placeholder")}">
           </div>
         </div>
         ${orange(t("cancel"), 36, 546, 140, 44, "closeOverlay()", "small")}
@@ -106756,7 +106774,7 @@
       // backOnclick, when given, redraws whichever screen opened this one (a
       // real "step back"); the close (X) button always exits straight to the
       // base screen, same as before.
-      const backButton = backOnclick ? buttonSmall(`&lt; ${t("back")}`, 20, top + 18, 66, 28, backOnclick) : "";
+      const backButton = backOnclick ? buttonSmall("&larr;", 20, top + 18, 40, 28, backOnclick).replace('font-size:10px', 'font-size:16px') : "";
       // Leave room for the back button on the left so long titles never
       // overlap it; without a back button the title keeps its wider span.
       const titleLeft = backOnclick ? 90 : 50;
@@ -106778,7 +106796,34 @@
     }
     function showProfile() {
       ensureSave();
-      message(t("profile"), `${save.player_name}<br>${t("starter")}: ${save.starter_name || "Charmander"}<br>${stats()}`);
+      showHome();
+      phone.innerHTML += overlay(t("profile"), 60, 460) + `
+        ${saveAvatar(save, 117, 96, 96)}
+        <p class="label" style="left:15px;top:202px;width:300px;font-size:20px;color:#0c1d31;text-shadow:none">${escapeHtml(save.player_name)}</p>
+        <p class="label" style="left:15px;top:230px;width:300px;font-size:14px;color:#0c1d31;text-shadow:none">${t("starter")}: ${save.starter_name || "Charmander"}</p>
+        <p class="label" style="left:15px;top:262px;width:300px;font-size:13px;color:#0c1d31;text-shadow:none">${stats()}</p>
+        ${orange(t("change_avatar"), 55, 388, 220, 44, "showAvatarEditor()")}
+      </div>`;
+      startAnimations();
+    }
+    function showAvatarEditor() {
+      ensureSave();
+      phone.innerHTML += overlay(t("change_avatar"), 34, 560, "showProfile()") + `
+        <div class="scroll" style="left:28px;top:100px;width:304px;height:440px">
+          <div style="position:relative;width:296px;height:420px">
+            ${avatarPaths.map((path, i) => `<button class="avatar-card ${!save.avatar_type || save.avatar_type === "preset" ? (Number(save.avatar_id || 1) === i + 1 ? "active" : "") : ""}" style="left:${i % 3 * 102}px;top:${Math.floor(i / 3) * 102}px" onclick="applyProfileAvatar(${i + 1})">
+              <img src="${A}${path}" alt="">
+              <span>${t("profile")} ${i + 1}</span>
+            </button>`).join("")}
+          </div>
+        </div>
+      </div>`;
+    }
+    function applyProfileAvatar(id) {
+      save.avatar_id = id;
+      save.avatar_type = "preset";
+      persist();
+      showProfile();
     }
     function showPokemonMenu() {
       showPokemonCollection();
@@ -106911,9 +106956,8 @@
 	      const detailsY = listHeight + 16;
 	      const contentHeight = Math.max(928, detailsY + 520);
 	      phone.innerHTML += overlay(t("pokemon_collection"), 34, 580) + `
-	        ${buttonSmall(t("pokedex"), 42, 92, 86, 28, "showPokedex()")}
-	        ${buttonSmall(t("pokemon_center"), 136, 92, 104, 28, "showPokemonCenter()")}
-	        ${buttonSmall(t("close"), 248, 92, 70, 28, "closeOverlay()")}
+	        ${buttonSmall(t("pokedex"), 42, 92, 126, 28, "showPokedex()")}
+	        ${buttonSmall(t("pokemon_center"), 180, 92, 126, 28, "showPokemonCenter()")}
 	        ${collectionTabButton("team", t("team_current"), 42)}
 	        ${collectionTabButton("storage", t("storage"), 186)}
 	        <div class="scroll" style="left:28px;top:164px;width:304px;height:408px">
@@ -107547,6 +107591,7 @@
 	    function executeBattleAttack(side, move, lines) {
 	      const attacker = side === "player" ? battle.player : battle.enemy;
 	      const defender = side === "player" ? battle.enemy : battle.player;
+	      if (resolvePreMoveStatus(side, lines)) return;
 	      lines.push(usedLine(attacker.name, move.name));
 	      const effectiveAccuracy = Number(move.accuracy || 100) * accuracyMultiplier(side) / evasionMultiplier(side === "player" ? "enemy" : "player");
 	      if (Math.random() * 100 > effectiveAccuracy) {
@@ -107580,7 +107625,8 @@
 	      const special = String(move.category || "Physical") === "Special";
 	      const attackerSide = attacker === battle.player ? "player" : "enemy";
 	      const defenderSide = defender === battle.player ? "player" : "enemy";
-	      const attack = Math.max(1, modifiedBattleStat(attacker, special ? "sp_attack" : "attack", attackerSide));
+	      let attack = Math.max(1, modifiedBattleStat(attacker, special ? "sp_attack" : "attack", attackerSide));
+	      if (!special && normalizedStatusKey(attacker.status_condition) === "burn") attack = Math.max(1, Math.floor(attack / 2));
 	      const defense = Math.max(1, modifiedBattleStat(defender, special ? "sp_defense" : "defense", defenderSide));
 	      const level = Math.max(1, Number(attacker.level || 1));
 	      const base = (((2 * level / 5 + 2) * power * attack / defense) / 50) + 2;
@@ -107601,6 +107647,14 @@
 	      if (effectiveness < 1) return t("not_very_effective");
 	      return "";
 	    }
+	    function normalizedStatusKey(value) {
+	      const status = String(value || "").trim().toLowerCase().replaceAll("-", "_").replaceAll(" ", "_");
+	      const aliases = { slp: "sleep", asleep: "sleep", frz: "freeze", frozen: "freeze", par: "paralysis", paralyze: "paralysis", paralyzed: "paralysis", brn: "burn", burned: "burn", psn: "poison", poisoned: "poison", badly_poisoned: "poison" };
+	      return aliases[status] || status;
+	    }
+	    function statusDisplay(statusKey) {
+	      return t(`status_${normalizedStatusKey(statusKey)}`);
+	    }
 	    function applyMoveEffects(side, move, lines) {
 	      for (const effect of move.effects || []) {
 	        if (Math.random() * 100 > Number(effect.chance ?? 100)) continue;
@@ -107620,8 +107674,53 @@
 	            battle.enemySeeded = true;
 	            lines.push(t("seeded", { name: battle.enemy.name }));
 	          }
+	        } else if (effect.type === "apply_status") {
+	          const statusKey = normalizedStatusKey(effect.status);
+	          if (!statusKey) continue;
+	          const target = targetSide === "player" ? battle.player : battle.enemy;
+	          if (target.status_condition) {
+	            lines.push(t("already_status", { name: target.name, status: statusDisplay(target.status_condition) }));
+	            continue;
+	          }
+	          target.status_condition = statusKey;
+	          if (statusKey === "sleep") target.sleep_turns_remaining = 1 + Math.floor(Math.random() * 3);
+	          lines.push(t("status_applied", { name: target.name, status: statusDisplay(statusKey) }));
 	        }
 	      }
+	    }
+	    // Returns true when the attacker's status prevents it from acting this
+	    // turn (sleep, freeze, full paralysis) - mirrors real Pokemon mechanics:
+	    // paralysis has a 25% chance to fully stop a move, sleep counts down a
+	    // random number of turns before waking, freeze has a flat thaw chance.
+	    function resolvePreMoveStatus(side, lines) {
+	      const attacker = side === "player" ? battle.player : battle.enemy;
+	      const status = normalizedStatusKey(attacker.status_condition);
+	      if (status === "sleep") {
+	        const remaining = Number(attacker.sleep_turns_remaining || 0);
+	        if (remaining <= 0) {
+	          attacker.status_condition = null;
+	          delete attacker.sleep_turns_remaining;
+	          lines.push(t("woke_up", { name: attacker.name }));
+	          return false;
+	        }
+	        attacker.sleep_turns_remaining = remaining - 1;
+	        lines.push(t("fast_asleep", { name: attacker.name }));
+	        return true;
+	      }
+	      if (status === "freeze") {
+	        if (Math.random() < 0.20) {
+	          attacker.status_condition = null;
+	          lines.push(t("thawed_out", { name: attacker.name }));
+	          return false;
+	        }
+	        lines.push(t("frozen_solid", { name: attacker.name }));
+	        return true;
+	      }
+	      if (status === "paralysis" && Math.random() < 0.25) {
+	        lines.push(t("fully_paralyzed", { name: attacker.name }));
+	        return true;
+	      }
+	      return false;
 	    }
 	    function applyEndTurnEffects(lines) {
 	      if (battle.enemySeeded && Number(battle.enemy.hp || 0) > 0 && Number(battle.player.hp || 0) > 0) {
@@ -107635,6 +107734,15 @@
 	        battle.player.hp = Math.max(0, Number(battle.player.hp || 0) - drain);
 	        battle.enemy.hp = Math.min(Number(battle.enemy.max_hp || 1), Number(battle.enemy.hp || 0) + drain);
 	        lines.push(t("drained", { name: battle.player.name }));
+	      }
+	      for (const side of ["player", "enemy"]) {
+	        const pokemon = side === "player" ? battle.player : battle.enemy;
+	        if (Number(pokemon.hp || 0) <= 0) continue;
+	        const status = normalizedStatusKey(pokemon.status_condition);
+	        if (status !== "poison" && status !== "burn") continue;
+	        const chip = Math.max(1, Math.floor(Number(pokemon.max_hp || 1) / 16));
+	        pokemon.hp = Math.max(0, Number(pokemon.hp || 0) - chip);
+	        lines.push(t(status === "poison" ? "hurt_by_poison" : "hurt_by_burn", { name: pokemon.name }));
 	      }
 	    }
 	    function effectTargetSide(userSide, target) {
@@ -107653,7 +107761,9 @@
 	    }
 	    function modifiedBattleStat(pokemon, stat, side) {
 	      const stages = side === "player" ? battle.playerStages : battle.enemyStages;
-	      return Math.max(1, Number(pokemon[stat] || 1)) * stageMultiplier(stages[stat] || 0);
+	      let value = Math.max(1, Number(pokemon[stat] || 1)) * stageMultiplier(stages[stat] || 0);
+	      if (stat === "speed" && normalizedStatusKey(pokemon.status_condition) === "paralysis") value *= 0.25;
+	      return value;
 	    }
 	    function accuracyMultiplier(side) {
 	      const stages = side === "player" ? battle.playerStages : battle.enemyStages;
@@ -107786,7 +107896,7 @@
       const list = items.filter(item => item.category === bagCategory);
       const selected = items.find(item => item.id === selectedItemId);
       const desc = selected ? `${itemName(selected)}<br>${t("qty")}: ${save.inventory[selected.id] || 0}<br>${itemDesc(selected)}<br>${t("items_use_hint")}` : `${t("select_item")}<br>${t("items_use_hint")}`;
-      const selectedUsable = selected?.effect_type === "restore_energy" || selected?.effect_type === "stat_boost";
+      const selectedUsable = selected?.effect_type === "restore_energy" || selected?.effect_type === "stat_boost" || selected?.effect_type === "evolve_stone";
       const actionLabel = selectedUsable ? t("use") : t("details");
       phone.innerHTML = phone.innerHTML + overlay(t("bag"), 42, 560) + `
         ${categoryTabs("bag")}
@@ -107837,6 +107947,10 @@
       }
       if (item.effect_type === "stat_boost") {
         showStatBoostTargets(item);
+        return;
+      }
+      if (item.effect_type === "evolve_stone") {
+        showEvolutionStoneTargets(item);
         return;
       }
       message(itemName(item), `${t("qty")}: ${save.inventory[item.id] || 0}<br>${itemDesc(item)}<br>${t("items_use_hint")}`);
@@ -107898,6 +108012,53 @@
       showHome();
       showBag();
       message(itemName(item), t("stat_boosted", { name: result.pokemon.name, amount: result.applied, stat: statName(item.effect_stat) }));
+    }
+    function evolutionTargetForItem(pokemon, itemId) {
+      const def = starterDefs[pokemon.id];
+      if (!def) return "";
+      const match = (def.evolutions || []).find(evo => String(evo.item_id || "") === itemId);
+      return match ? match.target : "";
+    }
+    function showEvolutionStoneTargets(item) {
+      ensureSave();
+      if ((save.inventory[item.id] || 0) <= 0) return;
+      const eligible = save.team.map((pokemon, index) => ({ pokemon, index })).filter(row => evolutionTargetForItem(row.pokemon, item.id));
+      if (!eligible.length) {
+        message(itemName(item), t("no_evolution_target"));
+        return;
+      }
+      phone.innerHTML = phone.innerHTML + overlay(t("choose_pokemon"), 92, 420) + `
+        <p class="label" style="left:42px;top:154px;width:276px;height:30px;color:#0c1d31;text-shadow:none;font-size:15px">${itemName(item)}</p>
+        <div class="scroll" style="left:42px;top:194px;width:276px;height:210px">
+          ${eligible.map(({ pokemon, index }) => `<div class="row" style="width:276px;height:48px;min-height:48px">
+            ${battlePokemonSprite(pokemon, 8, 3, 42)}
+            <span class="row-title" style="left:56px;width:110px;top:5px">${pokemon.name}</span>
+            <span class="row-sub" style="left:56px;width:120px;top:25px">${t("level")} ${pokemon.level}</span>
+            <button class="buy" style="right:16px;top:9px;width:62px;height:30px" onclick="useEvolutionStoneItem('${item.id}', ${index})">${t("use")}</button>
+          </div>`).join("")}
+        </div>
+      </div>`;
+      startAnimations();
+    }
+    function useEvolutionStoneItem(itemId, teamIndex) {
+      ensureSave();
+      const item = items.find(data => data.id === itemId);
+      if (!item || (save.inventory[item.id] || 0) <= 0) return;
+      const pokemon = save.team[teamIndex];
+      if (!pokemon) return;
+      const targetId = evolutionTargetForItem(pokemon, itemId);
+      if (!targetId) {
+        message(itemName(item), t("no_evolution_target"));
+        return;
+      }
+      const beforeName = pokemon.name;
+      const evolved = evolvePokemon(pokemon, targetId);
+      save.team[teamIndex] = evolved;
+      save.inventory[item.id] = Math.max(0, Number(save.inventory[item.id] || 0) - 1);
+      persist();
+      showHome();
+      showBag();
+      message(itemName(item), t("evolved_with_item", { from: beforeName, to: evolved.species || evolved.name }));
     }
     function showShop(notice = "") {
       ensureSave();
@@ -108032,7 +108193,6 @@
             ${button(t("debug_clear_storage"), 814, "debugClearStorage()", 0)}${button(t("debug_starters_storage"), 814, "debugStartersStorage()", 152)}
           </div>
         </div>
-        <button class="tab" style="left:110px;top:548px;width:140px;height:34px" onclick="closeOverlay()">${t("close")}</button>
       </div>`;
     }
     function saveDebug() {

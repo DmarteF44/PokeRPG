@@ -128,6 +128,14 @@ const TEXT = {
 		"next_battle": "Next Battle",
 		"back": "Back",
 		"return_home": "Return Home",
+		"already_status": "%s is already %s!",
+		"fully_paralyzed": "%s is paralyzed! It can't move!",
+		"fast_asleep": "%s is fast asleep.",
+		"woke_up": "%s woke up!",
+		"frozen_solid": "%s is frozen solid!",
+		"thawed_out": "%s thawed out!",
+		"hurt_by_poison": "%s is hurt by poison!",
+		"hurt_by_burn": "%s is hurt by its burn!",
 	},
 	"pt": {
 		"battle": "Batalha",
@@ -186,6 +194,14 @@ const TEXT = {
 		"next_battle": "Próxima batalha",
 		"back": "Voltar",
 		"return_home": "Voltar para Home",
+		"already_status": "%s já está com %s!",
+		"fully_paralyzed": "%s está paralisado e não conseguiu se mover!",
+		"fast_asleep": "%s está dormindo.",
+		"woke_up": "%s acordou!",
+		"frozen_solid": "%s está completamente congelado!",
+		"thawed_out": "%s descongelou!",
+		"hurt_by_poison": "%s sofreu dano do veneno!",
+		"hurt_by_burn": "%s sofreu dano da queimadura!",
 	},
 }
 
@@ -569,6 +585,10 @@ func _execute_attack(attacker_is_player: bool, move: Dictionary, lines: Array) -
 	var target_sprite := enemy_sprite if attacker_is_player else player_sprite
 	var attacker_name := str(attacker.get("name", "Pokemon"))
 	var move_name := str(move.get("name", "Move"))
+
+	if _resolve_pre_move_status(attacker_is_player, lines):
+		return
+
 	lines.append(_text("used") % [attacker_name, move_name])
 
 	var accuracy := clampi(int(move.get("accuracy", 100)), 0, 100)
@@ -598,6 +618,51 @@ func _execute_attack(attacker_is_player: bool, move: Dictionary, lines: Array) -
 	_apply_move_effects(attacker_is_player, move, lines)
 
 
+# Returns true when the attacker's status prevents it from acting this turn
+# (sleep, freeze, full paralysis), appending the relevant message. Mirrors
+# real Pokemon status mechanics: paralysis has a 25% chance to fully stop a
+# move, sleep counts down a random number of turns before waking, and freeze
+# has a flat chance to thaw each turn it would otherwise act.
+func _resolve_pre_move_status(attacker_is_player: bool, lines: Array) -> bool:
+	var attacker := player_pokemon if attacker_is_player else enemy_pokemon
+	var attacker_name := str(attacker.get("name", "Pokemon"))
+	match _normalized_status_key(attacker.get("status_condition", "")):
+		"sleep":
+			var remaining := int(attacker.get("sleep_turns_remaining", 0))
+			if remaining <= 0:
+				attacker["status_condition"] = null
+				attacker.erase("sleep_turns_remaining")
+				_write_back_pokemon(attacker_is_player, attacker)
+				lines.append(_text("woke_up") % attacker_name)
+				return false
+			attacker["sleep_turns_remaining"] = remaining - 1
+			_write_back_pokemon(attacker_is_player, attacker)
+			lines.append(_text("fast_asleep") % attacker_name)
+			return true
+		"freeze":
+			if randf() < 0.20:
+				attacker["status_condition"] = null
+				_write_back_pokemon(attacker_is_player, attacker)
+				lines.append(_text("thawed_out") % attacker_name)
+				return false
+			lines.append(_text("frozen_solid") % attacker_name)
+			return true
+		"paralysis":
+			if randf() < 0.25:
+				lines.append(_text("fully_paralyzed") % attacker_name)
+				return true
+			return false
+		_:
+			return false
+
+
+func _write_back_pokemon(is_player: bool, pokemon: Dictionary) -> void:
+	if is_player:
+		player_pokemon = pokemon
+	else:
+		enemy_pokemon = pokemon
+
+
 func _calculate_damage_result(attacker: Dictionary, defender: Dictionary, move: Dictionary) -> Dictionary:
 	var power := maxi(0, int(move.get("power", 40)))
 	var effectiveness := _type_effectiveness(str(move.get("type", "Normal")), defender.get("types", []))
@@ -611,6 +676,8 @@ func _calculate_damage_result(attacker: Dictionary, defender: Dictionary, move: 
 	var defense_key := "sp_defense" if category == "Special" else "defense"
 	var attacker_is_player := attacker == player_pokemon
 	var attack_stat := int(_modified_stat(attacker, attack_key, attacker_is_player))
+	if category != "Special" and _normalized_status_key(attacker.get("status_condition", "")) == "burn":
+		attack_stat = maxi(1, int(attack_stat / 2))
 	var defense_stat := int(_modified_stat(defender, defense_key, not attacker_is_player))
 	var base := (((2.0 * float(level) / 5.0 + 2.0) * float(power) * float(maxi(1, attack_stat)) / float(maxi(1, defense_stat))) / 50.0) + 2.0
 	var modifier := randf_range(0.85, 1.0) * _stab_multiplier(attacker, str(move.get("type", "Normal"))) * effectiveness
@@ -680,15 +747,20 @@ func _apply_move_effects(attacker_is_player: bool, move: Dictionary, lines: Arra
 				var status_key := _normalized_status_key(effect.get("status", ""))
 				if status_key != "":
 					var target_pokemon := player_pokemon if target_is_player else enemy_pokemon
+					var target_name := str(target_pokemon.get("name", "Pokemon"))
 					var current_status = target_pokemon.get("status_condition", null)
 					if current_status == null or str(current_status) == "":
 						target_pokemon["status_condition"] = status_key
+						if status_key == "sleep":
+							target_pokemon["sleep_turns_remaining"] = randi_range(1, 3)
 						if target_is_player:
 							player_pokemon = target_pokemon
 						else:
 							enemy_pokemon = target_pokemon
-						lines.append(_text("status_applied") % [str(target_pokemon.get("name", "Pokemon")), _status_display(status_key)])
+						lines.append(_text("status_applied") % [target_name, _status_display(status_key)])
 						_update_status()
+					else:
+						lines.append(_text("already_status") % [target_name, _status_display(_normalized_status_key(current_status))])
 
 
 func _apply_end_turn_effects(lines: Array) -> void:
@@ -702,7 +774,24 @@ func _apply_end_turn_effects(lines: Array) -> void:
 		player_pokemon["hp"] = maxi(0, int(player_pokemon.get("hp", 0)) - drain)
 		enemy_pokemon["hp"] = mini(int(enemy_pokemon.get("max_hp", 1)), int(enemy_pokemon.get("hp", 0)) + drain)
 		lines.append(_text("drained") % str(player_pokemon.get("name", "Pokemon")))
+	_apply_status_damage(true, lines)
+	_apply_status_damage(false, lines)
 	_update_status()
+
+
+# Poison and burn both chip 1/16 max HP at the end of the round, same
+# fraction real Pokemon games use outside of badly-poisoned Toxic stacking.
+func _apply_status_damage(is_player: bool, lines: Array) -> void:
+	var pokemon := player_pokemon if is_player else enemy_pokemon
+	if int(pokemon.get("hp", 0)) <= 0:
+		return
+	var status := _normalized_status_key(pokemon.get("status_condition", ""))
+	if status != "poison" and status != "burn":
+		return
+	var chip := maxi(1, int(floor(float(pokemon.get("max_hp", 1)) / 16.0)))
+	pokemon["hp"] = maxi(0, int(pokemon.get("hp", 0)) - chip)
+	_write_back_pokemon(is_player, pokemon)
+	lines.append((_text("hurt_by_poison") if status == "poison" else _text("hurt_by_burn")) % str(pokemon.get("name", "Pokemon")))
 
 
 func _effect_targets_player(attacker_is_player: bool, target: String) -> bool:
@@ -727,7 +816,10 @@ func _adjust_stat_stage(target_is_player: bool, stat_key: String, amount: int) -
 func _modified_stat(pokemon: Dictionary, stat_key: String, is_player: bool) -> float:
 	var base := maxi(1, int(pokemon.get(stat_key, 1)))
 	var stages := player_stat_stages if is_player else enemy_stat_stages
-	return float(base) * _stage_multiplier(int(stages.get(stat_key, 0)))
+	var value := float(base) * _stage_multiplier(int(stages.get(stat_key, 0)))
+	if stat_key == "speed" and _normalized_status_key(pokemon.get("status_condition", "")) == "paralysis":
+		value *= 0.25
+	return value
 
 
 func _accuracy_stage_multiplier(is_player: bool) -> float:

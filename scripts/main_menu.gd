@@ -11,6 +11,12 @@ const AVATAR_ASSETS = [
 	"res://assets/avatars/128/avatar_04_trainer_gold_128.png",
 	"res://assets/avatars/128/avatar_05_trainer_purple_128.png",
 	"res://assets/avatars/128/avatar_06_trainer_black_128.png",
+	"res://assets/avatars/128/avatar_07_trainer_orange_128.png",
+	"res://assets/avatars/128/avatar_08_trainer_teal_128.png",
+	"res://assets/avatars/128/avatar_09_trainer_pink_128.png",
+	"res://assets/avatars/128/avatar_10_trainer_white_128.png",
+	"res://assets/avatars/128/avatar_11_trainer_brown_128.png",
+	"res://assets/avatars/128/avatar_12_trainer_silver_128.png",
 ]
 const AVATAR_ASSETS_96 = [
 	"res://assets/avatars/96/avatar_01_trainer_red_96.png",
@@ -19,6 +25,12 @@ const AVATAR_ASSETS_96 = [
 	"res://assets/avatars/96/avatar_04_trainer_gold_96.png",
 	"res://assets/avatars/96/avatar_05_trainer_purple_96.png",
 	"res://assets/avatars/96/avatar_06_trainer_black_96.png",
+	"res://assets/avatars/96/avatar_07_trainer_orange_96.png",
+	"res://assets/avatars/96/avatar_08_trainer_teal_96.png",
+	"res://assets/avatars/96/avatar_09_trainer_pink_96.png",
+	"res://assets/avatars/96/avatar_10_trainer_white_96.png",
+	"res://assets/avatars/96/avatar_11_trainer_brown_96.png",
+	"res://assets/avatars/96/avatar_12_trainer_silver_96.png",
 ]
 const AVATAR_COLORS = [
 	Color(0.86, 0.22, 0.20),
@@ -27,6 +39,12 @@ const AVATAR_COLORS = [
 	Color(0.92, 0.70, 0.22),
 	Color(0.50, 0.24, 0.78),
 	Color(0.12, 0.15, 0.20),
+	Color(0.92, 0.52, 0.16),
+	Color(0.16, 0.62, 0.60),
+	Color(0.92, 0.52, 0.68),
+	Color(0.88, 0.88, 0.90),
+	Color(0.46, 0.32, 0.20),
+	Color(0.68, 0.70, 0.72),
 ]
 const STARTERS = [
 	{"id": "bulbasaur", "name": "Bulbasaur", "dex": 1, "sprite": "res://assets/pokemon/icons/bulbasaur.png", "available": true},
@@ -286,7 +304,7 @@ func _show_new_game() -> void:
 
 	var content := Control.new()
 	content.name = "NewGameContent"
-	content.custom_minimum_size = Vector2(304, 830)
+	content.custom_minimum_size = Vector2(304, 1034)
 	scroll.add_child(content)
 
 	_build_new_game_content(content)
@@ -313,20 +331,20 @@ func _build_new_game_content(content: Control) -> void:
 	content.add_child(player_name_edit)
 
 	UI.add_panel_label(content, _text("choose_avatar"), Vector2(0, 88), Vector2(296, 28), 17, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "AvatarLabel")
-	for avatar_id in range(1, 7):
+	for avatar_id in range(1, 13):
 		var x := float((avatar_id - 1) % 3) * 102.0
 		var y := 122.0 + float(int((avatar_id - 1) / 3)) * 102.0
 		_add_avatar_button(content, avatar_id, Vector2(x, y))
 
-	UI.add_panel_label(content, _text("custom_image"), Vector2(0, 322), Vector2(296, 24), 16, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "CustomLabel")
-	_add_custom_avatar_button(content, Vector2(102, 352))
+	UI.add_panel_label(content, _text("custom_image"), Vector2(0, 526), Vector2(296, 24), 16, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "CustomLabel")
+	_add_custom_avatar_button(content, Vector2(102, 556))
 
-	UI.add_panel_label(content, _text("choose_generation"), Vector2(0, 466), Vector2(296, 28), 17, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "GenerationLabel")
+	UI.add_panel_label(content, _text("choose_generation"), Vector2(0, 670), Vector2(296, 28), 17, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "GenerationLabel")
 	for generation in range(1, 9):
 		var button := Button.new()
 		button.name = "Gen%d" % generation
 		button.text = "Gen %d" % generation
-		button.position = Vector2(float((generation - 1) % 4) * 74.0, 502.0 + float(int((generation - 1) / 4)) * 42.0)
+		button.position = Vector2(float((generation - 1) % 4) * 74.0, 706.0 + float(int((generation - 1) / 4)) * 42.0)
 		button.size = Vector2(68, 36)
 		button.focus_mode = Control.FOCUS_NONE
 		button.add_theme_font_size_override("font_size", 13)
@@ -337,14 +355,14 @@ func _build_new_game_content(content: Control) -> void:
 		generation_buttons.append(button)
 		button.pressed.connect(Callable(self, "_select_generation").bind(generation))
 
-	UI.add_panel_label(content, _text("choose_starter"), Vector2(0, 600), Vector2(296, 28), 17, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "StarterLabel")
+	UI.add_panel_label(content, _text("choose_starter"), Vector2(0, 804), Vector2(296, 28), 17, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "StarterLabel")
 	for i in range(STARTERS.size()):
-		_add_starter_button(content, STARTERS[i], Vector2(float(i) * 102.0, 636.0))
+		_add_starter_button(content, STARTERS[i], Vector2(float(i) * 102.0, 840.0))
 
-	UI.add_panel_label(content, _text("starter_nickname"), Vector2(0, 736), Vector2(296, 24), 15, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "StarterNicknameLabel")
+	UI.add_panel_label(content, _text("starter_nickname"), Vector2(0, 940), Vector2(296, 24), 15, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "StarterNicknameLabel")
 	starter_nickname_edit = LineEdit.new()
 	starter_nickname_edit.name = "StarterNickname"
-	starter_nickname_edit.position = Vector2(0, 764)
+	starter_nickname_edit.position = Vector2(0, 968)
 	starter_nickname_edit.size = Vector2(296, 40)
 	starter_nickname_edit.placeholder_text = _text("starter_nickname_placeholder")
 	starter_nickname_edit.max_length = 24
