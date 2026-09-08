@@ -107412,8 +107412,8 @@
 	      if (battle.panel === "pokemon") {
 	        return battle.team.map((pokemon, i) => {
 	          const disabled = i === battle.teamIndex || Number(pokemon.hp || 0) <= 0 || isHealing(pokemon);
-	          return orange(`${pokemon.name}<br>${t("hp")} ${pokemon.hp}/${pokemon.max_hp}`, 28 + (i % 2) * 164, 512 + Math.floor(i / 2) * 36, 140, 32, `switchBattlePokemon(${i})`, `small ${disabled ? "disabled" : ""}`);
-	        }).join("") + orange(t("back"), 192, 586, 140, 28, "closeBattlePanel()", "small");
+	          return orange(`${pokemon.name}<br>${t("hp")} ${pokemon.hp}/${pokemon.max_hp}`, 28 + (i % 2) * 164, 506 + Math.floor(i / 2) * 34, 140, 30, `switchBattlePokemon(${i})`, `small ${disabled ? "disabled" : ""}`);
+	        }).join("") + orange(t("back"), 192, 610, 140, 24, "closeBattlePanel()", "small");
 	      }
 	      return `${orange(t("fight"), 28, 512, 140, 44, "openBattleMoves()", "small")}
 	              ${orange(t("bag"), 192, 512, 140, 44, "openBattleBag()", "small")}

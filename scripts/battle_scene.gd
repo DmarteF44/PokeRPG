@@ -1191,13 +1191,13 @@ func _show_pokemon() -> void:
 	if battle_over or capture_in_progress:
 		return
 	_hide_attack_panel()
-	attack_panel = _new_bottom_panel("PokemonPanel")
+	attack_panel = _new_bottom_panel("PokemonPanel", 132.0)
 	var team := _battle_team()
 	for i in range(min(team.size(), SaveManager.MAX_TEAM_SIZE)):
 		if typeof(team[i]) != TYPE_DICTIONARY:
 			continue
 		var pokemon: Dictionary = PokemonHelpers.normalize_pokemon(team[i])
-		var pos := Vector2(28.0 + float(i % 2) * 164.0, 512.0 + float(int(i / 2)) * 36.0)
+		var pos := Vector2(28.0 + float(i % 2) * 164.0, 506.0 + float(int(i / 2)) * 34.0)
 		var button_text := "%s %s%d\n%s %d/%d" % [
 			str(pokemon.get("name", "Pokemon")),
 			_text("level"),
@@ -1206,7 +1206,7 @@ func _show_pokemon() -> void:
 			int(pokemon.get("hp", 0)),
 			int(pokemon.get("max_hp", 1)),
 		]
-		var button := UI.add_orange_button(attack_panel, button_text, pos, Vector2(140, 32), Callable(self, "_switch_pokemon").bind(i), "Switch%d" % i)
+		var button := UI.add_orange_button(attack_panel, button_text, pos, Vector2(140, 30), Callable(self, "_switch_pokemon").bind(i), "Switch%d" % i)
 		var label = button.get_node_or_null("Text")
 		if label is Label:
 			label.add_theme_font_size_override("font_size", 10)
@@ -1214,7 +1214,7 @@ func _show_pokemon() -> void:
 		if disabled:
 			button.disabled = true
 			button.modulate = Color(0.62, 0.62, 0.62, 0.9)
-	UI.add_orange_button(attack_panel, _text("back"), Vector2(192, 586), Vector2(140, 28), Callable(self, "_hide_attack_panel"), "Back")
+	UI.add_orange_button(attack_panel, _text("back"), Vector2(192, 610), Vector2(140, 24), Callable(self, "_hide_attack_panel"), "Back")
 
 
 func _run() -> void:
@@ -1240,7 +1240,7 @@ func _run() -> void:
 	_finish_round(lines)
 
 
-func _new_bottom_panel(panel_name: String) -> Control:
+func _new_bottom_panel(panel_name: String, height: float = 116.0) -> Control:
 	var panel := Control.new()
 	panel.name = panel_name
 	panel.position = Vector2.ZERO
@@ -1249,7 +1249,7 @@ func _new_bottom_panel(panel_name: String) -> Control:
 	var bg := ColorRect.new()
 	bg.name = "%sBg" % panel_name
 	bg.position = Vector2(16, 504)
-	bg.size = Vector2(328, 116)
+	bg.size = Vector2(328, height)
 	bg.color = Color(0.03, 0.10, 0.17, 0.92)
 	panel.add_child(bg)
 	return panel
