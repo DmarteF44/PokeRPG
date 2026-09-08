@@ -1159,6 +1159,29 @@ func _join_lines(lines: Array) -> String:
 	return "\n".join(text_lines)
 
 
+const ITEMS_PATH = "res://data/items.json"
+
+
+# Data-driven: any item.json entry whose use_contexts includes "battle" shows
+# up here automatically, so a future item (a status cure, an XP item usable
+# mid-battle, etc.) doesn't also need this list hand-updated to appear.
+func _battle_item_ids() -> Array:
+	var file := FileAccess.open(ITEMS_PATH, FileAccess.READ)
+	if file == null:
+		return []
+	var parsed = JSON.parse_string(file.get_as_text())
+	if typeof(parsed) != TYPE_ARRAY:
+		return []
+	var ids := []
+	for item in parsed:
+		if typeof(item) != TYPE_DICTIONARY:
+			continue
+		var contexts_value = item.get("use_contexts", [])
+		if typeof(contexts_value) == TYPE_ARRAY and contexts_value.has("battle"):
+			ids.append(str(item.get("id", "")))
+	return ids
+
+
 func _show_bag() -> void:
 	if battle_over or capture_in_progress:
 		return
@@ -1166,7 +1189,7 @@ func _show_bag() -> void:
 		return
 	_hide_attack_panel()
 	attack_panel = _new_bottom_panel("BagPanel")
-	var item_ids := ["potion", "super_potion", "hyper_potion", "max_potion", "revive", "max_revive", "poke_ball", "great_ball", "ultra_ball", "master_ball"]
+	var item_ids := _battle_item_ids()
 	var scroll := ScrollContainer.new()
 	scroll.name = "BattleBagScroll"
 	scroll.position = Vector2(20, 508)
