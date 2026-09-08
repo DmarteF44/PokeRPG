@@ -695,10 +695,21 @@ func _show_world_map() -> void:
 		world_popup.queue_free()
 
 	world_popup = _create_popup(_text("world_map"), "WorldMapPopup", 34.0, 580.0)
+	_refresh_save_data()
+	UI.add_panel_label(
+		world_popup,
+		"%s %d/%d" % [_text("energy"), int(save_data.get("energy_current", 30)), int(save_data.get("energy_max", 30))],
+		Vector2(42, 94),
+		Vector2(276, 20),
+		12,
+		HORIZONTAL_ALIGNMENT_CENTER,
+		VERTICAL_ALIGNMENT_CENTER,
+		"WorldMapEnergy"
+	)
 	var scroll := ScrollContainer.new()
 	scroll.name = "WorldMapScroll"
-	scroll.position = Vector2(28, 104)
-	scroll.size = Vector2(304, 468)
+	scroll.position = Vector2(28, 120)
+	scroll.size = Vector2(304, 452)
 	world_popup.add_child(scroll)
 
 	var content := Control.new()
