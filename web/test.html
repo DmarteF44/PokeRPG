@@ -415,7 +415,7 @@
         move_up: "Up", move_down: "Down", deposit: "Deposit", withdraw: "Withdraw",
         search: "Search", sort_level: "Level", sort_name: "Name", sort_dex: "Dex", sort_date: "Date", sort_generation: "Gen",
         team_full: "Your team is full.", last_pokemon: "You must keep at least one Pokemon in your team.", storage_full: "Storage is full.", storage_empty: "Storage is empty.",
-        hp: "HP", xp: "XP", xp_needed: "Need", status: "Status", seen_owned: "Seen / Owned",
+        hp: "HP", xp: "XP", xp_needed: "Need", status: "Status", seen_owned: "Seen / Owned", trainer_xp: "XP: {xp}/{next}",
         owned: "Owned", seen: "Seen", unknown: "Unknown", seen_count: "Seen {seen}/{total}", captured_count: "Captured {captured}/{total}",
         debug_menu: "Debug Menu", close: "Close", back: "Back", no_active_save: "No active save.",
         debug_gold: "Gold", debug_account_xp: "Account XP", debug_badges: "Badges", debug_energy: "Energy",
@@ -465,7 +465,7 @@
         gym_completed: "Completed", gym_challenge: "Challenge", gym_locked: "Requires {badges} badges / Lv. {level}",
         gym_intro: "{city} Gym<br>Leader: {leader}<br>Type: {type}", gym_no_ready: "No Pokemon is ready for this gym.",
         battle: "Battle", fight: "Fight", attack: "Attack", run: "Run", enemy_fainted: "Enemy fainted!", your_fainted: "Your Pokemon fainted!", choose_next: "Choose another Pokemon.",
-        xp_gain: "{name} gained {xp} XP!", level_up: "{name} grew to level {level}!",
+        xp_gain: "{name} gained {xp} XP!", level_up: "{name} grew to level {level}!", trainer_level_up: "You reached trainer level {level}!",
         evolution_start: "What? {from} is evolving!", evolution_done: "Congratulations! {from} evolved into {to}!",
         move_learn_wants_full: "{name} wants to learn {move}, but already knows 4 moves! Open Collection to swap a move.",
         no_pp: "No PP left.", miss: "The attack missed!", critical: "A critical hit!",
@@ -504,7 +504,7 @@
         move_up: "Subir", move_down: "Descer", deposit: "Depositar", withdraw: "Retirar",
         search: "Buscar", sort_level: "Nível", sort_name: "Nome", sort_dex: "Dex", sort_date: "Data", sort_generation: "Gen",
         team_full: "Seu time está cheio.", last_pokemon: "Você deve manter pelo menos um Pokémon no time.", storage_full: "Storage cheio.", storage_empty: "Storage vazio.",
-        hp: "HP", xp: "XP", xp_needed: "Falta", status: "Status", seen_owned: "Visto / Obtido",
+        hp: "HP", xp: "XP", xp_needed: "Falta", status: "Status", seen_owned: "Visto / Obtido", trainer_xp: "XP: {xp}/{next}",
         owned: "Obtido", seen: "Visto", unknown: "Desconhecido", seen_count: "Vistos {seen}/{total}", captured_count: "Capturados {captured}/{total}",
         debug_menu: "Menu Debug", close: "Fechar", back: "Voltar", no_active_save: "Nenhum save ativo.",
         debug_gold: "Gold", debug_account_xp: "XP da conta", debug_badges: "Insígnias", debug_energy: "Energia",
@@ -554,7 +554,7 @@
         gym_completed: "Concluído", gym_challenge: "Desafiar", gym_locked: "Requer {badges} insígnias / Nv. {level}",
         gym_intro: "Ginásio de {city}<br>Líder: {leader}<br>Tipo: {type}", gym_no_ready: "Nenhum Pokémon está pronto para este ginásio.",
         battle: "Batalha", fight: "Fight", attack: "Atacar", run: "Fugir", enemy_fainted: "O inimigo desmaiou!", your_fainted: "Seu Pokémon desmaiou!", choose_next: "Escolha outro Pokémon.",
-        xp_gain: "{name} ganhou {xp} XP!", level_up: "{name} subiu para o nível {level}!",
+        xp_gain: "{name} ganhou {xp} XP!", level_up: "{name} subiu para o nível {level}!", trainer_level_up: "Você alcançou o nível de treinador {level}!",
         evolution_start: "O quê? {from} está evoluindo!", evolution_done: "Parabéns! {from} evoluiu para {to}!",
         move_learn_wants_full: "{name} quer aprender {move}, mas já conhece 4 golpes! Abra a Coleção para trocar um golpe.",
         no_pp: "Sem PP suficientes.", miss: "O ataque errou!", critical: "Acerto crítico!",
@@ -106136,6 +106136,33 @@
 	      const safeLevel = Math.max(1, Math.min(100, Number(level || 1)));
 	      return safeLevel >= 100 ? 0 : safeLevel * 100;
 	    }
+	    function trainerXpToNextLevel(level) {
+	      const safeLevel = Math.max(1, Math.min(100, Number(level || 1)));
+	      return safeLevel >= 100 ? 0 : 40 + safeLevel * safeLevel * 4;
+	    }
+	    function captureTrainerXp(captured) {
+	      const catchRate = Math.max(1, Math.min(255, Number(captured.catch_rate || 45)));
+	      const level = Math.max(1, Number(captured.level || 1));
+	      return Math.max(5, Math.floor((255 - catchRate) / 8) + level);
+	    }
+	    function grantTrainerXp(amount) {
+	      const result = { xpGained: 0, levelUps: [] };
+	      let level = Math.max(1, Number(save.level || 1));
+	      if (amount <= 0 || level >= 100) return result;
+	      result.xpGained = amount;
+	      let xp = Math.max(0, Number(save.trainer_xp || 0)) + amount;
+	      while (level < 100) {
+	        const required = trainerXpToNextLevel(level);
+	        if (required <= 0 || xp < required) break;
+	        xp -= required;
+	        level += 1;
+	        result.levelUps.push(level);
+	      }
+	      if (level >= 100) { level = 100; xp = 0; }
+	      save.level = level;
+	      save.trainer_xp = xp;
+	      return result;
+	    }
 	    function normalizeStatKey(key) {
 	      const safe = String(key || "").toLowerCase();
 	      if (safe === "hp") return "max_hp";
@@ -106418,7 +106445,7 @@
 	      save.starter_name ||= starter.name;
 	      save.starter_dex_number ||= starter.dex_number;
 	      if (!Array.isArray(save.team) || save.team.length === 0) save.team = [starter];
-	      save.team = save.team.slice(0, 5).map(pokemon => pokemonModel({ ...starterPokemon(pokemon.id || save.starter_id), ...pokemon }));
+	      save.team = save.team.slice(0, teamLimit).map(pokemon => pokemonModel({ ...starterPokemon(pokemon.id || save.starter_id), ...pokemon }));
 	      save.storage = Array.isArray(save.storage) ? save.storage.map(pokemon => pokemonModel(pokemon)).slice(0, 500) : [];
 	      save.active_pokemon_index = Math.max(0, Math.min(save.team.length - 1, Number(save.active_pokemon_index || 0)));
 	      save.seen_pokemon = Array.isArray(save.seen_pokemon) ? [...new Set(save.seen_pokemon)] : [];
@@ -106455,7 +106482,7 @@
         next.energy_current = next.energy_max;
         next.last_energy_reset = today;
       }
-	      if (Array.isArray(next.team)) next.team = next.team.map(pokemon => pokemonModel(pokemon)).slice(0, 5);
+	      if (Array.isArray(next.team)) next.team = next.team.map(pokemon => pokemonModel(pokemon)).slice(0, teamLimit);
 	      if (Array.isArray(next.storage)) next.storage = next.storage.map(pokemon => pokemonModel(pokemon)).slice(0, 500);
 	      if (!Array.isArray(next.team) || !next.team.length) next.team = [starterPokemon(next.starter_id || "charmander")];
 	      next.storage = Array.isArray(next.storage) ? next.storage : [];
@@ -106845,6 +106872,17 @@
       else if (currentBase === "battle" && battle) renderBattle(battle.lastMessage || "");
       else showHome();
     }
+    function trainerXpBar(left, top) {
+      const level = Math.max(1, Number(save.level || 1));
+      const xp = Math.max(0, Number(save.trainer_xp || 0));
+      const required = Math.max(1, trainerXpToNextLevel(level));
+      const fillWidth = Math.max(0, Math.min(1, xp / required)) * 216;
+      return `
+        <p class="label" style="left:${left - 15}px;top:${top}px;width:250px;height:18px;font-size:11px;color:#0c1d31;text-shadow:none;text-align:center">${t("trainer_xp", { xp, next: required })}</p>
+        <div style="position:absolute;left:${left}px;top:${top + 20}px;width:220px;height:10px;background:#0d0d0d;border-radius:3px"></div>
+        <div style="position:absolute;left:${left + 2}px;top:${top + 22}px;width:${fillWidth}px;height:6px;background:#4cb3f2;border-radius:2px"></div>
+      `;
+    }
     function showProfile() {
       ensureSave();
       showHome();
@@ -106853,6 +106891,7 @@
         <p class="label" style="left:15px;top:202px;width:300px;font-size:20px;color:#0c1d31;text-shadow:none">${escapeHtml(save.player_name)}</p>
         <p class="label" style="left:15px;top:230px;width:300px;font-size:14px;color:#0c1d31;text-shadow:none">${t("starter")}: ${save.starter_name || "Charmander"}</p>
         <p class="label" style="left:15px;top:262px;width:300px;font-size:13px;color:#0c1d31;text-shadow:none">${stats()}</p>
+        ${trainerXpBar(40, 306)}
         ${orange(t("change_avatar"), 55, 388, 220, 44, "showAvatarEditor()")}
       </div>`;
       startAnimations();
@@ -107655,10 +107694,12 @@
 	        save.team = battleTeamSnapshot(battle.team);
 	        save.seen_pokemon = [...new Set([...(save.seen_pokemon || []), captured.id])];
 	        save.owned_pokemon = [...new Set([...(save.owned_pokemon || []), captured.id])];
+	        const trainerXpResult = grantTrainerXp(captureTrainerXp(captured));
 	        save.pending_encounter = null;
 	        persist();
 	        battle.over = true;
-	        renderBattle(`${t("caught", { name: enemyName })}${sentStorage ? `<br>${t("sent_storage")}` : ""}`);
+	        const trainerLines = trainerXpResult.levelUps.map(level => `<br>${t("trainer_level_up", { level })}`).join("");
+	        renderBattle(`${t("caught", { name: enemyName })}${sentStorage ? `<br>${t("sent_storage")}` : ""}${trainerLines}`);
 	        return;
 	      }
 	      const lines = [t("capture_failed", { name: enemyName })];

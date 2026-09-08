@@ -91,6 +91,7 @@ const TEXT = {
 		"no_ready_pokemon": "No Pokemon is ready to battle.",
 		"xp_gain": "%s gained 25 XP!",
 		"level_up": "%s grew to level %d!",
+		"trainer_level_up": "You reached trainer level %d!",
 		"evolution_start": "What? %s is evolving!",
 		"evolution_done": "Congratulations! Your %s evolved into %s!",
 		"move_learn_wants": "%s wants to learn %s!",
@@ -162,6 +163,7 @@ const TEXT = {
 		"no_ready_pokemon": "Nenhum Pokémon está pronto para batalhar.",
 		"xp_gain": "%s ganhou 25 XP!",
 		"level_up": "%s subiu para o nível %d!",
+		"trainer_level_up": "Você alcançou o nível de treinador %d!",
 		"evolution_start": "O quê? %s está evoluindo!",
 		"evolution_done": "Parabéns! Seu %s evoluiu para %s!",
 		"move_learn_wants": "%s quer aprender %s!",
@@ -1326,13 +1328,18 @@ func _use_capture_item(item_id: String) -> void:
 	var caught := bool(capture_result.get("caught", false))
 	await _play_capture_feedback(item_id, int(capture_result.get("shakes", 0)), caught)
 	if caught:
-		var destination := str(_capture_enemy().get("destination", "team"))
+		var capture_data := _capture_enemy()
+		var destination := str(capture_data.get("destination", "team"))
 		battle_over = true
 		var lines := [_text("capture_click"), _text("caught") % enemy_name]
 		if destination == "storage":
 			lines.append(_text("sent_storage"))
 		else:
 			lines.append(_text("sent_team") % enemy_name)
+		var trainer_xp_result: Dictionary = capture_data.get("trainer_xp", {})
+		var trainer_level_ups: Array = trainer_xp_result.get("level_ups", [])
+		for level in trainer_level_ups:
+			lines.append(_text("trainer_level_up") % int(level))
 		message_label.text = _join_lines(lines)
 		capture_in_progress = false
 		_add_return_button()
@@ -1409,8 +1416,17 @@ func _capture_enemy() -> Dictionary:
 		"pending_encounter": {},
 		"active_pokemon_index": player_team_index,
 	})
+	var trainer_xp_result := SaveManager.grant_trainer_xp(_capture_trainer_xp(captured))
 	save_data = SaveManager.get_current_save()
-	return {"pokemon": captured, "destination": destination}
+	return {"pokemon": captured, "destination": destination, "trainer_xp": trainer_xp_result}
+
+
+# Rarer/harder-to-catch species (lower catch_rate) and higher-level wild
+# Pokemon are worth more trainer XP; common low-level catches are worth little.
+func _capture_trainer_xp(captured: Dictionary) -> int:
+	var catch_rate := clampf(float(captured.get("catch_rate", DEFAULT_WILD_CATCH_RATE)), 1.0, 255.0)
+	var level := maxi(1, int(captured.get("level", 1)))
+	return maxi(5, int((255.0 - catch_rate) / 8.0) + level)
 
 
 func _merged_pokemon_ids(value, pokemon_id: String) -> Array:

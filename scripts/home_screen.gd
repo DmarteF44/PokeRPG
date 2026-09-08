@@ -24,6 +24,7 @@ const TEXT = {
 		"level": "Lv.",
 		"energy": "Energy",
 		"badges_short": "%d badges",
+		"trainer_xp": "XP: %d/%d",
 		"explore_world": "Explore World",
 		"my_pokemon": "Storage",
 		"bag": "Bag",
@@ -242,6 +243,7 @@ const TEXT = {
 		"level": "Nv.",
 		"energy": "Energia",
 		"badges_short": "%d insígnias",
+		"trainer_xp": "XP: %d/%d",
 		"explore_world": "Explorar Mundo",
 		"my_pokemon": "Storage",
 		"bag": "Mochila",
@@ -609,7 +611,30 @@ func _show_profile() -> void:
 		_text("badges_short") % int(save_data.get("badges", 0)),
 	]
 	UI.add_panel_label(popup, stats_text, Vector2(15, 258), Vector2(300, 40), 12, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Stats")
+	_add_trainer_xp_bar(popup, Vector2(55, 306))
 	UI.add_orange_button(popup, _text("change_avatar"), Vector2(55, 388), Vector2(220, 44), Callable(self, "_show_avatar_editor"), "ChangeAvatar")
+
+
+func _add_trainer_xp_bar(parent: Control, pos: Vector2) -> void:
+	var level := maxi(1, int(save_data.get("level", 1)))
+	var xp := maxi(0, int(save_data.get("trainer_xp", 0)))
+	var required := SaveManager.trainer_xp_to_next_level(level)
+	UI.add_panel_label(parent, _text("trainer_xp") % [xp, maxi(1, required)], pos - Vector2(15, 0), Vector2(250, 18), 11, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "TrainerXpLabel")
+
+	var bar_bg := ColorRect.new()
+	bar_bg.name = "TrainerXpBarBg"
+	bar_bg.position = pos + Vector2(0, 20)
+	bar_bg.size = Vector2(220, 10)
+	bar_bg.color = Color(0.05, 0.05, 0.05, 0.9)
+	parent.add_child(bar_bg)
+
+	var fill_width := 216.0 if required <= 0 else clampf(float(xp) / float(required), 0.0, 1.0) * 216.0
+	var bar_fill := ColorRect.new()
+	bar_fill.name = "TrainerXpBarFill"
+	bar_fill.position = pos + Vector2(2, 22)
+	bar_fill.size = Vector2(fill_width, 6)
+	bar_fill.color = Color(0.30, 0.70, 0.95)
+	parent.add_child(bar_fill)
 
 
 # Avatar id -> 96px preset image, mirrors main_menu.gd's AVATAR_ASSETS_96 so

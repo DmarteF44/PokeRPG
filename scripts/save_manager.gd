@@ -194,6 +194,45 @@ func update_current_save(changes: Dictionary) -> Dictionary:
 	return _current_save.duplicate(true)
 
 
+const MAX_TRAINER_LEVEL = 100
+
+
+# Trainer level curve: gentle early, steeper late (quadratic). At level 1 the
+# player needs 44 XP; by level 50, ~10000; by level 99, ~39000.
+func trainer_xp_to_next_level(level: int) -> int:
+	var safe_level := clampi(level, 1, MAX_TRAINER_LEVEL)
+	if safe_level >= MAX_TRAINER_LEVEL:
+		return 0
+	return 40 + safe_level * safe_level * 4
+
+
+func grant_trainer_xp(amount: int) -> Dictionary:
+	var result := {"xp_gained": 0, "level_ups": []}
+	if amount <= 0 or _current_save.is_empty():
+		return result
+	var level := maxi(1, int(_current_save.get("level", 1)))
+	if level >= MAX_TRAINER_LEVEL:
+		return result
+
+	result["xp_gained"] = amount
+	var xp := maxi(0, int(_current_save.get("trainer_xp", 0))) + amount
+	var level_ups: Array = result["level_ups"]
+	while level < MAX_TRAINER_LEVEL:
+		var required := trainer_xp_to_next_level(level)
+		if required <= 0 or xp < required:
+			break
+		xp -= required
+		level += 1
+		level_ups.append(level)
+
+	if level >= MAX_TRAINER_LEVEL:
+		level = MAX_TRAINER_LEVEL
+		xp = 0
+	result["level_ups"] = level_ups
+	update_current_save({"level": level, "trainer_xp": xp})
+	return result
+
+
 func save_current_save(save_data: Dictionary) -> Dictionary:
 	if save_data.is_empty():
 		return {}
@@ -224,6 +263,7 @@ func _normalized_save(save_data: Dictionary) -> Dictionary:
 	normalized["money"] = int(normalized.get("money", 3000))
 	normalized["badges"] = int(normalized.get("badges", 0))
 	normalized["level"] = max(1, int(normalized.get("level", 1)))
+	normalized["trainer_xp"] = maxi(0, int(normalized.get("trainer_xp", 0)))
 	_apply_daily_energy_reset(normalized)
 	normalized["inventory"] = _normalized_inventory(normalized.get("inventory", DEFAULT_INVENTORY))
 	normalized["team"] = _normalized_team(normalized.get("team", []), starter_id)
