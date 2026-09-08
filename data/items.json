@@ -479,7 +479,8 @@
     "price": 500,
     "min_level": 3,
     "min_badges": 0,
-    "effect_type": "fishing",
+    "effect_type": "fishing_rod",
+    "fishing_tier": 1,
     "use_contexts": [
       "field"
     ],
@@ -495,7 +496,8 @@
     "price": 2500,
     "min_level": 15,
     "min_badges": 2,
-    "effect_type": "fishing",
+    "effect_type": "fishing_rod",
+    "fishing_tier": 2,
     "use_contexts": [
       "field"
     ],
@@ -511,12 +513,115 @@
     "price": 7000,
     "min_level": 30,
     "min_badges": 5,
-    "effect_type": "fishing",
+    "effect_type": "fishing_rod",
+    "fishing_tier": 3,
     "use_contexts": [
       "field"
     ],
     "description_en": "A high quality fishing rod.",
     "description_pt": "Uma vara de pesca de alta qualidade.",
     "icon_path": "res://assets/items/key_items/super_rod.png"
+  },
+  {
+    "id": "old_line",
+    "name_en": "Old Line",
+    "name_pt": "Linha Velha",
+    "category": "pesca",
+    "price": 300,
+    "min_level": 3,
+    "min_badges": 0,
+    "effect_type": "fishing_line",
+    "fishing_tier": 1,
+    "use_contexts": [
+      "field"
+    ],
+    "description_en": "A basic line. Works with any rod.",
+    "description_pt": "Uma linha basica. Funciona com qualquer vara.",
+    "icon_path": "res://assets/items/pesca/old_line.png"
+  },
+  {
+    "id": "good_line",
+    "name_en": "Good Line",
+    "name_pt": "Linha Boa",
+    "category": "pesca",
+    "price": 1500,
+    "min_level": 15,
+    "min_badges": 2,
+    "effect_type": "fishing_line",
+    "fishing_tier": 2,
+    "use_contexts": [
+      "field"
+    ],
+    "description_en": "A stronger line. Needs at least a Good Rod to handle it.",
+    "description_pt": "Uma linha mais forte. Precisa de pelo menos uma Vara Boa para aguentar.",
+    "icon_path": "res://assets/items/pesca/good_line.png"
+  },
+  {
+    "id": "super_line",
+    "name_en": "Super Line",
+    "name_pt": "Super Linha",
+    "category": "pesca",
+    "price": 4000,
+    "min_level": 30,
+    "min_badges": 5,
+    "effect_type": "fishing_line",
+    "fishing_tier": 3,
+    "use_contexts": [
+      "field"
+    ],
+    "description_en": "A high-tension line. Needs a Super Rod to handle it.",
+    "description_pt": "Uma linha de alta tensao. Precisa de uma Super Vara para aguentar.",
+    "icon_path": "res://assets/items/pesca/super_line.png"
+  },
+  {
+    "id": "basic_bait",
+    "name_en": "Basic Bait",
+    "name_pt": "Isca Basica",
+    "category": "pesca",
+    "price": 100,
+    "min_level": 0,
+    "min_badges": 0,
+    "effect_type": "fishing_bait",
+    "rarity_bonus": 0,
+    "use_contexts": [
+      "field"
+    ],
+    "description_en": "Common bait. No effect on catch odds.",
+    "description_pt": "Isca comum. Sem efeito nas chances de captura.",
+    "icon_path": "res://assets/items/pesca/basic_bait.png"
+  },
+  {
+    "id": "quality_bait",
+    "name_en": "Quality Bait",
+    "name_pt": "Isca de Qualidade",
+    "category": "pesca",
+    "price": 400,
+    "min_level": 10,
+    "min_badges": 1,
+    "effect_type": "fishing_bait",
+    "rarity_bonus": 1,
+    "use_contexts": [
+      "field"
+    ],
+    "description_en": "Better bait. Improves the odds of a rarer catch.",
+    "description_pt": "Isca melhor. Aumenta a chance de uma captura mais rara.",
+    "icon_path": "res://assets/items/pesca/quality_bait.png"
+  },
+  {
+    "id": "premium_bait",
+    "name_en": "Premium Bait",
+    "name_pt": "Isca Premium",
+    "category": "pesca",
+    "price": 1200,
+    "min_level": 25,
+    "min_badges": 4,
+    "effect_type": "fishing_bait",
+    "rarity_bonus": 2,
+    "use_contexts": [
+      "field"
+    ],
+    "description_en": "Premium bait. Strongly improves the odds of a rarer catch.",
+    "description_pt": "Isca premium. Aumenta bastante a chance de uma captura mais rara.",
+    "icon_path": "res://assets/items/pesca/premium_bait.png"
   }
 ]

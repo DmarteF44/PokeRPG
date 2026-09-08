@@ -455,6 +455,9 @@
         qty: "Qty", use: "Use", buy: "Buy", price: "Price", locked: "Locked",
         requires: "Requires Lv. {level} and {badges} badges.", no_energy: "You are out of energy.",
         none_found: "You explored the area but found nothing.", found_pokemon: "Pokemon {name} found!", item_found: "Found item: {item} x{amount}", no_ready_pokemon: "No Pokemon is ready to explore.",
+        fish: "Fish", no_fishing_gear: "You need a fishing rod and line to fish here.", no_bait: "You have no bait left.",
+        incompatible_gear: "Your line is too strong for your rod! Fishing with reduced tier.", reel: "Reel!",
+        fishing_hint: "Tap Reel when the marker is in the zone!", fish_escaped: "The fish got away...",
         not_enough_money: "Not enough Gold.",
         bought: "Bought {item}!", select_item: "Select an item to see details.",
         energy_full: "Your energy is already full.", energy_restored: "Energy restored by {n}.",
@@ -549,7 +552,10 @@
         filters: "Filtros", filters_active: "Filtros (ativos)", filter_status: "Status", filter_generation: "Geração", filter_type: "Tipo", filter_all: "Todos", generation_short: "Ger.", clear_filters: "Limpar Filtros",
         qty: "Qtd", use: "Usar", buy: "Comprar", price: "Preço", locked: "Bloqueado",
         requires: "Requer Nv. {level} e {badges} insígnias.", no_energy: "Você está sem energia.",
-        none_found: "Você explorou a área, mas não encontrou nada.", found_pokemon: "Pokemon {name} found!", item_found: "Item encontrado: {item} x{amount}", no_ready_pokemon: "Nenhum Pokémon está pronto para explorar.",
+        none_found: "Você explorou a área, mas não encontrou nada.", found_pokemon: "Pokemon {name} encontrado!", item_found: "Item encontrado: {item} x{amount}", no_ready_pokemon: "Nenhum Pokémon está pronto para explorar.",
+        fish: "Pescar", no_fishing_gear: "Você precisa de uma vara e uma linha de pesca para pescar aqui.", no_bait: "Você não tem mais iscas.",
+        incompatible_gear: "Sua linha é forte demais para sua vara! Pescando com nível reduzido.", reel: "Puxar!",
+        fishing_hint: "Toque em Puxar quando o marcador estiver na zona!", fish_escaped: "O peixe escapou...",
         not_enough_money: "Gold insuficiente.",
         bought: "{item} comprado!", select_item: "Selecione um item para ver detalhes.",
         energy_full: "Sua energia já está completa.", energy_restored: "Energia restaurada em {n}.",
@@ -612,11 +618,17 @@
       ["moon_stone", "Moon Stone", "Pedra da Lua", "evolution", 3500, 20, 3, "A mysterious stone connected to moonlight.", "Uma pedra misteriosa ligada ao luar.", "evolve_stone", 0, "", ""],
       ["sun_stone", "Sun Stone", "Pedra do Sol", "evolution", 3500, 20, 3, "A bright stone connected to sunlight.", "Uma pedra brilhante ligada à luz do sol.", "evolve_stone", 0, "", ""],
       ["town_map", "Town Map", "Mapa da Cidade", "key_items", 0, 0, 0, "A useful map for checking nearby regions.", "Um mapa útil para consultar regiões próximas.", "", 0, "", ""],
-      ["old_rod", "Old Rod", "Vara Velha", "pesca", 500, 3, 0, "A simple fishing rod for future fishing spots.", "Uma vara simples para futuros pontos de pescaria.", "", 0, "", "key_items"],
-      ["good_rod", "Good Rod", "Vara Boa", "pesca", 2500, 15, 2, "A better rod for future fishing features.", "Uma vara melhor para recursos futuros de pescaria.", "", 0, "", "key_items"],
-      ["super_rod", "Super Rod", "Super Vara", "pesca", 7000, 30, 5, "A high-quality rod for future rare fishing.", "Uma vara de alta qualidade para futuras pescarias raras.", "", 0, "", "key_items"]
-    ].map(([id, name_en, name_pt, category, price, min_level, min_badges, description_en, description_pt, effect_type = "", effect_value = 0, effect_stat = "", icon_folder = ""]) => ({
-      id, name_en, name_pt, category, price, min_level, min_badges, description_en, description_pt, effect_type, effect_value, effect_stat, icon_folder
+      ["old_rod", "Old Rod", "Vara Velha", "pesca", 500, 3, 0, "A simple fishing rod for future fishing spots.", "Uma vara simples para futuros pontos de pescaria.", "fishing_rod", 0, "", "key_items", 1],
+      ["good_rod", "Good Rod", "Vara Boa", "pesca", 2500, 15, 2, "A better rod for future fishing features.", "Uma vara melhor para recursos futuros de pescaria.", "fishing_rod", 0, "", "key_items", 2],
+      ["super_rod", "Super Rod", "Super Vara", "pesca", 7000, 30, 5, "A high-quality rod for future rare fishing.", "Uma vara de alta qualidade para futuras pescarias raras.", "fishing_rod", 0, "", "key_items", 3],
+      ["old_line", "Old Line", "Linha Velha", "pesca", 300, 3, 0, "A basic line. Works with any rod.", "Uma linha basica. Funciona com qualquer vara.", "fishing_line", 0, "", "", 1],
+      ["good_line", "Good Line", "Linha Boa", "pesca", 1500, 15, 2, "A stronger line. Needs at least a Good Rod to handle it.", "Uma linha mais forte. Precisa de pelo menos uma Vara Boa.", "fishing_line", 0, "", "", 2],
+      ["super_line", "Super Line", "Super Linha", "pesca", 4000, 30, 5, "A high-tension line. Needs a Super Rod to handle it.", "Uma linha de alta tensao. Precisa de uma Super Vara.", "fishing_line", 0, "", "", 3],
+      ["basic_bait", "Basic Bait", "Isca Basica", "pesca", 100, 0, 0, "Common bait. No effect on catch odds.", "Isca comum. Sem efeito nas chances de captura.", "fishing_bait", 0, "", "", 0],
+      ["quality_bait", "Quality Bait", "Isca de Qualidade", "pesca", 400, 10, 1, "Better bait. Improves the odds of a rarer catch.", "Isca melhor. Aumenta a chance de uma captura mais rara.", "fishing_bait", 0, "", "", 1],
+      ["premium_bait", "Premium Bait", "Isca Premium", "pesca", 1200, 25, 4, "Premium bait. Strongly improves the odds of a rarer catch.", "Isca premium. Aumenta bastante a chance de uma captura mais rara.", "fishing_bait", 0, "", "", 2]
+    ].map(([id, name_en, name_pt, category, price, min_level, min_badges, description_en, description_pt, effect_type = "", effect_value = 0, effect_stat = "", icon_folder = "", fishing_tier = 0]) => ({
+      id, name_en, name_pt, category, price, min_level, min_badges, description_en, description_pt, effect_type, effect_value, effect_stat, icon_folder, fishing_tier
     }));
 	    const maps = [
 	      ["forest", "type_grass", "maps/thumbnails/map_forest_96x64.png", 1, 0],
@@ -107501,12 +107513,104 @@
             const pos = [[20,274],[102,274],[184,274],[266,274],[61,308],[143,308],[225,308]][i];
             return `<img src="${A}badges/${name}.png" style="position:absolute;left:${pos[0]}px;top:${pos[1]}px;width:78px;height:24px;object-fit:contain" alt="">`;
           }).join("")}
-	          ${orange(t("explore_world"), 70, 358, 220, 48, "exploreMap()", open ? "" : "disabled")}
+	          ${key === "water"
+	            ? orange(t("explore_world"), 18, 358, 160, 48, "exploreMap()", open ? "" : "disabled") + orange(t("fish"), 182, 358, 160, 48, "startFishing()", open ? "" : "disabled")
+	            : orange(t("explore_world"), 70, 358, 220, 48, "exploreMap()", open ? "" : "disabled")}
 	          <div id="exploreResult" style="position:absolute;left:0;top:412px;width:360px;height:110px"></div>
 	          ${orange("Back", 110, 552, 140, 44, "showHome()", "small")}
 	        </section>`;
-	      document.querySelector(".orange.disabled")?.setAttribute("disabled", "disabled");
+	      document.querySelectorAll(".orange.disabled").forEach(el => el.setAttribute("disabled", "disabled"));
 	      currentBase = "home";
+	    }
+	    function fishingGear() {
+	      let rodTier = 0, lineTier = 0, bestBait = null;
+	      for (const item of items) {
+	        if (Number(save.inventory?.[item.id] || 0) <= 0) continue;
+	        if (item.effect_type === "fishing_rod") rodTier = Math.max(rodTier, Number(item.fishing_tier || 0));
+	        else if (item.effect_type === "fishing_line") lineTier = Math.max(lineTier, Number(item.fishing_tier || 0));
+	        else if (item.effect_type === "fishing_bait") {
+	          if (!bestBait || Number(item.fishing_tier || 0) > Number(bestBait.fishing_tier || 0)) bestBait = item;
+	        }
+	      }
+	      if (rodTier <= 0 || lineTier <= 0) return null;
+	      return {
+	        rodTier, lineTier, effectiveTier: Math.min(rodTier, lineTier),
+	        baitId: bestBait?.id || "", baitRarityBonus: Number(bestBait?.fishing_tier || 0),
+	        baitAmount: Number(save.inventory?.[bestBait?.id] || 0),
+	      };
+	    }
+	    let fishingZoneStart = 0;
+	    let fishingZoneWidth = 60;
+	    const fishingBarWidth = 280;
+	    const fishingMarkerWidth = 12;
+	    function startFishing() {
+	      ensureSave();
+	      const map = mapData(currentMapKey);
+	      const result = document.getElementById("exploreResult");
+	      if (!canExploreMap(map)) { if (result) result.innerHTML = `<p class="label" style="left:20px;top:28px;width:320px;height:70px;font-size:18px">${mapRequirement(map)}</p>`; return; }
+	      if (!hasBattleReadyPokemon()) { if (result) result.innerHTML = `<p class="label" style="left:20px;top:28px;width:320px;height:70px;font-size:18px">${t("no_ready_pokemon")}</p>`; return; }
+	      if (save.energy_current <= 0) { if (result) result.innerHTML = `<p class="label" style="left:20px;top:28px;width:320px;height:70px;font-size:18px">${t("no_energy")}</p>`; return; }
+	      const gear = fishingGear();
+	      if (!gear) { if (result) result.innerHTML = `<p class="label" style="left:20px;top:28px;width:320px;height:70px;font-size:18px">${t("no_fishing_gear")}</p>`; return; }
+	      if (gear.baitAmount <= 0) { if (result) result.innerHTML = `<p class="label" style="left:20px;top:28px;width:320px;height:70px;font-size:18px">${t("no_bait")}</p>`; return; }
+	      window.fishingGearCache = gear;
+	      fishingZoneWidth = 60 + gear.baitRarityBonus * 20;
+	      fishingZoneStart = Math.random() * (fishingBarWidth - fishingZoneWidth);
+	      const warning = gear.lineTier > gear.rodTier ? `<p class="label" style="left:20px;top:0px;width:320px;height:30px;font-size:11px;color:#f6b552">${t("incompatible_gear")}</p>` : "";
+	      if (result) result.innerHTML = `
+	        ${warning}
+	        <p class="label" style="left:20px;top:30px;width:320px;height:22px;font-size:12px">${t("fishing_hint")}</p>
+	        <div style="position:absolute;left:40px;top:66px;width:${fishingBarWidth}px;height:20px;background:#0d0d0d;border-radius:4px"></div>
+	        <div style="position:absolute;left:${40 + fishingZoneStart}px;top:66px;width:${fishingZoneWidth}px;height:20px;background:rgba(77,217,102,0.9);border-radius:4px"></div>
+	        <div id="fishingMarker" style="position:absolute;left:40px;top:64px;width:${fishingMarkerWidth}px;height:24px;background:#f2f2f2;border-radius:2px;transition:left 0.9s linear"></div>
+	        ${orange(t("reel"), 70, 92, 220, 40, "resolveFishing()", "small")}
+	      `;
+	      requestAnimationFrame(() => {
+	        const marker = document.getElementById("fishingMarker");
+	        if (marker) marker.style.left = `${40 + fishingBarWidth - fishingMarkerWidth}px`;
+	      });
+	      window.fishingDirection = 1;
+	      if (window.fishingLoopTimer) clearInterval(window.fishingLoopTimer);
+	      window.fishingLoopTimer = setInterval(() => {
+	        const marker = document.getElementById("fishingMarker");
+	        if (!marker) { clearInterval(window.fishingLoopTimer); return; }
+	        window.fishingDirection *= -1;
+	        marker.style.left = `${window.fishingDirection > 0 ? 40 + fishingBarWidth - fishingMarkerWidth : 40}px`;
+	      }, 900);
+	    }
+	    function resolveFishing() {
+	      if (window.fishingLoopTimer) { clearInterval(window.fishingLoopTimer); window.fishingLoopTimer = null; }
+	      const marker = document.getElementById("fishingMarker");
+	      const markerX = marker ? parseFloat(marker.style.left) || 40 : 40;
+	      const relativeX = markerX - 40;
+	      const hit = relativeX >= fishingZoneStart && relativeX <= fishingZoneStart + fishingZoneWidth;
+	      const gear = window.fishingGearCache || {};
+	      save.inventory[gear.baitId] = Math.max(0, Number(save.inventory[gear.baitId] || 0) - 1);
+	      save.energy_current = Math.max(0, save.energy_current - 1);
+	      persist();
+	      const energy = document.getElementById("mapEnergy");
+	      if (energy) energy.textContent = `${t("energy")} ${save.energy_current}/${save.energy_max}`;
+	      const result = document.getElementById("exploreResult");
+	      if (!hit) {
+	        if (result) result.innerHTML = `<p class="label" style="left:20px;top:28px;width:320px;height:70px;font-size:20px">${t("fish_escaped")}</p>`;
+	        return;
+	      }
+	      const encounter = rollEncounter(currentMapKey);
+	      if (!encounter) {
+	        if (result) result.innerHTML = `<p class="label" style="left:20px;top:28px;width:320px;height:70px;font-size:20px">${t("fish_escaped")}</p>`;
+	        return;
+	      }
+	      save.pending_encounter = encounter;
+	      save.seen_pokemon ||= [];
+	      if (encounter.id && !save.seen_pokemon.includes(encounter.id)) save.seen_pokemon.push(encounter.id);
+	      persist();
+	      if (result) result.innerHTML = `
+	        ${pokemonSprite(encounter, 28, 0, 96)}
+	        <p class="label" style="left:128px;top:0;width:204px;height:42px;font-size:16px;color:#42a2ff">${t("found_pokemon", { name: encounter.name })}</p>
+	        <p class="label" style="left:128px;top:46px;width:204px;height:28px;font-size:15px">${t("level")}: ${encounter.level}</p>
+	      `;
+	      startAnimations();
+	      setTimeout(showBattle, 500);
 	    }
 	    function exploreMap() {
 	      ensureSave();

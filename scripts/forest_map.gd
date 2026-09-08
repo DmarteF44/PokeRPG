@@ -28,6 +28,14 @@ const TEXT = {
 		"ghost": "Ghost Tower",
 		"dragon": "Dragon Valley",
 		"safari": "Safari Zone",
+		"fish": "Fish",
+		"no_fishing_gear": "You need a fishing rod and line to fish here.",
+		"no_bait": "You have no bait left.",
+		"incompatible_gear": "Your line is too strong for your rod! Fishing with reduced tier.",
+		"reel": "Reel!",
+		"fishing_hint": "Tap Reel when the marker is in the zone!",
+		"fish_hooked": "Something's biting!",
+		"fish_escaped": "The fish got away...",
 	},
 	"pt": {
 		"energy": "Energia",
@@ -52,6 +60,14 @@ const TEXT = {
 		"ghost": "Torre Fantasma",
 		"dragon": "Vale dos Dragões",
 		"safari": "Zona Safari",
+		"fish": "Pescar",
+		"no_fishing_gear": "Você precisa de uma vara e uma linha de pesca para pescar aqui.",
+		"no_bait": "Você não tem mais iscas.",
+		"incompatible_gear": "Sua linha é forte demais para sua vara! Pescando com nível reduzido.",
+		"reel": "Puxar!",
+		"fishing_hint": "Toque em Puxar quando o marcador estiver na zona!",
+		"fish_hooked": "Algo está mordendo a isca!",
+		"fish_escaped": "O peixe escapou...",
 	},
 }
 
@@ -100,8 +116,16 @@ func _build_map_screen() -> void:
 	_add_fit_label(self, _text("types"), Vector2(24, 232), Vector2(312, 28), 15, Color.WHITE, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "TypesText", true)
 
 	_add_badges()
-	explore_button = UI.add_orange_button(self, _text("explore"), Vector2(70, 358), Vector2(220, 48), Callable(self, "_explore_map"), "ExploreButton")
-	if not WorldMapData.meets_requirements(save_data, map_data):
+	var can_explore := WorldMapData.meets_requirements(save_data, map_data)
+	if current_map_key == "water":
+		explore_button = UI.add_orange_button(self, _text("explore"), Vector2(18, 358), Vector2(160, 48), Callable(self, "_explore_map"), "ExploreButton")
+		var fish_button := UI.add_orange_button(self, _text("fish"), Vector2(182, 358), Vector2(160, 48), Callable(self, "_start_fishing"), "FishButton")
+		if not can_explore:
+			fish_button.disabled = true
+			fish_button.modulate = Color(0.62, 0.62, 0.62, 0.9)
+	else:
+		explore_button = UI.add_orange_button(self, _text("explore"), Vector2(70, 358), Vector2(220, 48), Callable(self, "_explore_map"), "ExploreButton")
+	if not can_explore:
 		explore_button.disabled = true
 		explore_button.modulate = Color(0.62, 0.62, 0.62, 0.9)
 
@@ -204,6 +228,159 @@ func _explore_map() -> void:
 	_open_battle_scene()
 
 
+const ITEMS_PATH = "res://data/items.json"
+const FISHING_BAR_WIDTH = 280.0
+const FISHING_MARKER_WIDTH = 12.0
+var fishing_marker: ColorRect
+var fishing_zone_start := 0.0
+var fishing_zone_width := 60.0
+var fishing_tween: Tween
+var fishing_gear_cache: Dictionary = {}
+
+
+func _loaded_items() -> Array:
+	var file := FileAccess.open(ITEMS_PATH, FileAccess.READ)
+	if file == null:
+		return []
+	var parsed = JSON.parse_string(file.get_as_text())
+	return parsed if typeof(parsed) == TYPE_ARRAY else []
+
+
+# Uses whichever owned rod/line/bait is best; there's no separate "equip"
+# step since the player only ever owns one of each at a time in practice
+# (rods/lines are one-time purchases, not consumed).
+func _fishing_gear() -> Dictionary:
+	var items := _loaded_items()
+	var rod_tier := 0
+	var line_tier := 0
+	var best_bait := {}
+	for item in items:
+		if typeof(item) != TYPE_DICTIONARY:
+			continue
+		var item_id := str(item.get("id", ""))
+		if InventoryManager.get_item_amount(item_id) <= 0:
+			continue
+		var effect_type := str(item.get("effect_type", ""))
+		if effect_type == "fishing_rod":
+			rod_tier = maxi(rod_tier, int(item.get("fishing_tier", 0)))
+		elif effect_type == "fishing_line":
+			line_tier = maxi(line_tier, int(item.get("fishing_tier", 0)))
+		elif effect_type == "fishing_bait":
+			if best_bait.is_empty() or int(item.get("rarity_bonus", 0)) > int(best_bait.get("rarity_bonus", 0)):
+				best_bait = item
+	if rod_tier <= 0 or line_tier <= 0:
+		return {}
+	return {
+		"rod_tier": rod_tier,
+		"line_tier": line_tier,
+		"effective_tier": mini(rod_tier, line_tier),
+		"bait_id": str(best_bait.get("id", "")),
+		"bait_rarity_bonus": int(best_bait.get("rarity_bonus", 0)),
+		"bait_amount": InventoryManager.get_item_amount(str(best_bait.get("id", ""))),
+	}
+
+
+func _start_fishing() -> void:
+	_clear_result()
+	_refresh_save_data()
+	if not WorldMapData.meets_requirements(save_data, map_data):
+		_show_center_result(_requirements_text(), Color.WHITE)
+		return
+	if not _has_battle_ready_pokemon():
+		_show_center_result(_text("no_ready_pokemon"), Color.WHITE)
+		return
+	var energy_current := int(save_data.get("energy_current", 30))
+	if energy_current <= 0:
+		_show_center_result(_text("no_energy"), Color.WHITE)
+		return
+	var gear := _fishing_gear()
+	if gear.is_empty():
+		_show_center_result(_text("no_fishing_gear"), Color.WHITE)
+		return
+	if int(gear.get("bait_amount", 0)) <= 0:
+		_show_center_result(_text("no_bait"), Color.WHITE)
+		return
+	fishing_gear_cache = gear
+	_show_fishing_minigame(gear)
+
+
+func _show_fishing_minigame(gear: Dictionary) -> void:
+	if int(gear.get("line_tier", 1)) > int(gear.get("rod_tier", 1)):
+		_add_fit_label(result_container, _text("incompatible_gear"), Vector2(20, 0), Vector2(320, 34), 12, Color(0.98, 0.72, 0.32), HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "GearWarning", true)
+
+	_add_fit_label(result_container, _text("fishing_hint"), Vector2(20, 32), Vector2(320, 24), 13, Color.WHITE, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "FishingHint", true)
+
+	# Better bait widens the success zone, matching its rarity_bonus.
+	fishing_zone_width = 60.0 + float(gear.get("bait_rarity_bonus", 0)) * 20.0
+	fishing_zone_start = randf() * (FISHING_BAR_WIDTH - fishing_zone_width)
+
+	var bar_bg := ColorRect.new()
+	bar_bg.name = "FishingBarBg"
+	bar_bg.position = Vector2(40, 66)
+	bar_bg.size = Vector2(FISHING_BAR_WIDTH, 20)
+	bar_bg.color = Color(0.05, 0.05, 0.05, 0.9)
+	result_container.add_child(bar_bg)
+
+	var zone := ColorRect.new()
+	zone.name = "FishingZone"
+	zone.position = Vector2(40 + fishing_zone_start, 66)
+	zone.size = Vector2(fishing_zone_width, 20)
+	zone.color = Color(0.30, 0.85, 0.40, 0.9)
+	result_container.add_child(zone)
+
+	fishing_marker = ColorRect.new()
+	fishing_marker.name = "FishingMarker"
+	fishing_marker.position = Vector2(40, 64)
+	fishing_marker.size = Vector2(FISHING_MARKER_WIDTH, 24)
+	fishing_marker.color = Color(0.95, 0.95, 0.95, 1.0)
+	result_container.add_child(fishing_marker)
+
+	fishing_tween = create_tween()
+	fishing_tween.set_loops()
+	fishing_tween.tween_property(fishing_marker, "position:x", 40.0 + FISHING_BAR_WIDTH - FISHING_MARKER_WIDTH, 0.9).set_trans(Tween.TRANS_LINEAR)
+	fishing_tween.tween_property(fishing_marker, "position:x", 40.0, 0.9).set_trans(Tween.TRANS_LINEAR)
+
+	UI.add_orange_button(result_container, _text("reel"), Vector2(70, 156), Vector2(220, 48), Callable(self, "_resolve_fishing"), "ReelButton")
+
+
+func _resolve_fishing() -> void:
+	if fishing_tween != null and fishing_tween.is_valid():
+		fishing_tween.kill()
+	var marker_x := 40.0
+	if fishing_marker != null and is_instance_valid(fishing_marker):
+		marker_x = fishing_marker.position.x
+	var relative_x := marker_x - 40.0
+	var hit := relative_x >= fishing_zone_start and relative_x <= fishing_zone_start + fishing_zone_width
+
+	var gear := fishing_gear_cache
+	InventoryManager.remove_item(str(gear.get("bait_id", "")), 1)
+	var energy_current := int(save_data.get("energy_current", 30))
+	SaveManager.update_current_save({"energy_current": maxi(0, energy_current - 1), "current_map": current_map_key})
+	_refresh_save_data()
+	_update_energy_label()
+	_clear_result()
+
+	if not hit:
+		_show_center_result(_text("fish_escaped"), Color.WHITE)
+		return
+
+	var exploration_result := WorldMapData.roll_encounter(current_map_key)
+	current_encounter = exploration_result
+	if current_encounter.is_empty():
+		_show_center_result(_text("fish_escaped"), Color.WHITE)
+		return
+
+	var seen = save_data.get("seen_pokemon", [])
+	if typeof(seen) != TYPE_ARRAY:
+		seen = []
+	var encounter_id := str(current_encounter.get("id", ""))
+	if encounter_id != "" and not seen.has(encounter_id):
+		seen.append(encounter_id)
+	SaveManager.update_current_save({"pending_encounter": current_encounter, "current_map": current_map_key, "seen_pokemon": seen})
+	_refresh_save_data()
+	_show_encounter_result(current_encounter)
+
+
 func _show_encounter_result(pokemon: Dictionary) -> void:
 	var display_pokemon := PokemonHelpers.normalize_pokemon(pokemon, str(pokemon.get("id", PokemonHelpers.DEFAULT_STARTER_ID)))
 	PokemonHelpers.add_animated_sprite(result_container, display_pokemon, Vector2(28, 0), Vector2(96, 96), false, "EncounterSprite")
@@ -218,8 +395,13 @@ func _show_center_result(message: String, color: Color) -> void:
 
 
 func _clear_result() -> void:
+	if fishing_tween != null and fishing_tween.is_valid():
+		fishing_tween.kill()
+	# Freed immediately (not queue_free) so a result screen rebuilt in the same
+	# call (e.g. tapping Explore/Fish again right away) never collides with a
+	# same-named node still pending deletion from the previous result.
 	for child in result_container.get_children():
-		child.queue_free()
+		child.free()
 
 
 func _open_battle_scene() -> void:
