@@ -19,6 +19,21 @@ const DEFAULT_ENERGY_MAX = 30
 const MAX_TEAM_SIZE = 6
 const MAX_STORAGE_SIZE = 500
 
+# The 15 trainer specialization attributes the player invests points into as
+# they level up. Effects for encontro/exploracao/regeneracao/pesca/inventario/
+# cura/pv_batalha/tecnica/sorte/pesquisa are intentionally not wired to any
+# system yet (encounter tables, fishing, exploration energy cost, etc. either
+# don't exist yet or aren't ready for a balance-affecting hook) - the points
+# are still real, persistent and spendable now so nothing has to be redesigned
+# later; captura/treinamento/eficiencia/energia_maxima already have a real
+# system to hook into and do so today (see PokemonHelpers/battle_scene.gd).
+const SPECIALIZATION_ATTRIBUTES = [
+	"encontro", "captura", "exploracao", "energia_maxima", "regeneracao",
+	"pesca", "treinamento", "eficiencia", "inventario", "cura",
+	"pv_batalha", "tecnica", "sorte", "pesquisa",
+]
+const ENERGY_PER_POINT = 2
+
 var _settings: Dictionary = DEFAULT_SETTINGS.duplicate(true)
 var _current_save: Dictionary = {}
 
@@ -206,8 +221,16 @@ func trainer_xp_to_next_level(level: int) -> int:
 	return 40 + safe_level * safe_level * 4
 
 
+# Specialization points earned per trainer level-up. Progressive: 1 point per
+# level up through level 9, 2 through level 19, and so on - so a high-level
+# trainer accumulates points noticeably faster than a beginner, matching the
+# "advanced players getting very strong is desired" design goal.
+func specialization_points_for_level(level: int) -> int:
+	return 1 + int(clampi(level, 1, MAX_TRAINER_LEVEL) / 10)
+
+
 func grant_trainer_xp(amount: int) -> Dictionary:
-	var result := {"xp_gained": 0, "level_ups": []}
+	var result := {"xp_gained": 0, "level_ups": [], "specialization_points_gained": 0}
 	if amount <= 0 or _current_save.is_empty():
 		return result
 	var level := maxi(1, int(_current_save.get("level", 1)))
@@ -217,6 +240,7 @@ func grant_trainer_xp(amount: int) -> Dictionary:
 	result["xp_gained"] = amount
 	var xp := maxi(0, int(_current_save.get("trainer_xp", 0))) + amount
 	var level_ups: Array = result["level_ups"]
+	var points_gained := 0
 	while level < MAX_TRAINER_LEVEL:
 		var required := trainer_xp_to_next_level(level)
 		if required <= 0 or xp < required:
@@ -224,13 +248,50 @@ func grant_trainer_xp(amount: int) -> Dictionary:
 		xp -= required
 		level += 1
 		level_ups.append(level)
+		points_gained += specialization_points_for_level(level)
 
 	if level >= MAX_TRAINER_LEVEL:
 		level = MAX_TRAINER_LEVEL
 		xp = 0
 	result["level_ups"] = level_ups
-	update_current_save({"level": level, "trainer_xp": xp})
+	result["specialization_points_gained"] = points_gained
+	var available := maxi(0, int(_current_save.get("specialization_points_available", 0))) + points_gained
+	update_current_save({"level": level, "trainer_xp": xp, "specialization_points_available": available})
 	return result
+
+
+func specialization_allocations() -> Dictionary:
+	if _current_save.is_empty():
+		return {}
+	var raw = _current_save.get("specialization_allocations", {})
+	return raw.duplicate(true) if typeof(raw) == TYPE_DICTIONARY else {}
+
+
+func specialization_points(attribute: String) -> int:
+	return int(specialization_allocations().get(attribute, 0))
+
+
+# Spends one available specialization point on `attribute`, applying its
+# real gameplay effect immediately where one is wired up (see the constant's
+# doc comment above for which attributes currently have one).
+func allocate_specialization_point(attribute: String) -> bool:
+	if not SPECIALIZATION_ATTRIBUTES.has(attribute) or _current_save.is_empty():
+		return false
+	var available := int(_current_save.get("specialization_points_available", 0))
+	if available <= 0:
+		return false
+
+	var allocations := specialization_allocations()
+	allocations[attribute] = int(allocations.get(attribute, 0)) + 1
+	var changes := {
+		"specialization_points_available": available - 1,
+		"specialization_allocations": allocations,
+	}
+	if attribute == "energia_maxima":
+		changes["energy_max"] = int(_current_save.get("energy_max", DEFAULT_ENERGY_MAX)) + ENERGY_PER_POINT
+		changes["energy_current"] = int(_current_save.get("energy_current", DEFAULT_ENERGY_MAX)) + ENERGY_PER_POINT
+	update_current_save(changes)
+	return true
 
 
 func save_current_save(save_data: Dictionary) -> Dictionary:
@@ -264,6 +325,15 @@ func _normalized_save(save_data: Dictionary) -> Dictionary:
 	normalized["badges"] = int(normalized.get("badges", 0))
 	normalized["level"] = max(1, int(normalized.get("level", 1)))
 	normalized["trainer_xp"] = maxi(0, int(normalized.get("trainer_xp", 0)))
+	normalized["specialization_points_available"] = maxi(0, int(normalized.get("specialization_points_available", 0)))
+	var raw_allocations = normalized.get("specialization_allocations", {})
+	var allocations: Dictionary = raw_allocations.duplicate(true) if typeof(raw_allocations) == TYPE_DICTIONARY else {}
+	for attribute in SPECIALIZATION_ATTRIBUTES:
+		if not allocations.has(attribute):
+			allocations[attribute] = 0
+		else:
+			allocations[attribute] = maxi(0, int(allocations[attribute]))
+	normalized["specialization_allocations"] = allocations
 	_apply_daily_energy_reset(normalized)
 	normalized["inventory"] = _normalized_inventory(normalized.get("inventory", DEFAULT_INVENTORY))
 	normalized["team"] = _normalized_team(normalized.get("team", []), starter_id)

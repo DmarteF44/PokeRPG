@@ -426,6 +426,12 @@
         debug_fill_team: "Fill team", debug_clear_team: "Clear team", debug_clear_storage: "Clear Storage",
         debug_starters_storage: "Starters to Storage",
         exit: "Exit", exit_to_main_menu: "Exit to Main Menu", profile: "Profile", starter: "Starter", player_name: "Player Name", change_avatar: "Change Avatar",
+        specialization: "Specialization", specialization_points_short: "Specialize ({n})", specialization_points_available: "Available Points: {n}",
+        spec_points: "Points: {n}", spec_confirm: "Invest one point in this attribute?",
+        spec_encontro: "Encounter", spec_captura: "Capture", spec_exploracao: "Exploration", spec_energia_maxima: "Max Energy",
+        spec_regeneracao: "Regeneration", spec_pesca: "Fishing", spec_treinamento: "Training", spec_eficiencia: "Efficiency",
+        spec_inventario: "Inventory", spec_cura: "Healing", spec_pv_batalha: "Battle HP", spec_tecnica: "Technique",
+        spec_sorte: "Luck", spec_pesquisa: "Research",
         choose_avatar: "Choose your avatar", custom_image: "Custom Image",
         custom_help: "Place your image at user://custom_avatar.png and reload the profile.",
         choose_generation: "Choose starter generation",
@@ -515,6 +521,12 @@
         debug_fill_team: "Preencher time", debug_clear_team: "Limpar time", debug_clear_storage: "Limpar Storage",
         debug_starters_storage: "Iniciais no Storage",
         exit: "Sair", exit_to_main_menu: "Sair para o Menu", profile: "Perfil", starter: "Inicial", player_name: "Nome do jogador", change_avatar: "Trocar Avatar",
+        specialization: "Especialização", specialization_points_short: "Especializar ({n})", specialization_points_available: "Pontos Disponíveis: {n}",
+        spec_points: "Pontos: {n}", spec_confirm: "Investir um ponto neste atributo?",
+        spec_encontro: "Encontro", spec_captura: "Captura", spec_exploracao: "Exploração", spec_energia_maxima: "Energia Máxima",
+        spec_regeneracao: "Regeneração", spec_pesca: "Pesca", spec_treinamento: "Treinamento", spec_eficiencia: "Eficiência",
+        spec_inventario: "Inventário", spec_cura: "Cura", spec_pv_batalha: "PV de Batalha", spec_tecnica: "Técnica",
+        spec_sorte: "Sorte", spec_pesquisa: "Pesquisa",
         choose_avatar: "Escolha seu avatar", custom_image: "Imagem própria",
         custom_help: "Coloque sua imagem em user://custom_avatar.png e recarregue o perfil.",
         choose_generation: "Escolha a geração inicial",
@@ -96420,6 +96432,32 @@
     const debugEnabled = true;
     const statLimits = { max_hp: 999, attack: 255, defense: 255, sp_attack: 255, sp_defense: 255, speed: 255 };
     const teamLimit = 6;
+    const specializationAttributes = [
+      "encontro", "captura", "exploracao", "energia_maxima", "regeneracao",
+      "pesca", "treinamento", "eficiencia", "inventario", "cura",
+      "pv_batalha", "tecnica", "sorte", "pesquisa",
+    ];
+    const energyPerPoint = 2;
+    function specializationPointsForLevel(level) {
+      return 1 + Math.floor(Math.max(1, Math.min(100, Number(level || 1))) / 10);
+    }
+    function specializationPoints(attribute) {
+      return Number((save.specialization_allocations || {})[attribute] || 0);
+    }
+    function allocateSpecializationPoint(attribute) {
+      if (!specializationAttributes.includes(attribute)) return false;
+      const available = Number(save.specialization_points_available || 0);
+      if (available <= 0) return false;
+      save.specialization_allocations ||= {};
+      save.specialization_allocations[attribute] = specializationPoints(attribute) + 1;
+      save.specialization_points_available = available - 1;
+      if (attribute === "energia_maxima") {
+        save.energy_max = Number(save.energy_max || 30) + energyPerPoint;
+        save.energy_current = Number(save.energy_current || 30) + energyPerPoint;
+      }
+      persist();
+      return true;
+    }
     const battleEffectAssets = {
       Bug: "bug_slash", Dragon: "dragon_flare", Electric: "electric_spark", Fire: "fire_burst",
       Flying: "flying_gust", Ghost: "ghost_wisp", Grass: "grass_leaf", Ground: "ground_dust",
@@ -106146,21 +106184,25 @@
 	      return Math.max(5, Math.floor((255 - catchRate) / 8) + level);
 	    }
 	    function grantTrainerXp(amount) {
-	      const result = { xpGained: 0, levelUps: [] };
+	      const result = { xpGained: 0, levelUps: [], specializationPointsGained: 0 };
 	      let level = Math.max(1, Number(save.level || 1));
 	      if (amount <= 0 || level >= 100) return result;
 	      result.xpGained = amount;
 	      let xp = Math.max(0, Number(save.trainer_xp || 0)) + amount;
+	      let pointsGained = 0;
 	      while (level < 100) {
 	        const required = trainerXpToNextLevel(level);
 	        if (required <= 0 || xp < required) break;
 	        xp -= required;
 	        level += 1;
 	        result.levelUps.push(level);
+	        pointsGained += specializationPointsForLevel(level);
 	      }
 	      if (level >= 100) { level = 100; xp = 0; }
+	      result.specializationPointsGained = pointsGained;
 	      save.level = level;
 	      save.trainer_xp = xp;
+	      save.specialization_points_available = Math.max(0, Number(save.specialization_points_available || 0)) + pointsGained;
 	      return result;
 	    }
 	    function normalizeStatKey(key) {
@@ -106438,6 +106480,12 @@
       if (Object.keys(save.inventory).length === 0) save.inventory = { ...defaultInventory };
       save.money ??= 3000;
       save.level = Math.max(1, Number(save.level || 1));
+      save.trainer_xp = Math.max(0, Number(save.trainer_xp || 0));
+      save.specialization_points_available = Math.max(0, Number(save.specialization_points_available || 0));
+      save.specialization_allocations ||= {};
+      for (const attribute of specializationAttributes) {
+        save.specialization_allocations[attribute] = Math.max(0, Number(save.specialization_allocations[attribute] || 0));
+      }
       save.badges ??= 0;
 	      normalizeEnergy();
 	      save.starter_id ||= Object.keys(starterDefs).find(id => starterDefs[id].name === save.starter_name) || "charmander";
@@ -106892,9 +106940,41 @@
         <p class="label" style="left:15px;top:230px;width:300px;font-size:14px;color:#0c1d31;text-shadow:none">${t("starter")}: ${save.starter_name || "Charmander"}</p>
         <p class="label" style="left:15px;top:262px;width:300px;font-size:13px;color:#0c1d31;text-shadow:none">${stats()}</p>
         ${trainerXpBar(40, 306)}
-        ${orange(t("change_avatar"), 55, 388, 220, 44, "showAvatarEditor()")}
+        ${orange(t("change_avatar"), 28, 388, 150, 44, "showAvatarEditor()", "small")}
+        ${orange(Number(save.specialization_points_available || 0) > 0 ? t("specialization_points_short", { n: save.specialization_points_available }) : t("specialization"), 182, 388, 150, 44, "showSpecialization()", "small")}
       </div>`;
       startAnimations();
+    }
+    function showSpecialization() {
+      ensureSave();
+      showHome();
+      const available = Number(save.specialization_points_available || 0);
+      phone.innerHTML += overlay(t("specialization"), 34, 580, "showProfile()") + `
+        <p class="label" style="left:42px;top:92px;width:276px;height:26px;color:#0c1d31;text-shadow:none;font-size:14px">${t("specialization_points_available", { n: available })}</p>
+        <div class="scroll" style="left:28px;top:128px;width:304px;height:444px">
+          <div style="position:relative;width:296px;height:${specializationAttributes.length * 56}px">
+            ${specializationAttributes.map((attribute, i) => `
+              <div class="row" style="position:absolute;left:0;top:${i * 56}px;width:296px;height:50px">
+                <span class="row-title" style="left:12px;top:6px;width:200px;font-size:13px">${t(`spec_${attribute}`)}</span>
+                <span class="row-sub" style="left:12px;top:26px;width:180px;font-size:10px">${t("spec_points", { n: specializationPoints(attribute) })}</span>
+                ${orange("+1", 230, 9, 56, 32, `confirmAllocateSpecialization('${attribute}')`, `small ${available > 0 ? "" : "disabled"}`)}
+              </div>`).join("")}
+          </div>
+        </div>
+      </div>`;
+      startAnimations();
+    }
+    function confirmAllocateSpecialization(attribute) {
+      phone.innerHTML = phone.innerHTML + `<div class="overlay"><div class="shade"></div><div class="panel" style="top:150px;height:300px;width:330px"></div>
+        <p class="label" style="left:44px;top:184px;width:272px;color:#0c1d31;text-shadow:none;font-size:22px">${t(`spec_${attribute}`)}</p>
+        <p class="label" style="left:42px;top:246px;width:276px;color:#0c1d31;text-shadow:none;font-size:18px">${t("spec_confirm")}</p>
+        ${orange(t("yes"), 38, 356, 140, 44, `allocateSpecializationAndRefresh('${attribute}')`, "small")}
+        ${orange(t("no"), 182, 356, 140, 44, "showSpecialization()", "small")}
+      </div>`;
+    }
+    function allocateSpecializationAndRefresh(attribute) {
+      allocateSpecializationPoint(attribute);
+      showSpecialization();
     }
     function showAvatarEditor() {
       ensureSave();
@@ -107350,6 +107430,10 @@
 	      scheduleCenterRefresh();
 	      startAnimations();
 	    }
+    function pokemonCenterCostNow() {
+      const discount = specializationPoints("eficiencia") * 0.05;
+      return Math.max(Math.floor(pokemonCenterCost * 0.2), Math.round(pokemonCenterCost * (1 - discount)));
+    }
     function healTeam() {
       ensureSave();
       const status = document.getElementById("centerStatus");
@@ -107357,11 +107441,12 @@
         if (status) status.textContent = t("healed_team");
         return;
       }
-      if ((save.money || 0) < pokemonCenterCost) {
+      const cost = pokemonCenterCostNow();
+      if ((save.money || 0) < cost) {
         if (status) status.textContent = t("not_enough_money_center");
         return;
       }
-      save.money -= pokemonCenterCost;
+      save.money -= cost;
       save.team = save.team.map(pokemon => pokemonNeedsCenter(pokemon) ? startHealingPokemon(pokemon) : pokemonModel(pokemon));
       persist();
       showPokemonCenter();
@@ -107371,7 +107456,7 @@
     function centerStatusText() {
       const recovering = save.team.filter(isHealing).map(pokemon => `${pokemon.name} ${formatRemaining(healingRemainingSeconds(pokemon))}`);
       if (recovering.length) return t("healing_remaining", { list: recovering.join(", ") });
-      return t("center_cost_time", { cost: pokemonCenterCost });
+      return t("center_cost_time", { cost: pokemonCenterCostNow() });
     }
     function scheduleCenterRefresh() {
       if (centerRefreshTimer) clearTimeout(centerRefreshTimer);
@@ -107718,7 +107803,8 @@
 	      const status = String(battle.enemy.status_condition || "").toLowerCase();
 	      if (["sleep", "freeze"].includes(status)) chance += 0.25;
 	      else if (["paralysis", "burn", "poison"].includes(status)) chance += 0.15;
-	      return Math.max(0.05, Math.min(0.95, chance * multiplier * 0.45));
+	      const specializationBonus = 1 + specializationPoints("captura") * 0.01;
+	      return Math.max(0.05, Math.min(0.95, chance * multiplier * 0.45 * specializationBonus));
 	    }
 	    function switchBattlePokemon(index) {
 	      const pokemon = battlePokemonCopy(battle.team[index] || {});
@@ -107970,7 +108056,8 @@
 	      battle.team[battle.teamIndex] = battlePokemonCopy(battle.player);
 	      save.team = battleTeamSnapshot(battle.team);
 	      if (Number(battle.enemy.hp || 0) <= 0) {
-	        const xpResult = grantXP(battle.player, 25);
+	        const trainingBonus = 1 + specializationPoints("treinamento") * 0.02;
+	        const xpResult = grantXP(battle.player, Math.round(25 * trainingBonus));
 	        battle.player = xpResult.pokemon;
 	        battle.team[battle.teamIndex] = battlePokemonCopy(battle.player);
 	        save.team = battleTeamSnapshot(battle.team);

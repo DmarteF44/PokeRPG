@@ -978,7 +978,8 @@ func _gym_victory_result() -> Dictionary:
 
 func _grant_victory_xp() -> String:
 	var player_name := str(player_pokemon.get("name", "Pokemon"))
-	var xp_result := PokemonHelpers.grant_xp(player_pokemon, 25)
+	var training_bonus := 1.0 + float(SaveManager.specialization_points("treinamento")) * 0.02
+	var xp_result := PokemonHelpers.grant_xp(player_pokemon, int(round(25 * training_bonus)))
 	player_pokemon = xp_result.get("pokemon", player_pokemon)
 	var lines := [_text("xp_gain") % player_name]
 	var level_ups: Array = xp_result.get("level_ups", [])
@@ -1383,7 +1384,8 @@ func _capture_chance(item_id: String) -> float:
 	var catch_rate := clampf(float(enemy_pokemon.get("catch_rate", DEFAULT_WILD_CATCH_RATE)), 1.0, 255.0)
 	var status_bonus := float(STATUS_CAPTURE_BONUS.get(_normalized_status_key(enemy_pokemon.get("status_condition", "")), 1.0))
 	var hp_factor := float(3 * max_hp - 2 * hp) / float(3 * max_hp)
-	var capture_value := hp_factor * catch_rate * multiplier * status_bonus
+	var specialization_bonus := 1.0 + float(SaveManager.specialization_points("captura")) * 0.01
+	var capture_value := hp_factor * catch_rate * multiplier * status_bonus * specialization_bonus
 	if capture_value >= 255.0:
 		return 1.0
 	return clampf(capture_value / 255.0, 0.01, 0.98)
