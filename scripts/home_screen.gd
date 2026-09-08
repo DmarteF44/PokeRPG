@@ -92,6 +92,25 @@ const TEXT = {
 			"close": "Close",
 			"back": "Back",
 			"change_avatar": "Change Avatar",
+			"specialization": "Specialization",
+			"specialization_points_short": "Specialize (%d)",
+			"specialization_points_available": "Available Points: %d",
+			"spec_points": "Points: %d",
+			"spec_confirm": "Invest one point in this attribute?",
+			"spec_encontro": "Encounter",
+			"spec_captura": "Capture",
+			"spec_exploracao": "Exploration",
+			"spec_energia_maxima": "Max Energy",
+			"spec_regeneracao": "Regeneration",
+			"spec_pesca": "Fishing",
+			"spec_treinamento": "Training",
+			"spec_eficiencia": "Efficiency",
+			"spec_inventario": "Inventory",
+			"spec_cura": "Healing",
+			"spec_pv_batalha": "Battle HP",
+			"spec_tecnica": "Technique",
+			"spec_sorte": "Luck",
+			"spec_pesquisa": "Research",
 		"debug_menu": "Debug Menu",
 		"debug_gold": "Gold",
 		"debug_account_xp": "Account XP",
@@ -311,6 +330,25 @@ const TEXT = {
 			"close": "Fechar",
 			"back": "Voltar",
 			"change_avatar": "Trocar Avatar",
+			"specialization": "Especialização",
+			"specialization_points_short": "Especializar (%d)",
+			"specialization_points_available": "Pontos Disponíveis: %d",
+			"spec_points": "Pontos: %d",
+			"spec_confirm": "Investir um ponto neste atributo?",
+			"spec_encontro": "Encontro",
+			"spec_captura": "Captura",
+			"spec_exploracao": "Exploração",
+			"spec_energia_maxima": "Energia Máxima",
+			"spec_regeneracao": "Regeneração",
+			"spec_pesca": "Pesca",
+			"spec_treinamento": "Treinamento",
+			"spec_eficiencia": "Eficiência",
+			"spec_inventario": "Inventário",
+			"spec_cura": "Cura",
+			"spec_pv_batalha": "PV de Batalha",
+			"spec_tecnica": "Técnica",
+			"spec_sorte": "Sorte",
+			"spec_pesquisa": "Pesquisa",
 		"debug_menu": "Menu Debug",
 		"debug_gold": "Gold",
 		"debug_account_xp": "XP da conta",
@@ -612,7 +650,70 @@ func _show_profile() -> void:
 	]
 	UI.add_panel_label(popup, stats_text, Vector2(15, 258), Vector2(300, 40), 12, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Stats")
 	_add_trainer_xp_bar(popup, Vector2(55, 306))
-	UI.add_orange_button(popup, _text("change_avatar"), Vector2(55, 388), Vector2(220, 44), Callable(self, "_show_avatar_editor"), "ChangeAvatar")
+	UI.add_orange_button(popup, _text("change_avatar"), Vector2(28, 388), Vector2(150, 44), Callable(self, "_show_avatar_editor"), "ChangeAvatar")
+	var specialization_label := _text("specialization_points_short") % int(save_data.get("specialization_points_available", 0)) if int(save_data.get("specialization_points_available", 0)) > 0 else _text("specialization")
+	UI.add_orange_button(popup, specialization_label, Vector2(182, 388), Vector2(150, 44), Callable(self, "_show_specialization"), "Specialization")
+
+
+func _show_specialization() -> void:
+	var existing := get_node_or_null("SpecializationPopup")
+	if existing != null:
+		existing.queue_free()
+
+	_refresh_save_data()
+	var popup := _create_popup(_text("specialization"), "SpecializationPopup", 34.0, 580.0, Callable(self, "_show_profile"))
+	var available := int(save_data.get("specialization_points_available", 0))
+	UI.add_panel_label(popup, _text("specialization_points_available") % available, Vector2(42, 92), Vector2(276, 26), 14, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "PointsAvailable")
+
+	var scroll := ScrollContainer.new()
+	scroll.name = "SpecializationScroll"
+	scroll.position = Vector2(28, 128)
+	scroll.size = Vector2(304, 444)
+	popup.add_child(scroll)
+
+	var content := Control.new()
+	content.name = "SpecializationContent"
+	var attributes: Array = SaveManager.SPECIALIZATION_ATTRIBUTES
+	content.custom_minimum_size = Vector2(304, attributes.size() * 56.0)
+	scroll.add_child(content)
+
+	var allocations := SaveManager.specialization_allocations()
+	for i in range(attributes.size()):
+		var attribute: String = attributes[i]
+		var row := Panel.new()
+		row.name = "SpecRow%s" % attribute.capitalize()
+		row.position = Vector2(0, float(i) * 56.0)
+		row.size = Vector2(296, 50)
+		content.add_child(row)
+		UI.style_panel_button(row, Color(0.88, 0.94, 0.98), Color(0.34, 0.50, 0.62), 2)
+		UI.add_panel_label(row, _text("spec_%s" % attribute), Vector2(12, 6), Vector2(200, 20), 13, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Name")
+		var points := int(allocations.get(attribute, 0))
+		UI.add_panel_label(row, _text("spec_points") % points, Vector2(12, 26), Vector2(180, 18), 10, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Points")
+		var add_button := _add_small_button(row, "+1", Vector2(230, 9), Vector2(56, 32), Callable(self, "_confirm_allocate_specialization").bind(attribute), "Add")
+		if available <= 0:
+			add_button.disabled = true
+			add_button.modulate = Color(0.62, 0.62, 0.62, 0.9)
+
+
+func _confirm_allocate_specialization(attribute: String) -> void:
+	var popup_root := get_node_or_null("SpecializationPopup")
+	if popup_root == null:
+		return
+	UI.show_confirm_popup(
+		popup_root,
+		_text("spec_%s" % attribute),
+		_text("spec_confirm"),
+		_text("yes"),
+		_text("no"),
+		Callable(self, "_allocate_specialization").bind(attribute)
+	)
+
+
+func _allocate_specialization(attribute: String) -> void:
+	SaveManager.allocate_specialization_point(attribute)
+	_refresh_save_data()
+	_refresh_home_stats()
+	_show_specialization()
 
 
 func _add_trainer_xp_bar(parent: Control, pos: Vector2) -> void:
@@ -2226,7 +2327,8 @@ func _heal_team() -> void:
 		return
 
 	var money := int(save_data.get("money", 3000))
-	if money < POKEMON_CENTER_COST:
+	var cost := _pokemon_center_cost()
+	if money < cost:
 		_set_center_status(_text("not_enough_money_center"))
 		return
 
@@ -2237,7 +2339,7 @@ func _heal_team() -> void:
 			if not PokemonHelpers.is_healing(pokemon) and _pokemon_needs_center(pokemon):
 				pokemon = PokemonHelpers.start_healing(pokemon)
 			team[i] = pokemon
-	SaveManager.update_current_save({"money": money - POKEMON_CENTER_COST, "team": team})
+	SaveManager.update_current_save({"money": money - cost, "team": team})
 	_refresh_save_data()
 	_refresh_home_stats()
 	if pokemon_center_popup != null and is_instance_valid(pokemon_center_popup):
@@ -2482,7 +2584,14 @@ func _center_status_text(team: Array) -> String:
 			recovering.append("%s %s" % [str(pokemon.get("name", pokemon.get("species", "Pokemon"))), _format_recovery_time(PokemonHelpers.healing_remaining_seconds(pokemon))])
 	if not recovering.is_empty():
 		return _text("healing_remaining") % ", ".join(recovering)
-	return _text("center_cost_time") % POKEMON_CENTER_COST
+	return _text("center_cost_time") % _pokemon_center_cost()
+
+
+# Eficiencia specialization points discount the Pokemon Center fee, down to a
+# floor of 20% of the base cost so it's never free.
+func _pokemon_center_cost() -> int:
+	var discount := float(SaveManager.specialization_points("eficiencia")) * 0.05
+	return maxi(int(POKEMON_CENTER_COST * 0.2), int(round(POKEMON_CENTER_COST * (1.0 - discount))))
 
 
 func _pokemon_recovery_text(pokemon: Dictionary) -> String:
