@@ -393,18 +393,14 @@ func _normalized_owned_pokemon(value, team_value, starter_id: String, storage_va
 		for entry in team_value:
 			if typeof(entry) == TYPE_DICTIONARY:
 				var team_id := str(entry.get("id", ""))
-				if PokemonHelpers.has_definition(team_id) and not owned.has(team_id):
-					owned.append(team_id)
-				elif team_id != "" and not owned.has(team_id):
+				if team_id != "" and not owned.has(team_id):
 					owned.append(team_id)
 
 	if typeof(storage_value) == TYPE_ARRAY:
 		for entry in storage_value:
 			if typeof(entry) == TYPE_DICTIONARY:
 				var storage_id := str(entry.get("id", ""))
-				if PokemonHelpers.has_definition(storage_id) and not owned.has(storage_id):
-					owned.append(storage_id)
-				elif storage_id != "" and not owned.has(storage_id):
+				if storage_id != "" and not owned.has(storage_id):
 					owned.append(storage_id)
 
 	if owned.is_empty() and PokemonHelpers.is_starter_id(starter_id):

@@ -942,7 +942,6 @@ func _battle_team_snapshot() -> Array:
 		if typeof(entry) == TYPE_DICTIONARY:
 			snapshot.append(_battle_pokemon_copy(entry))
 	return snapshot
-	save_data = SaveManager.get_current_save()
 
 
 func _update_status() -> void:

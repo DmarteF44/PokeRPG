@@ -373,17 +373,6 @@ static func _safari_encounters() -> Array:
 	]
 
 
-static func _placeholder_table(map_key: String, label: String) -> Array:
-	var safe_label := label.strip_edges()
-	var safe_id := "%s_placeholder" % map_key
-	return [
-		{"rarity": "common", "weight": COMMON_WEIGHT, "pokemon": _placeholder_pokemon(safe_id, "%s Common" % safe_label, 5)},
-		{"rarity": "uncommon", "weight": UNCOMMON_WEIGHT, "pokemon": _placeholder_pokemon(safe_id, "%s Uncommon" % safe_label, 8)},
-		{"rarity": "rare", "weight": RARE_WEIGHT, "pokemon": _placeholder_pokemon(safe_id, "%s Rare" % safe_label, 12)},
-		{"rarity": "very_rare", "weight": VERY_RARE_WEIGHT, "pokemon": _placeholder_pokemon(safe_id, "%s Very Rare" % safe_label, 16)},
-	]
-
-
 static func _forest_item_table() -> Array:
 	return [
 		{"item_id": "potion", "amount": 1, "weight": 55.0},
@@ -457,22 +446,6 @@ static func _wild_pokemon(pokemon_id: String, dex_number: int, pokemon_name: Str
 		"moves": [PokemonHelpers.move_by_name("Tackle")],
 		"pp_max": [35],
 		"pp_current": [35],
-	})
-
-
-static func _placeholder_pokemon(pokemon_id: String, pokemon_name: String, level: int) -> Dictionary:
-	return _complete_pokemon_model({
-		"id": pokemon_id,
-		"dex_number": 0,
-		"name": pokemon_name,
-		"level": level,
-		"hp": 30 + level,
-		"max_hp": 30 + level,
-		"attack": 10 + level,
-		"defense": 8 + level,
-		"speed": 8 + level,
-		"types": ["Normal"],
-		"icon_path": "res://assets/pokemon/icons/charmander.png",
 	})
 
 
