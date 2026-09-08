@@ -410,7 +410,7 @@
         team_full: "Your team is full.", last_pokemon: "You must keep at least one Pokemon in your team.", storage_full: "Storage is full.", storage_empty: "Storage is empty.",
         hp: "HP", xp: "XP", xp_needed: "Need", status: "Status", seen_owned: "Seen / Owned",
         owned: "Owned", seen: "Seen", unknown: "Unknown", seen_count: "Seen {seen}/{total}", captured_count: "Captured {captured}/{total}",
-        debug_menu: "Debug Menu", close: "Close", no_active_save: "No active save.",
+        debug_menu: "Debug Menu", close: "Close", back: "Back", no_active_save: "No active save.",
         debug_gold: "Gold", debug_account_xp: "Account XP", debug_badges: "Badges", debug_energy: "Energy",
         debug_pokemon: "Pokemon", debug_team: "Team", debug_storage: "Storage",
         debug_all_badges: "All", debug_remove_badges: "Remove all", debug_restore_energy: "Restore energy",
@@ -490,7 +490,7 @@
         team_full: "Seu time está cheio.", last_pokemon: "Você deve manter pelo menos um Pokémon no time.", storage_full: "Storage cheio.", storage_empty: "Storage vazio.",
         hp: "HP", xp: "XP", xp_needed: "Falta", status: "Status", seen_owned: "Visto / Obtido",
         owned: "Obtido", seen: "Visto", unknown: "Desconhecido", seen_count: "Vistos {seen}/{total}", captured_count: "Capturados {captured}/{total}",
-        debug_menu: "Menu Debug", close: "Fechar", no_active_save: "Nenhum save ativo.",
+        debug_menu: "Menu Debug", close: "Fechar", back: "Voltar", no_active_save: "Nenhum save ativo.",
         debug_gold: "Gold", debug_account_xp: "XP da conta", debug_badges: "Insígnias", debug_energy: "Energia",
         debug_pokemon: "Pokemon", debug_team: "Time", debug_storage: "Storage",
         debug_all_badges: "Todas", debug_remove_badges: "Remover todas", debug_restore_energy: "Restaurar energia",
@@ -106752,9 +106752,18 @@
         </section>
       `;
     }
-    function overlay(title, top = 42, height = 560) {
+    function overlay(title, top = 42, height = 560, backOnclick = "") {
+      // backOnclick, when given, redraws whichever screen opened this one (a
+      // real "step back"); the close (X) button always exits straight to the
+      // base screen, same as before.
+      const backButton = backOnclick ? buttonSmall(`&lt; ${t("back")}`, 20, top + 18, 66, 28, backOnclick) : "";
+      // Leave room for the back button on the left so long titles never
+      // overlap it; without a back button the title keeps its wider span.
+      const titleLeft = backOnclick ? 90 : 50;
+      const titleWidth = backOnclick ? 208 : 260;
       return `<div class="overlay"><div class="shade"></div><div class="panel" style="top:${top}px;height:${height}px;width:330px"></div>
-        <p class="label" style="left:50px;top:${top + 26}px;width:260px;font-size:23px;color:#0c1d31;text-shadow:none">${title}</p>
+        <p class="label" style="left:${titleLeft}px;top:${top + 26}px;width:${titleWidth}px;font-size:23px;color:#0c1d31;text-shadow:none;text-align:center">${title}</p>
+        ${backButton}
         <button class="close" style="left:298px;top:${top + 20}px" onclick="closeOverlay()"></button>`;
     }
     function closeOverlay() {
@@ -107074,7 +107083,7 @@
 	      const total = species.length;
 	      const seenCount = species.filter(pokemon => (save.seen_pokemon || []).includes(pokemon.id)).length;
 	      const capturedCount = species.filter(pokemon => (save.owned_pokemon || []).includes(pokemon.id)).length;
-	      phone.innerHTML += overlay(t("pokedex"), 34, 580) + `
+	      phone.innerHTML += overlay(t("pokedex"), 34, 580, "showPokemonCollection()") + `
 	        <p class="label" style="left:42px;top:92px;width:276px;height:42px;color:#0c1d31;text-shadow:none;font-size:13px">${t("seen_count", { seen: seenCount, total })}<br>${t("captured_count", { captured: capturedCount, total })}</p>
 	        <div class="scroll" style="left:28px;top:142px;width:304px;height:430px">
 	          ${species.map((pokemon, i) => {
@@ -107102,7 +107111,7 @@
 	      ensureSave();
 	      showHome();
 	      const canHeal = save.team.some(pokemon => pokemonNeedsCenter(pokemon));
-	      phone.innerHTML += overlay(t("pokemon_center"), 34, 580) + `
+	      phone.innerHTML += overlay(t("pokemon_center"), 34, 580, "showPokemonCollection()") + `
 	        ${[0,1,2,3,4].map(slot => save.team[slot]
 	          ? pokemonCard(save.team[slot], 42, 112 + slot * 78, 276, 70)
 	          : `<div class="row" style="position:absolute;left:42px;top:${112 + slot * 78}px;width:276px;height:70px;display:grid;place-items:center">${t("empty_slot")} ${slot + 1}</div>`

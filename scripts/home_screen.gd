@@ -88,6 +88,7 @@ const TEXT = {
 			"unknown": "Unknown",
 			"starter_tag": "Starter",
 			"close": "Close",
+			"back": "Back",
 		"debug_menu": "Debug Menu",
 		"debug_gold": "Gold",
 		"debug_account_xp": "Account XP",
@@ -282,6 +283,7 @@ const TEXT = {
 			"unknown": "Desconhecido",
 			"starter_tag": "Inicial",
 			"close": "Fechar",
+			"back": "Voltar",
 		"debug_menu": "Menu Debug",
 		"debug_gold": "Gold",
 		"debug_account_xp": "XP da conta",
@@ -1539,7 +1541,7 @@ func _collection_description(pokemon: Dictionary) -> String:
 
 func _show_pokedex() -> void:
 	_close_pokemon_popup()
-	var popup := _create_popup(_text("pokedex"), "PokeDexPopup", 34.0, 580.0)
+	var popup := _create_popup(_text("pokedex"), "PokeDexPopup", 34.0, 580.0, Callable(self, "_show_pokemon_collection"))
 	var species_ids := PokemonHelpers.species_ids()
 	var total := species_ids.size()
 	var seen_count := _count_registered_species(_seen_pokemon_ids(), species_ids)
@@ -1571,7 +1573,7 @@ func _show_pokedex() -> void:
 
 func _show_pokemon_center() -> void:
 	_close_pokemon_popup()
-	pokemon_center_popup = _create_popup(_text("pokemon_center"), "PokemonCenterPopup", 34.0, 580.0)
+	pokemon_center_popup = _create_popup(_text("pokemon_center"), "PokemonCenterPopup", 34.0, 580.0, Callable(self, "_show_pokemon_collection"))
 	var team := _team()
 	for slot in range(TEAM_LIMIT):
 		var y := 112.0 + float(slot) * 78.0
@@ -2414,7 +2416,7 @@ func _confirm_exit() -> void:
 	UI.show_confirm_popup(self, _text("exit"), _text("return_menu"), _text("yes"), _text("no"), on_yes)
 
 
-func _create_popup(title: String, popup_name: String, panel_y: float, panel_height: float) -> Control:
+func _create_popup(title: String, popup_name: String, panel_y: float, panel_height: float, back_callback: Callable = Callable()) -> Control:
 	var overlay := Control.new()
 	overlay.name = popup_name
 	overlay.position = Vector2.ZERO
@@ -2431,7 +2433,20 @@ func _create_popup(title: String, popup_name: String, panel_y: float, panel_heig
 	overlay.add_child(shade)
 
 	UI.add_texture(overlay, UI.POPUP_PANEL, Vector2(15, panel_y), Vector2(330, panel_height), "Panel", TextureRect.STRETCH_SCALE)
-	UI.add_panel_label(overlay, title, Vector2(50, panel_y + 26.0), Vector2(260, 34), 23, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Title")
+	# When a screen is opened from within another popup, back_callback reopens
+	# that parent screen instead of dropping straight to the bare Home Screen.
+	# The title box is narrowed and shifted right so it never overlaps the
+	# back button reserved on the left.
+	var has_back := back_callback.is_valid()
+	var title_pos := Vector2(90, panel_y + 26.0) if has_back else Vector2(50, panel_y + 26.0)
+	var title_size := Vector2(208, 34) if has_back else Vector2(260, 34)
+	UI.add_panel_label(overlay, title, title_pos, title_size, 23, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Title")
+	if has_back:
+		var back_button := _add_small_button(overlay, "< %s" % _text("back"), Vector2(20, panel_y + 18.0), Vector2(66, 28), Callable(), "BackButton")
+		back_button.pressed.connect(func():
+			overlay.queue_free()
+			back_callback.call()
+		)
 	var close := UI.add_icon_button(overlay, "res://assets/icons/icon_close_32.png", Vector2(298, panel_y + 20.0), Callable(), "Close")
 	close.pressed.connect(func():
 		overlay.queue_free()
