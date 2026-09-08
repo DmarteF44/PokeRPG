@@ -1705,7 +1705,7 @@ func _collection_description(pokemon: Dictionary) -> String:
 func _show_pokedex() -> void:
 	_close_pokemon_popup()
 	var popup := _create_popup(_text("pokedex"), "PokeDexPopup", 34.0, 580.0, Callable(self, "_show_pokemon_collection"))
-	var species_ids := PokemonHelpers.species_ids()
+	var species_ids := PokemonHelpers.available_species_ids()
 	var total := species_ids.size()
 	var seen_count := _count_registered_species(_seen_pokemon_ids(), species_ids)
 	var owned_count := _count_registered_species(_owned_pokemon_ids(), species_ids)

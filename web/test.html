@@ -105647,7 +105647,23 @@
             }
       ]
 };
-    const encounterTables = mapEncounterData;
+    function isAssetComplete(pokemonId) {
+      const def = starterDefs[pokemonId];
+      if (!def) return false;
+      if (Number(def.frameCount || 0) <= 0) return false;
+      if (Number(def.backFrameCount || 0) <= 0) return false;
+      if (!def.icon_path) return false;
+      return true;
+    }
+    function availableSpeciesIds() {
+      return Object.keys(starterDefs).filter(isAssetComplete);
+    }
+    const encounterTables = Object.fromEntries(
+      Object.entries(mapEncounterData).map(([mapKey, rows]) => [
+        mapKey,
+        (rows || []).filter(row => row && (!row.pokemon_id || isAssetComplete(row.pokemon_id))),
+      ])
+    );
 
 
     const gymDefs = [
@@ -107129,7 +107145,7 @@
 	    function showPokedex() {
 	      ensureSave();
 	      showHome();
-	      const species = Object.values(starterDefs);
+	      const species = availableSpeciesIds().map(id => starterDefs[id]);
 	      const total = species.length;
 	      const seenCount = species.filter(pokemon => (save.seen_pokemon || []).includes(pokemon.id)).length;
 	      const capturedCount = species.filter(pokemon => (save.owned_pokemon || []).includes(pokemon.id)).length;

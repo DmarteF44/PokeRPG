@@ -591,6 +591,41 @@ static func has_definition(pokemon_id: String) -> bool:
 	return _loaded_definitions().has(safe_id)
 
 
+# A species is only "available" (can appear in encounters, capture, team,
+# storage, fishing, shop or events) once its manifest confirms a real icon
+# and both battle animation directions. Species still missing complex art
+# (mostly Gen2+ for now) stay registered in data but hidden everywhere else.
+static func is_asset_complete(pokemon_id: String) -> bool:
+	var safe_id := _safe_id(pokemon_id)
+	if FALLBACK_DEFINITIONS.has(safe_id):
+		return true
+	var manifest := _asset_manifest()
+	var assets = manifest.get(safe_id, {})
+	if typeof(assets) != TYPE_DICTIONARY:
+		return false
+	if not bool(assets.get("has_animation", false)):
+		return false
+	if str(assets.get("icon_path", "")) == "":
+		return false
+	if int(assets.get("front_frame_count", 0)) <= 0:
+		return false
+	if int(assets.get("back_frame_count", 0)) <= 0:
+		return false
+	return true
+
+
+static func is_available(pokemon_id: String) -> bool:
+	return has_definition(pokemon_id) and is_asset_complete(pokemon_id)
+
+
+static func available_species_ids() -> Array:
+	var result := []
+	for pokemon_id in species_ids():
+		if is_asset_complete(pokemon_id):
+			result.append(pokemon_id)
+	return result
+
+
 static func _textures_from_folder(folder: String) -> Array:
 	var textures := []
 	if folder == "":
