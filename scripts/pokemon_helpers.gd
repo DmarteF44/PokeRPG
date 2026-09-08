@@ -448,6 +448,7 @@ static func grant_xp(pokemon: Dictionary, amount: int) -> Dictionary:
 		"xp_gained": 0,
 		"level_ups": [],
 		"evolutions": [],
+		"pending_move_learns": [],
 	}
 	if amount <= 0 or int(updated.get("level", 1)) >= MAX_LEVEL:
 		updated["xp"] = 0 if int(updated.get("level", 1)) >= MAX_LEVEL else int(updated.get("xp", 0))
@@ -464,6 +465,31 @@ static func grant_xp(pokemon: Dictionary, amount: int) -> Dictionary:
 		updated["xp"] = int(updated.get("xp", 0)) - required
 		updated["level"] = int(updated.get("level", 1)) + 1
 		_recalculate_stats(updated)
+
+		var pre_level_moves: Array = updated.get("moves", [])
+		var known_names := {}
+		for move in pre_level_moves:
+			var move_name := str(move.get("name", "")) if typeof(move) == TYPE_DICTIONARY else str(move)
+			if move_name != "":
+				known_names[move_name] = true
+		var definition_for_moves := get_definition(str(updated.get("id", DEFAULT_STARTER_ID)))
+		var newly_learnable := _moves_at_exact_level(definition_for_moves, int(updated["level"]))
+		var slots_free := maxi(0, MAX_MOVE_SLOTS - pre_level_moves.size())
+		var pending_learns: Array = result["pending_move_learns"]
+		for move_name in newly_learnable:
+			if known_names.has(move_name):
+				continue
+			if slots_free > 0:
+				slots_free -= 1
+				known_names[move_name] = true
+				continue
+			pending_learns.append({
+				"pokemon_id": str(updated.get("id", DEFAULT_STARTER_ID)),
+				"move_name": move_name,
+				"level": int(updated["level"]),
+			})
+		result["pending_move_learns"] = pending_learns
+
 		updated = normalize_pokemon(updated)
 		var level_ups: Array = result["level_ups"]
 		level_ups.append(int(updated["level"]))
@@ -978,6 +1004,22 @@ static func _base_stats_from_definition(definition: Dictionary, fallback: Dictio
 		"sp_defense": maxi(1, int(source.get("sp_defense", definition.get("sp_defense", fallback_stats.get("sp_defense", 50))))),
 		"speed": maxi(1, int(source.get("speed", definition.get("speed", fallback_stats.get("speed", 50))))),
 	}
+
+
+static func _moves_at_exact_level(definition: Dictionary, level: int) -> Array:
+	var learnset_value = definition.get("learnset", {})
+	if typeof(learnset_value) != TYPE_DICTIONARY:
+		return []
+	var learnset: Dictionary = learnset_value
+	var names_value = learnset.get(str(level), learnset.get(level, []))
+	if typeof(names_value) != TYPE_ARRAY:
+		return []
+	var names := []
+	for move_name in names_value:
+		var canonical := str(move_by_name(str(move_name)).get("name", ""))
+		if canonical != "":
+			names.append(canonical)
+	return names
 
 
 static func _moves_for_learnset(definition: Dictionary, level: int, limit_to_slots: bool = true) -> Array:

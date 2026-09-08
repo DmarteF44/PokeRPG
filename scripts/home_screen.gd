@@ -183,6 +183,7 @@ const TEXT = {
 		"stat_at_cap": "%s cannot raise %s anymore.",
 		"evolved_with_item": "%s evolved into %s!",
 		"no_evolution_target": "None of your Pokemon can evolve with this item.",
+		"move_already_known": "This Pokemon already knows that move in another slot.",
 		"stat_max_hp": "HP",
 		"stat_attack": "Attack",
 		"stat_defense": "Defense",
@@ -380,6 +381,7 @@ const TEXT = {
 		"stat_at_cap": "%s nao pode aumentar mais %s.",
 		"evolved_with_item": "%s evoluiu para %s!",
 		"no_evolution_target": "Nenhum dos seus Pokemon evolui com esse item.",
+		"move_already_known": "Este Pokemon ja conhece esse golpe em outro slot.",
 		"stat_max_hp": "HP",
 		"stat_attack": "Ataque",
 		"stat_defense": "Defesa",
@@ -1649,6 +1651,14 @@ func _change_collection_move(source: String, index: int, move_slot: int, move_na
 	var moves = pokemon.get("moves", [])
 	if typeof(moves) != TYPE_ARRAY:
 		moves = []
+	for i in range(moves.size()):
+		if i == move_slot:
+			continue
+		var existing := moves[i]
+		var existing_name := str(existing.get("name", "")) if typeof(existing) == TYPE_DICTIONARY else str(existing)
+		if existing_name == move_name:
+			UI.show_message_popup(self, _text("available_moves"), _text("move_already_known"))
+			return
 	while moves.size() <= move_slot:
 		moves.append(PokemonHelpers.move_by_name("Tackle"))
 	var new_move := PokemonHelpers.move_by_name(move_name)
