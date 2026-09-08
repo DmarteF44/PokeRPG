@@ -167,7 +167,6 @@ const TEXT = {
 		"potions": "Potions",
 		"cura": "Healing",
 		"atributos": "Attributes",
-		"xp": "XP",
 		"buffs": "Buffs",
 		"pesca": "Fishing",
 		"outros": "Other",
@@ -372,7 +371,6 @@ const TEXT = {
 		"potions": "Poções",
 		"cura": "Cura",
 		"atributos": "Atributos",
-		"xp": "XP",
 		"buffs": "Buffs",
 		"pesca": "Pesca",
 		"outros": "Outros",
@@ -1268,15 +1266,37 @@ func _show_pokemon_collection() -> void:
 	if selected_collection_tab == "storage":
 		var rows := _filtered_storage_rows()
 		var storage_height: float = max(170.0, float(rows.size()) * 62.0 + 116.0)
-		var details_y := storage_height + 16.0
-		content.custom_minimum_size = Vector2(304, details_y + 520.0)
+		content.custom_minimum_size = Vector2(304, storage_height)
 		_add_collection_storage(content, 0.0, rows)
-		_add_collection_details(content, details_y)
 	else:
-		var details_y := 30.0 + float(TEAM_LIMIT) * 62.0 + 16.0
-		content.custom_minimum_size = Vector2(304, details_y + 520.0)
+		var team_height := 30.0 + float(TEAM_LIMIT) * 62.0
+		content.custom_minimum_size = Vector2(304, team_height)
 		_add_collection_team(content, 0.0)
-		_add_collection_details(content, details_y)
+
+
+func _show_pokemon_detail(source: String, index: int) -> void:
+	_close_pokemon_popup()
+	_refresh_save_data()
+	selected_collection_source = source
+	selected_collection_index = index
+	var pokemon := _selected_collection_pokemon()
+	if pokemon.is_empty():
+		_show_pokemon_collection()
+		return
+
+	pokemon_popup = _create_popup(_text("selected_pokemon"), "PokemonDetailPopup", 34.0, 580.0, Callable(self, "_show_pokemon_collection"))
+
+	var scroll := ScrollContainer.new()
+	scroll.name = "PokemonDetailScroll"
+	scroll.position = Vector2(28, 92)
+	scroll.size = Vector2(304, 480)
+	pokemon_popup.add_child(scroll)
+
+	var content := Control.new()
+	content.name = "PokemonDetailContent"
+	content.custom_minimum_size = Vector2(304, 500)
+	scroll.add_child(content)
+	_add_collection_details(content, 0.0)
 
 
 func _add_collection_tab_button(parent: Control, tab: String, pos: Vector2, node_size: Vector2, node_name: String) -> void:
@@ -1369,14 +1389,13 @@ func _add_collection_owned(parent: Control, y: float, rows: Array) -> float:
 
 func _add_collection_details(parent: Control, y: float) -> float:
 	var pokemon := _selected_collection_pokemon()
-	UI.add_panel_label(parent, _text("selected_pokemon"), Vector2(0, y), Vector2(296, 24), 15, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "DetailsTitle")
 	if pokemon.is_empty():
-		UI.add_panel_label(parent, _text("empty_slot"), Vector2(0, y + 28.0), Vector2(296, 52), 14, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "NoSelection")
-		return y + 92.0
+		UI.add_panel_label(parent, _text("empty_slot"), Vector2(0, y), Vector2(296, 52), 14, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "NoSelection")
+		return y + 64.0
 
 	var panel := Panel.new()
 	panel.name = "CollectionDetails"
-	panel.position = Vector2(0, y + 28.0)
+	panel.position = Vector2(0, y)
 	panel.size = Vector2(296, 476)
 	parent.add_child(panel)
 	UI.style_panel_button(panel, Color(0.88, 0.94, 0.98), Color(0.34, 0.50, 0.62), 2)
@@ -1499,7 +1518,7 @@ func _select_collection_pokemon(source: String, index: int) -> void:
 	selected_collection_tab = "storage" if source == "storage" else "team"
 	selected_collection_source = source
 	selected_collection_index = index
-	_show_pokemon_collection()
+	_show_pokemon_detail(source, index)
 
 
 func _selected_collection_pokemon() -> Dictionary:
@@ -1536,7 +1555,7 @@ func _rename_collection_pokemon(source: String, index: int, input: LineEdit) -> 
 	pokemon["nickname"] = nickname
 	pokemon["name"] = nickname if nickname != "" else str(pokemon.get("species", "Pokemon"))
 	_save_collection_pokemon(source, index, pokemon)
-	_show_pokemon_collection()
+	_show_pokemon_detail(source, index)
 
 
 func _clear_collection_nickname(source: String, index: int) -> void:
@@ -1546,7 +1565,7 @@ func _clear_collection_nickname(source: String, index: int) -> void:
 	pokemon["nickname"] = ""
 	pokemon["name"] = str(pokemon.get("species", "Pokemon"))
 	_save_collection_pokemon(source, index, pokemon)
-	_show_pokemon_collection()
+	_show_pokemon_detail(source, index)
 
 
 func _set_collection_active(index: int) -> void:
@@ -1562,7 +1581,7 @@ func _set_collection_active(index: int) -> void:
 	selected_collection_tab = "team"
 	selected_collection_source = "team"
 	selected_collection_index = index
-	_show_pokemon_collection()
+	_show_pokemon_detail("team", index)
 
 
 func _move_collection_team(index: int, direction: int) -> void:
@@ -1584,7 +1603,7 @@ func _move_collection_team(index: int, direction: int) -> void:
 	selected_collection_tab = "team"
 	selected_collection_source = "team"
 	selected_collection_index = clampi(index + direction, 0, maxi(0, _team().size() - 1))
-	_show_pokemon_collection()
+	_show_pokemon_detail("team", selected_collection_index)
 
 
 func _deposit_collection_pokemon(index: int) -> void:
@@ -1639,7 +1658,7 @@ func _show_move_editor(source: String, index: int, move_slot: int) -> void:
 	var pokemon := _collection_pokemon(source, index)
 	if pokemon.is_empty():
 		return
-	var popup := _create_popup(_text("available_moves"), "MoveEditorPopup", 64.0, 520.0)
+	var popup := _create_popup(_text("available_moves"), "MoveEditorPopup", 64.0, 520.0, Callable(self, "_show_pokemon_detail").bind(source, index))
 	var scroll := ScrollContainer.new()
 	scroll.name = "MoveEditorScroll"
 	scroll.position = Vector2(28, 126)
@@ -1677,7 +1696,7 @@ func _change_collection_move(source: String, index: int, move_slot: int, move_na
 	for i in range(moves.size()):
 		if i == move_slot:
 			continue
-		var existing := moves[i]
+		var existing = moves[i]
 		var existing_name := str(existing.get("name", "")) if typeof(existing) == TYPE_DICTIONARY else str(existing)
 		if existing_name == move_name:
 			UI.show_message_popup(self, _text("available_moves"), _text("move_already_known"))
@@ -1705,7 +1724,7 @@ func _change_collection_move(source: String, index: int, move_slot: int, move_na
 	var editor := get_node_or_null("MoveEditorPopup")
 	if editor != null:
 		editor.queue_free()
-	_show_pokemon_collection()
+	_show_pokemon_detail(source, index)
 
 
 func _pokemon_status_text(pokemon: Dictionary) -> String:
