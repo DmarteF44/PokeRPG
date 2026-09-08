@@ -89,6 +89,7 @@ const TEXT = {
 			"starter_tag": "Starter",
 			"close": "Close",
 			"back": "Back",
+			"change_avatar": "Change Avatar",
 		"debug_menu": "Debug Menu",
 		"debug_gold": "Gold",
 		"debug_account_xp": "Account XP",
@@ -180,6 +181,8 @@ const TEXT = {
 		"choose_pokemon": "Choose Pokemon",
 		"stat_boosted": "%s gained +%d %s!",
 		"stat_at_cap": "%s cannot raise %s anymore.",
+		"evolved_with_item": "%s evolved into %s!",
+		"no_evolution_target": "None of your Pokemon can evolve with this item.",
 		"stat_max_hp": "HP",
 		"stat_attack": "Attack",
 		"stat_defense": "Defense",
@@ -190,7 +193,6 @@ const TEXT = {
 		"items_use_hint": "Items can be used during battles, events, or specific menus.",
 		"pokeball_use": "Pokeballs are used during wild battles.",
 		"potion_use": "Healing items will be usable in battle soon.",
-		"evolution_use": "Evolution system coming soon.",
 		"fishing_soon": "Fishing coming soon.",
 		"tournament_soon": "Choose a gym challenge.",
 		"beginner_cup": "Pewter City",
@@ -284,6 +286,7 @@ const TEXT = {
 			"starter_tag": "Inicial",
 			"close": "Fechar",
 			"back": "Voltar",
+			"change_avatar": "Trocar Avatar",
 		"debug_menu": "Menu Debug",
 		"debug_gold": "Gold",
 		"debug_account_xp": "XP da conta",
@@ -375,6 +378,8 @@ const TEXT = {
 		"choose_pokemon": "Escolha o Pokemon",
 		"stat_boosted": "%s ganhou +%d em %s!",
 		"stat_at_cap": "%s nao pode aumentar mais %s.",
+		"evolved_with_item": "%s evoluiu para %s!",
+		"no_evolution_target": "Nenhum dos seus Pokemon evolui com esse item.",
 		"stat_max_hp": "HP",
 		"stat_attack": "Ataque",
 		"stat_defense": "Defesa",
@@ -385,7 +390,6 @@ const TEXT = {
 		"items_use_hint": "Itens poderão ser usados em batalhas, eventos ou menus específicos.",
 		"pokeball_use": "Pokébolas são usadas em batalhas selvagens.",
 		"potion_use": "Itens de cura poderão ser usados em batalha em breve.",
-		"evolution_use": "Sistema de evolução em breve.",
 		"fishing_soon": "Pescaria em breve.",
 		"tournament_soon": "Escolha um desafio de ginásio.",
 		"beginner_cup": "Pewter City",
@@ -539,19 +543,102 @@ func _show_tutorial() -> void:
 
 
 func _show_profile() -> void:
+	var existing := get_node_or_null("ProfilePopup")
+	if existing != null:
+		existing.queue_free()
+
 	_refresh_save_data()
 	var player_name := str(save_data.get("player_name", _text("player_default")))
-	var profile_text := "%s\n%s: %s\n%s: $%d\n%s %d\n%s" % [
-		player_name,
-		_text("starter"),
-		str(save_data.get("starter_name", "Charmander")),
+	var popup := _create_popup(_text("profile"), "ProfilePopup", 60.0, 460.0)
+	var avatar_path := _avatar_texture_path(save_data)
+	if avatar_path != "":
+		UI.add_texture(popup, avatar_path, Vector2(117, 96), Vector2(96, 96), "Avatar", TextureRect.STRETCH_KEEP_ASPECT_CENTERED)
+	UI.add_panel_label(popup, player_name, Vector2(15, 202), Vector2(300, 26), 20, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Name")
+	UI.add_panel_label(popup, "%s: %s" % [_text("starter"), str(save_data.get("starter_name", "Charmander"))], Vector2(15, 230), Vector2(300, 22), 14, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "StarterLine")
+	var stats_text := "%s: $%d | %s %d | %s" % [
 		_text("money"),
 		int(save_data.get("money", 3000)),
 		_text("level"),
 		max(1, int(save_data.get("level", 1))),
 		_text("badges_short") % int(save_data.get("badges", 0)),
 	]
-	UI.show_message_popup(self, _text("profile"), profile_text)
+	UI.add_panel_label(popup, stats_text, Vector2(15, 258), Vector2(300, 40), 12, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Stats")
+	UI.add_orange_button(popup, _text("change_avatar"), Vector2(55, 388), Vector2(220, 44), Callable(self, "_show_avatar_editor"), "ChangeAvatar")
+
+
+# Avatar id -> 96px preset image, mirrors main_menu.gd's AVATAR_ASSETS_96 so
+# the chosen avatar (or a custom uploaded one) can be shown outside the
+# character-creation flow, e.g. here in the Profile screen.
+const CUSTOM_AVATAR_PATH = "user://custom_avatar.png"
+const AVATAR_ASSETS_96 = [
+	"res://assets/avatars/96/avatar_01_trainer_red_96.png",
+	"res://assets/avatars/96/avatar_02_trainer_blue_96.png",
+	"res://assets/avatars/96/avatar_03_trainer_green_96.png",
+	"res://assets/avatars/96/avatar_04_trainer_gold_96.png",
+	"res://assets/avatars/96/avatar_05_trainer_purple_96.png",
+	"res://assets/avatars/96/avatar_06_trainer_black_96.png",
+	"res://assets/avatars/96/avatar_07_trainer_orange_96.png",
+	"res://assets/avatars/96/avatar_08_trainer_teal_96.png",
+	"res://assets/avatars/96/avatar_09_trainer_pink_96.png",
+	"res://assets/avatars/96/avatar_10_trainer_white_96.png",
+	"res://assets/avatars/96/avatar_11_trainer_brown_96.png",
+	"res://assets/avatars/96/avatar_12_trainer_silver_96.png",
+]
+
+
+func _avatar_texture_path(save: Dictionary) -> String:
+	if str(save.get("avatar_type", "preset")) == "custom" and FileAccess.file_exists(CUSTOM_AVATAR_PATH):
+		return CUSTOM_AVATAR_PATH
+	var avatar_id := clampi(int(save.get("avatar_id", 1)), 1, AVATAR_ASSETS_96.size())
+	var path := AVATAR_ASSETS_96[avatar_id - 1]
+	return path if FileAccess.file_exists(path) else ""
+
+
+func _show_avatar_editor() -> void:
+	_refresh_save_data()
+	var popup := _create_popup(_text("change_avatar"), "AvatarEditorPopup", 34.0, 580.0, Callable(self, "_show_profile"))
+	var scroll := ScrollContainer.new()
+	scroll.name = "AvatarEditorScroll"
+	scroll.position = Vector2(28, 100)
+	scroll.size = Vector2(304, 460)
+	popup.add_child(scroll)
+
+	var content := Control.new()
+	content.name = "AvatarEditorContent"
+	var rows := int(ceil(float(AVATAR_ASSETS_96.size()) / 3.0))
+	content.custom_minimum_size = Vector2(304, float(rows) * 102.0)
+	scroll.add_child(content)
+
+	var current_id := int(save_data.get("avatar_id", 1))
+	var current_is_preset := str(save_data.get("avatar_type", "preset")) == "preset"
+	for i in range(AVATAR_ASSETS_96.size()):
+		var avatar_id := i + 1
+		var pos := Vector2(float(i % 3) * 102.0, float(int(i / 3)) * 102.0)
+		_add_profile_avatar_button(content, avatar_id, pos, current_is_preset and current_id == avatar_id)
+
+
+func _add_profile_avatar_button(parent: Control, avatar_id: int, pos: Vector2, selected: bool) -> void:
+	var button := Button.new()
+	button.name = "ProfileAvatar%d" % avatar_id
+	button.position = pos
+	button.size = Vector2(92, 92)
+	button.focus_mode = Control.FOCUS_NONE
+	parent.add_child(button)
+	UI.style_panel_button(button, Color(0.95, 0.78, 0.32) if selected else Color(0.86, 0.92, 0.96), Color(0.92, 0.46, 0.08) if selected else Color(0.34, 0.50, 0.62), 2)
+	var path := AVATAR_ASSETS_96[avatar_id - 1]
+	if FileAccess.file_exists(path):
+		UI.add_texture(button, path, Vector2(18, 8), Vector2(56, 56), "AvatarImage", TextureRect.STRETCH_KEEP_ASPECT_CENTERED)
+	UI.add_panel_label(button, "%s %d" % [_text("profile"), avatar_id], Vector2(0, 66), Vector2(92, 20), 11, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "AvatarText")
+	button.pressed.connect(Callable(self, "_apply_profile_avatar").bind(avatar_id))
+
+
+func _apply_profile_avatar(avatar_id: int) -> void:
+	var editor := get_node_or_null("AvatarEditorPopup")
+	if editor != null:
+		editor.queue_free()
+	SaveManager.update_current_save({"avatar_id": avatar_id, "avatar_type": "preset"})
+	_refresh_save_data()
+	_show_profile()
 
 
 func _show_world_map() -> void:
@@ -709,7 +796,7 @@ func _select_bag_item(item: Dictionary) -> void:
 		]
 	if bag_use_button != null and is_instance_valid(bag_use_button):
 		var effect_type := str(item.get("effect_type", ""))
-		var is_usable_item := effect_type == "restore_energy" or effect_type == "stat_boost"
+		var is_usable_item := effect_type == "restore_energy" or effect_type == "stat_boost" or effect_type == "evolve_stone"
 		var text_label := bag_use_button.get_node_or_null("Text") as Label
 		if text_label != null:
 			text_label.text = _text("use") if is_usable_item else _text("details")
@@ -727,6 +814,9 @@ func _show_selected_bag_item_details() -> void:
 		return
 	if effect_type == "stat_boost":
 		_show_stat_boost_targets(selected_bag_item)
+		return
+	if effect_type == "evolve_stone":
+		_show_evolution_stone_targets(selected_bag_item)
 		return
 
 	var amount := InventoryManager.get_item_amount(str(selected_bag_item.get("id", "")))
@@ -851,6 +941,81 @@ func _use_stat_boost_item(item: Dictionary, team_index: int) -> void:
 	_refresh_home_stats()
 	_show_bag()
 	UI.show_message_popup(self, _item_name(item), _text("stat_boosted") % [pokemon_name, applied, _stat_name(stat_key)])
+
+
+func _show_evolution_stone_targets(item: Dictionary) -> void:
+	if not _has_active_save():
+		UI.show_message_popup(self, _item_name(item), _text("no_active_save"))
+		return
+
+	var item_id := str(item.get("id", ""))
+	if InventoryManager.get_item_amount(item_id) <= 0:
+		return
+
+	var team := _team()
+	var eligible := []
+	for i in range(team.size()):
+		if typeof(team[i]) == TYPE_DICTIONARY and PokemonHelpers.evolution_target_for_item(team[i], item_id) != "":
+			eligible.append(i)
+
+	if eligible.is_empty():
+		UI.show_message_popup(self, _item_name(item), _text("no_evolution_target"))
+		return
+
+	var existing := get_node_or_null("EvolutionStonePopup")
+	if existing != null:
+		existing.queue_free()
+
+	var popup := _create_popup(_text("choose_pokemon"), "EvolutionStonePopup", 92.0, 420.0)
+	UI.add_panel_label(popup, _item_name(item), Vector2(42, 154), Vector2(276, 30), 15, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "StoneInfo")
+	for row_index in range(eligible.size()):
+		var team_index: int = eligible[row_index]
+		_add_evolution_stone_row(popup, team[team_index], team_index, 194.0 + float(row_index) * 56.0, item)
+
+
+func _add_evolution_stone_row(parent: Control, pokemon: Dictionary, team_index: int, y: float, item: Dictionary) -> void:
+	var row := Panel.new()
+	row.name = "EvolveTarget%d" % team_index
+	row.position = Vector2(42, y)
+	row.size = Vector2(276, 48)
+	parent.add_child(row)
+	UI.style_panel_button(row, Color(0.86, 0.92, 0.96), Color(0.34, 0.50, 0.62), 2)
+
+	PokemonHelpers.add_animated_sprite(row, pokemon, Vector2(8, 3), Vector2(42, 42), false, "PokemonSprite")
+	var name_label := UI.add_panel_label(row, str(pokemon.get("name", "Pokemon")), Vector2(56, 5), Vector2(110, 18), 12, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Name")
+	_fit_label(name_label, false)
+	UI.add_panel_label(row, "%s %d" % [_text("level"), int(pokemon.get("level", 1))], Vector2(56, 25), Vector2(116, 16), 10, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Level")
+	_add_small_button(row, _text("use"), Vector2(198, 9), Vector2(62, 30), Callable(self, "_use_evolution_stone").bind(item, team_index), "UseStone")
+
+
+func _use_evolution_stone(item: Dictionary, team_index: int) -> void:
+	_refresh_save_data()
+	var team := _team()
+	if team_index < 0 or team_index >= team.size() or typeof(team[team_index]) != TYPE_DICTIONARY:
+		return
+
+	var item_id := str(item.get("id", ""))
+	if InventoryManager.get_item_amount(item_id) <= 0:
+		return
+
+	var pokemon: Dictionary = team[team_index]
+	var target_id := PokemonHelpers.evolution_target_for_item(pokemon, item_id)
+	if target_id == "":
+		UI.show_message_popup(self, _item_name(item), _text("no_evolution_target"))
+		return
+
+	if not InventoryManager.remove_item(item_id, 1):
+		return
+
+	var before_name := str(pokemon.get("name", pokemon.get("species", "Pokemon")))
+	var evolved := PokemonHelpers.evolve_pokemon(pokemon, target_id)
+	var after_name := str(evolved.get("species", evolved.get("name", "Pokemon")))
+	team[team_index] = evolved
+	SaveManager.update_current_save({"team": team})
+	_refresh_save_data()
+	_refresh_home_stats()
+	_show_bag()
+	UI.show_message_popup(self, _item_name(item), _text("evolved_with_item") % [before_name, after_name])
 
 
 func _show_shop() -> void:
@@ -1022,7 +1187,6 @@ func _start_gym_challenge(gym_id: String) -> void:
 		"IntroText"
 	)
 	UI.add_orange_button(intro, _text("gym_challenge"), Vector2(70, 338), Vector2(220, 48), Callable(self, "_begin_gym_challenge").bind(gym_id), "BeginGym")
-	_add_small_button(intro, _text("close"), Vector2(110, 396), Vector2(140, 28), Callable(intro, "queue_free"), "CloseGymIntro")
 
 
 func _begin_gym_challenge(gym_id: String) -> void:
@@ -1061,9 +1225,8 @@ func _show_pokemon_collection() -> void:
 	_refresh_save_data()
 	_sanitize_collection_selection()
 	pokemon_popup = _create_popup(_text("pokemon_collection"), "PokemonCollectionPopup", 34.0, 580.0)
-	_add_small_button(pokemon_popup, _text("pokedex"), Vector2(42, 92), Vector2(86, 28), Callable(self, "_show_pokedex"), "CollectionDex")
-	_add_small_button(pokemon_popup, _text("pokemon_center"), Vector2(136, 92), Vector2(104, 28), Callable(self, "_show_pokemon_center"), "CollectionCenter")
-	_add_small_button(pokemon_popup, _text("close"), Vector2(248, 92), Vector2(70, 28), Callable(self, "_close_pokemon_popup"), "CollectionClose")
+	_add_small_button(pokemon_popup, _text("pokedex"), Vector2(42, 92), Vector2(126, 28), Callable(self, "_show_pokedex"), "CollectionDex")
+	_add_small_button(pokemon_popup, _text("pokemon_center"), Vector2(180, 92), Vector2(126, 28), Callable(self, "_show_pokemon_center"), "CollectionCenter")
 	_add_collection_tab_button(pokemon_popup, "team", Vector2(42, 128), Vector2(132, 28), "CollectionTeamTab")
 	_add_collection_tab_button(pokemon_popup, "storage", Vector2(186, 128), Vector2(132, 28), "CollectionStorageTab")
 
@@ -2219,8 +2382,6 @@ func _show_debug_menu() -> void:
 	])
 	content.custom_minimum_size = Vector2(304, y + 12.0)
 
-	_add_small_button(debug_popup, _text("close"), Vector2(110, 550), Vector2(140, 34), Callable(self, "_close_debug_popup"), "DebugClose")
-
 
 func _add_debug_section(parent: Control, title: String, y: float) -> float:
 	var label := UI.add_panel_label(parent, title, Vector2(0, y), Vector2(296, 24), 14, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "DebugSection%s" % title.replace(" ", ""))
@@ -2442,7 +2603,8 @@ func _create_popup(title: String, popup_name: String, panel_y: float, panel_heig
 	var title_size := Vector2(208, 34) if has_back else Vector2(260, 34)
 	UI.add_panel_label(overlay, title, title_pos, title_size, 23, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Title")
 	if has_back:
-		var back_button := _add_small_button(overlay, "< %s" % _text("back"), Vector2(20, panel_y + 18.0), Vector2(66, 28), Callable(), "BackButton")
+		var back_button := _add_small_button(overlay, "←", Vector2(20, panel_y + 18.0), Vector2(40, 28), Callable(), "BackButton")
+		back_button.add_theme_font_size_override("font_size", 16)
 		back_button.pressed.connect(func():
 			overlay.queue_free()
 			back_callback.call()
