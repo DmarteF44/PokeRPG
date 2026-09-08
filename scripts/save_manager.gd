@@ -16,7 +16,7 @@ const DEFAULT_INVENTORY = {
 	"town_map": 1,
 }
 const DEFAULT_ENERGY_MAX = 30
-const MAX_TEAM_SIZE = 5
+const MAX_TEAM_SIZE = 6
 const MAX_STORAGE_SIZE = 500
 
 var _settings: Dictionary = DEFAULT_SETTINGS.duplicate(true)

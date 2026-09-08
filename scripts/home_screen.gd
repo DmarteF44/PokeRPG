@@ -6,8 +6,9 @@ const WorldMapData = preload("res://scripts/world_map_data.gd")
 const GymData = preload("res://scripts/gym_data.gd")
 
 const ITEMS_PATH = "res://data/items.json"
-const CATEGORIES = ["pokeballs", "potions", "evolution", "key_items"]
-const TEAM_LIMIT = 5
+const CATEGORIES = ["pokeballs", "cura", "evolution", "atributos", "xp", "buffs", "pesca", "key_items", "outros"]
+const CATEGORY_TABS_PER_ROW = 3
+const TEAM_LIMIT = SaveManager.MAX_TEAM_SIZE
 const POKEMON_CENTER_COST = 250
 const POKEMON_CENTER_SECONDS = 3
 const DEBUG_CLICK_WINDOW_MSEC = 3000
@@ -164,6 +165,13 @@ const TEXT = {
 		"safari": "Safari Zone",
 		"pokeballs": "Pokeballs",
 		"potions": "Potions",
+		"cura": "Healing",
+		"atributos": "Attributes",
+		"xp": "XP",
+		"buffs": "Buffs",
+		"pesca": "Fishing",
+		"outros": "Other",
+		"category_empty": "No items in this category yet.",
 		"evolution": "Evolution",
 		"key_items": "Key Items",
 		"quantity": "Quantity",
@@ -362,6 +370,13 @@ const TEXT = {
 		"safari": "Zona Safari",
 		"pokeballs": "Pokébolas",
 		"potions": "Poções",
+		"cura": "Cura",
+		"atributos": "Atributos",
+		"xp": "XP",
+		"buffs": "Buffs",
+		"pesca": "Pesca",
+		"outros": "Outros",
+		"category_empty": "Nenhum item nesta categoria ainda.",
 		"evolution": "Evolução",
 		"key_items": "Itens-chave",
 		"quantity": "Quantidade",
@@ -733,15 +748,19 @@ func _select_bag_category(category: String) -> void:
 func _add_bag_items() -> void:
 	var scroll := ScrollContainer.new()
 	scroll.name = "BagItemsScroll"
-	scroll.position = Vector2(28, 146)
-	scroll.size = Vector2(304, 242)
+	scroll.position = Vector2(28, 222)
+	scroll.size = Vector2(304, 166)
 	bag_popup.add_child(scroll)
 
 	var category_items := _items_for_category(selected_bag_category)
 	var content := Control.new()
 	content.name = "BagItems"
-	content.custom_minimum_size = Vector2(304, max(242, category_items.size() * 70))
+	content.custom_minimum_size = Vector2(304, max(166, category_items.size() * 70))
 	scroll.add_child(content)
+
+	if category_items.is_empty():
+		UI.add_panel_label(content, _text("category_empty"), Vector2(12, 12), Vector2(280, 60), 12, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "EmptyCategory")
+		return
 
 	for i in range(category_items.size()):
 		var item: Dictionary = category_items[i]
@@ -1041,8 +1060,8 @@ func _select_shop_category(category: String) -> void:
 func _add_shop_items() -> void:
 	var scroll := ScrollContainer.new()
 	scroll.name = "ShopItemsScroll"
-	scroll.position = Vector2(28, 170)
-	scroll.size = Vector2(304, 402)
+	scroll.position = Vector2(28, 246)
+	scroll.size = Vector2(304, 326)
 	shop_popup.add_child(scroll)
 
 	var shop_items := []
@@ -1052,8 +1071,12 @@ func _add_shop_items() -> void:
 
 	var content := Control.new()
 	content.name = "ShopItems"
-	content.custom_minimum_size = Vector2(304, max(402, shop_items.size() * 126))
+	content.custom_minimum_size = Vector2(304, max(326, shop_items.size() * 126))
 	scroll.add_child(content)
+
+	if shop_items.is_empty():
+		UI.add_panel_label(content, _text("category_empty"), Vector2(12, 12), Vector2(280, 60), 12, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "EmptyCategory")
+		return
 
 	for i in range(shop_items.size()):
 		var item: Dictionary = shop_items[i]
@@ -1250,7 +1273,7 @@ func _show_pokemon_collection() -> void:
 		_add_collection_storage(content, 0.0, rows)
 		_add_collection_details(content, details_y)
 	else:
-		var details_y := 376.0
+		var details_y := 30.0 + float(TEAM_LIMIT) * 62.0 + 16.0
 		content.custom_minimum_size = Vector2(304, details_y + 520.0)
 		_add_collection_team(content, 0.0)
 		_add_collection_details(content, details_y)
@@ -1748,16 +1771,29 @@ func _show_pokemon_center() -> void:
 	_close_pokemon_popup()
 	pokemon_center_popup = _create_popup(_text("pokemon_center"), "PokemonCenterPopup", 34.0, 580.0, Callable(self, "_show_pokemon_collection"))
 	var team := _team()
+
+	var scroll := ScrollContainer.new()
+	scroll.name = "PokemonCenterScroll"
+	scroll.position = Vector2(28, 112)
+	scroll.size = Vector2(304, 330)
+	pokemon_center_popup.add_child(scroll)
+
+	var content := Control.new()
+	content.name = "PokemonCenterContent"
+	content.custom_minimum_size = Vector2(304, max(330.0, float(TEAM_LIMIT) * 78.0))
+	scroll.add_child(content)
+
 	for slot in range(TEAM_LIMIT):
-		var y := 112.0 + float(slot) * 78.0
+		var y := float(slot) * 78.0
 		if slot < team.size():
-			_add_pokemon_card(pokemon_center_popup, team[slot], Vector2(42, y), Vector2(276, 70), false, false)
+			_add_pokemon_card(content, team[slot], Vector2(14, y), Vector2(276, 70), false, false)
 		else:
-			_add_empty_team_slot(pokemon_center_popup, slot + 1, y, 70.0)
+			_add_empty_team_slot(content, slot + 1, y, 70.0)
+
 	pokemon_center_status_label = UI.add_panel_label(
 		pokemon_center_popup,
 		_center_status_text(team),
-		Vector2(42, 500),
+		Vector2(42, 456),
 		Vector2(276, 36),
 		10,
 		HORIZONTAL_ALIGNMENT_CENTER,
@@ -1766,8 +1802,8 @@ func _show_pokemon_center() -> void:
 	)
 	pokemon_center_status_label.clip_text = true
 	pokemon_center_status_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	pokemon_center_heal_button = UI.add_orange_button(pokemon_center_popup, _text("heal_team"), Vector2(42, 552), Vector2(132, 44), Callable(self, "_heal_team"), "HealTeam")
-	UI.add_orange_button(pokemon_center_popup, _text("storage"), Vector2(186, 552), Vector2(132, 44), Callable(self, "_show_pokemon_collection"), "Storage")
+	pokemon_center_heal_button = UI.add_orange_button(pokemon_center_popup, _text("heal_team"), Vector2(42, 508), Vector2(132, 44), Callable(self, "_heal_team"), "HealTeam")
+	UI.add_orange_button(pokemon_center_popup, _text("storage"), Vector2(186, 508), Vector2(132, 44), Callable(self, "_show_pokemon_collection"), "Storage")
 	_set_center_heal_enabled(_team_has_center_targets(team))
 	if _team_has_recovering_pokemon(team):
 		_refresh_center_countdown()
@@ -2630,10 +2666,18 @@ func _create_popup(title: String, popup_name: String, panel_y: float, panel_heig
 	return overlay
 
 
+func _category_tabs_height() -> float:
+	var rows := ceili(float(CATEGORIES.size()) / float(CATEGORY_TABS_PER_ROW))
+	return float(rows) * 38.0 - 6.0
+
+
 func _add_category_tabs(parent: Control, selected_category: String, callback: Callable, y: float) -> void:
 	for i in range(CATEGORIES.size()):
 		var category := str(CATEGORIES[i])
-		var tab := _add_small_button(parent, _text(category), Vector2(20.0 + float(i) * 80.0, y), Vector2(76, 32), callback.bind(category), "Tab%s" % category.capitalize())
+		var col := i % CATEGORY_TABS_PER_ROW
+		var row := i / CATEGORY_TABS_PER_ROW
+		var pos := Vector2(20.0 + float(col) * 100.0, y + float(row) * 38.0)
+		var tab := _add_small_button(parent, _text(category), pos, Vector2(96, 32), callback.bind(category), "Tab%s" % category.capitalize())
 		var selected := selected_category == category
 		UI.style_panel_button(tab, Color(0.95, 0.78, 0.32) if selected else Color(0.82, 0.88, 0.94), Color(0.92, 0.46, 0.08) if selected else Color(0.36, 0.50, 0.62), 2)
 
