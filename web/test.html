@@ -106568,12 +106568,13 @@
 	      if (frameCount <= 0) {
 	        return icon ? `<img class="pokemon-static ${extraClass}" src="${A}${icon}" onerror="this.style.display='none'" style="position:absolute;left:${left}px;top:${top}px;width:${size}px;height:${size}px;object-fit:contain" alt="">` : `<div class="placeholder ${extraClass}" style="left:${left}px;top:${top}px;width:${size}px;height:${size}px">#${String(data.dex_number || 0).padStart(3, "0")}</div>`;
 	      }
-	      return `<img class="pokemon-anim ${extraClass}" data-path="${A}pokemon/battle/animated/gen_${generation}/${dir}/${data.id}/" data-count="${frameCount}" data-fps="30" src="${A}pokemon/battle/animated/gen_${generation}/${dir}/${data.id}/000.png" onerror="this.src='${A}${icon || `pokemon/icons/${data.id}.png`}'" style="position:absolute;left:${left}px;top:${top}px;width:${size}px;height:${size}px;object-fit:contain" alt="">`;
+	      return `<img class="pokemon-anim ${extraClass}" data-path="${A}pokemon/battle/animated/gen_${generation}/${dir}/${data.id}/" data-count="${frameCount}" data-fps="30" src="${A}pokemon/battle/animated/gen_${generation}/${dir}/${data.id}/000.png" onerror="this.onerror=function(){this.onerror=null;this.src='${A}sprites/sprite_wurmple_96.png';};this.src='${A}${icon || `pokemon/icons/${data.id}.png`}'" style="position:absolute;left:${left}px;top:${top}px;width:${size}px;height:${size}px;object-fit:contain" alt="">`;
 	    }
 	    function battlePokemonSprite(pokemon, left, top, size = 64, back = false, hit = false) {
 	      const hitClass = hit ? "pokemon-hit" : "";
 	      if (starterDefs[pokemon.id]) return pokemonSprite(pokemon, left, top, size, back, hitClass);
-	      return `<img class="pokemon-static ${hitClass}" src="${A}${pokemon.icon_path || "sprites/sprite_wurmple_96.png"}" style="position:absolute;left:${left}px;top:${top}px;width:${size}px;height:${size}px;object-fit:contain" alt="">`;
+	      const primary = pokemon.icon_path || "sprites/sprite_wurmple_96.png";
+	      return `<img class="pokemon-static ${hitClass}" src="${A}${primary}" onerror="this.onerror=null;this.src='${A}sprites/sprite_wurmple_96.png'" style="position:absolute;left:${left}px;top:${top}px;width:${size}px;height:${size}px;object-fit:contain" alt="">`;
 	    }
 	    function battleMoveEffect(type, left, top) {
 	      const key = battleEffectAssets[String(type || "Normal")] || battleEffectAssets.Normal;

@@ -42,7 +42,7 @@ func add_item(item_id: String, amount: int) -> void:
 		return
 
 	ensure_default_inventory()
-	_inventory[item_id] = get_item_amount(item_id) + amount
+	_inventory[item_id] = int(_inventory.get(item_id, 0)) + amount
 	save_inventory_to_current_save()
 
 
@@ -51,7 +51,7 @@ func remove_item(item_id: String, amount: int) -> bool:
 		return false
 
 	ensure_default_inventory()
-	var current_amount := get_item_amount(item_id)
+	var current_amount := int(_inventory.get(item_id, 0))
 	if current_amount < amount:
 		return false
 
