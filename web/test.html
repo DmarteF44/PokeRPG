@@ -442,9 +442,10 @@
         type_grass: "Grass", type_fire: "Fire", type_water: "Water", type_poison: "Poison", type_normal: "Normal", type_bug: "Bug", type_flying: "Flying", type_rock: "Rock",
         type_ice: "Ice", type_mystery: "Mystery", type_steel: "Steel",
         type_electric: "Electric", type_ground: "Ground", type_ghost: "Ghost",
-        type_dragon: "Dragon", type_mixed: "Mixed",
+        type_dragon: "Dragon", type_mixed: "Mixed", type_fighting: "Fighting", type_psychic: "Psychic", type_fairy: "Fairy", type_dark: "Dark",
         pokeballs: "Pokeballs", potions: "Potions", evolution: "Evolution", key_items: "Key Items",
-        cura: "Healing", atributos: "Attributes", xp: "XP", buffs: "Buffs", pesca: "Fishing", outros: "Other", category_empty: "No items in this category yet.",
+        cura: "Healing", atributos: "Attributes", buffs: "Buffs", pesca: "Fishing", outros: "Other", category_empty: "No items in this category yet.",
+        filters: "Filters", filters_active: "Filters (active)", filter_status: "Status", filter_generation: "Generation", filter_type: "Type", filter_all: "All", generation_short: "Gen", clear_filters: "Clear Filters",
         qty: "Qty", use: "Use", buy: "Buy", price: "Price", locked: "Locked",
         requires: "Requires Lv. {level} and {badges} badges.", no_energy: "You are out of energy.",
         none_found: "You explored the area but found nothing.", found_pokemon: "Pokemon {name} found!", item_found: "Found item: {item} x{amount}", no_ready_pokemon: "No Pokemon is ready to explore.",
@@ -530,9 +531,10 @@
         type_grass: "Grama", type_fire: "Fogo", type_water: "Água", type_poison: "Veneno", type_normal: "Normal", type_bug: "Inseto", type_flying: "Voador", type_rock: "Pedra",
         type_ice: "Gelo", type_mystery: "Mistério", type_steel: "Aço",
         type_electric: "Elétrico", type_ground: "Terra", type_ghost: "Fantasma",
-        type_dragon: "Dragão", type_mixed: "Misto",
+        type_dragon: "Dragão", type_mixed: "Misto", type_fighting: "Lutador", type_psychic: "Psíquico", type_fairy: "Fada", type_dark: "Sombrio",
         pokeballs: "Pokébolas", potions: "Poções", evolution: "Evolução", key_items: "Itens-chave",
-        cura: "Cura", atributos: "Atributos", xp: "XP", buffs: "Buffs", pesca: "Pesca", outros: "Outros", category_empty: "Nenhum item nesta categoria ainda.",
+        cura: "Cura", atributos: "Atributos", buffs: "Buffs", pesca: "Pesca", outros: "Outros", category_empty: "Nenhum item nesta categoria ainda.",
+        filters: "Filtros", filters_active: "Filtros (ativos)", filter_status: "Status", filter_generation: "Geração", filter_type: "Tipo", filter_all: "Todos", generation_short: "Ger.", clear_filters: "Limpar Filtros",
         qty: "Qtd", use: "Usar", buy: "Comprar", price: "Preço", locked: "Bloqueado",
         requires: "Requer Nv. {level} e {badges} insígnias.", no_energy: "Você está sem energia.",
         none_found: "Você explorou a área, mas não encontrou nada.", found_pokemon: "Pokemon {name} found!", item_found: "Item encontrado: {item} x{amount}", no_ready_pokemon: "Nenhum Pokémon está pronto para explorar.",
@@ -96404,6 +96406,9 @@
     let collectionTab = "team";
     let collectionSort = "level";
     let collectionSearch = "";
+    let pokedexFilterType = "";
+    let pokedexFilterGeneration = 0;
+    let pokedexFilterStatus = "";
     let currentBase = "main";
     let debugClicks = 0;
     let debugDeadline = 0;
@@ -107169,14 +107174,17 @@
 	    function showPokedex() {
 	      ensureSave();
 	      showHome();
-	      const species = availableSpeciesIds().map(id => starterDefs[id]);
-	      const total = species.length;
-	      const seenCount = species.filter(pokemon => (save.seen_pokemon || []).includes(pokemon.id)).length;
-	      const capturedCount = species.filter(pokemon => (save.owned_pokemon || []).includes(pokemon.id)).length;
+	      const allIds = availableSpeciesIds();
+	      const species = filteredPokedexSpeciesIds().map(id => starterDefs[id]);
+	      const total = allIds.length;
+	      const seenCount = allIds.filter(id => (save.seen_pokemon || []).includes(id)).length;
+	      const capturedCount = allIds.filter(id => (save.owned_pokemon || []).includes(id)).length;
+	      const filtersActive = pokedexFiltersActive();
 	      phone.innerHTML += overlay(t("pokedex"), 34, 580, "showPokemonCollection()") + `
-	        <p class="label" style="left:42px;top:92px;width:276px;height:42px;color:#0c1d31;text-shadow:none;font-size:13px">${t("seen_count", { seen: seenCount, total })}<br>${t("captured_count", { captured: capturedCount, total })}</p>
-	        <div class="scroll" style="left:28px;top:142px;width:304px;height:430px">
-	          ${species.map((pokemon, i) => {
+	        <p class="label" style="left:42px;top:92px;width:276px;height:34px;color:#0c1d31;text-shadow:none;font-size:13px">${t("seen_count", { seen: seenCount, total })}<br>${t("captured_count", { captured: capturedCount, total })}</p>
+	        <button class="tab${filtersActive ? " active" : ""}" style="left:42px;top:136px;width:276px;height:28px;font-size:12px" onclick="showPokedexFilters()">${t(filtersActive ? "filters_active" : "filters")}</button>
+	        <div class="scroll" style="left:28px;top:172px;width:304px;height:400px">
+	          ${species.length === 0 ? `<p class="label" style="position:absolute;left:0;top:16px;width:296px;color:#0c1d31;text-shadow:none">${t("category_empty")}</p>` : species.map((pokemon, i) => {
 	            const seen = (save.seen_pokemon || []).includes(pokemon.id);
 	            const owned = (save.owned_pokemon || []).includes(pokemon.id);
 	            const registered = seen || owned;
@@ -107192,10 +107200,95 @@
 	      </div>`;
 	      startAnimations();
 	    }
+	    function filterOptionButton(label, active, col, row, action) {
+	      return `<button class="tab${active ? " active" : ""}" style="left:${col * 100}px;top:${row * 34}px;width:96px;height:30px;font-size:10px" onclick="${action}">${label}</button>`;
+	    }
+	    function showPokedexFilters() {
+	      ensureSave();
+	      showHome();
+	      const statuses = ["", "seen", "owned", "unknown"];
+	      const generations = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+	      const types = ["", ...pokedexAvailableTypes()];
+	      let y = 0;
+	      const statusRows = statuses.map((value, i) => filterOptionButton(
+	        value === "" ? t("filter_all") : t(value), pokedexFilterStatus === value, i % 3, Math.floor(i / 3),
+	        `setPokedexStatusFilter('${value}')`
+	      )).join("");
+	      const statusHeight = Math.ceil(statuses.length / 3) * 34;
+	      const genY = y + 26 + statusHeight + 16;
+	      const genRows = generations.map((value, i) => filterOptionButton(
+	        value === 0 ? t("filter_all") : `${t("generation_short")} ${value}`, pokedexFilterGeneration === value, i % 3, Math.floor(i / 3),
+	        `setPokedexGenerationFilter(${value})`
+	      )).join("");
+	      const genHeight = Math.ceil(generations.length / 3) * 34;
+	      const typeY = genY + 26 + genHeight + 16;
+	      const typeRows = types.map((value, i) => filterOptionButton(
+	        value === "" ? t("filter_all") : t(`type_${value.toLowerCase()}`), pokedexFilterType === value, i % 3, Math.floor(i / 3),
+	        `setPokedexTypeFilter('${value}')`
+	      )).join("");
+	      const typeHeight = Math.ceil(types.length / 3) * 34;
+	      const clearY = typeY + 26 + typeHeight + 24;
+	      phone.innerHTML += overlay(t("filters"), 34, 580, "showPokedex()") + `
+	        <div class="scroll" style="left:28px;top:92px;width:304px;height:440px">
+	          <div style="position:relative;width:296px;height:${clearY + 60}px">
+	            <p class="row-title" style="left:0;top:0;width:296px;font-size:14px">${t("filter_status")}</p>
+	            <div style="position:absolute;left:0;top:26px">${statusRows}</div>
+	            <p class="row-title" style="left:0;top:${genY}px;width:296px;font-size:14px">${t("filter_generation")}</p>
+	            <div style="position:absolute;left:0;top:${genY + 26}px">${genRows}</div>
+	            <p class="row-title" style="left:0;top:${typeY}px;width:296px;font-size:14px">${t("filter_type")}</p>
+	            <div style="position:absolute;left:0;top:${typeY + 26}px">${typeRows}</div>
+	            ${orange(t("clear_filters"), 0, clearY, 296, 36, "clearPokedexFilters()", "small")}
+	          </div>
+	        </div>
+	      </div>`;
+	    }
+	    function setPokedexStatusFilter(value) {
+	      pokedexFilterStatus = value;
+	      showPokedexFilters();
+	    }
+	    function setPokedexGenerationFilter(value) {
+	      pokedexFilterGeneration = Number(value);
+	      showPokedexFilters();
+	    }
+	    function setPokedexTypeFilter(value) {
+	      pokedexFilterType = value;
+	      showPokedexFilters();
+	    }
+	    function clearPokedexFilters() {
+	      pokedexFilterType = "";
+	      pokedexFilterGeneration = 0;
+	      pokedexFilterStatus = "";
+	      showPokedexFilters();
+	    }
+	    function pokedexStatusKey(id) {
+	      if ((save.owned_pokemon || []).includes(id)) return "owned";
+	      if ((save.seen_pokemon || []).includes(id)) return "seen";
+	      return "unknown";
+	    }
+	    function pokedexAvailableTypes() {
+	      const seen = new Set();
+	      const result = [];
+	      for (const id of availableSpeciesIds()) {
+	        for (const type of starterDefs[id]?.types || []) {
+	          if (!seen.has(type)) { seen.add(type); result.push(type); }
+	        }
+	      }
+	      return result.sort();
+	    }
+	    function filteredPokedexSpeciesIds() {
+	      return availableSpeciesIds().filter(id => {
+	        const def = starterDefs[id];
+	        if (pokedexFilterType && !(def.types || []).includes(pokedexFilterType)) return false;
+	        if (pokedexFilterGeneration && Number(def.generation || 1) !== pokedexFilterGeneration) return false;
+	        if (pokedexFilterStatus && pokedexStatusKey(id) !== pokedexFilterStatus) return false;
+	        return true;
+	      });
+	    }
+	    function pokedexFiltersActive() {
+	      return !!(pokedexFilterType || pokedexFilterGeneration || pokedexFilterStatus);
+	    }
 	    function pokedexStatus(id) {
-	      if ((save.owned_pokemon || []).includes(id)) return t("owned");
-	      if ((save.seen_pokemon || []).includes(id)) return t("seen");
-	      return t("unknown");
+	      return t(pokedexStatusKey(id));
 	    }
 	    function showPokemonCenter() {
 	      ensureSave();
