@@ -735,6 +735,14 @@ static func _texture_from_png(path: String) -> Texture2D:
 	return ImageTexture.create_from_image(image)
 
 
+# Public entry point for a static (non-animated) icon - used anywhere a long
+# list needs one texture per row instead of a live per-frame animated sprite
+# (e.g. the Pokedex list, which would otherwise run ~150 simultaneous
+# AnimatedTextureRect instances and visibly lag on real hardware).
+static func icon_texture(pokemon: Dictionary) -> Texture2D:
+	return _fallback_texture(pokemon)
+
+
 static func _fallback_texture(pokemon: Dictionary) -> Texture2D:
 	var definition := get_definition(str(pokemon.get("id", DEFAULT_STARTER_ID)))
 	var candidates := [

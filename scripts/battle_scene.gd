@@ -259,7 +259,7 @@ func _ready() -> void:
 	settings = SaveManager.load_settings()
 	_setup_battle_data()
 	UI.setup_screen(self)
-	UI.add_background(self)
+	_add_battle_background()
 	UI.add_topbar(self)
 	UI.add_label(self, _text("battle"), Vector2(60, 6), Vector2(240, 32), 20, Color.WHITE, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "TopTitle")
 
@@ -280,6 +280,20 @@ func _ready() -> void:
 		_text("go") % str(player_pokemon.get("name", "Pokemon")),
 		_text("what_do") % str(player_pokemon.get("name", "Pokemon")),
 	]
+
+
+# A battle over a generic gray background looked the same no matter where in
+# the world it happened - use the current map's own battle backdrop when one
+# exists (falling back to the default background otherwise) so a forest
+# encounter actually looks like a forest.
+func _add_battle_background() -> void:
+	var map_key := str(save_data.get("current_map", "forest"))
+	var path := "res://assets/backgrounds/battle/bg_battle_%s_360x640.png" % map_key
+	if UI.resource_exists(path):
+		var background := UI.add_texture(self, path, Vector2.ZERO, UI.SCREEN_SIZE, "BattleBackground", TextureRect.STRETCH_SCALE)
+		background.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	else:
+		UI.add_background(self)
 
 
 func _setup_battle_data() -> void:
@@ -1004,11 +1018,15 @@ func _grant_victory_xp() -> String:
 	var level_ups: Array = xp_result.get("level_ups", [])
 	for level in level_ups:
 		lines.append(_text("level_up") % [player_name, int(level)])
+	if not level_ups.is_empty():
+		AudioManager.play_sfx("level_up")
 
 	var trainer_xp_result := SaveManager.grant_trainer_xp(_victory_trainer_xp())
 	var trainer_level_ups: Array = trainer_xp_result.get("level_ups", [])
 	for trainer_level in trainer_level_ups:
 		lines.append(_text("trainer_level_up") % int(trainer_level))
+	if not trainer_level_ups.is_empty():
+		AudioManager.play_sfx("level_up")
 
 	var evolutions: Array = xp_result.get("evolutions", [])
 	for evolution in evolutions:
@@ -1108,6 +1126,7 @@ func _resize_hp_fill(fill: ColorRect, pokemon: Dictionary) -> void:
 func _play_heal_glow(target_sprite: TextureRect) -> void:
 	if target_sprite == null or not is_instance_valid(target_sprite):
 		return
+	AudioManager.play_sfx("heal")
 	var original_modulate := target_sprite.modulate
 	var tween := create_tween()
 	tween.tween_property(target_sprite, "modulate", Color(0.55, 1.0, 0.55, 1.0), 0.16)
@@ -1159,6 +1178,7 @@ func _play_attack_effect(move: Dictionary, target_sprite: TextureRect) -> void:
 func _play_damage_flash(target_sprite: TextureRect) -> void:
 	if target_sprite == null or not is_instance_valid(target_sprite):
 		return
+	AudioManager.play_sfx("hit")
 	var original_modulate := target_sprite.modulate
 	var tween := create_tween()
 	for i in range(3):
@@ -1231,17 +1251,26 @@ func _show_bag() -> void:
 	if _require_forced_switch():
 		return
 	_hide_attack_panel()
-	attack_panel = _new_bottom_panel("BagPanel")
-	var item_ids := _battle_item_ids()
-	var scroll := ScrollContainer.new()
+	attack_panel = _new_bottom_panel("BagPanel", 128.0)
+	# Only items you actually carry - a list padded with disabled "x0" entries
+	# for everything the bag could theoretically hold is just clutter here.
+	var item_ids := []
+	for item_id in _battle_item_ids():
+		if InventoryManager.get_item_amount(str(item_id)) > 0:
+			item_ids.append(str(item_id))
+
+	var scroll := TouchScrollContainer.new()
 	scroll.name = "BattleBagScroll"
 	scroll.position = Vector2(20, 508)
-	scroll.size = Vector2(320, 86)
+	scroll.size = Vector2(320, 90)
+	scroll.clip_contents = true
 	attack_panel.add_child(scroll)
 	var content := Control.new()
 	content.name = "BattleBagItems"
-	content.custom_minimum_size = Vector2(304, ceil(float(item_ids.size()) / 2.0) * 38.0)
+	content.custom_minimum_size = Vector2(304, max(38.0, ceil(float(item_ids.size()) / 2.0) * 38.0))
 	scroll.add_child(content)
+	if item_ids.is_empty():
+		UI.add_panel_label(content, _text("item_empty"), Vector2(0, 4), Vector2(304, 30), 13, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "EmptyBag")
 	for i in range(item_ids.size()):
 		var item_id := str(item_ids[i])
 		var amount := InventoryManager.get_item_amount(item_id)
@@ -1250,10 +1279,7 @@ func _show_bag() -> void:
 		var label = button.get_node_or_null("Text")
 		if label is Label:
 			label.add_theme_font_size_override("font_size", 10)
-		if amount <= 0:
-			button.disabled = true
-			button.modulate = Color(0.72, 0.72, 0.72, 0.9)
-	UI.add_orange_button(attack_panel, _text("back"), Vector2(192, 596), Vector2(140, 24), Callable(self, "_hide_attack_panel"), "Back")
+	UI.add_orange_button(attack_panel, _text("back"), Vector2(192, 604), Vector2(140, 24), Callable(self, "_hide_attack_panel"), "Back")
 
 
 func _show_pokemon() -> void:
@@ -1548,6 +1574,7 @@ func _play_capture_feedback(item_id: String, shakes: int, caught: bool) -> void:
 	ball.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	ball.pivot_offset = ball.size * 0.5
 	battle_effect_layer.add_child(ball)
+	AudioManager.play_sfx("throw")
 
 	await get_tree().create_timer(0.18).timeout
 	var tween := create_tween()
@@ -1570,6 +1597,7 @@ func _play_capture_feedback(item_id: String, shakes: int, caught: bool) -> void:
 
 	if caught:
 		message_label.text = _text("capture_click")
+		AudioManager.play_sfx("success")
 		var caught_tween := create_tween()
 		caught_tween.tween_property(ball, "modulate", Color(1, 1, 1, 0.0), 0.22).set_delay(0.15)
 		caught_tween.tween_callback(ball.queue_free)
@@ -1577,6 +1605,7 @@ func _play_capture_feedback(item_id: String, shakes: int, caught: bool) -> void:
 		return
 
 	message_label.text = _text("capture_failed") % str(enemy_pokemon.get("name", "Pokemon"))
+	AudioManager.play_sfx("fail")
 	var break_tween := create_tween()
 	break_tween.set_parallel(true)
 	break_tween.tween_property(ball, "scale", Vector2(1.45, 1.45), 0.18)

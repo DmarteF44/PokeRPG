@@ -296,7 +296,7 @@ func _show_new_game() -> void:
 	starter_buttons.clear()
 
 	var popup := _create_popup(_text("new_game"), 42.0, 560.0)
-	var scroll := ScrollContainer.new()
+	var scroll := TouchScrollContainer.new()
 	scroll.name = "NewGameScroll"
 	scroll.position = Vector2(28, 112)
 	scroll.size = Vector2(304, 420)
