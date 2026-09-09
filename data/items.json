@@ -671,8 +671,8 @@
       "field",
       "pokemon_selection"
     ],
-    "description_en": "Cures any status condition (paralysis, poison, sleep, burn, freeze, confusion) on one Pokemon.",
-    "description_pt": "Cura qualquer condicao de status (paralisia, veneno, sono, queimadura, congelamento, confusao) de um Pokemon.",
+    "description_en": "Cures any status condition on one Pokemon.",
+    "description_pt": "Cura qualquer condicao de status de um Pokemon.",
     "icon_path": "res://assets/items/potions/full_heal.png"
   },
   {
