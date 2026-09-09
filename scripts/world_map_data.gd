@@ -17,6 +17,12 @@ const MAP_ENCOUNTERS_PATH = "res://data/map_encounters.json"
 # temporarily via items, but never guarantees a hit.
 const SHINY_BASE_CHANCE := 1.0 / 512.0
 const BLACK_BASE_CHANCE := 1.0 / 1024.0
+# Alpha (PokeRPG adaptation of Legends: Arceus' Alpha Pokemon) is a
+# noticeably-larger, tougher-to-catch encounter, not a top-tier rarity like
+# Shiny/Black - real "how often can you find one" varies a lot per game, so
+# this is a deliberate PokeRPG balance choice, independent of and stackable
+# with Shiny/Black (see _roll_variant).
+const ALPHA_BASE_CHANCE := 1.0 / 150.0
 
 static var _map_encounters_cache := {}
 
@@ -453,15 +459,17 @@ static func _lava_item_table() -> Array:
 static func _roll_variant(pokemon: Dictionary, variant_modifiers: Dictionary) -> void:
 	var shiny_multiplier := maxf(1.0, float(variant_modifiers.get("shiny_multiplier", 1.0)))
 	var black_multiplier := maxf(1.0, float(variant_modifiers.get("black_multiplier", 1.0)))
+	var alpha_multiplier := maxf(1.0, float(variant_modifiers.get("alpha_multiplier", 1.0)))
 	pokemon["shiny"] = randf() < SHINY_BASE_CHANCE * shiny_multiplier
 	pokemon["black"] = randf() < BLACK_BASE_CHANCE * black_multiplier
+	pokemon["alpha"] = randf() < ALPHA_BASE_CHANCE * alpha_multiplier
 
 
 static func _starter_pokemon(pokemon_id: String, level: int, variant_modifiers: Dictionary = {}) -> Dictionary:
 	var pokemon := PokemonHelpers.starter_save_data(pokemon_id)
 	pokemon["level"] = maxi(1, level)
 	_roll_variant(pokemon, variant_modifiers)
-	var stats := PokemonHelpers.stats_for_level(pokemon_id, int(pokemon["level"]), bool(pokemon.get("black", false)))
+	var stats := PokemonHelpers.stats_for_level(pokemon_id, int(pokemon["level"]), bool(pokemon.get("black", false)), bool(pokemon.get("alpha", false)))
 	pokemon["max_hp"] = int(stats.get("max_hp", pokemon.get("max_hp", 1)))
 	pokemon["hp"] = int(pokemon["max_hp"])
 	pokemon["attack"] = int(stats.get("attack", pokemon.get("attack", 1)))

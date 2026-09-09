@@ -535,7 +535,10 @@ func _variant_modifiers() -> Dictionary:
 	var black_multiplier := encounter_bonus
 	if int(save_data.get("black_boost_until", 0)) > now:
 		black_multiplier *= 3.0
-	return {"shiny_multiplier": shiny_multiplier, "black_multiplier": black_multiplier}
+	var alpha_multiplier := encounter_bonus
+	if int(save_data.get("alpha_boost_until", 0)) > now:
+		alpha_multiplier *= 3.0
+	return {"shiny_multiplier": shiny_multiplier, "black_multiplier": black_multiplier, "alpha_multiplier": alpha_multiplier}
 
 
 func _energy_text() -> String:

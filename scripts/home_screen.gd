@@ -59,6 +59,8 @@ const TEXT = {
 		"nickname": "Nickname",
 		"rename": "Rename",
 		"clear_nickname": "Clear Nickname",
+		"purify": "Purify",
+		"purified_message": "%s was purified! It's no longer Black/Possuido, and feels much closer to you.",
 		"send_to_team": "To Team",
 		"send_to_storage": "To Storage",
 		"change_move": "Change",
@@ -155,6 +157,7 @@ const TEXT = {
 		"debug_variants": "Variants (slot 1)",
 		"debug_force_shiny": "Force Shiny",
 		"debug_force_black": "Force Black",
+		"debug_force_alpha": "Force Alpha",
 		"debug_force_normal": "Force Normal",
 		"debug_evolved": "Evolved: %s -> %s",
 		"debug_could_learn": "Could learn %s (use Moves to add it)",
@@ -336,6 +339,8 @@ const TEXT = {
 		"nickname": "Apelido",
 		"rename": "Renomear",
 		"clear_nickname": "Limpar apelido",
+		"purify": "Purificar",
+		"purified_message": "%s foi purificado! Não é mais Black/Possuído, e está muito mais próximo de você.",
 		"send_to_team": "Para o time",
 		"send_to_storage": "Para Storage",
 		"change_move": "Alterar",
@@ -432,6 +437,7 @@ const TEXT = {
 		"debug_variants": "Variantes (slot 1)",
 		"debug_force_shiny": "Forçar Shiny",
 		"debug_force_black": "Forçar Black",
+		"debug_force_alpha": "Forçar Alpha",
 		"debug_force_normal": "Forçar Normal",
 		"debug_evolved": "Evoluiu: %s -> %s",
 		"debug_could_learn": "Poderia aprender %s (use Movimentos para adicionar)",
@@ -1945,10 +1951,11 @@ func _add_collection_details(parent: Control, y: float) -> float:
 		UI.add_panel_label(parent, _text("empty_slot"), Vector2(0, y), Vector2(296, 52), 14, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "NoSelection")
 		return y + 64.0
 
+	var is_black := bool(pokemon.get("black", false))
 	var panel := Panel.new()
 	panel.name = "CollectionDetails"
 	panel.position = Vector2(0, y)
-	panel.size = Vector2(296, 476)
+	panel.size = Vector2(296, 476 + (34.0 if is_black else 0.0))
 	parent.add_child(panel)
 	UI.style_panel_button(panel, Color(0.88, 0.94, 0.98), Color(0.34, 0.50, 0.62), 2)
 	PokemonHelpers.add_animated_sprite(panel, pokemon, Vector2(10, 10), Vector2(72, 72), false, "DetailSprite")
@@ -1975,7 +1982,12 @@ func _add_collection_details(parent: Control, y: float) -> float:
 	_add_collection_moves(panel, pokemon, Vector2(12, 236))
 	_add_collection_name_editor(panel, pokemon, Vector2(12, 340))
 	_add_collection_action_buttons(panel, Vector2(12, 416))
-	return y + 520.0
+	if is_black:
+		# The action-buttons block above ends at y=442 (storage source) or
+		# y=476 (team source, which has an extra "send to storage" row) -
+		# placed past both so this never overlaps whichever set is showing.
+		_add_small_button(panel, _text("purify"), Vector2(12, 480), Vector2(272, 26), Callable(self, "_purify_collection_pokemon").bind(selected_collection_source, selected_collection_index), "Purify")
+	return y + 520.0 + (34.0 if is_black else 0.0)
 
 
 func _add_collection_moves(parent: Control, pokemon: Dictionary, pos: Vector2) -> void:
@@ -2108,6 +2120,27 @@ func _rename_collection_pokemon(source: String, index: int, input: LineEdit) -> 
 	pokemon["name"] = nickname if nickname != "" else str(pokemon.get("species", "Pokemon"))
 	_save_collection_pokemon(source, index, pokemon)
 	_show_pokemon_detail(source, index)
+
+
+func _purify_collection_pokemon(source: String, index: int) -> void:
+	var pokemon := _collection_pokemon(source, index)
+	if pokemon.is_empty() or not bool(pokemon.get("black", false)):
+		return
+	pokemon["black"] = false
+	# Permanent record that this individual Pokemon was purified - kept
+	# separate from "black" itself so it's never mistaken for still being
+	# Black/Possuido, and never erased just because the Pokemon is normal
+	# again now (see the expansion request: "nao apagar completamente o
+	# historico do Pokemon").
+	pokemon["purified"] = true
+	pokemon["friendship"] = maxi(int(pokemon.get("friendship", PokemonHelpers.DEFAULT_FRIENDSHIP)), 200)
+	var stats := PokemonHelpers.stats_for_level(str(pokemon.get("id", "")), int(pokemon.get("level", 1)), false, bool(pokemon.get("alpha", false)))
+	for stat_key in ["max_hp", "attack", "defense", "sp_attack", "sp_defense", "speed"]:
+		pokemon[stat_key] = int(stats.get(stat_key, pokemon.get(stat_key, 1)))
+	pokemon["hp"] = mini(int(pokemon.get("hp", 1)), int(pokemon["max_hp"]))
+	_save_collection_pokemon(source, index, pokemon)
+	_show_pokemon_detail(source, index)
+	UI.show_message_popup(self, _text("purify"), _text("purified_message") % str(pokemon.get("name", "")))
 
 
 func _clear_collection_nickname(source: String, index: int) -> void:
@@ -2391,6 +2424,7 @@ func _show_pokedex() -> void:
 	var researched_ids := _researched_species_ids()
 	var owned_shiny_ids := _owned_shiny_pokemon_ids()
 	var owned_black_ids := _owned_black_pokemon_ids()
+	var owned_alpha_ids := _owned_alpha_pokemon_ids()
 
 	var row_style := StyleBoxFlat.new()
 	row_style.bg_color = Color(0.86, 0.92, 0.96)
@@ -2405,7 +2439,7 @@ func _show_pokedex() -> void:
 	# render/respond in between instead of hanging until every row exists.
 	const ROWS_PER_BATCH := 60
 	for i in range(species_ids.size()):
-		_add_pokedex_entry(content, str(species_ids[i]), i, seen_ids, owned_ids, researched_ids, owned_shiny_ids, owned_black_ids, row_style)
+		_add_pokedex_entry(content, str(species_ids[i]), i, seen_ids, owned_ids, researched_ids, owned_shiny_ids, owned_black_ids, owned_alpha_ids, row_style)
 		if i % ROWS_PER_BATCH == ROWS_PER_BATCH - 1:
 			await get_tree().process_frame
 			if not is_instance_valid(content):
@@ -2647,7 +2681,7 @@ func _add_empty_team_slot(parent: Control, slot: int, y: float, slot_height: flo
 	UI.add_panel_label(panel, "%s %d" % [_text("empty_slot"), slot], Vector2(12, 0), Vector2(252, slot_height), 15, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Empty")
 
 
-func _add_pokedex_entry(parent: Control, pokemon_id: String, index: int, seen_ids: Array, owned_ids: Array, researched_ids: Array, owned_shiny_ids: Array, owned_black_ids: Array, row_style: StyleBoxFlat) -> void:
+func _add_pokedex_entry(parent: Control, pokemon_id: String, index: int, seen_ids: Array, owned_ids: Array, researched_ids: Array, owned_shiny_ids: Array, owned_black_ids: Array, owned_alpha_ids: Array, row_style: StyleBoxFlat) -> void:
 	var seen := seen_ids.has(pokemon_id)
 	var owned := owned_ids.has(pokemon_id)
 	var registered := seen or owned
@@ -2691,6 +2725,8 @@ func _add_pokedex_entry(parent: Control, pokemon_id: String, index: int, seen_id
 	var type_text := _pokemon_types_text(definition) if owned else "???"
 	var status_key := "owned" if owned else ("seen" if seen else "unknown")
 	var status_text := _text(status_key)
+	if owned_alpha_ids.has(pokemon_id):
+		status_text += " ⬢Alpha"
 	if owned_black_ids.has(pokemon_id):
 		status_text += " ◆Black"
 	elif owned_shiny_ids.has(pokemon_id):
@@ -2810,6 +2846,12 @@ func _owned_shiny_pokemon_ids() -> Array:
 func _owned_black_pokemon_ids() -> Array:
 	_refresh_save_data()
 	var value = save_data.get("owned_black_pokemon", [])
+	return value if typeof(value) == TYPE_ARRAY else []
+
+
+func _owned_alpha_pokemon_ids() -> Array:
+	_refresh_save_data()
+	var value = save_data.get("owned_alpha_pokemon", [])
 	return value if typeof(value) == TYPE_ARRAY else []
 
 
@@ -3335,8 +3377,11 @@ func _debug_build_variants_rows(parent: Control, y: float) -> float:
 		[_text("debug_force_shiny"), Callable(self, "_debug_force_variant").bind("shiny")],
 		[_text("debug_force_black"), Callable(self, "_debug_force_variant").bind("black")],
 	])
-	return _add_debug_button_row(parent, y, [
+	y = _add_debug_button_row(parent, y, [
+		[_text("debug_force_alpha"), Callable(self, "_debug_force_variant").bind("alpha")],
 		[_text("debug_force_normal"), Callable(self, "_debug_force_variant").bind("normal")],
+	])
+	return _add_debug_button_row(parent, y, [
 		[_text("debug_add") % "shiny_charm", Callable(self, "_debug_add_item_x1").bind("shiny_charm")],
 	])
 
@@ -3450,19 +3495,27 @@ func _debug_force_variant(variant: String) -> void:
 		UI.show_message_popup(self, _text("debug_variants"), _text("debug_no_change"))
 		return
 	var pokemon: Dictionary = PokemonHelpers.normalize_pokemon(team[0])
-	pokemon["shiny"] = variant == "shiny"
-	pokemon["black"] = variant == "black"
+	if variant == "normal":
+		pokemon["shiny"] = false
+		pokemon["black"] = false
+		pokemon["alpha"] = false
+	else:
+		# Shiny/Black/Alpha are independent flags (see PokemonHelpers -
+		# Alpha especially is meant to combine with either), so forcing one
+		# only toggles that one instead of clearing the others.
+		pokemon[variant] = not bool(pokemon.get(variant, false))
 	# normalize_pokemon() preserves already-stored stats (so a save reload
 	# doesn't silently re-roll them) - forcing a variant here has to
 	# recompute from the level curve directly, same as a real level-up does,
-	# so the Black stat bonus actually takes effect immediately.
-	var stats := PokemonHelpers.stats_for_level(str(pokemon.get("id", "")), int(pokemon.get("level", 1)), pokemon["black"])
+	# so the Black/Alpha stat bonus actually takes effect immediately.
+	var stats := PokemonHelpers.stats_for_level(str(pokemon.get("id", "")), int(pokemon.get("level", 1)), bool(pokemon.get("black", false)), bool(pokemon.get("alpha", false)))
 	for stat_key in ["max_hp", "attack", "defense", "sp_attack", "sp_defense", "speed"]:
 		pokemon[stat_key] = int(stats.get(stat_key, pokemon.get(stat_key, 1)))
 	pokemon["hp"] = mini(int(pokemon["hp"]), int(pokemon["max_hp"]))
 	team[0] = pokemon
 	_update_debug_save({"team": team})
-	UI.show_message_popup(self, _text("debug_variants"), "%s -> %s" % [str(pokemon.get("name", "")), variant])
+	var current_tag := PokemonHelpers.variant_tag(pokemon)
+	UI.show_message_popup(self, _text("debug_variants"), "%s%s" % [str(pokemon.get("name", "")), current_tag if current_tag != "" else " (normal)"])
 
 
 func _debug_add_item_x1(item_id: String) -> void:

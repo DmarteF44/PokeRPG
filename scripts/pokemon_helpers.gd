@@ -298,6 +298,13 @@ static func normalize_pokemon(value: Dictionary, fallback_id: String = DEFAULT_S
 	normalized["gender"] = str(normalized.get("gender", definition.get("gender", "Unknown")))
 	normalized["shiny"] = bool(normalized.get("shiny", false))
 	normalized["black"] = bool(normalized.get("black", false))
+	normalized["alpha"] = bool(normalized.get("alpha", false))
+	normalized["lucky"] = bool(normalized.get("lucky", false))
+	# Permanent record of a past purification (see PurifyCollectionPokemon in
+	# home_screen.gd) - unlike the other flags this is never reset back to
+	# false once true, since it's meant to survive the Pokemon no longer
+	# being Black.
+	normalized["purified"] = bool(normalized.get("purified", false))
 	normalized["types"] = _normalized_types(definition.get("types", normalized.get("types", ["Fire"])))
 	normalized["max_hp"] = maxi(1, int(normalized.get("max_hp", base_stats.get("hp", 39))))
 	normalized["hp"] = clampi(int(normalized.get("hp", normalized["max_hp"])), 0, int(normalized["max_hp"]))
@@ -365,18 +372,24 @@ static func xp_to_next_level_for(level: int) -> int:
 
 
 const BLACK_STAT_BONUS := 0.12
+# Alpha (PokeRPG adaptation of Legends: Arceus' Alpha Pokemon): exceptionally
+# large and powerful, so its bonus is bigger than Black's - but still a flat
+# curve bonus, not a separate species/form.
+const ALPHA_STAT_BONUS := 0.20
 
-# is_black applies a flat stat bonus (see VARIANTS.md / section 26 of the
-# expansion request: "mais forte, mas nao destruir o jogo") on top of the
-# normal level curve. Always recomputed from the pure base curve here rather
-# than multiplying a previously-stored stat value, so calling this again
-# (e.g. on every level-up recalculation) can never compound the bonus.
-static func stats_for_level(pokemon_id: String, level: int, is_black: bool = false) -> Dictionary:
+# is_black/is_alpha apply a flat stat bonus (see VARIANTS.md / section 26 of
+# the expansion request: "mais forte, mas nao destruir o jogo") on top of the
+# normal level curve. Additive, not multiplicative, when both apply (a Black
+# Alpha isn't absurdly stacked). Always recomputed from the pure base curve
+# here rather than multiplying a previously-stored stat value, so calling
+# this again (e.g. on every level-up recalculation) can never compound the
+# bonus.
+static func stats_for_level(pokemon_id: String, level: int, is_black: bool = false, is_alpha: bool = false) -> Dictionary:
 	var definition := get_definition(pokemon_id)
 	var base_stats: Dictionary = definition.get("base_stats", {})
 	var safe_level := clampi(level, 1, MAX_LEVEL)
 	var bonus_level := maxi(0, safe_level - 5)
-	var multiplier := 1.0 + BLACK_STAT_BONUS if is_black else 1.0
+	var multiplier := 1.0 + (BLACK_STAT_BONUS if is_black else 0.0) + (ALPHA_STAT_BONUS if is_alpha else 0.0)
 	return {
 		"max_hp": maxi(1, int(round((int(base_stats.get("hp", 39)) + bonus_level * 3) * multiplier))),
 		"attack": maxi(1, int(round((int(base_stats.get("attack", 50)) + int(floor(float(bonus_level) * float(base_stats.get("attack", 50)) / 50.0))) * multiplier))),
@@ -490,6 +503,10 @@ static func boost_stat(pokemon: Dictionary, stat_key: String, amount: int = STAT
 
 static func grant_xp(pokemon: Dictionary, amount: int, evolution_context: Dictionary = {}) -> Dictionary:
 	var updated := normalize_pokemon(pokemon)
+	# Lucky's real-game benefit is training-related (Pokemon GO's reduced
+	# powerup cost) - the closest equivalent here is training faster.
+	if amount > 0 and bool(updated.get("lucky", false)):
+		amount = int(round(float(amount) * (1.0 + LUCKY_XP_BONUS)))
 	var result := {
 		"pokemon": updated,
 		"xp_gained": 0,
@@ -675,7 +692,28 @@ static func add_animated_sprite(parent: Node, pokemon: Dictionary, pos: Vector2,
 	var frames := frame_textures(str(pokemon.get("id", DEFAULT_STARTER_ID)), use_back)
 	texture_rect.set_frames(frames, _fallback_texture(pokemon), ANIMATION_LOOP_SECONDS)
 	texture_rect.material = variant_material(pokemon)
+	# Alpha is "exceptionally large" (Legends: Arceus) - a size bump is
+	# orthogonal to the shiny/black recolor shader, so it stacks with either
+	# with no conflict. Pivoted at center so it grows in place instead of
+	# shifting out of its slot.
+	if bool(pokemon.get("alpha", false)):
+		texture_rect.pivot_offset = node_size / 2.0
+		texture_rect.scale = Vector2(ALPHA_SPRITE_SCALE, ALPHA_SPRITE_SCALE)
 	return texture_rect
+
+
+const ALPHA_SPRITE_SCALE := 1.18
+
+# ADAPTACAO DO POKERPG: real Lucky Pokemon (Pokemon GO) are a trade
+# byproduct; there is no trading here, so this rolls independently on
+# capture instead (see battle_scene.gd _capture_enemy). Not tied to
+# rarity/Shiny/Alpha at all - a Lucky catch is just a nice surprise, not a
+# top-tier find, so it's meaningfully more common than Shiny.
+const LUCKY_CHANCE := 1.0 / 40.0
+const LUCKY_XP_BONUS := 0.10
+
+static func roll_lucky(pokemon: Dictionary) -> void:
+	pokemon["lucky"] = randf() < LUCKY_CHANCE
 
 
 const SHINY_SHADER_PATH = "res://assets/shaders/pokemon_shiny.gdshader"
@@ -689,22 +727,29 @@ static var _black_material: ShaderMaterial
 # with no per-species or per-generation code. Returns null for a normal
 # Pokemon (no material override, cheapest case).
 # Short text badge for name labels that can't rely on the shader-recolored
-# sprite alone to convey variant (list rows, small icons). Black takes
-# precedence when a Pokemon somehow rolled both (see variant_material).
+# sprite/sprite-scale alone to convey variant (list rows, small icons).
+# Alpha and Black/Shiny are independent flags (see _roll_variant), so all
+# that apply are shown together rather than picking just one.
 static func variant_tag(pokemon: Dictionary) -> String:
+	var tag := ""
+	if bool(pokemon.get("alpha", false)):
+		tag += " ⬢Alpha"
+	if bool(pokemon.get("lucky", false)):
+		tag += " ☘Lucky"
 	if bool(pokemon.get("black", false)):
-		return " ◆Black"
-	if bool(pokemon.get("shiny", false)):
-		return " ✨"
-	return ""
+		tag += " ◆Black"
+	elif bool(pokemon.get("shiny", false)):
+		tag += " ✨"
+	return tag
 
 
 # Modest, configurable XP/value bonus for a rarer catch - deliberately
-# small (see "nao exagerar" in the expansion request) since Black already
-# gets a stat bonus (stats_for_level's BLACK_STAT_BONUS) and Shiny is
-# purely cosmetic by design (rarity and power are kept separate).
+# small (see "nao exagerar" in the expansion request) since Black/Alpha
+# already get a stat bonus (stats_for_level) and Shiny is purely cosmetic
+# by design (rarity and power are kept separate).
 const SHINY_REWARD_BONUS := 0.10
 const BLACK_REWARD_BONUS := 0.25
+const ALPHA_REWARD_BONUS := 0.30
 
 static func _merge_id_list(value, pokemon_id: String) -> Array:
 	var ids := []
@@ -732,6 +777,8 @@ static func pokedex_seen_updates(pokemon: Dictionary, save_data: Dictionary) -> 
 		updates["seen_shiny_pokemon"] = _merge_id_list(save_data.get("seen_shiny_pokemon", []), pokemon_id)
 	if bool(pokemon.get("black", false)):
 		updates["seen_black_pokemon"] = _merge_id_list(save_data.get("seen_black_pokemon", []), pokemon_id)
+	if bool(pokemon.get("alpha", false)):
+		updates["seen_alpha_pokemon"] = _merge_id_list(save_data.get("seen_alpha_pokemon", []), pokemon_id)
 	return updates
 
 
@@ -744,15 +791,20 @@ static func pokedex_owned_updates(pokemon: Dictionary, save_data: Dictionary) ->
 		updates["owned_shiny_pokemon"] = _merge_id_list(save_data.get("owned_shiny_pokemon", []), pokemon_id)
 	if bool(pokemon.get("black", false)):
 		updates["owned_black_pokemon"] = _merge_id_list(save_data.get("owned_black_pokemon", []), pokemon_id)
+	if bool(pokemon.get("alpha", false)):
+		updates["owned_alpha_pokemon"] = _merge_id_list(save_data.get("owned_alpha_pokemon", []), pokemon_id)
 	return updates
 
 
 static func variant_reward_multiplier(pokemon: Dictionary) -> float:
+	var bonus := 0.0
+	if bool(pokemon.get("alpha", false)):
+		bonus += ALPHA_REWARD_BONUS
 	if bool(pokemon.get("black", false)):
-		return 1.0 + BLACK_REWARD_BONUS
-	if bool(pokemon.get("shiny", false)):
-		return 1.0 + SHINY_REWARD_BONUS
-	return 1.0
+		bonus += BLACK_REWARD_BONUS
+	elif bool(pokemon.get("shiny", false)):
+		bonus += SHINY_REWARD_BONUS
+	return 1.0 + bonus
 
 
 static func variant_material(pokemon: Dictionary):
@@ -1458,7 +1510,7 @@ static func _species_id_from_value(value: Dictionary, fallback_id: String) -> St
 
 static func _recalculate_stats(pokemon: Dictionary, old_max_hp_override: int = -1) -> void:
 	var old_max_hp := old_max_hp_override if old_max_hp_override > 0 else int(pokemon.get("max_hp", 1))
-	var new_stats := stats_for_level(str(pokemon.get("id", DEFAULT_STARTER_ID)), int(pokemon.get("level", 1)), bool(pokemon.get("black", false)))
+	var new_stats := stats_for_level(str(pokemon.get("id", DEFAULT_STARTER_ID)), int(pokemon.get("level", 1)), bool(pokemon.get("black", false)), bool(pokemon.get("alpha", false)))
 	var boosts := _normalized_stat_boosts(pokemon.get("stat_boosts", {}))
 	var new_max_hp := mini(stat_limit("max_hp"), int(new_stats.get("max_hp", old_max_hp)) + int(boosts.get("max_hp", 0)))
 	pokemon["max_hp"] = new_max_hp
