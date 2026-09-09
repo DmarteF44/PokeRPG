@@ -1,0 +1,119 @@
+{
+  "kanto_cup": {
+    "order": 1,
+    "implemented": true,
+    "name_en": "Kanto Cup",
+    "name_pt": "Copa Kanto",
+    "description_en": "A single-elimination tournament open to trainers who have proven themselves across Kanto's gyms.",
+    "description_pt": "Um torneio de eliminação direta aberto a treinadores que já provaram seu valor pelos ginásios de Kanto.",
+    "region": "Kanto",
+    "tier": "bronze",
+    "min_trainer_level": 20,
+    "requirements": {"min_badges": 3},
+    "entry_cost": 500,
+    "participant_count": 8,
+    "battle_format": "single",
+    "max_team_size": 6,
+    "items_allowed": true,
+    "heal_between_rounds": "full",
+    "repeatable": true,
+    "badge_id": "kanto_cup_badge",
+    "badge_name_en": "Kanto Cup Badge",
+    "badge_name_pt": "Insígnia da Copa Kanto",
+    "rounds": [
+      {
+        "name_en": "Quarterfinal",
+        "name_pt": "Quartas de Final",
+        "trainer_id": "cup_rival_shauna",
+        "rewards": {"money": 500, "xp": 100}
+      },
+      {
+        "name_en": "Semifinal",
+        "name_pt": "Semifinal",
+        "trainer_id": "cup_specialist_kai",
+        "rewards": {"money": 1000, "xp": 250}
+      },
+      {
+        "name_en": "Final",
+        "name_pt": "Final",
+        "trainer_id": "cup_champion_red",
+        "rewards": {"money": 2500, "xp": 500},
+        "is_final": true
+      }
+    ],
+    "first_completion_rewards": {"money": 2500, "xp": 500, "items": {"rare_candy": 2}},
+    "repeat_rewards": {"money": 2000, "xp": 300, "items": {"rare_candy": 1}}
+  },
+  "johto_cup": {
+    "order": 2,
+    "implemented": false,
+    "name_en": "Johto Cup",
+    "name_pt": "Copa Johto",
+    "description_en": "Coming soon - unlocks after progressing through Johto.",
+    "description_pt": "Em breve - desbloqueia com o progresso em Johto.",
+    "region": "Johto",
+    "tier": "silver",
+    "min_trainer_level": 35,
+    "requirements": {"min_badges": 8, "cups_completed": ["kanto_cup"]}
+  },
+  "hoenn_cup": {
+    "order": 3,
+    "implemented": false,
+    "name_en": "Hoenn Cup",
+    "name_pt": "Copa Hoenn",
+    "description_en": "Coming soon - unlocks after progressing through Hoenn.",
+    "description_pt": "Em breve - desbloqueia com o progresso em Hoenn.",
+    "region": "Hoenn",
+    "tier": "silver",
+    "min_trainer_level": 45,
+    "requirements": {"min_badges": 8, "cups_completed": ["johto_cup"]}
+  },
+  "international_cup": {
+    "order": 4,
+    "implemented": false,
+    "name_en": "International Cup",
+    "name_pt": "Copa Internacional",
+    "description_en": "Coming soon - a mixed-region tournament.",
+    "description_pt": "Em breve - um torneio com treinadores de várias regiões.",
+    "region": "",
+    "tier": "gold",
+    "min_trainer_level": 50,
+    "requirements": {"cups_completed": ["kanto_cup", "johto_cup", "hoenn_cup"]}
+  },
+  "champions_tournament": {
+    "order": 5,
+    "implemented": false,
+    "name_en": "Champions Tournament",
+    "name_pt": "Torneio dos Campeões",
+    "description_en": "Coming soon - face champions from every region.",
+    "description_pt": "Em breve - enfrente campeões de todas as regiões.",
+    "region": "",
+    "tier": "elite",
+    "min_trainer_level": 60,
+    "requirements": {"cups_completed": ["international_cup"]}
+  },
+  "special_tournaments": {
+    "order": 6,
+    "implemented": false,
+    "name_en": "Special Tournaments",
+    "name_pt": "Torneios Especiais",
+    "description_en": "Coming soon - themed cups (Monotype, Shiny, No Items, and more).",
+    "description_pt": "Em breve - copas temáticas (Monotipo, Shiny, Sem Itens, e mais).",
+    "region": "",
+    "tier": "elite",
+    "min_trainer_level": 40,
+    "requirements": {"cups_completed": ["kanto_cup"]}
+  },
+  "black_tournament": {
+    "order": 7,
+    "implemented": false,
+    "name_en": "Black Tournament",
+    "name_pt": "Torneio Negro",
+    "description_en": "Coming soon - an extreme late-game challenge.",
+    "description_pt": "Em breve - um desafio extremo de fim de jogo.",
+    "region": "",
+    "tier": "master",
+    "min_trainer_level": 70,
+    "requirements": {"cups_completed": ["champions_tournament"]}
+  }
+}

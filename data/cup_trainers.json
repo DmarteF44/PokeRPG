@@ -1,0 +1,51 @@
+{
+  "cup_rival_shauna": {
+    "name": "Shauna",
+    "title_en": "Rival Challenger",
+    "title_pt": "Rival Desafiante",
+    "region": "Kanto",
+    "specialty": "",
+    "trainer_level": 24,
+    "difficulty": "intermediate",
+    "ai_strategy": "balanced",
+    "team": [
+      {"species": "ivysaur", "level": 22},
+      {"species": "raichu", "level": 24},
+      {"species": "fearow", "level": 25}
+    ]
+  },
+  "cup_specialist_kai": {
+    "name": "Kai",
+    "title_en": "Fire Specialist",
+    "title_pt": "Especialista em Fogo",
+    "region": "Kanto",
+    "specialty": "Fire",
+    "trainer_level": 36,
+    "difficulty": "advanced",
+    "ai_strategy": "type_specialist",
+    "team": [
+      {"species": "magmar", "level": 33},
+      {"species": "ninetales", "level": 34, "variant": {"shiny": true}},
+      {"species": "arcanine", "level": 36},
+      {"species": "charizard", "level": 38}
+    ]
+  },
+  "cup_champion_red": {
+    "name": "Red",
+    "title_en": "Champion",
+    "title_pt": "Campeão",
+    "region": "Kanto",
+    "specialty": "",
+    "trainer_level": 60,
+    "difficulty": "champion",
+    "ai_strategy": "champion",
+    "team": [
+      {"species": "pikachu", "level": 56},
+      {"species": "venusaur", "level": 58},
+      {"species": "blastoise", "level": 58},
+      {"species": "snorlax", "level": 58},
+      {"species": "lapras", "level": 60},
+      {"species": "charizard", "level": 60}
+    ]
+  }
+}
