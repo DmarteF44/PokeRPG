@@ -1,4 +1,144 @@
 {
+  "basculin-blue": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/basculin-blue/back/",
+    "back_gif_source": "imgi_484_basculin-blue.gif",
+    "base_species": "basculin",
+    "category": "conditional",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/basculin-blue/front/",
+    "front_gif_source": "imgi_122_basculin-blue.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/basculin-blue.png",
+    "name_en": "Basculin (Blue-Striped)",
+    "name_pt": "Basculin (Listras Azuis)",
+    "region": "",
+    "short_label": "Blue",
+    "types": [
+      "Water"
+    ]
+  },
+  "burmy-sandy": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/burmy-sandy/back/",
+    "back_gif_source": "imgi_426_burmy-sandy.gif",
+    "base_species": "burmy",
+    "category": "conditional",
+    "evolves_to_form": "wormadam-sandy",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/burmy-sandy/front/",
+    "front_gif_source": "imgi_78_burmy-sandy.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/burmy-sandy.png",
+    "name_en": "Burmy (Sandy Cloak)",
+    "name_pt": "Burmy (Manto Arenoso)",
+    "region": "",
+    "short_label": "Sandy",
+    "types": [
+      "Bug"
+    ]
+  },
+  "burmy-trash": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/burmy-trash/back/",
+    "back_gif_source": "imgi_428_burmy-trash.gif",
+    "base_species": "burmy",
+    "category": "conditional",
+    "evolves_to_form": "wormadam-trash",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/burmy-trash/front/",
+    "front_gif_source": "imgi_80_burmy-trash.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/burmy-trash.png",
+    "name_en": "Burmy (Trash Cloak)",
+    "name_pt": "Burmy (Manto de Lixo)",
+    "region": "",
+    "short_label": "Trash",
+    "types": [
+      "Bug"
+    ]
+  },
+  "castform-rainy": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/castform-rainy/back/",
+    "back_gif_source": "imgi_626_castform-rainy.gif",
+    "base_species": "castform",
+    "category": "conditional",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/castform-rainy/front/",
+    "front_gif_source": "imgi_264_castform-rainy.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/castform-rainy.png",
+    "name_en": "Castform (Rainy)",
+    "name_pt": "Castform (Chuvoso)",
+    "region": "",
+    "short_label": "Rainy",
+    "types": [
+      "Water"
+    ]
+  },
+  "castform-snowy": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/castform-snowy/back/",
+    "back_gif_source": "imgi_628_castform-snowy.gif",
+    "base_species": "castform",
+    "category": "conditional",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/castform-snowy/front/",
+    "front_gif_source": "imgi_266_castform-snowy.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/castform-snowy.png",
+    "name_en": "Castform (Snowy)",
+    "name_pt": "Castform (Nevado)",
+    "region": "",
+    "short_label": "Snowy",
+    "types": [
+      "Ice"
+    ]
+  },
+  "castform-sunny": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/castform-sunny/back/",
+    "back_gif_source": "imgi_624_castform-sunny.gif",
+    "base_species": "castform",
+    "category": "conditional",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/castform-sunny/front/",
+    "front_gif_source": "imgi_262_castform-sunny.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/castform-sunny.png",
+    "name_en": "Castform (Sunny)",
+    "name_pt": "Castform (Ensolarado)",
+    "region": "",
+    "short_label": "Sunny",
+    "types": [
+      "Fire"
+    ]
+  },
+  "cherrim-sunshine": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/cherrim-sunshine/back/",
+    "back_gif_source": "imgi_460_cherrim-sunshine.gif",
+    "base_species": "cherrim",
+    "category": "conditional",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/cherrim-sunshine/front/",
+    "front_gif_source": "imgi_112_cherrim-sunshine.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/cherrim-sunshine.png",
+    "name_en": "Cherrim (Sunshine)",
+    "name_pt": "Cherrim (Radiante)",
+    "region": "",
+    "short_label": "Sunshine",
+    "types": [
+      "Grass"
+    ]
+  },
   "corsola-galar": {
     "back_frame_count": 8,
     "back_frames_path": "res://assets/pokemon/forms/corsola-galar/back/",
@@ -80,6 +220,69 @@
       "Ice"
     ]
   },
+  "deerling-autumn": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/deerling-autumn/back/",
+    "back_gif_source": "imgi_560_deerling-autumn.gif",
+    "base_species": "deerling",
+    "category": "conditional",
+    "evolves_to_form": "sawsbuck-autumn",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/deerling-autumn/front/",
+    "front_gif_source": "imgi_198_deerling-autumn.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/deerling-autumn.png",
+    "name_en": "Deerling (Autumn)",
+    "name_pt": "Deerling (Outono)",
+    "region": "",
+    "short_label": "Autumn",
+    "types": [
+      "Normal",
+      "Grass"
+    ]
+  },
+  "deerling-summer": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/deerling-summer/back/",
+    "back_gif_source": "imgi_558_deerling-summer.gif",
+    "base_species": "deerling",
+    "category": "conditional",
+    "evolves_to_form": "sawsbuck-summer",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/deerling-summer/front/",
+    "front_gif_source": "imgi_196_deerling-summer.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/deerling-summer.png",
+    "name_en": "Deerling (Summer)",
+    "name_pt": "Deerling (Verão)",
+    "region": "",
+    "short_label": "Summer",
+    "types": [
+      "Normal",
+      "Grass"
+    ]
+  },
+  "deerling-winter": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/deerling-winter/back/",
+    "back_gif_source": "imgi_562_deerling-winter.gif",
+    "base_species": "deerling",
+    "category": "conditional",
+    "evolves_to_form": "sawsbuck-winter",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/deerling-winter/front/",
+    "front_gif_source": "imgi_200_deerling-winter.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/deerling-winter.png",
+    "name_en": "Deerling (Winter)",
+    "name_pt": "Deerling (Inverno)",
+    "region": "",
+    "short_label": "Winter",
+    "types": [
+      "Normal",
+      "Grass"
+    ]
+  },
   "diglett-alola": {
     "back_frame_count": 8,
     "back_frames_path": "res://assets/pokemon/forms/diglett-alola/back/",
@@ -142,6 +345,27 @@
       "Fighting"
     ]
   },
+  "gastrodon-east": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/gastrodon-east/back/",
+    "back_gif_source": "imgi_468_gastrodon-east.gif",
+    "base_species": "gastrodon",
+    "category": "conditional",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/gastrodon-east/front/",
+    "front_gif_source": "imgi_120_gastrodon-east.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/gastrodon-east.png",
+    "name_en": "Gastrodon (East Sea)",
+    "name_pt": "Gastrodon (Mar Leste)",
+    "region": "",
+    "short_label": "East",
+    "types": [
+      "Water",
+      "Ground"
+    ]
+  },
   "linoone-galar": {
     "back_frame_count": 8,
     "back_frames_path": "res://assets/pokemon/forms/linoone-galar/back/",
@@ -161,6 +385,46 @@
     "types": [
       "Dark",
       "Normal"
+    ]
+  },
+  "lycanroc-dusk": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/lycanroc-dusk/back/",
+    "back_gif_source": "imgi_330_lycanroc-dusk.gif",
+    "base_species": "lycanroc",
+    "category": "conditional",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/lycanroc-dusk/front/",
+    "front_gif_source": "imgi_66_lycanroc-dusk.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/lycanroc-dusk.png",
+    "name_en": "Lycanroc (Dusk Form)",
+    "name_pt": "Lycanroc (Forma do Crepúsculo)",
+    "region": "",
+    "short_label": "Dusk",
+    "types": [
+      "Rock"
+    ]
+  },
+  "lycanroc-midnight": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/lycanroc-midnight/back/",
+    "back_gif_source": "imgi_328_lycanroc-midnight.gif",
+    "base_species": "lycanroc",
+    "category": "conditional",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/lycanroc-midnight/front/",
+    "front_gif_source": "imgi_64_lycanroc-midnight.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/lycanroc-midnight.png",
+    "name_en": "Lycanroc (Midnight Form)",
+    "name_pt": "Lycanroc (Forma da Meia-Noite)",
+    "region": "",
+    "short_label": "Midnight",
+    "types": [
+      "Rock"
     ]
   },
   "meowth-alola": {
@@ -243,6 +507,69 @@
     "types": [
       "Ice",
       "Fairy"
+    ]
+  },
+  "oricorio-pau": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/oricorio-pau/back/",
+    "back_gif_source": "imgi_314_oricorio-pau.gif",
+    "base_species": "oricorio",
+    "category": "conditional",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/oricorio-pau/front/",
+    "front_gif_source": "imgi_50_oricorio-pau.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/oricorio-pau.png",
+    "name_en": "Oricorio (Pa'u Style)",
+    "name_pt": "Oricorio (Estilo Pa'u)",
+    "region": "",
+    "short_label": "Pa'u",
+    "types": [
+      "Psychic",
+      "Flying"
+    ]
+  },
+  "oricorio-pompom": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/oricorio-pompom/back/",
+    "back_gif_source": "imgi_312_oricorio-pompom.gif",
+    "base_species": "oricorio",
+    "category": "conditional",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/oricorio-pompom/front/",
+    "front_gif_source": "imgi_48_oricorio-pompom.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/oricorio-pompom.png",
+    "name_en": "Oricorio (Pom-Pom Style)",
+    "name_pt": "Oricorio (Estilo Pom-Pom)",
+    "region": "",
+    "short_label": "Pom-Pom",
+    "types": [
+      "Electric",
+      "Flying"
+    ]
+  },
+  "oricorio-sensu": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/oricorio-sensu/back/",
+    "back_gif_source": "imgi_316_oricorio-sensu.gif",
+    "base_species": "oricorio",
+    "category": "conditional",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/oricorio-sensu/front/",
+    "front_gif_source": "imgi_52_oricorio-sensu.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/oricorio-sensu.png",
+    "name_en": "Oricorio (Sensu Style)",
+    "name_pt": "Oricorio (Estilo Sensu)",
+    "region": "",
+    "short_label": "Sensu",
+    "types": [
+      "Ghost",
+      "Flying"
     ]
   },
   "persian-alola": {
@@ -432,6 +759,89 @@
       "Water"
     ]
   },
+  "sawsbuck-autumn": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/sawsbuck-autumn/back/",
+    "back_gif_source": "imgi_568_sawsbuck-autumn.gif",
+    "base_species": "sawsbuck",
+    "category": "conditional",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/sawsbuck-autumn/front/",
+    "front_gif_source": "imgi_206_sawsbuck-autumn.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/sawsbuck-autumn.png",
+    "name_en": "Sawsbuck (Autumn)",
+    "name_pt": "Sawsbuck (Outono)",
+    "region": "",
+    "short_label": "Autumn",
+    "types": [
+      "Normal",
+      "Grass"
+    ]
+  },
+  "sawsbuck-summer": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/sawsbuck-summer/back/",
+    "back_gif_source": "imgi_566_sawsbuck-summer.gif",
+    "base_species": "sawsbuck",
+    "category": "conditional",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/sawsbuck-summer/front/",
+    "front_gif_source": "imgi_204_sawsbuck-summer.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/sawsbuck-summer.png",
+    "name_en": "Sawsbuck (Summer)",
+    "name_pt": "Sawsbuck (Verão)",
+    "region": "",
+    "short_label": "Summer",
+    "types": [
+      "Normal",
+      "Grass"
+    ]
+  },
+  "sawsbuck-winter": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/sawsbuck-winter/back/",
+    "back_gif_source": "imgi_570_sawsbuck-winter.gif",
+    "base_species": "sawsbuck",
+    "category": "conditional",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/sawsbuck-winter/front/",
+    "front_gif_source": "imgi_208_sawsbuck-winter.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/sawsbuck-winter.png",
+    "name_en": "Sawsbuck (Winter)",
+    "name_pt": "Sawsbuck (Inverno)",
+    "region": "",
+    "short_label": "Winter",
+    "types": [
+      "Normal",
+      "Grass"
+    ]
+  },
+  "shellos-east": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/shellos-east/back/",
+    "back_gif_source": "imgi_464_shellos-east.gif",
+    "base_species": "shellos",
+    "category": "conditional",
+    "evolves_to_form": "gastrodon-east",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/shellos-east/front/",
+    "front_gif_source": "imgi_116_shellos-east.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/shellos-east.png",
+    "name_en": "Shellos (East Sea)",
+    "name_pt": "Shellos (Mar Leste)",
+    "region": "",
+    "short_label": "East",
+    "types": [
+      "Water"
+    ]
+  },
   "slowbro-galar": {
     "back_frame_count": 8,
     "back_frames_path": "res://assets/pokemon/forms/slowbro-galar/back/",
@@ -533,6 +943,48 @@
     "types": [
       "Poison",
       "Fairy"
+    ]
+  },
+  "wormadam-sandy": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/wormadam-sandy/back/",
+    "back_gif_source": "imgi_432_wormadam-sandy.gif",
+    "base_species": "wormadam",
+    "category": "conditional",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/wormadam-sandy/front/",
+    "front_gif_source": "imgi_84_wormadam-sandy.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/wormadam-sandy.png",
+    "name_en": "Wormadam (Sandy Cloak)",
+    "name_pt": "Wormadam (Manto Arenoso)",
+    "region": "",
+    "short_label": "Sandy",
+    "types": [
+      "Bug",
+      "Ground"
+    ]
+  },
+  "wormadam-trash": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/wormadam-trash/back/",
+    "back_gif_source": "imgi_434_wormadam-trash.gif",
+    "base_species": "wormadam",
+    "category": "conditional",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/wormadam-trash/front/",
+    "front_gif_source": "imgi_86_wormadam-trash.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/wormadam-trash.png",
+    "name_en": "Wormadam (Trash Cloak)",
+    "name_pt": "Wormadam (Manto de Lixo)",
+    "region": "",
+    "short_label": "Trash",
+    "types": [
+      "Bug",
+      "Steel"
     ]
   },
   "yamask-galar": {
