@@ -24,6 +24,11 @@ const DEFAULT_FRIENDSHIP = 70
 const MAX_MOVE_SLOTS = 4
 const MAX_LEVEL = 100
 const STAT_BOOST_AMOUNT = 5
+# Adapted evolution methods used in place of real-game mechanics PokeRPG
+# doesn't have (trade, a friendship stat that never actually increments,
+# real-world time of day). Each checks a player-progress list/count passed
+# into grant_xp()'s evolution_context, not anything on the Pokemon itself.
+const PLAYER_PROGRESS_METHODS = ["badge", "battle_pokemon", "defeat_pokemon", "battle_trainer", "defeat_trainer", "participate_tournament", "win_tournament"]
 # Base real-world wait per tier at level 1 - scaled up by level in
 # healing_tier_for() below (a level 100 Pokemon has far more HP to recover
 # than a level 1 one, so it takes proportionally longer). These bases used
@@ -455,7 +460,7 @@ static func boost_stat(pokemon: Dictionary, stat_key: String, amount: int = STAT
 	return result
 
 
-static func grant_xp(pokemon: Dictionary, amount: int) -> Dictionary:
+static func grant_xp(pokemon: Dictionary, amount: int, evolution_context: Dictionary = {}) -> Dictionary:
 	var updated := normalize_pokemon(pokemon)
 	var result := {
 		"pokemon": updated,
@@ -515,7 +520,7 @@ static func grant_xp(pokemon: Dictionary, amount: int) -> Dictionary:
 		level_ups.append(int(updated["level"]))
 		result["level_ups"] = level_ups
 
-		var evolution_target := _evolution_target_for_level(updated)
+		var evolution_target := _evolution_target_for_level(updated, evolution_context)
 		while evolution_target != "":
 			var before := updated.duplicate(true)
 			updated = evolve_pokemon(updated, evolution_target)
@@ -550,7 +555,7 @@ static func grant_xp(pokemon: Dictionary, amount: int) -> Dictionary:
 					})
 				result["pending_move_learns"] = evolved_pending
 
-			evolution_target = _evolution_target_for_level(updated)
+			evolution_target = _evolution_target_for_level(updated, evolution_context)
 
 	if int(updated.get("level", 1)) >= MAX_LEVEL:
 		updated["level"] = MAX_LEVEL
@@ -1346,12 +1351,15 @@ static func _recalculate_stats(pokemon: Dictionary, old_max_hp_override: int = -
 	pokemon["stat_boosts"] = boosts
 
 
-static func _evolution_target_for_level(pokemon: Dictionary) -> String:
-	return evolution_target_for_context(pokemon, {
+static func _evolution_target_for_level(pokemon: Dictionary, evolution_context: Dictionary = {}) -> String:
+	var context := {
 		"method": "level_up",
 		"trigger": "level-up",
 		"time_of_day": _current_time_of_day(),
-	})
+	}
+	for key in evolution_context.keys():
+		context[key] = evolution_context[key]
+	return evolution_target_for_context(pokemon, context)
 
 
 static func _evolution_matches_context(pokemon: Dictionary, entry: Dictionary, context: Dictionary) -> bool:
@@ -1363,7 +1371,14 @@ static func _evolution_matches_context(pokemon: Dictionary, entry: Dictionary, c
 		return false
 	if context_method != "":
 		if context_method == "level_up" or context_method == "level":
-			if entry_trigger != "level_up" and not ["level", "friendship", "time", "known_move", "location", "affection"].has(entry_method):
+			# badge/battle_pokemon/defeat_pokemon/battle_trainer/defeat_trainer/
+			# participate_tournament/win_tournament are PokeRPG-specific adapted
+			# evolution methods (see PLAYER_PROGRESS_METHODS below) used in place
+			# of real-game mechanics this game doesn't have (trade, friendship
+			# that never actually increments, real-world time of day, etc.) -
+			# they're still checked passively on every level-up, same as the
+			# other conditions here, just gated on an extra requirement.
+			if entry_trigger != "level_up" and not (["level", "friendship", "time", "known_move", "location", "affection"] + PLAYER_PROGRESS_METHODS).has(entry_method):
 				return false
 		elif context_method == "item":
 			if entry_trigger != "use_item" and not ["item", "stone"].has(entry_method):
@@ -1381,6 +1396,34 @@ static func _evolution_matches_context(pokemon: Dictionary, entry: Dictionary, c
 
 	var min_affection := int(entry.get("min_affection", 0))
 	if min_affection > 0 and int(context.get("affection", context.get("min_affection", 0))) < min_affection:
+		return false
+
+	var min_badges := int(entry.get("min_badges", 0))
+	if min_badges > 0 and int(context.get("badges", 0)) < min_badges:
+		return false
+
+	var required_battled_pokemon := _safe_id(str(entry.get("battle_pokemon_id", entry.get("battle_pokemon", ""))))
+	if required_battled_pokemon != "" and not _context_list_has(context, "battled_pokemon_ids", required_battled_pokemon):
+		return false
+
+	var required_defeated_pokemon := _safe_id(str(entry.get("defeat_pokemon_id", entry.get("defeat_pokemon", ""))))
+	if required_defeated_pokemon != "" and not _context_list_has(context, "defeated_pokemon_ids", required_defeated_pokemon):
+		return false
+
+	var required_battled_trainer := _safe_id(str(entry.get("trainer_id", entry.get("battle_trainer_id", ""))))
+	if required_battled_trainer != "" and entry_method == "battle_trainer" and not _context_list_has(context, "battled_trainer_ids", required_battled_trainer):
+		return false
+
+	var required_defeated_trainer := _safe_id(str(entry.get("trainer_id", entry.get("defeat_trainer_id", ""))))
+	if required_defeated_trainer != "" and entry_method == "defeat_trainer" and not _context_list_has(context, "defeated_trainer_ids", required_defeated_trainer):
+		return false
+
+	var required_tournament_participation := _safe_id(str(entry.get("tournament_id", "")))
+	if required_tournament_participation != "" and entry_method == "participate_tournament" and not _context_list_has(context, "participated_tournament_ids", required_tournament_participation):
+		return false
+
+	var required_tournament_win := _safe_id(str(entry.get("tournament_id", "")))
+	if required_tournament_win != "" and entry_method == "win_tournament" and not _context_list_has(context, "won_tournament_ids", required_tournament_win):
 		return false
 
 	var min_beauty := int(entry.get("min_beauty", 0))

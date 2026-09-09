@@ -1519,15 +1519,6 @@
         "trigger": "level-up",
         "level": 20,
         "min_level": 20
-      },
-      {
-        "target": "raticate",
-        "target_dex_number": 20,
-        "method": "time",
-        "trigger": "level-up",
-        "level": 20,
-        "min_level": 20,
-        "time_of_day": "night"
       }
     ],
     "starter": false,
@@ -3402,9 +3393,10 @@
       {
         "target": "crobat",
         "target_dex_number": 169,
-        "method": "friendship",
+        "method": "badge",
         "trigger": "level-up",
-        "min_happiness": 160
+        "min_badges": 1,
+        "min_level": 22
       }
     ],
     "starter": false,
@@ -4259,23 +4251,8 @@
         "target_dex_number": 53,
         "method": "level",
         "trigger": "level-up",
-        "level": 28,
-        "min_level": 28
-      },
-      {
-        "target": "persian",
-        "target_dex_number": 53,
-        "method": "friendship",
-        "trigger": "level-up",
-        "min_happiness": 160
-      },
-      {
-        "target": "perrserker",
-        "target_dex_number": 863,
-        "method": "level",
-        "trigger": "level-up",
-        "level": 28,
-        "min_level": 28
+        "level": 20,
+        "min_level": 20
       }
     ],
     "starter": false,
@@ -5035,10 +5012,10 @@
       {
         "target": "politoed",
         "target_dex_number": 186,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Kings Rock",
-        "held_item_id": "kings_rock"
+        "method": "item",
+        "trigger": "level-up",
+        "item_id": "kings_rock",
+        "min_level": 25
       }
     ],
     "starter": false,
@@ -5266,8 +5243,10 @@
       {
         "target": "alakazam",
         "target_dex_number": 65,
-        "method": "trade",
-        "trigger": "trade"
+        "method": "level",
+        "trigger": "level-up",
+        "level": 32,
+        "min_level": 32
       }
     ],
     "starter": false,
@@ -5517,8 +5496,10 @@
       {
         "target": "machamp",
         "target_dex_number": 68,
-        "method": "trade",
-        "trigger": "trade"
+        "method": "level",
+        "trigger": "level-up",
+        "level": 35,
+        "min_level": 35
       }
     ],
     "starter": false,
@@ -6221,14 +6202,10 @@
       {
         "target": "golem",
         "target_dex_number": 76,
-        "method": "trade",
-        "trigger": "trade"
-      },
-      {
-        "target": "golem",
-        "target_dex_number": 76,
-        "method": "trade",
-        "trigger": "trade"
+        "method": "level",
+        "trigger": "level-up",
+        "level": 32,
+        "min_level": 32
       }
     ],
     "starter": false,
@@ -6589,18 +6566,10 @@
       {
         "target": "slowking",
         "target_dex_number": 199,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Kings Rock",
-        "held_item_id": "kings_rock"
-      },
-      {
-        "target": "slowking",
-        "target_dex_number": 199,
         "method": "item",
-        "trigger": "use-item",
-        "item": "Galarica Wreath",
-        "item_id": "galarica_wreath"
+        "trigger": "level-up",
+        "item_id": "kings_rock",
+        "min_level": 25
       }
     ],
     "starter": false,
@@ -6860,56 +6829,7 @@
     "learnset_source_version_group": "red-blue",
     "learnset_dependencies": [],
     "evolves_from": "magnemite",
-    "evolutions": [
-      {
-        "target": "magnezone",
-        "target_dex_number": 462,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Mt Coronet",
-        "location_id": "mt_coronet"
-      },
-      {
-        "target": "magnezone",
-        "target_dex_number": 462,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Chargestone Cave",
-        "location_id": "chargestone_cave"
-      },
-      {
-        "target": "magnezone",
-        "target_dex_number": 462,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Kalos Route 13",
-        "location_id": "kalos_route_13"
-      },
-      {
-        "target": "magnezone",
-        "target_dex_number": 462,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Blush Mountain",
-        "location_id": "blush_mountain"
-      },
-      {
-        "target": "magnezone",
-        "target_dex_number": 462,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Vast Poni Canyon",
-        "location_id": "vast_poni_canyon"
-      },
-      {
-        "target": "magnezone",
-        "target_dex_number": 462,
-        "method": "stone",
-        "trigger": "use-item",
-        "item": "Thunder Stone",
-        "item_id": "thunder_stone"
-      }
-    ],
+    "evolutions": [],
     "starter": false,
     "seen": false,
     "owned": false,
@@ -6987,14 +6907,7 @@
     "learnset_source_version_group": "red-blue",
     "learnset_dependencies": [],
     "evolves_from": "",
-    "evolutions": [
-      {
-        "target": "sirfetchd",
-        "target_dex_number": 865,
-        "method": "three-critical-hits",
-        "trigger": "three-critical-hits"
-      }
-    ],
+    "evolutions": [],
     "starter": false,
     "seen": false,
     "owned": false,
@@ -7815,8 +7728,10 @@
       {
         "target": "gengar",
         "target_dex_number": 94,
-        "method": "trade",
-        "trigger": "trade"
+        "method": "level",
+        "trigger": "level-up",
+        "level": 38,
+        "min_level": 38
       }
     ],
     "starter": false,
@@ -7969,10 +7884,10 @@
       {
         "target": "steelix",
         "target_dex_number": 208,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Metal Coat",
-        "held_item_id": "metal_coat"
+        "method": "item",
+        "trigger": "level-up",
+        "item_id": "metal_coat",
+        "min_level": 30
       }
     ],
     "starter": false,
@@ -8728,15 +8643,6 @@
         "trigger": "level-up",
         "level": 28,
         "min_level": 28
-      },
-      {
-        "target": "marowak",
-        "target_dex_number": 105,
-        "method": "time",
-        "trigger": "level-up",
-        "level": 28,
-        "min_level": 28,
-        "time_of_day": "night"
       }
     ],
     "starter": false,
@@ -9048,16 +8954,7 @@
     "learnset_source_version_group": "red-blue",
     "learnset_dependencies": [],
     "evolves_from": "",
-    "evolutions": [
-      {
-        "target": "lickilicky",
-        "target_dex_number": 463,
-        "method": "known_move",
-        "trigger": "level-up",
-        "known_move": "Rollout",
-        "known_move_id": "rollout"
-      }
-    ],
+    "evolutions": [],
     "starter": false,
     "seen": false,
     "owned": false,
@@ -9402,16 +9299,7 @@
     "learnset_source_version_group": "red-blue",
     "learnset_dependencies": [],
     "evolves_from": "rhyhorn",
-    "evolutions": [
-      {
-        "target": "rhyperior",
-        "target_dex_number": 464,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Protector",
-        "held_item_id": "protector"
-      }
-    ],
+    "evolutions": [],
     "starter": false,
     "seen": false,
     "owned": false,
@@ -9496,9 +9384,10 @@
       {
         "target": "blissey",
         "target_dex_number": 242,
-        "method": "friendship",
+        "method": "badge",
         "trigger": "level-up",
-        "min_happiness": 160
+        "min_badges": 3,
+        "min_level": 30
       }
     ],
     "starter": false,
@@ -9580,16 +9469,7 @@
     "learnset_source_version_group": "red-blue",
     "learnset_dependencies": [],
     "evolves_from": "",
-    "evolutions": [
-      {
-        "target": "tangrowth",
-        "target_dex_number": 465,
-        "method": "known_move",
-        "trigger": "level-up",
-        "known_move": "Ancient Power",
-        "known_move_id": "ancient_power"
-      }
-    ],
+    "evolutions": [],
     "starter": false,
     "seen": false,
     "owned": false,
@@ -9833,10 +9713,10 @@
       {
         "target": "kingdra",
         "target_dex_number": 230,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Dragon Scale",
-        "held_item_id": "dragon_scale"
+        "method": "item",
+        "trigger": "level-up",
+        "item_id": "dragon_scale",
+        "min_level": 30
       }
     ],
     "starter": false,
@@ -10242,16 +10122,7 @@
     "learnset_source_version_group": "red-blue",
     "learnset_dependencies": [],
     "evolves_from": "mime_jr",
-    "evolutions": [
-      {
-        "target": "mr_rime",
-        "target_dex_number": 866,
-        "method": "level",
-        "trigger": "level-up",
-        "level": 42,
-        "min_level": 42
-      }
-    ],
+    "evolutions": [],
     "starter": false,
     "seen": false,
     "owned": false,
@@ -10335,18 +10206,10 @@
       {
         "target": "scizor",
         "target_dex_number": 212,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Metal Coat",
-        "held_item_id": "metal_coat"
-      },
-      {
-        "target": "kleavor",
-        "target_dex_number": 900,
         "method": "item",
-        "trigger": "use-item",
-        "item": "Black Augurite",
-        "item_id": "black_augurite"
+        "trigger": "level-up",
+        "item_id": "metal_coat",
+        "min_level": 30
       }
     ],
     "starter": false,
@@ -10505,16 +10368,7 @@
     "learnset_source_version_group": "red-blue",
     "learnset_dependencies": [],
     "evolves_from": "elekid",
-    "evolutions": [
-      {
-        "target": "electivire",
-        "target_dex_number": 466,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Electirizer",
-        "held_item_id": "electirizer"
-      }
-    ],
+    "evolutions": [],
     "starter": false,
     "seen": false,
     "owned": false,
@@ -10592,16 +10446,7 @@
     "learnset_source_version_group": "red-blue",
     "learnset_dependencies": [],
     "evolves_from": "magby",
-    "evolutions": [
-      {
-        "target": "magmortar",
-        "target_dex_number": 467,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Magmarizer",
-        "held_item_id": "magmarizer"
-      }
-    ],
+    "evolutions": [],
     "starter": false,
     "seen": false,
     "owned": false,
@@ -11153,42 +10998,18 @@
       {
         "target": "espeon",
         "target_dex_number": 196,
-        "method": "friendship",
+        "method": "item",
         "trigger": "level-up",
-        "min_happiness": 160,
-        "time_of_day": "day"
+        "item_id": "sun_stone",
+        "min_level": 25
       },
       {
         "target": "umbreon",
         "target_dex_number": 197,
-        "method": "friendship",
+        "method": "item",
         "trigger": "level-up",
-        "min_happiness": 160,
-        "time_of_day": "night"
-      },
-      {
-        "target": "leafeon",
-        "target_dex_number": 470,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Eterna Forest",
-        "location_id": "eterna_forest"
-      },
-      {
-        "target": "leafeon",
-        "target_dex_number": 470,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Pinwheel Forest",
-        "location_id": "pinwheel_forest"
-      },
-      {
-        "target": "leafeon",
-        "target_dex_number": 470,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Kalos Route 20",
-        "location_id": "kalos_route_20"
+        "item_id": "moon_stone",
+        "min_level": 25
       },
       {
         "target": "leafeon",
@@ -11201,50 +11022,10 @@
       {
         "target": "glaceon",
         "target_dex_number": 471,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Sinnoh Route 217",
-        "location_id": "sinnoh_route_217"
-      },
-      {
-        "target": "glaceon",
-        "target_dex_number": 471,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Twist Mountain",
-        "location_id": "twist_mountain"
-      },
-      {
-        "target": "glaceon",
-        "target_dex_number": 471,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Frost Cavern",
-        "location_id": "frost_cavern"
-      },
-      {
-        "target": "glaceon",
-        "target_dex_number": 471,
         "method": "stone",
         "trigger": "use-item",
         "item": "Ice Stone",
         "item_id": "ice_stone"
-      },
-      {
-        "target": "sylveon",
-        "target_dex_number": 700,
-        "method": "affection",
-        "trigger": "level-up",
-        "min_affection": 2,
-        "known_move_type": "Fairy"
-      },
-      {
-        "target": "sylveon",
-        "target_dex_number": 700,
-        "method": "friendship",
-        "trigger": "level-up",
-        "min_happiness": 160,
-        "known_move_type": "Fairy"
       }
     ],
     "starter": false,
@@ -11586,10 +11367,10 @@
       {
         "target": "porygon2",
         "target_dex_number": 233,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Up Grade",
-        "held_item_id": "up_grade"
+        "method": "item",
+        "trigger": "level-up",
+        "item_id": "up_grade",
+        "min_level": 20
       }
     ],
     "starter": false,
@@ -14800,9 +14581,10 @@
       {
         "target": "pikachu",
         "target_dex_number": 25,
-        "method": "friendship",
+        "method": "level",
         "trigger": "level-up",
-        "min_happiness": 220
+        "level": 8,
+        "min_level": 8
       }
     ],
     "evolves_from": "",
@@ -14887,9 +14669,10 @@
       {
         "target": "clefairy",
         "target_dex_number": 35,
-        "method": "friendship",
+        "method": "level",
         "trigger": "level-up",
-        "min_happiness": 160
+        "level": 6,
+        "min_level": 6
       }
     ],
     "evolves_from": "",
@@ -14971,9 +14754,10 @@
       {
         "target": "jigglypuff",
         "target_dex_number": 39,
-        "method": "friendship",
+        "method": "level",
         "trigger": "level-up",
-        "min_happiness": 160
+        "level": 6,
+        "min_level": 6
       }
     ],
     "evolves_from": "",
@@ -15055,9 +14839,10 @@
       {
         "target": "togetic",
         "target_dex_number": 176,
-        "method": "friendship",
+        "method": "level",
         "trigger": "level-up",
-        "min_happiness": 160
+        "level": 12,
+        "min_level": 12
       }
     ],
     "evolves_from": "",
@@ -15139,16 +14924,7 @@
     },
     "learnset_source_version_group": "legends-arceus",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "togekiss",
-        "target_dex_number": 468,
-        "method": "stone",
-        "trigger": "use-item",
-        "item": "Shiny Stone",
-        "item_id": "shiny_stone"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "togepi",
     "description_en": "No records exist of Togetic being seen in the wilds. Rumors abound that it evolves under the loving care of a trusted human companion, upon whom the Pokémon then bestows great joy.",
     "description_pt": "No records exist of Togetic being seen in the wilds. Rumors abound that it evolves under the loving care of a trusted human companion, upon whom the Pokémon then bestows great joy.",
@@ -16530,16 +16306,7 @@
     },
     "learnset_source_version_group": "legends-arceus",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "ambipom",
-        "target_dex_number": 424,
-        "method": "known_move",
-        "trigger": "level-up",
-        "known_move": "Double Hit",
-        "known_move_id": "double_hit"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "",
     "description_en": "This treetop dweller possesses a tail as dexterous as a hand. Ancient writings describe this Pokémon as a one-armed oddity.",
     "description_pt": "This treetop dweller possesses a tail as dexterous as a hand. Ancient writings describe this Pokémon as a one-armed oddity.",
@@ -16832,16 +16599,7 @@
     },
     "learnset_source_version_group": "legends-arceus",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "yanmega",
-        "target_dex_number": 469,
-        "method": "known_move",
-        "trigger": "level-up",
-        "known_move": "Ancient Power",
-        "known_move_id": "ancient_power"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "",
     "description_en": "Its frail wings are so thin that one can see clear through them. However, during flight these wings exhibit the power to churn air with force enough to launch a house skyward.",
     "description_pt": "Its frail wings are so thin that one can see clear through them. However, during flight these wings exhibit the power to churn air with force enough to launch a house skyward.",
@@ -17276,16 +17034,7 @@
     },
     "learnset_source_version_group": "legends-arceus",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "honchkrow",
-        "target_dex_number": 430,
-        "method": "stone",
-        "trigger": "use-item",
-        "item": "Dusk Stone",
-        "item_id": "dusk_stone"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "",
     "description_en": "Widely shunned as a bearer of ill fortune. Upon crossing paths with this creature, I've been told one must chant ”Workrum, Workrum—bad luck, don't come” as a protective incantation.",
     "description_pt": "Widely shunned as a bearer of ill fortune. Upon crossing paths with this creature, I've been told one must chant ”Workrum, Workrum—bad luck, don't come” as a protective incantation.",
@@ -17465,16 +17214,7 @@
     },
     "learnset_source_version_group": "legends-arceus",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "mismagius",
-        "target_dex_number": 429,
-        "method": "stone",
-        "trigger": "use-item",
-        "item": "Dusk Stone",
-        "item_id": "dusk_stone"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "",
     "description_en": "It conceals itself in darkness, sending chills up travelers' spines with its childlike weeping. As it observes the frightened travelers with glee, the red orbs upon its chest let off an eerie light.",
     "description_pt": "It conceals itself in darkness, sending chills up travelers' spines with its childlike weeping. As it observes the frightened travelers with glee, the red orbs upon its chest let off an eerie light.",
@@ -18109,17 +17849,7 @@
     },
     "learnset_source_version_group": "legends-arceus",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "gliscor",
-        "target_dex_number": 472,
-        "method": "time",
-        "trigger": "level-up",
-        "held_item": "Razor Fang",
-        "held_item_id": "razor_fang",
-        "time_of_day": "night"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "",
     "description_en": "Its tail is tipped by a thick, horrible stinger. To bring down prey, it will first obscure their vision by covering their faces with its body, and then it will use the stinger to inject them with venom.",
     "description_pt": "Its tail is tipped by a thick, horrible stinger. To bring down prey, it will first obscure their vision by covering their faces with its body, and then it will use the stinger to inject them with venom.",
@@ -18496,28 +18226,7 @@
     },
     "learnset_source_version_group": "sword-shield",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "overqwil",
-        "target_dex_number": 904,
-        "method": "strong-style-move",
-        "trigger": "strong-style-move"
-      },
-      {
-        "target": "overqwil",
-        "target_dex_number": 904,
-        "method": "known_move",
-        "trigger": "level-up",
-        "known_move": "Barb Barrage",
-        "known_move_id": "barb_barrage"
-      },
-      {
-        "target": "overqwil",
-        "target_dex_number": 904,
-        "method": "use-move",
-        "trigger": "use-move"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "",
     "description_en": "Fishers detest this troublesome Pokémon because it sprays poison from its spines, getting it everywhere. A different form of Qwilfish lives in other regions.",
     "description_pt": "Fishers detest this troublesome Pokémon because it sprays poison from its spines, getting it everywhere. A different form of Qwilfish lives in other regions.",
@@ -18861,26 +18570,7 @@
     },
     "learnset_source_version_group": "legends-arceus",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "weavile",
-        "target_dex_number": 461,
-        "method": "time",
-        "trigger": "level-up",
-        "held_item": "Razor Claw",
-        "held_item_id": "razor_claw",
-        "time_of_day": "night"
-      },
-      {
-        "target": "sneasler",
-        "target_dex_number": 903,
-        "method": "time",
-        "trigger": "level-up",
-        "held_item": "Razor Claw",
-        "held_item_id": "razor_claw",
-        "time_of_day": "day"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "",
     "description_en": "Its sturdy, curved claws are ideal for traversing precipitous cliffs. From the tips of these claws drips a venom that infiltrates the nerves of any prey caught in Sneasel's grasp.",
     "description_pt": "Its sturdy, curved claws are ideal for traversing precipitous cliffs. From the tips of these claws drips a venom that infiltrates the nerves of any prey caught in Sneasel's grasp.",
@@ -19041,17 +18731,7 @@
     },
     "learnset_source_version_group": "legends-arceus",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "ursaluna",
-        "target_dex_number": 901,
-        "method": "item",
-        "trigger": "use-item",
-        "item": "Peat Block",
-        "item_id": "peat_block",
-        "time_of_day": "full-moon"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "teddiursa",
     "description_en": "When the cold season arrives in Hisui, this Pokémon will wander fields and mountains alike in search of its favorite berries. Ursaring's hunger during this time makes it a ferocious danger.",
     "description_pt": "When the cold season arrives in Hisui, this Pokémon will wander fields and mountains alike in search of its favorite berries. Ursaring's hunger during this time makes it a ferocious danger.",
@@ -19436,16 +19116,7 @@
     },
     "learnset_source_version_group": "legends-arceus",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "mamoswine",
-        "target_dex_number": 473,
-        "method": "known_move",
-        "trigger": "level-up",
-        "known_move": "Ancient Power",
-        "known_move_id": "ancient_power"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "swinub",
     "description_en": "The long fur of this Pokémon covers its eyes, ears, and even limbs, allowing Piloswine to resist harshly frigid conditions. The Pokémon's white tusks can be used to defeat its enemies.",
     "description_pt": "The long fur of this Pokémon covers its eyes, ears, and even limbs, allowing Piloswine to resist harshly frigid conditions. The Pokémon's white tusks can be used to defeat its enemies.",
@@ -19539,16 +19210,7 @@
     },
     "learnset_source_version_group": "sword-shield",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "cursola",
-        "target_dex_number": 864,
-        "method": "level",
-        "trigger": "level-up",
-        "level": 38,
-        "min_level": 38
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "",
     "description_en": "Many live in the clean seas of the south. They apparently can’t live in polluted waters.",
     "description_pt": "Many live in the clean seas of the south. They apparently can’t live in polluted waters.",
@@ -20545,16 +20207,7 @@
     },
     "learnset_source_version_group": "sword-shield",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "porygon_z",
-        "target_dex_number": 474,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Dubious Disc",
-        "held_item_id": "dubious_disc"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "porygon",
     "description_en": "A bizarre item caused this Pokémon to evolve. While it now exhibits many new gestures and expressions, its biology remains inscrutable.",
     "description_pt": "A bizarre item caused this Pokémon to evolve. While it now exhibits many new gestures and expressions, its biology remains inscrutable.",
@@ -20633,14 +20286,7 @@
     },
     "learnset_source_version_group": "legends-arceus",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "wyrdeer",
-        "target_dex_number": 899,
-        "method": "agile-style-move",
-        "trigger": "agile-style-move"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "",
     "description_en": "Its strangely shaped antlers have the power to bewitch those who see them. Medicine made by grinding up the black orbs from fallen antlers is an effective treatment for insomnia.",
     "description_pt": "Its strangely shaped antlers have the power to bewitch those who see them. Medicine made by grinding up the black orbs from fallen antlers is an effective treatment for insomnia.",
@@ -23618,17 +23264,7 @@
     },
     "learnset_source_version_group": "sword-shield",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "obstagoon",
-        "target_dex_number": 862,
-        "method": "time",
-        "trigger": "level-up",
-        "level": 35,
-        "min_level": 35,
-        "time_of_day": "night"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "zigzagoon",
     "description_en": "It charges prey at speeds over 60 mph. However, because it can only run straight, it often fails.",
     "description_pt": "It charges prey at speeds over 60 mph. However, because it can only run straight, it often fails.",
@@ -25133,15 +24769,6 @@
         "trigger": "level-up",
         "level": 30,
         "min_level": 30
-      },
-      {
-        "target": "gallade",
-        "target_dex_number": 475,
-        "method": "stone",
-        "trigger": "use-item",
-        "item": "Dawn Stone",
-        "item_id": "dawn_stone",
-        "gender": "male"
       }
     ],
     "evolves_from": "ralts",
@@ -26002,12 +25629,6 @@
         "trigger": "level-up",
         "level": 20,
         "min_level": 20
-      },
-      {
-        "target": "shedinja",
-        "target_dex_number": 292,
-        "method": "shed",
-        "trigger": "shed"
       }
     ],
     "evolves_from": "",
@@ -26775,9 +26396,10 @@
       {
         "target": "marill",
         "target_dex_number": 183,
-        "method": "friendship",
+        "method": "level",
         "trigger": "level-up",
-        "min_happiness": 160
+        "level": 10,
+        "min_level": 10
       }
     ],
     "evolves_from": "",
@@ -26855,56 +26477,7 @@
     },
     "learnset_source_version_group": "legends-arceus",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "probopass",
-        "target_dex_number": 476,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Mt Coronet",
-        "location_id": "mt_coronet"
-      },
-      {
-        "target": "probopass",
-        "target_dex_number": 476,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Chargestone Cave",
-        "location_id": "chargestone_cave"
-      },
-      {
-        "target": "probopass",
-        "target_dex_number": 476,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Kalos Route 13",
-        "location_id": "kalos_route_13"
-      },
-      {
-        "target": "probopass",
-        "target_dex_number": 476,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Blush Mountain",
-        "location_id": "blush_mountain"
-      },
-      {
-        "target": "probopass",
-        "target_dex_number": 476,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Vast Poni Canyon",
-        "location_id": "vast_poni_canyon"
-      },
-      {
-        "target": "probopass",
-        "target_dex_number": 476,
-        "method": "stone",
-        "trigger": "use-item",
-        "item": "Thunder Stone",
-        "item_id": "thunder_stone"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "",
     "description_en": "Once the people of Hisui discovered that its red nose always points north, they grew to rely on it greatly when traveling afar. The nose seems to work in a similar way to ancient compasses.",
     "description_pt": "Once the people of Hisui discovered that its red nose always points north, they grew to rely on it greatly when traveling afar. The nose seems to work in a similar way to ancient compasses.",
@@ -28538,16 +28111,7 @@
     },
     "learnset_source_version_group": "legends-arceus",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "roserade",
-        "target_dex_number": 407,
-        "method": "stone",
-        "trigger": "use-item",
-        "item": "Shiny Stone",
-        "item_id": "shiny_stone"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "budew",
     "description_en": "Though beautiful, it has highly poisonous thorns. There is an old tradition in my homeland wherein one would send these thorns to an opponent to challenge them to a duel.",
     "description_pt": "Though beautiful, it has highly poisonous thorns. There is an old tradition in my homeland wherein one would send these thorns to an opponent to challenge them to a duel.",
@@ -31957,17 +31521,10 @@
       {
         "target": "milotic",
         "target_dex_number": 350,
-        "method": "level",
+        "method": "item",
         "trigger": "level-up",
-        "min_beauty": 170
-      },
-      {
-        "target": "milotic",
-        "target_dex_number": 350,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Prism Scale",
-        "held_item_id": "prism_scale"
+        "item_id": "prism_scale",
+        "min_level": 20
       }
     ],
     "evolves_from": "",
@@ -32635,16 +32192,7 @@
     },
     "learnset_source_version_group": "legends-arceus",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "dusknoir",
-        "target_dex_number": 477,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Reaper Cloth",
-        "held_item_id": "reaper_cloth"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "duskull",
     "description_en": "There are rumors that peeking inside its bandage-wrapped body will cause one to get pulled in through the gaps between the bandages, never to return. I've been too scared to verify.",
     "description_pt": "There are rumors that peeking inside its bandage-wrapped body will cause one to get pulled in through the gaps between the bandages, never to return. I've been too scared to verify.",
@@ -33069,15 +32617,6 @@
         "trigger": "level-up",
         "level": 42,
         "min_level": 42
-      },
-      {
-        "target": "froslass",
-        "target_dex_number": 478,
-        "method": "stone",
-        "trigger": "use-item",
-        "item": "Dawn Stone",
-        "item_id": "dawn_stone",
-        "gender": "female"
       }
     ],
     "evolves_from": "",
@@ -33476,18 +33015,18 @@
       {
         "target": "huntail",
         "target_dex_number": 367,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Deep Sea Tooth",
-        "held_item_id": "deep_sea_tooth"
+        "method": "item",
+        "trigger": "level-up",
+        "item_id": "deep_sea_tooth",
+        "min_level": 25
       },
       {
         "target": "gorebyss",
         "target_dex_number": 368,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Deep Sea Scale",
-        "held_item_id": "deep_sea_scale"
+        "method": "item",
+        "trigger": "level-up",
+        "item_id": "deep_sea_scale",
+        "min_level": 25
       }
     ],
     "evolves_from": "",
