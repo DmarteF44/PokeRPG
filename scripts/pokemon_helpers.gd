@@ -355,6 +355,18 @@ static func normalize_pokemon(value: Dictionary, fallback_id: String = DEFAULT_S
 			normalized["icon_path"] = mega_icon
 	elif str(normalized.get("icon_path", "")).begins_with("res://assets/pokemon/megas/"):
 		normalized.erase("icon_path")
+	# Terastalization: every real-game Pokemon has a fixed Tera Type from
+	# the moment it exists, assigned here once and never re-rolled once set
+	# (see _rolled_tera_type) - "terastallized" itself is a battle-only flag
+	# (like mega/dynamax, stripped by battle_scene.gd before any persisted
+	# save) that, while true, overrides types down to that single type,
+	# taking priority over Form/Mega since real Terastallization always
+	# fully replaces both original types for the duration.
+	if str(normalized.get("tera_type", "")) == "":
+		normalized["tera_type"] = _rolled_tera_type(normalized["types"])
+	normalized["terastallized"] = bool(normalized.get("terastallized", false)) and str(normalized.get("tera_type", "")) != ""
+	if bool(normalized["terastallized"]):
+		normalized["types"] = [str(normalized["tera_type"])]
 	normalized["max_hp"] = maxi(1, int(normalized.get("max_hp", base_stats.get("hp", 39))))
 	normalized["hp"] = clampi(int(normalized.get("hp", normalized["max_hp"])), 0, int(normalized["max_hp"]))
 	normalized["attack"] = maxi(1, int(normalized.get("attack", base_stats.get("attack", 50))))
@@ -816,8 +828,59 @@ static func roll_gmax_factor(pokemon: Dictionary) -> void:
 
 const SHINY_SHADER_PATH = "res://assets/shaders/pokemon_shiny.gdshader"
 const BLACK_SHADER_PATH = "res://assets/shaders/pokemon_black.gdshader"
+const TERA_SHADER_PATH = "res://assets/shaders/pokemon_tera.gdshader"
 static var _shiny_material: ShaderMaterial
 static var _black_material: ShaderMaterial
+static var _tera_materials := {}
+
+# Canonical in-game type colors (Bulbapedia/type-chart UI), used to tint a
+# Terastallized Pokemon's sprite towards its Tera Type - see
+# pokemon_tera.gdshader / _tera_material.
+const TERA_TYPE_COLORS := {
+	"Normal": Color8(168, 168, 120),
+	"Fire": Color8(240, 128, 48),
+	"Water": Color8(104, 144, 240),
+	"Electric": Color8(248, 208, 48),
+	"Grass": Color8(120, 200, 80),
+	"Ice": Color8(152, 216, 216),
+	"Fighting": Color8(192, 48, 40),
+	"Poison": Color8(160, 64, 160),
+	"Ground": Color8(224, 192, 104),
+	"Flying": Color8(168, 144, 240),
+	"Psychic": Color8(248, 88, 136),
+	"Bug": Color8(168, 184, 32),
+	"Rock": Color8(184, 160, 56),
+	"Ghost": Color8(112, 88, 152),
+	"Dragon": Color8(112, 56, 248),
+	"Dark": Color8(112, 88, 72),
+	"Steel": Color8(184, 184, 208),
+	"Fairy": Color8(238, 153, 172),
+}
+
+
+# Real games usually assign a Tera Type matching one of the Pokemon's own
+# types, occasionally an "off-type" one (a handful of specific species
+# always get one, plus scattered wild individuals) - approximated here as
+# a weighted roll rather than reproducing the exact per-species tables.
+const TERA_TYPE_OWN_TYPE_CHANCE := 0.8
+
+
+static func _rolled_tera_type(types: Array) -> String:
+	var safe_types := types if typeof(types) == TYPE_ARRAY and not types.is_empty() else ["Normal"]
+	if randf() < TERA_TYPE_OWN_TYPE_CHANCE:
+		return str(safe_types[randi() % safe_types.size()])
+	var all_types := TERA_TYPE_COLORS.keys()
+	return str(all_types[randi() % all_types.size()])
+
+
+static func _tera_material(tera_type: String) -> ShaderMaterial:
+	if _tera_materials.has(tera_type):
+		return _tera_materials[tera_type]
+	var material := ShaderMaterial.new()
+	material.shader = load(TERA_SHADER_PATH)
+	material.set_shader_parameter("tera_color", TERA_TYPE_COLORS.get(tera_type, Color.WHITE))
+	_tera_materials[tera_type] = material
+	return material
 
 # One shared ShaderMaterial per variant (not per-Pokemon) - the same shader
 # recolors any species' existing sprite at render time, so a future
@@ -844,6 +907,8 @@ static func variant_tag(pokemon: Dictionary) -> String:
 		var short_label := str(form_def.get("short_label", ""))
 		if short_label != "":
 			tag += " (%s)" % short_label
+	if bool(pokemon.get("terastallized", false)):
+		tag += " ◈Tera(%s)" % str(pokemon.get("tera_type", ""))
 	return tag
 
 
@@ -918,6 +983,14 @@ static func variant_reward_multiplier(pokemon: Dictionary) -> float:
 
 
 static func variant_material(pokemon: Dictionary):
+	# Terastallization takes priority - it's battle-only and mutually
+	# exclusive with Mega/Dynamax at the UI level, but a Shiny/Black
+	# Pokemon can still Terastallize, and a TextureRect only has one
+	# material slot, so this is the one that wins while active.
+	if bool(pokemon.get("terastallized", false)):
+		var tera_type := str(pokemon.get("tera_type", ""))
+		if tera_type != "":
+			return _tera_material(tera_type)
 	if bool(pokemon.get("black", false)):
 		if _black_material == null:
 			_black_material = ShaderMaterial.new()

@@ -164,9 +164,10 @@ const TEXT = {
 		"debug_no_forms_available": "This Pokemon's species has no Regional/Alternate Forms available.",
 		"give_item": "Give Item",
 		"take_item": "Take Item",
-		"no_mega_stones_owned": "You don't own any Mega Stone for this Pokemon.",
+		"no_mega_stones_owned": "You don't own any holdable item (Mega Stone or Z-Crystal) for this Pokemon.",
 		"debug_give_mega_stone": "Give Mega Stone",
 		"debug_force_gmax_factor": "Toggle Gmax Factor",
+		"debug_give_z_crystal": "Give Z-Crystal",
 		"debug_evolved": "Evolved: %s -> %s",
 		"debug_could_learn": "Could learn %s (use Moves to add it)",
 		"debug_moves": "Moves",
@@ -452,9 +453,10 @@ const TEXT = {
 		"debug_no_forms_available": "Essa espécie não possui Formas Regionais/Alternativas disponíveis.",
 		"give_item": "Dar Item",
 		"take_item": "Tirar Item",
-		"no_mega_stones_owned": "Você não possui nenhuma Mega Stone para este Pokémon.",
+		"no_mega_stones_owned": "Você não possui nenhum item para segurar (Mega Stone ou Z-Crystal) para este Pokémon.",
 		"debug_give_mega_stone": "Dar Mega Stone",
 		"debug_force_gmax_factor": "Alternar Fator Gigantamax",
+		"debug_give_z_crystal": "Dar Z-Crystal",
 		"debug_evolved": "Evoluiu: %s -> %s",
 		"debug_could_learn": "Poderia aprender %s (use Movimentos para adicionar)",
 		"debug_moves": "Movimentos",
@@ -1970,7 +1972,7 @@ func _add_collection_details(parent: Control, y: float) -> float:
 	var is_black := bool(pokemon.get("black", false))
 	var can_give_mega_stone := not PokemonHelpers.megas_for_species(str(pokemon.get("id", ""))).is_empty()
 	var has_held_item := str(pokemon.get("held_item", "")) != ""
-	var show_held_item_row := has_held_item or can_give_mega_stone
+	var show_held_item_row := has_held_item or can_give_mega_stone or _owns_any_z_crystal()
 	var extra_rows := (1 if show_held_item_row else 0) + (1 if is_black else 0)
 	var panel := Panel.new()
 	panel.name = "CollectionDetails"
@@ -2150,6 +2152,13 @@ func _rename_collection_pokemon(source: String, index: int, input: LineEdit) -> 
 	_show_pokemon_detail(source, index)
 
 
+func _owns_any_z_crystal() -> bool:
+	for item in items:
+		if typeof(item) == TYPE_DICTIONARY and str(item.get("effect_type", "")) == "z_crystal" and InventoryManager.get_item_amount(str(item.get("id", ""))) > 0:
+			return true
+	return false
+
+
 func _show_mega_stone_picker(source: String, index: int) -> void:
 	var pokemon := _collection_pokemon(source, index)
 	if pokemon.is_empty():
@@ -2161,6 +2170,13 @@ func _show_mega_stone_picker(source: String, index: int) -> void:
 		var item_id := str(mega_def.get("item_id", ""))
 		if item_id != "" and InventoryManager.get_item_amount(item_id) > 0:
 			owned_stones.append(_item_by_id(item_id))
+	# Z-Crystals aren't species-specific (they match a move's type instead),
+	# so every owned crystal is offered here regardless of species - the
+	# battle screen itself only lights up a move as usable-as-Z when the
+	# held crystal's type actually matches one of this Pokemon's moves.
+	for item in items:
+		if typeof(item) == TYPE_DICTIONARY and str(item.get("effect_type", "")) == "z_crystal" and InventoryManager.get_item_amount(str(item.get("id", ""))) > 0:
+			owned_stones.append(item)
 	if owned_stones.is_empty():
 		UI.show_message_popup(self, _text("give_item"), _text("no_mega_stones_owned"))
 		return
@@ -3486,6 +3502,10 @@ func _debug_build_variants_rows(parent: Control, y: float) -> float:
 		[_text("debug_force_gmax_factor"), Callable(self, "_debug_force_variant").bind("gmax_factor")],
 		[_text("debug_add") % "dynamax_band", Callable(self, "_debug_add_item_x1").bind("dynamax_band")],
 	])
+	y = _add_debug_button_row(parent, y, [
+		[_text("debug_give_z_crystal"), Callable(self, "_debug_give_z_crystal")],
+		[_text("debug_add") % "tera_orb", Callable(self, "_debug_add_item_x1").bind("tera_orb")],
+	])
 	return _add_debug_button_row(parent, y, [
 		[_text("debug_add") % "shiny_charm", Callable(self, "_debug_add_item_x1").bind("shiny_charm")],
 	])
@@ -3644,6 +3664,39 @@ func _debug_give_mega_stone() -> void:
 	team[0] = pokemon
 	_update_debug_save({"team": team})
 	UI.show_message_popup(self, _text("debug_variants"), "%s: %s" % [str(pokemon.get("name", "")), _item_name(_item_by_id(item_id))])
+
+
+# Debug-only shortcut: hands over the Z-Crystal matching the first team
+# member's first damaging move's type and equips it as the held item, so
+# Z-Moves can be tested in battle without hunting for the right crystal.
+func _debug_give_z_crystal() -> void:
+	var team := _team()
+	if team.is_empty() or typeof(team[0]) != TYPE_DICTIONARY:
+		UI.show_message_popup(self, _text("debug_variants"), _text("debug_no_change"))
+		return
+	var pokemon: Dictionary = PokemonHelpers.normalize_pokemon(team[0])
+	var moves = pokemon.get("moves", [])
+	var move_type := ""
+	if typeof(moves) == TYPE_ARRAY:
+		for move in moves:
+			if typeof(move) == TYPE_DICTIONARY and int(move.get("power", 0)) > 0:
+				move_type = str(move.get("type", ""))
+				break
+	var z_item := {}
+	if move_type != "":
+		for item in items:
+			if typeof(item) == TYPE_DICTIONARY and str(item.get("effect_type", "")) == "z_crystal" and str(item.get("z_type", "")) == move_type:
+				z_item = item
+				break
+	if z_item.is_empty():
+		UI.show_message_popup(self, _text("debug_variants"), _text("debug_no_change"))
+		return
+	var item_id := str(z_item.get("id", ""))
+	InventoryManager.add_item(item_id, 1)
+	pokemon["held_item"] = item_id
+	team[0] = pokemon
+	_update_debug_save({"team": team})
+	UI.show_message_popup(self, _text("debug_variants"), "%s: %s" % [str(pokemon.get("name", "")), _item_name(z_item)])
 
 
 # Cycles the first team member through its species' known Regional/
