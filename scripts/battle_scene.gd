@@ -127,6 +127,7 @@ const TEXT = {
 		"sent_storage": "The team is full. Pokemon sent to Storage.",
 		"status_applied": "%s is now %s!",
 		"stat_stage_changed": "%s's %s fell!",
+		"stat_stage_boosted": "%s's %s rose!",
 		"seeded": "%s was seeded!",
 		"drained": "%s had energy drained!",
 		"cannot_switch": "Cannot switch to that Pokemon.",
@@ -202,6 +203,7 @@ const TEXT = {
 		"sent_storage": "O time está cheio. Pokémon enviado ao Storage.",
 		"status_applied": "%s agora está com %s!",
 		"stat_stage_changed": "%s teve %s reduzido!",
+		"stat_stage_boosted": "%s teve %s aumentado!",
 		"seeded": "%s foi semeado!",
 		"drained": "%s teve energia drenada!",
 		"cannot_switch": "Não é possível trocar para esse Pokémon.",
@@ -1249,6 +1251,19 @@ func _battle_item_ids() -> Array:
 	return ids
 
 
+func _loaded_item_data(item_id: String) -> Dictionary:
+	var file := FileAccess.open(ITEMS_PATH, FileAccess.READ)
+	if file == null:
+		return {}
+	var parsed = JSON.parse_string(file.get_as_text())
+	if typeof(parsed) != TYPE_ARRAY:
+		return {}
+	for item in parsed:
+		if typeof(item) == TYPE_DICTIONARY and str(item.get("id", "")) == item_id:
+			return item
+	return {}
+
+
 func _show_bag() -> void:
 	if battle_over or capture_in_progress:
 		return
@@ -1381,6 +1396,11 @@ func _use_bag_item(item_id: String) -> void:
 		_use_capture_item(item_id)
 		return
 
+	var full_item_data := _loaded_item_data(item_id)
+	if str(full_item_data.get("effect_type", "")) == "temp_stat_boost":
+		_use_temp_stat_boost_item(item_id, full_item_data)
+		return
+
 	var used := false
 	var target_index := player_team_index
 	var target_pokemon := _battle_pokemon_copy(player_pokemon)
@@ -1417,6 +1437,25 @@ func _use_bag_item(item_id: String) -> void:
 	_hide_attack_panel()
 	_update_status()
 	var lines := [_text("item_used") % [str(target_pokemon.get("name", "Pokemon")), _item_name(item_id)]]
+	_execute_enemy_turn(lines)
+	if _finish_battle_if_needed(lines):
+		return
+	_finish_round(lines)
+
+
+func _use_temp_stat_boost_item(item_id: String, item_data: Dictionary) -> void:
+	var stat_key := PokemonHelpers.normalized_stat_key(str(item_data.get("effect_stat", "")))
+	if stat_key == "" or not BATTLE_STAGE_KEYS.has(stat_key):
+		message_label.text = _text("item_no_effect")
+		return
+	if not InventoryManager.remove_item(item_id, 1):
+		return
+
+	var amount := maxi(1, int(item_data.get("effect_value", 1)))
+	_adjust_stat_stage(true, stat_key, amount)
+	_hide_attack_panel()
+	var lines := [_text("item_used") % [str(player_pokemon.get("name", "Pokemon")), _item_name(item_id)]]
+	lines.append(_text("stat_stage_boosted") % [str(player_pokemon.get("name", "Pokemon")), stat_key.capitalize()])
 	_execute_enemy_turn(lines)
 	if _finish_battle_if_needed(lines):
 		return
@@ -1691,6 +1730,16 @@ func _item_name(item_id: String) -> String:
 			return "Reviver" if _language() == "pt" else "Revive"
 		"max_revive":
 			return "Reviver Máximo" if _language() == "pt" else "Max Revive"
+		"x_attack":
+			return "X Ataque" if _language() == "pt" else "X Attack"
+		"x_defense":
+			return "X Defesa" if _language() == "pt" else "X Defense"
+		"x_sp_attack":
+			return "X Ataque Especial" if _language() == "pt" else "X Sp. Attack"
+		"x_sp_defense":
+			return "X Defesa Especial" if _language() == "pt" else "X Sp. Defense"
+		"x_speed":
+			return "X Velocidade" if _language() == "pt" else "X Speed"
 		_:
 			return item_id.replace("_", " ").capitalize()
 
