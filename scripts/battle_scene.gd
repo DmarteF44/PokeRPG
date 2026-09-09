@@ -19,6 +19,10 @@ const EFFECT_PATH_BY_TYPE = {
 	"Rock": "res://assets/battle/effects/rock_impact.png",
 	"Steel": "res://assets/battle/effects/steel_flash.png",
 	"Water": "res://assets/battle/effects/water_splash.png",
+	"Fighting": "res://assets/battle/effects/fighting_impact.png",
+	"Psychic": "res://assets/battle/effects/psychic_swirl.png",
+	"Fairy": "res://assets/battle/effects/fairy_sparkle.png",
+	"Dark": "res://assets/battle/effects/dark_shadow.png",
 }
 const BATTLE_HEAL_ITEMS = {
 	"potion": {"heal": 20, "revive": false},
@@ -149,7 +153,7 @@ const TEXT = {
 	"pt": {
 		"battle": "Batalha",
 		"attack": "Atacar",
-		"fight": "Fight",
+		"fight": "Lutar",
 		"bag": "Mochila",
 		"pokemon": "Pokemon",
 		"run": "Fugir",
@@ -436,7 +440,7 @@ func _add_enemy_area() -> void:
 	enemy_name_label = UI.add_label(self, "", Vector2(18, 62), Vector2(180, 24), 16, Color.WHITE, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "EnemyName")
 	enemy_hp_fill = _add_hp_bar(Vector2(18, 92), Vector2(146, 12), "Enemy")
 	enemy_hp_label = UI.add_label(self, "", Vector2(18, 108), Vector2(146, 22), 13, Color.WHITE, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "EnemyHpText")
-	enemy_sprite = PokemonHelpers.add_animated_sprite(self, enemy_pokemon, Vector2(226, 70), Vector2(96, 96), false, "EnemySprite")
+	enemy_sprite = PokemonHelpers.add_animated_sprite(self, enemy_pokemon, Vector2(220, 64), Vector2(108, 108), false, "EnemySprite")
 
 
 func _add_player_area() -> void:
