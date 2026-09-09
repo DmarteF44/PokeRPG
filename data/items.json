@@ -1239,5 +1239,39 @@
     "description_en": "Raises the chance of a Black/Possessed encounter for 20 minutes.",
     "description_pt": "Aumenta a chance de encontrar um Pokemon Black/Possuido por 20 minutos.",
     "icon_path": "res://assets/items/buffs/black_charm.png"
+  },
+  {
+    "id": "sachet",
+    "name_en": "Sachet",
+    "name_pt": "Sachê",
+    "category": "evolution",
+    "price": 2000,
+    "min_level": 15,
+    "min_badges": 2,
+    "effect_type": "evolve_stone",
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "A sweet-smelling sachet. Spritzee loves carrying it and is happy to evolve while holding one.",
+    "description_pt": "Um sachê perfumado. Spritzee adora carregá-lo e evolui feliz enquanto o segura.",
+    "icon_path": "res://assets/items/evolution/sachet.png"
+  },
+  {
+    "id": "whipped_dream",
+    "name_en": "Whipped Dream",
+    "name_pt": "Chantili dos Sonhos",
+    "category": "evolution",
+    "price": 2000,
+    "min_level": 15,
+    "min_badges": 2,
+    "effect_type": "evolve_stone",
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "A fluffy, cloud-like treat. Swirlix is delighted to evolve while holding one.",
+    "description_pt": "Uma guloseima fofa como nuvem. Swirlix fica encantado e evolui enquanto a segura.",
+    "icon_path": "res://assets/items/evolution/whipped_dream.png"
   }
 ]

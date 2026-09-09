@@ -37,7 +37,7 @@ from PIL import Image, ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 ROOT = Path(__file__).resolve().parents[2]
-MAX_FRAMES = 8
+MAX_FRAMES = 4
 ICON_SIZE = 96
 
 NAME_RE = re.compile(r"^imgi_(\d+)_(.+)\.(gif|png|jpg|jpeg|svg)$", re.IGNORECASE)
@@ -48,7 +48,17 @@ def zip_path_for(gen: int) -> Path:
 
 
 def normalize(slug: str) -> str:
-    return slug.lower().replace(" ", "-")
+    # Archive names carry stray punctuation from official species names
+    # (Mr. Mime -> "mr.mime"/"mr._mime", Mr. Rime -> "mr.-rime", Type: Null ->
+    # "typenull") that a species id's own hyphen/underscore convention won't
+    # match byte-for-byte - fold every separator to "-" so both sides compare
+    # the same way, generically, without a per-species name-fix table.
+    slug = slug.lower()
+    for ch in (" ", ".", ":", "_"):
+        slug = slug.replace(ch, "-")
+    while "--" in slug:
+        slug = slug.replace("--", "-")
+    return slug.strip("-")
 
 
 def load_groups(zf: zipfile.ZipFile) -> dict[str, list[int]]:
@@ -146,8 +156,11 @@ def main() -> None:
         skipped = []
         for species in species_list:
             pid = species["id"]
-            slug = normalize(pid.replace("_", "-"))
-            nums = groups.get(slug) or groups.get(normalize(pid))
+            slug = normalize(pid)
+            # A few archive names drop separators entirely (Tapu Bulu ->
+            # "tapubulu", Type: Null -> "typenull") - fall back to comparing
+            # fully-joined slugs on both sides as a last resort.
+            nums = groups.get(slug) or groups.get(slug.replace("-", ""))
             if not nums:
                 skipped.append(pid)
                 continue
@@ -218,6 +231,34 @@ def main() -> None:
     (ROOT / "data" / "pokemon_species.json").write_text(
         json.dumps(merged, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
     )
+
+    # The runtime actually reads from data/pokemon/gen{N}/pokemon.json for any
+    # species present there (see PokemonHelpers._loaded_definition_for_id),
+    # falling back to pokemon_species.json only when a species is absent from
+    # its per-generation file - so the asset fields have to land there too,
+    # or extraction has zero in-game effect for a generation that already has
+    # its own file (every generation added so far does).
+    # Only the asset fields are copied across (not the whole species dict) -
+    # the per-generation file is the richer, authoritative record (learnset,
+    # evolutions, egg groups, ...) and may have already diverged from
+    # pokemon_species.json's copy (e.g. evolution-method adaptations applied
+    # directly to it), so a wholesale overwrite would silently lose that.
+    ASSET_FIELDS = (
+        "icon_path", "sprite_front", "sprite_back", "front_frames_path",
+        "back_frames_path", "has_animation", "front_gif_source", "back_gif_source",
+    )
+    gen_file = ROOT / f"data/pokemon/gen{gen}/pokemon.json"
+    if gen_file.exists():
+        gen_species = json.loads(gen_file.read_text(encoding="utf-8"))
+        by_gen_id = {s["id"]: s for s in gen_species}
+        for species in species_list:
+            target = by_gen_id.get(species["id"])
+            if target is None:
+                continue
+            for field in ASSET_FIELDS:
+                if field in species:
+                    target[field] = species[field]
+        gen_file.write_text(json.dumps(gen_species, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
     print(f"Gen {gen}: extracted {len(done)}/{len(species_list)} species")
     if skipped:

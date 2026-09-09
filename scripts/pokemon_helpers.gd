@@ -16,7 +16,24 @@ const MOVES_PATH = "res://data/moves.json"
 const ABILITIES_PATH = "res://data/abilities/abilities.json"
 const MANIFEST_PATH = "res://data/pokemon_assets_manifest.json"
 const SPECIES_IDS = ["bulbasaur", "ivysaur", "venusaur", "charmander", "charmeleon", "charizard", "squirtle", "wartortle", "blastoise"]
-const STARTER_IDS = ["bulbasaur", "charmander", "squirtle"]
+# Every generation's canonical starter trio, Gen 1-9 - not just Gen 1's,
+# so is_starter_id()/starter_ids() (used by the debug menu and by
+# save-data's owned-pokemon fallback) recognize a starter from any
+# generation the player actually picked. Gen 9 has no species data in
+# this project yet (see main_menu.gd's starter-selection screen), so
+# listing its ids here is harmless - has_definition() still correctly
+# reports them as unavailable everywhere that matters.
+const STARTER_IDS = [
+	"bulbasaur", "charmander", "squirtle",
+	"chikorita", "cyndaquil", "totodile",
+	"treecko", "torchic", "mudkip",
+	"turtwig", "chimchar", "piplup",
+	"snivy", "tepig", "oshawott",
+	"chespin", "fennekin", "froakie",
+	"rowlet", "litten", "popplio",
+	"grookey", "scorbunny", "sobble",
+	"sprigatito", "fuecoco", "quaxly",
+]
 const DEFAULT_STARTER_ID = "charmander"
 const ANIMATION_FPS = 30.0
 const DEFAULT_XP_TO_NEXT_LEVEL = 100
