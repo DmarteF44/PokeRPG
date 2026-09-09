@@ -373,6 +373,26 @@
       "Ice"
     ]
   },
+  "groudon-primal": {
+    "ability": "Desolate Land",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/groudon-primal/back/",
+    "back_gif_source": "imgi_712_groudon-primal.gif",
+    "base_species": "groudon",
+    "category": "primal",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/groudon-primal/front/",
+    "front_gif_source": "imgi_350_groudon-primal.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/groudon-primal.png",
+    "item_id": "red_orb",
+    "name_en": "Primal Groudon",
+    "name_pt": "Primal Groudon",
+    "types": [
+      "Ground",
+      "Fire"
+    ]
+  },
   "gyarados-mega": {
     "ability": "Mold Breaker",
     "back_frame_count": 8,
@@ -446,6 +466,25 @@
     "name_pt": "Mega Kangaskhan",
     "types": [
       "Normal"
+    ]
+  },
+  "kyogre-primal": {
+    "ability": "Primordial Sea",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/kyogre-primal/back/",
+    "back_gif_source": "imgi_708_kyogre-primal.gif",
+    "base_species": "kyogre",
+    "category": "primal",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/kyogre-primal/front/",
+    "front_gif_source": "imgi_346_kyogre-primal.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/kyogre-primal.png",
+    "item_id": "blue_orb",
+    "name_en": "Primal Kyogre",
+    "name_pt": "Primal Kyogre",
+    "types": [
+      "Water"
     ]
   },
   "latias-mega": {
