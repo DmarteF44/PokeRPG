@@ -18,6 +18,7 @@ const MANIFEST_PATH = "res://data/pokemon_assets_manifest.json"
 const FORMS_PATH = "res://data/pokemon_forms.json"
 const MEGAS_PATH = "res://data/pokemon_megas.json"
 const GMAX_PATH = "res://data/pokemon_gmax.json"
+const BATTLE_BOND_PATH = "res://data/pokemon_battle_bond.json"
 const SPECIES_IDS = ["bulbasaur", "ivysaur", "venusaur", "charmander", "charmeleon", "charizard", "squirtle", "wartortle", "blastoise"]
 # Every generation's canonical starter trio, Gen 1-9 - not just Gen 1's,
 # so is_starter_id()/starter_ids() (used by the debug menu and by
@@ -79,6 +80,7 @@ static var _asset_manifest_cache := {}
 static var _forms_cache := {}
 static var _megas_cache := {}
 static var _gmax_cache := {}
+static var _battle_bond_cache := {}
 
 const FALLBACK_MOVES = {
 	"Tackle": {"id": "tackle", "name": "Tackle", "type": "Normal", "category": "Physical", "power": 40, "accuracy": 100, "pp": 35, "priority": 0, "target": "enemy", "effects": []},
@@ -355,6 +357,24 @@ static func normalize_pokemon(value: Dictionary, fallback_id: String = DEFAULT_S
 			normalized["icon_path"] = mega_icon
 	elif str(normalized.get("icon_path", "")).begins_with("res://assets/pokemon/megas/"):
 		normalized.erase("icon_path")
+	# Battle Bond (Ash-Greninja): automatic, not player-triggered - see
+	# battle_scene.gd's KO check, which sets battle_bond_id directly (empty
+	# = not bonded, same convention as "mega"). Validated against the
+	# species the same way as Mega, but never touches types (real Ash-
+	# Greninja stays pure Water), only ability/sprite.
+	var battle_bond_id := str(normalized.get("battle_bond_id", ""))
+	var battle_bond_def := battle_bond_definition(battle_bond_id)
+	if not battle_bond_def.is_empty() and str(battle_bond_def.get("base_species", "")) != pokemon_id:
+		battle_bond_id = ""
+		battle_bond_def = {}
+	normalized["battle_bond_id"] = battle_bond_id
+	if not battle_bond_def.is_empty():
+		normalized["ability"] = str(battle_bond_def.get("ability", normalized.get("ability", "Unknown")))
+		var bond_icon := str(battle_bond_def.get("icon_path", ""))
+		if bond_icon != "":
+			normalized["icon_path"] = bond_icon
+	elif str(normalized.get("icon_path", "")).begins_with("res://assets/pokemon/battle_bond/"):
+		normalized.erase("icon_path")
 	# Terastalization: every real-game Pokemon has a fixed Tera Type from
 	# the moment it exists, assigned here once and never re-rolled once set
 	# (see _rolled_tera_type) - "terastallized" itself is a battle-only flag
@@ -450,6 +470,10 @@ const MEGA_STAT_BONUS := 0.30
 # HP delta (see battle_scene.gd _dynamax/_revert_dynamax) rather than
 # folded into stats_for_level's multiplier, since it must affect only HP.
 const DYNAMAX_HP_BONUS := 1.0
+# Real Ash-Greninja's exact per-stat spread (Bulbapedia) skews heavily
+# towards Speed/Sp.Atk - approximated here as the same flat-curve bonus
+# used for Mega/Alpha/Black rather than an invented uneven split.
+const BATTLE_BOND_STAT_BONUS := 0.25
 
 
 static func dynamax_hp_bonus(pokemon_id: String, level: int, is_black: bool = false, is_alpha: bool = false, is_purified: bool = false) -> int:
@@ -466,12 +490,12 @@ static func dynamax_hp_bonus(pokemon_id: String, level: int, is_black: bool = fa
 # request: a Purified Pokemon "tem a forca do black mesmo") - it's the
 # "black" flag itself that gets cleared on purification (dropping the dark
 # shader/tag), not the power.
-static func stats_for_level(pokemon_id: String, level: int, is_black: bool = false, is_alpha: bool = false, is_purified: bool = false, is_mega: bool = false) -> Dictionary:
+static func stats_for_level(pokemon_id: String, level: int, is_black: bool = false, is_alpha: bool = false, is_purified: bool = false, is_mega: bool = false, is_battle_bond: bool = false) -> Dictionary:
 	var definition := get_definition(pokemon_id)
 	var base_stats: Dictionary = definition.get("base_stats", {})
 	var safe_level := clampi(level, 1, MAX_LEVEL)
 	var bonus_level := maxi(0, safe_level - 5)
-	var multiplier := 1.0 + (BLACK_STAT_BONUS if (is_black or is_purified) else 0.0) + (ALPHA_STAT_BONUS if is_alpha else 0.0) + (MEGA_STAT_BONUS if is_mega else 0.0)
+	var multiplier := 1.0 + (BLACK_STAT_BONUS if (is_black or is_purified) else 0.0) + (ALPHA_STAT_BONUS if is_alpha else 0.0) + (MEGA_STAT_BONUS if is_mega else 0.0) + (BATTLE_BOND_STAT_BONUS if is_battle_bond else 0.0)
 	return {
 		"max_hp": maxi(1, int(round((int(base_stats.get("hp", 39)) + bonus_level * 3) * multiplier))),
 		"attack": maxi(1, int(round((int(base_stats.get("attack", 50)) + int(floor(float(bonus_level) * float(base_stats.get("attack", 50)) / 50.0))) * multiplier))),
@@ -778,7 +802,7 @@ static func add_animated_sprite(parent: Node, pokemon: Dictionary, pos: Vector2,
 	texture_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	parent.add_child(texture_rect)
 
-	var frames := frame_textures(str(pokemon.get("id", DEFAULT_STARTER_ID)), use_back, str(pokemon.get("form", "")), str(pokemon.get("mega", "")), str(pokemon.get("dynamax_gmax_id", "")))
+	var frames := frame_textures(str(pokemon.get("id", DEFAULT_STARTER_ID)), use_back, str(pokemon.get("form", "")), str(pokemon.get("mega", "")), str(pokemon.get("dynamax_gmax_id", "")), str(pokemon.get("battle_bond_id", "")))
 	texture_rect.set_frames(frames, _fallback_texture(pokemon), ANIMATION_LOOP_SECONDS)
 	texture_rect.material = variant_material(pokemon)
 	# Alpha's size bump and Dynamax's are both orthogonal to the shiny/black
@@ -909,6 +933,8 @@ static func variant_tag(pokemon: Dictionary) -> String:
 			tag += " (%s)" % short_label
 	if bool(pokemon.get("terastallized", false)):
 		tag += " ◈Tera(%s)" % str(pokemon.get("tera_type", ""))
+	if str(pokemon.get("battle_bond_id", "")) != "":
+		tag += " 🌀Bond"
 	return tag
 
 
@@ -1004,7 +1030,7 @@ static func variant_material(pokemon: Dictionary):
 	return null
 
 
-static func frame_textures(pokemon_id: String, use_back: bool = false, form_id: String = "", mega_id: String = "", gmax_id: String = "") -> Array:
+static func frame_textures(pokemon_id: String, use_back: bool = false, form_id: String = "", mega_id: String = "", gmax_id: String = "", battle_bond_id: String = "") -> Array:
 	if mega_id != "":
 		var mega_def := mega_definition(mega_id)
 		if not mega_def.is_empty():
@@ -1025,6 +1051,16 @@ static func frame_textures(pokemon_id: String, use_back: bool = false, form_id: 
 				gmax_frames = _textures_from_folder(str(gmax_def.get(gmax_fallback_key, "")))
 			if not gmax_frames.is_empty():
 				return gmax_frames
+	if battle_bond_id != "":
+		var bond_def := battle_bond_definition(battle_bond_id)
+		if not bond_def.is_empty():
+			var bond_folder_key := "back_frames_path" if use_back else "front_frames_path"
+			var bond_fallback_key := "front_frames_path" if use_back else "back_frames_path"
+			var bond_frames := _textures_from_folder(str(bond_def.get(bond_folder_key, "")))
+			if bond_frames.is_empty():
+				bond_frames = _textures_from_folder(str(bond_def.get(bond_fallback_key, "")))
+			if not bond_frames.is_empty():
+				return bond_frames
 	if form_id != "":
 		var form_def := form_definition(form_id)
 		if not form_def.is_empty():
@@ -1533,6 +1569,50 @@ static func gmax_ids_for_species(pokemon_id: String) -> Array:
 			result.append(str(gmax_id))
 	result.sort()
 	return result
+
+
+# Battle Bond (data/pokemon_battle_bond.json, see
+# extract_battle_bond_sprites.py): the one real Pokemon mechanic with no
+# held item or player button at all - Greninja transforms into Ash-
+# Greninja automatically the instant it KOs an opposing Pokemon mid-battle
+# (see battle_scene.gd _use_move_index's KO check), for the rest of that
+# battle. Real Ash-Greninja keeps its pure Water type (no type override
+# here, unlike Mega/Gigantamax) and gains a stat boost + boosted Water
+# Shuriken this project doesn't model per-move - only the sprite swap and
+# a flat stat bonus (BATTLE_BOND_STAT_BONUS) are real here.
+static func _loaded_battle_bond() -> Dictionary:
+	if not _battle_bond_cache.is_empty():
+		return _battle_bond_cache
+	if not FileAccess.file_exists(BATTLE_BOND_PATH):
+		_battle_bond_cache = {}
+		return {}
+	var file := FileAccess.open(BATTLE_BOND_PATH, FileAccess.READ)
+	if file == null:
+		_battle_bond_cache = {}
+		return {}
+	var parsed = JSON.parse_string(file.get_as_text())
+	_battle_bond_cache = parsed if typeof(parsed) == TYPE_DICTIONARY else {}
+	return _battle_bond_cache
+
+
+static func battle_bond_ids_for_species(pokemon_id: String) -> Array:
+	var safe_id := _safe_id(pokemon_id)
+	var result := []
+	var entries := _loaded_battle_bond()
+	for bond_id in entries.keys():
+		var entry = entries[bond_id]
+		if typeof(entry) == TYPE_DICTIONARY and str(entry.get("base_species", "")) == safe_id:
+			result.append(str(bond_id))
+	result.sort()
+	return result
+
+
+static func battle_bond_definition(bond_id: String) -> Dictionary:
+	if bond_id == "":
+		return {}
+	var entries := _loaded_battle_bond()
+	var entry = entries.get(bond_id, {})
+	return entry.duplicate(true) if typeof(entry) == TYPE_DICTIONARY else {}
 
 
 static func _complete_species_definition(definition: Dictionary) -> Dictionary:
