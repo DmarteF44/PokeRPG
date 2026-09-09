@@ -504,6 +504,7 @@ var storage_popup: Control
 var pokemon_center_status_label: Label
 var pokemon_center_heal_button: TextureButton
 var stats_label: Label
+var energy_bar_fill: ColorRect
 var selected_bag_category := "pokeballs"
 var selected_bag_item: Dictionary = {}
 var selected_shop_category := "pokeballs"
@@ -563,9 +564,18 @@ func _build_screen() -> void:
 	UI.add_texture(self, "res://assets/ui/logo_pokerpg_512x200.png", Vector2(82, 108), Vector2(196, 76), "Logo", TextureRect.STRETCH_KEEP_ASPECT_CENTERED)
 
 	stats_label = UI.add_label(self, _stats_text(), Vector2(16, 188), Vector2(328, 24), 12, Color(0.94, 0.97, 1.0), HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Stats")
-	UI.add_label(self, _text("tutorial_prompt"), Vector2(20, 220), Vector2(320, 24), 14, Color.WHITE, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "TutorialPrompt")
-	UI.add_orange_button(self, _text("tutorial"), Vector2(70, 248), Vector2(220, 48), Callable(self, "_show_tutorial"), "Tutorial")
+	_add_home_energy_bar()
+	UI.add_label(self, _text("tutorial_prompt"), Vector2(20, 232), Vector2(320, 24), 14, Color.WHITE, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "TutorialPrompt")
+	UI.add_orange_button(self, _text("tutorial"), Vector2(70, 260), Vector2(220, 48), Callable(self, "_show_tutorial"), "Tutorial")
 	_add_secret_debug_emoji()
+
+
+const ENERGY_BAR_WIDTH = 240.0
+
+func _add_home_energy_bar() -> void:
+	var energy_max := maxi(1, int(save_data.get("energy_max", 30)))
+	var energy_current := clampi(int(save_data.get("energy_current", energy_max)), 0, energy_max)
+	energy_bar_fill = UI.add_ratio_bar(self, Vector2(60, 214), Vector2(ENERGY_BAR_WIDTH, 10), float(energy_current) / float(energy_max), Color(0.30, 0.78, 0.95), Color(0.05, 0.05, 0.05, 0.9), "HomeEnergy")
 
 
 func _add_topbar_icons() -> void:
@@ -586,7 +596,7 @@ func _add_topbar_icons() -> void:
 
 
 func _add_topbar_icon(icon_path: String, pos: Vector2, callback: Callable, node_name: String, fallback_text: String) -> void:
-	if FileAccess.file_exists(icon_path):
+	if UI.resource_exists(icon_path):
 		UI.add_icon_button(self, icon_path, pos, callback, node_name)
 		return
 
@@ -622,6 +632,9 @@ func _stats_text() -> String:
 func _refresh_home_stats() -> void:
 	if stats_label != null and is_instance_valid(stats_label):
 		stats_label.text = _stats_text()
+	var energy_max := maxi(1, int(save_data.get("energy_max", 30)))
+	var energy_current := clampi(int(save_data.get("energy_current", energy_max)), 0, energy_max)
+	UI.set_ratio_bar_value(energy_bar_fill, ENERGY_BAR_WIDTH - 2.0, float(energy_current) / float(energy_max))
 
 
 func _show_tutorial() -> void:
@@ -763,7 +776,7 @@ func _avatar_texture_path(save: Dictionary) -> String:
 		return CUSTOM_AVATAR_PATH
 	var avatar_id := clampi(int(save.get("avatar_id", 1)), 1, AVATAR_ASSETS_96.size())
 	var path: String = AVATAR_ASSETS_96[avatar_id - 1]
-	return path if FileAccess.file_exists(path) else ""
+	return path if UI.resource_exists(path) else ""
 
 
 func _show_avatar_editor() -> void:
@@ -798,7 +811,7 @@ func _add_profile_avatar_button(parent: Control, avatar_id: int, pos: Vector2, s
 	parent.add_child(button)
 	UI.style_panel_button(button, Color(0.95, 0.78, 0.32) if selected else Color(0.86, 0.92, 0.96), Color(0.92, 0.46, 0.08) if selected else Color(0.34, 0.50, 0.62), 2)
 	var path: String = AVATAR_ASSETS_96[avatar_id - 1]
-	if FileAccess.file_exists(path):
+	if UI.resource_exists(path):
 		UI.add_texture(button, path, Vector2(18, 8), Vector2(56, 56), "AvatarImage", TextureRect.STRETCH_KEEP_ASPECT_CENTERED)
 	UI.add_panel_label(button, "%s %d" % [_text("profile"), avatar_id], Vector2(0, 66), Vector2(92, 20), 11, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "AvatarText")
 	button.pressed.connect(Callable(self, "_apply_profile_avatar").bind(avatar_id))
@@ -861,7 +874,7 @@ func _add_world_map_row(parent: Control, map_data: Dictionary, index: int) -> vo
 	parent.add_child(button)
 
 	var icon_path := _map_thumbnail_path(map_data)
-	if icon_path != "" and FileAccess.file_exists(icon_path):
+	if UI.resource_exists(icon_path):
 		UI.add_texture(button, icon_path, Vector2(10, 7), Vector2(52, 52), "Icon", TextureRect.STRETCH_KEEP_ASPECT_CENTERED)
 	else:
 		_add_map_thumbnail_placeholder(button, str(map_data["key"]), Vector2(10, 7), Vector2(52, 52))
@@ -3035,7 +3048,7 @@ func _add_small_button(parent: Node, text: String, pos: Vector2, node_size: Vect
 
 func _add_item_icon(parent: Node, item: Dictionary, pos: Vector2, node_size: Vector2) -> void:
 	for icon_path in _icon_candidates(item):
-		if FileAccess.file_exists(str(icon_path)):
+		if UI.resource_exists(str(icon_path)):
 			UI.add_texture(parent, str(icon_path), pos, node_size, "ItemIcon", TextureRect.STRETCH_KEEP_ASPECT_CENTERED)
 			return
 
@@ -3061,7 +3074,7 @@ func _map_thumbnail_path(map_data: Dictionary) -> String:
 	]
 
 	for candidate in candidates:
-		if str(candidate) != "" and FileAccess.file_exists(str(candidate)):
+		if UI.resource_exists(str(candidate)):
 			return str(candidate)
 	return ""
 
@@ -3146,7 +3159,7 @@ func _add_placeholder_icon(parent: Node, pos: Vector2, node_size: Vector2, text:
 
 
 func _add_texture_if_exists(parent: Node, path: String, pos: Vector2, node_size: Vector2, node_name: String) -> void:
-	if FileAccess.file_exists(path):
+	if UI.resource_exists(path):
 		UI.add_texture(parent, path, pos, node_size, node_name, TextureRect.STRETCH_KEEP_ASPECT_CENTERED)
 
 

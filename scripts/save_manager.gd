@@ -212,13 +212,16 @@ func update_current_save(changes: Dictionary) -> Dictionary:
 const MAX_TRAINER_LEVEL = 100
 
 
-# Trainer level curve: gentle early, steeper late (quadratic). At level 1 the
-# player needs 44 XP; by level 50, ~10000; by level 99, ~39000.
+# Trainer level curve: simple and linear, gentle from the very first levels
+# (level 1->2 needs 10 XP, level 2->3 needs 20, level 3->4 needs 30, ...).
+# Change TRAINER_XP_PER_LEVEL to retune the whole curve in one place.
+const TRAINER_XP_PER_LEVEL = 10
+
 func trainer_xp_to_next_level(level: int) -> int:
 	var safe_level := clampi(level, 1, MAX_TRAINER_LEVEL)
 	if safe_level >= MAX_TRAINER_LEVEL:
 		return 0
-	return 40 + safe_level * safe_level * 4
+	return safe_level * TRAINER_XP_PER_LEVEL
 
 
 # Specialization points earned per trainer level-up. Progressive: 1 point per
