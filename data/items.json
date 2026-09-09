@@ -2073,5 +2073,327 @@
     "description_en": "A mysterious red orb. While held in battle, lets Groudon undergo Primal Reversion.",
     "description_pt": "Um misterioso orbe vermelho. Enquanto segurado em batalha, permite que Groudon passe por Regressao Primitiva.",
     "icon_path": "res://assets/items/evolution/red_orb.png"
+  },
+  {
+    "id": "normalium_z",
+    "name_en": "Normalium Z",
+    "name_pt": "Normalium Z",
+    "category": "evolution",
+    "price": 20000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "z_crystal",
+    "z_type": "Normal",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Z-Crystal. While held in battle, lets a Normal-type move you know unleash a powerful, guaranteed-hit Z-Move once per battle.",
+    "description_pt": "Um Z-Crystal. Enquanto segurado em batalha, permite que um movimento do tipo Normal que voce conhece libere um poderoso Movimento Z, com acerto garantido, uma vez por batalha.",
+    "icon_path": "res://assets/items/evolution/z_crystal.png"
+  },
+  {
+    "id": "firium_z",
+    "name_en": "Firium Z",
+    "name_pt": "Firium Z",
+    "category": "evolution",
+    "price": 20000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "z_crystal",
+    "z_type": "Fire",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Z-Crystal. While held in battle, lets a Fire-type move you know unleash a powerful, guaranteed-hit Z-Move once per battle.",
+    "description_pt": "Um Z-Crystal. Enquanto segurado em batalha, permite que um movimento do tipo Fire que voce conhece libere um poderoso Movimento Z, com acerto garantido, uma vez por batalha.",
+    "icon_path": "res://assets/items/evolution/z_crystal.png"
+  },
+  {
+    "id": "waterium_z",
+    "name_en": "Waterium Z",
+    "name_pt": "Waterium Z",
+    "category": "evolution",
+    "price": 20000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "z_crystal",
+    "z_type": "Water",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Z-Crystal. While held in battle, lets a Water-type move you know unleash a powerful, guaranteed-hit Z-Move once per battle.",
+    "description_pt": "Um Z-Crystal. Enquanto segurado em batalha, permite que um movimento do tipo Water que voce conhece libere um poderoso Movimento Z, com acerto garantido, uma vez por batalha.",
+    "icon_path": "res://assets/items/evolution/z_crystal.png"
+  },
+  {
+    "id": "electrium_z",
+    "name_en": "Electrium Z",
+    "name_pt": "Electrium Z",
+    "category": "evolution",
+    "price": 20000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "z_crystal",
+    "z_type": "Electric",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Z-Crystal. While held in battle, lets a Electric-type move you know unleash a powerful, guaranteed-hit Z-Move once per battle.",
+    "description_pt": "Um Z-Crystal. Enquanto segurado em batalha, permite que um movimento do tipo Electric que voce conhece libere um poderoso Movimento Z, com acerto garantido, uma vez por batalha.",
+    "icon_path": "res://assets/items/evolution/z_crystal.png"
+  },
+  {
+    "id": "grassium_z",
+    "name_en": "Grassium Z",
+    "name_pt": "Grassium Z",
+    "category": "evolution",
+    "price": 20000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "z_crystal",
+    "z_type": "Grass",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Z-Crystal. While held in battle, lets a Grass-type move you know unleash a powerful, guaranteed-hit Z-Move once per battle.",
+    "description_pt": "Um Z-Crystal. Enquanto segurado em batalha, permite que um movimento do tipo Grass que voce conhece libere um poderoso Movimento Z, com acerto garantido, uma vez por batalha.",
+    "icon_path": "res://assets/items/evolution/z_crystal.png"
+  },
+  {
+    "id": "icium_z",
+    "name_en": "Icium Z",
+    "name_pt": "Icium Z",
+    "category": "evolution",
+    "price": 20000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "z_crystal",
+    "z_type": "Ice",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Z-Crystal. While held in battle, lets a Ice-type move you know unleash a powerful, guaranteed-hit Z-Move once per battle.",
+    "description_pt": "Um Z-Crystal. Enquanto segurado em batalha, permite que um movimento do tipo Ice que voce conhece libere um poderoso Movimento Z, com acerto garantido, uma vez por batalha.",
+    "icon_path": "res://assets/items/evolution/z_crystal.png"
+  },
+  {
+    "id": "fightinium_z",
+    "name_en": "Fightinium Z",
+    "name_pt": "Fightinium Z",
+    "category": "evolution",
+    "price": 20000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "z_crystal",
+    "z_type": "Fighting",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Z-Crystal. While held in battle, lets a Fighting-type move you know unleash a powerful, guaranteed-hit Z-Move once per battle.",
+    "description_pt": "Um Z-Crystal. Enquanto segurado em batalha, permite que um movimento do tipo Fighting que voce conhece libere um poderoso Movimento Z, com acerto garantido, uma vez por batalha.",
+    "icon_path": "res://assets/items/evolution/z_crystal.png"
+  },
+  {
+    "id": "poisonium_z",
+    "name_en": "Poisonium Z",
+    "name_pt": "Poisonium Z",
+    "category": "evolution",
+    "price": 20000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "z_crystal",
+    "z_type": "Poison",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Z-Crystal. While held in battle, lets a Poison-type move you know unleash a powerful, guaranteed-hit Z-Move once per battle.",
+    "description_pt": "Um Z-Crystal. Enquanto segurado em batalha, permite que um movimento do tipo Poison que voce conhece libere um poderoso Movimento Z, com acerto garantido, uma vez por batalha.",
+    "icon_path": "res://assets/items/evolution/z_crystal.png"
+  },
+  {
+    "id": "groundium_z",
+    "name_en": "Groundium Z",
+    "name_pt": "Groundium Z",
+    "category": "evolution",
+    "price": 20000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "z_crystal",
+    "z_type": "Ground",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Z-Crystal. While held in battle, lets a Ground-type move you know unleash a powerful, guaranteed-hit Z-Move once per battle.",
+    "description_pt": "Um Z-Crystal. Enquanto segurado em batalha, permite que um movimento do tipo Ground que voce conhece libere um poderoso Movimento Z, com acerto garantido, uma vez por batalha.",
+    "icon_path": "res://assets/items/evolution/z_crystal.png"
+  },
+  {
+    "id": "flyinium_z",
+    "name_en": "Flyinium Z",
+    "name_pt": "Flyinium Z",
+    "category": "evolution",
+    "price": 20000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "z_crystal",
+    "z_type": "Flying",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Z-Crystal. While held in battle, lets a Flying-type move you know unleash a powerful, guaranteed-hit Z-Move once per battle.",
+    "description_pt": "Um Z-Crystal. Enquanto segurado em batalha, permite que um movimento do tipo Flying que voce conhece libere um poderoso Movimento Z, com acerto garantido, uma vez por batalha.",
+    "icon_path": "res://assets/items/evolution/z_crystal.png"
+  },
+  {
+    "id": "psychium_z",
+    "name_en": "Psychium Z",
+    "name_pt": "Psychium Z",
+    "category": "evolution",
+    "price": 20000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "z_crystal",
+    "z_type": "Psychic",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Z-Crystal. While held in battle, lets a Psychic-type move you know unleash a powerful, guaranteed-hit Z-Move once per battle.",
+    "description_pt": "Um Z-Crystal. Enquanto segurado em batalha, permite que um movimento do tipo Psychic que voce conhece libere um poderoso Movimento Z, com acerto garantido, uma vez por batalha.",
+    "icon_path": "res://assets/items/evolution/z_crystal.png"
+  },
+  {
+    "id": "buginium_z",
+    "name_en": "Buginium Z",
+    "name_pt": "Buginium Z",
+    "category": "evolution",
+    "price": 20000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "z_crystal",
+    "z_type": "Bug",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Z-Crystal. While held in battle, lets a Bug-type move you know unleash a powerful, guaranteed-hit Z-Move once per battle.",
+    "description_pt": "Um Z-Crystal. Enquanto segurado em batalha, permite que um movimento do tipo Bug que voce conhece libere um poderoso Movimento Z, com acerto garantido, uma vez por batalha.",
+    "icon_path": "res://assets/items/evolution/z_crystal.png"
+  },
+  {
+    "id": "rockium_z",
+    "name_en": "Rockium Z",
+    "name_pt": "Rockium Z",
+    "category": "evolution",
+    "price": 20000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "z_crystal",
+    "z_type": "Rock",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Z-Crystal. While held in battle, lets a Rock-type move you know unleash a powerful, guaranteed-hit Z-Move once per battle.",
+    "description_pt": "Um Z-Crystal. Enquanto segurado em batalha, permite que um movimento do tipo Rock que voce conhece libere um poderoso Movimento Z, com acerto garantido, uma vez por batalha.",
+    "icon_path": "res://assets/items/evolution/z_crystal.png"
+  },
+  {
+    "id": "ghostium_z",
+    "name_en": "Ghostium Z",
+    "name_pt": "Ghostium Z",
+    "category": "evolution",
+    "price": 20000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "z_crystal",
+    "z_type": "Ghost",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Z-Crystal. While held in battle, lets a Ghost-type move you know unleash a powerful, guaranteed-hit Z-Move once per battle.",
+    "description_pt": "Um Z-Crystal. Enquanto segurado em batalha, permite que um movimento do tipo Ghost que voce conhece libere um poderoso Movimento Z, com acerto garantido, uma vez por batalha.",
+    "icon_path": "res://assets/items/evolution/z_crystal.png"
+  },
+  {
+    "id": "dragonium_z",
+    "name_en": "Dragonium Z",
+    "name_pt": "Dragonium Z",
+    "category": "evolution",
+    "price": 20000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "z_crystal",
+    "z_type": "Dragon",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Z-Crystal. While held in battle, lets a Dragon-type move you know unleash a powerful, guaranteed-hit Z-Move once per battle.",
+    "description_pt": "Um Z-Crystal. Enquanto segurado em batalha, permite que um movimento do tipo Dragon que voce conhece libere um poderoso Movimento Z, com acerto garantido, uma vez por batalha.",
+    "icon_path": "res://assets/items/evolution/z_crystal.png"
+  },
+  {
+    "id": "darkinium_z",
+    "name_en": "Darkinium Z",
+    "name_pt": "Darkinium Z",
+    "category": "evolution",
+    "price": 20000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "z_crystal",
+    "z_type": "Dark",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Z-Crystal. While held in battle, lets a Dark-type move you know unleash a powerful, guaranteed-hit Z-Move once per battle.",
+    "description_pt": "Um Z-Crystal. Enquanto segurado em batalha, permite que um movimento do tipo Dark que voce conhece libere um poderoso Movimento Z, com acerto garantido, uma vez por batalha.",
+    "icon_path": "res://assets/items/evolution/z_crystal.png"
+  },
+  {
+    "id": "steelium_z",
+    "name_en": "Steelium Z",
+    "name_pt": "Steelium Z",
+    "category": "evolution",
+    "price": 20000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "z_crystal",
+    "z_type": "Steel",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Z-Crystal. While held in battle, lets a Steel-type move you know unleash a powerful, guaranteed-hit Z-Move once per battle.",
+    "description_pt": "Um Z-Crystal. Enquanto segurado em batalha, permite que um movimento do tipo Steel que voce conhece libere um poderoso Movimento Z, com acerto garantido, uma vez por batalha.",
+    "icon_path": "res://assets/items/evolution/z_crystal.png"
+  },
+  {
+    "id": "fairium_z",
+    "name_en": "Fairium Z",
+    "name_pt": "Fairium Z",
+    "category": "evolution",
+    "price": 20000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "z_crystal",
+    "z_type": "Fairy",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Z-Crystal. While held in battle, lets a Fairy-type move you know unleash a powerful, guaranteed-hit Z-Move once per battle.",
+    "description_pt": "Um Z-Crystal. Enquanto segurado em batalha, permite que um movimento do tipo Fairy que voce conhece libere um poderoso Movimento Z, com acerto garantido, uma vez por batalha.",
+    "icon_path": "res://assets/items/evolution/z_crystal.png"
+  },
+  {
+    "id": "tera_orb",
+    "name_en": "Tera Orb",
+    "name_pt": "Orbe Tera",
+    "category": "key_items",
+    "price": 45000,
+    "min_level": 28,
+    "min_badges": 4,
+    "effect_type": "tera_orb",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A trainer-wide crystalline device. Once bought, lets any of your Pokemon Terastallize in battle, turning both its types into a single Tera Type for the rest of the fight.",
+    "description_pt": "Um dispositivo cristalino do treinador. Uma vez comprado, permite que qualquer um dos seus Pokemon Teracristalize em batalha, transformando seus dois tipos em um unico Tipo Tera pelo resto da luta.",
+    "icon_path": "res://assets/items/key_items/tera_orb.png"
   }
 ]

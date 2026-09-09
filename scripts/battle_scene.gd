@@ -89,6 +89,9 @@ const TEXT = {
 		"dynamax": "Dynamax",
 		"dynamaxed_message": "%s Dynamaxed!",
 		"dynamax_wore_off": "%s's Dynamax wore off!",
+		"z_move_name": "Z-%s",
+		"terastallize": "Terastallize",
+		"terastallized_message": "%s Terastallized into the %s type!",
 		"hp": "HP",
 		"level": "Lv.",
 		"wild_appeared": "Wild %s appeared!",
@@ -172,6 +175,9 @@ const TEXT = {
 		"dynamax": "Dynamax",
 		"dynamaxed_message": "%s usou Dynamax!",
 		"dynamax_wore_off": "O Dynamax de %s acabou!",
+		"z_move_name": "Z-%s",
+		"terastallize": "Teracristalizar",
+		"terastallized_message": "%s Teracristalizou para o tipo %s!",
 		"hp": "HP",
 		"level": "Nv.",
 		"wild_appeared": "%s selvagem apareceu!",
@@ -272,6 +278,7 @@ var player_sprite: TextureRect
 var battle_effect_layer: Control
 var mega_button: TextureButton
 var dynamax_button: TextureButton
+var tera_button: TextureButton
 
 
 func _ready() -> void:
@@ -529,16 +536,24 @@ func _show_attack_panel() -> void:
 	var moves := _player_moves()
 	var pp_current := _player_pp_current()
 	var pp_max := _player_pp_max()
+	var held_z_type := _held_z_move_type()
 	for i in range(moves.size()):
 		var move: Dictionary = moves[i]
 		var pos := Vector2(28.0 + float(i % 2) * 164.0, 516.0 + float(int(i / 2)) * 54.0)
-		var move_text := "%s\n%s PP %d/%d" % [
+		# A move can unleash its Z-Move variant only while holding the
+		# matching Z-Crystal, only for a damaging move (see _use_move_index's
+		# "nao criar dados ficticios" note on status Z-effects), and only
+		# once per battle - see z_move_used, cleared the same battle-only
+		# way as Mega/Dynamax.
+		var is_z_eligible := held_z_type != "" and str(move.get("type", "")) == held_z_type and int(move.get("power", 0)) > 0 and not bool(player_pokemon.get("z_move_used", false))
+		var move_text := "%s%s\n%s PP %d/%d" % [
+			"⚡Z " if is_z_eligible else "",
 			str(move.get("name", "Tackle")),
 			str(move.get("type", "Normal")),
 			int(pp_current[i]) if i < pp_current.size() else 0,
 			int(pp_max[i]) if i < pp_max.size() else 0,
 		]
-		var button := UI.add_orange_button(attack_panel, move_text, pos, Vector2(140, 44), Callable(self, "_use_move_index").bind(i), str(move.get("name", "Move")).replace(" ", ""))
+		var button := UI.add_orange_button(attack_panel, move_text, pos, Vector2(140, 44), Callable(self, "_use_move_index").bind(i, is_z_eligible), str(move.get("name", "Move")).replace(" ", ""))
 		var label = button.get_node_or_null("Text")
 		if label is Label:
 			# Re-asserting size after these overrides works around the same
@@ -553,7 +568,7 @@ func _show_attack_panel() -> void:
 	UI.add_orange_button(attack_panel, _text("back"), Vector2(132, 474), Vector2(96, 26), Callable(self, "_hide_attack_panel"), "Back")
 
 
-func _use_move_index(move_index: int) -> void:
+func _use_move_index(move_index: int, use_z: bool = false) -> void:
 	if battle_over or capture_in_progress:
 		return
 	if _require_forced_switch():
@@ -569,6 +584,17 @@ func _use_move_index(move_index: int) -> void:
 	_hide_attack_panel()
 	_consume_player_pp(move_index)
 	var move: Dictionary = moves[move_index]
+	# ADAPTACAO DO POKERPG: real Z-Moves have a per-move power table and
+	# move-specific status effects (Z-Swords Dance, Z-Recover, ...) - this
+	# project uses one flat power multiplier on damaging moves only, a
+	# simplification in the same spirit as Dynamax's Max Move power bump,
+	# rather than risk inventing 700+ moves' worth of exact table entries.
+	if use_z and int(move.get("power", 0)) > 0 and not bool(player_pokemon.get("z_move_used", false)):
+		move = move.duplicate(true)
+		move["power"] = int(round(float(move.get("power", 0)) * Z_MOVE_POWER_MULTIPLIER))
+		move["accuracy"] = 100
+		move["name"] = _text("z_move_name") % str(move.get("name", "Move"))
+		player_pokemon["z_move_used"] = true
 	var lines := []
 	var player_first := _player_moves_first()
 
@@ -988,6 +1014,7 @@ func _finish_battle_if_needed(lines: Array) -> bool:
 		battle_over = true
 		_refresh_mega_button()
 		_refresh_dynamax_button()
+		_refresh_tera_button()
 		lines.append(_text("enemy_fainted"))
 		lines.append(_grant_victory_xp())
 		var gym_result := _gym_victory_result()
@@ -1014,6 +1041,7 @@ func _finish_battle_if_needed(lines: Array) -> bool:
 		battle_over = true
 		_refresh_mega_button()
 		_refresh_dynamax_button()
+		_refresh_tera_button()
 		message_label.text = _join_lines(lines)
 		_add_return_button()
 		return true
@@ -1158,13 +1186,14 @@ func _persist_player_pokemon(extra_changes: Dictionary = {}) -> void:
 
 func _battle_pokemon_copy(pokemon: Dictionary, strip_battle_only: bool = false) -> Dictionary:
 	var source := pokemon
-	# Mega Evolution and Dynamax must never survive into a persisted save
-	# (see PokemonHelpers.mega_definition / _dynamax below) - reverting both
-	# flags and their stat bonuses together here, at the one point
-	# (_battle_team_snapshot) whose output ever reaches SaveManager, is what
-	# makes it safe to let them live freely on the in-memory player_pokemon/
-	# battle_team for the rest of the actual battle.
-	if strip_battle_only and typeof(pokemon) == TYPE_DICTIONARY and (str(pokemon.get("mega", "")) != "" or bool(pokemon.get("dynamax", false))):
+	# Mega Evolution, Dynamax, Terastalization and a used Z-Move charge must
+	# never survive into a persisted save (see PokemonHelpers.mega_definition
+	# / _dynamax / _terastallize / _use_move_index) - reverting them
+	# together here, at the one point (_battle_team_snapshot) whose output
+	# ever reaches SaveManager, is what makes it safe to let them live
+	# freely on the in-memory player_pokemon/battle_team for the rest of
+	# the actual battle.
+	if strip_battle_only and typeof(pokemon) == TYPE_DICTIONARY and (str(pokemon.get("mega", "")) != "" or bool(pokemon.get("dynamax", false)) or bool(pokemon.get("terastallized", false)) or bool(pokemon.get("z_move_used", false))):
 		source = pokemon.duplicate(true)
 		if str(source.get("mega", "")) != "":
 			var stats := PokemonHelpers.stats_for_level(str(source.get("id", "")), int(source.get("level", 1)), bool(source.get("black", false)), bool(source.get("alpha", false)), bool(source.get("purified", false)), false)
@@ -1174,6 +1203,8 @@ func _battle_pokemon_copy(pokemon: Dictionary, strip_battle_only: bool = false) 
 			source["mega"] = ""
 		if bool(source.get("dynamax", false)):
 			_revert_dynamax(source)
+		source["terastallized"] = false
+		source["z_move_used"] = false
 	return PokemonHelpers.normalize_pokemon(source).duplicate(true)
 
 
@@ -1204,6 +1235,7 @@ func _update_status() -> void:
 	_resize_hp_fill(player_hp_fill, player_pokemon)
 	_refresh_mega_button()
 	_refresh_dynamax_button()
+	_refresh_tera_button()
 
 
 func _resize_hp_fill(fill: ColorRect, pokemon: Dictionary) -> void:
@@ -1318,6 +1350,22 @@ func _battle_item_ids() -> Array:
 		if typeof(contexts_value) == TYPE_ARRAY and contexts_value.has("battle"):
 			ids.append(str(item.get("id", "")))
 	return ids
+
+
+# Real Z-Moves scale power per a fixed table keyed by the base move's own
+# power tier (60->100, 75->120, 100->160, ...) - this project uses one flat
+# multiplier instead (see _use_move_index's "ADAPTACAO" note).
+const Z_MOVE_POWER_MULTIPLIER := 1.8
+
+
+func _held_z_move_type() -> String:
+	var held_item := str(player_pokemon.get("held_item", ""))
+	if held_item == "":
+		return ""
+	var item_data := _loaded_item_data(held_item)
+	if str(item_data.get("effect_type", "")) != "z_crystal":
+		return ""
+	return str(item_data.get("z_type", ""))
 
 
 func _loaded_item_data(item_id: String) -> Dictionary:
@@ -1558,6 +1606,7 @@ func _use_capture_item(item_id: String) -> void:
 		battle_over = true
 		_refresh_mega_button()
 		_refresh_dynamax_button()
+		_refresh_tera_button()
 		var lines := [_text("capture_click"), _text("caught") % enemy_name]
 		if destination == "storage":
 			lines.append(_text("sent_storage"))
@@ -1787,7 +1836,7 @@ func _refresh_player_sprite() -> void:
 # {} when it can't Mega Evolve right now (wrong/no held item, no Mega for
 # this species, or already Mega Evolved this battle).
 func _available_mega_for_player() -> Dictionary:
-	if str(player_pokemon.get("mega", "")) != "" or bool(player_pokemon.get("dynamax", false)):
+	if str(player_pokemon.get("mega", "")) != "" or bool(player_pokemon.get("dynamax", false)) or bool(player_pokemon.get("terastallized", false)):
 		return {}
 	var held_item := str(player_pokemon.get("held_item", ""))
 	if held_item == "":
@@ -1813,7 +1862,7 @@ func _refresh_mega_button() -> void:
 	if mega_def.is_empty():
 		return
 	var button_label := _text("primal_revert") if str(mega_def.get("category", "mega")) == "primal" else _text("mega_evolve")
-	mega_button = UI.add_orange_button(self, button_label, Vector2(166, 330), Vector2(120, 32), Callable(self, "_mega_evolve"), "MegaEvolveButton")
+	mega_button = UI.add_orange_button(self, button_label, Vector2(166, 322), Vector2(120, 26), Callable(self, "_mega_evolve"), "MegaEvolveButton")
 
 
 # Mega Evolving is "free" the same way it is in the real games - it doesn't
@@ -1854,7 +1903,7 @@ const DYNAMAX_BAND_ID := "dynamax_band"
 
 
 func _can_dynamax() -> bool:
-	if str(player_pokemon.get("mega", "")) != "" or bool(player_pokemon.get("dynamax", false)):
+	if str(player_pokemon.get("mega", "")) != "" or bool(player_pokemon.get("dynamax", false)) or bool(player_pokemon.get("terastallized", false)):
 		return false
 	return InventoryManager.get_item_amount(DYNAMAX_BAND_ID) > 0
 
@@ -1869,7 +1918,7 @@ func _refresh_dynamax_button() -> void:
 		return
 	if not _can_dynamax():
 		return
-	dynamax_button = UI.add_orange_button(self, _text("dynamax"), Vector2(166, 366), Vector2(120, 32), Callable(self, "_dynamax"), "DynamaxButton")
+	dynamax_button = UI.add_orange_button(self, _text("dynamax"), Vector2(166, 350), Vector2(120, 26), Callable(self, "_dynamax"), "DynamaxButton")
 
 
 # Lasts 3 rounds (see the countdown in _apply_end_turn_effects), same as the
@@ -1899,6 +1948,53 @@ func _dynamax() -> void:
 	battle_team[player_team_index] = _battle_pokemon_copy(player_pokemon)
 	_refresh_player_sprite()
 	message_label.text = _text("dynamaxed_message") % before_name
+	_update_status()
+
+
+# ADAPTACAO DO POKERPG: real Terastalization is gated by charges in a
+# trainer-wide Tera Orb that recharge over time/per gym badge, not simple
+# ownership - simplified here to the same "own the item" gate as the
+# Dynamax Band, for consistency. Mutually exclusive with Mega/Dynamax
+# (matching the real games, which never combine Terastalization with
+# either). Unlike Mega/Dynamax, Terastalization changes no stat at all -
+# only the sprite's tint and (via normalize_pokemon) both original types
+# collapsing into the single Tera Type for the rest of the battle.
+const TERA_ORB_ID := "tera_orb"
+
+
+func _can_terastallize() -> bool:
+	if str(player_pokemon.get("mega", "")) != "" or bool(player_pokemon.get("dynamax", false)) or bool(player_pokemon.get("terastallized", false)):
+		return false
+	if str(player_pokemon.get("tera_type", "")) == "":
+		return false
+	return InventoryManager.get_item_amount(TERA_ORB_ID) > 0
+
+
+func _refresh_tera_button() -> void:
+	if tera_button != null and is_instance_valid(tera_button):
+		tera_button.queue_free()
+		tera_button = null
+	if battle_over or capture_in_progress:
+		return
+	if int(player_pokemon.get("hp", 0)) <= 0:
+		return
+	if not _can_terastallize():
+		return
+	tera_button = UI.add_orange_button(self, _text("terastallize"), Vector2(166, 378), Vector2(120, 26), Callable(self, "_terastallize"), "TeraButton")
+
+
+func _terastallize() -> void:
+	if battle_over or capture_in_progress or int(player_pokemon.get("hp", 0)) <= 0:
+		return
+	if not _can_terastallize():
+		return
+	var before_name := str(player_pokemon.get("name", player_pokemon.get("species", "Pokemon")))
+	var tera_type := str(player_pokemon.get("tera_type", ""))
+	player_pokemon["terastallized"] = true
+	player_pokemon = PokemonHelpers.normalize_pokemon(player_pokemon)
+	battle_team[player_team_index] = _battle_pokemon_copy(player_pokemon)
+	_refresh_player_sprite()
+	message_label.text = _text("terastallized_message") % [before_name, tera_type]
 	_update_status()
 
 
