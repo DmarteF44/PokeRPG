@@ -13,7 +13,8 @@ const TEXT = {
 		"none_found": "You explored the area but found nothing.",
 		"found": "Pokemon %s found!",
 		"item_found": "Found item: %s x%d",
-		"fight": "Click here to fight",
+		"fight": "Fight",
+		"ignore_encounter": "Ignore",
 		"no_energy": "You are out of energy.",
 		"no_ready_pokemon": "No Pokemon is ready to explore.",
 		"level": "Level",
@@ -47,7 +48,8 @@ const TEXT = {
 		"none_found": "Você explorou a área, mas não encontrou nada.",
 		"found": "Pokemon %s encontrado!",
 		"item_found": "Item encontrado: %s x%d",
-		"fight": "Toque aqui para lutar",
+		"fight": "Lutar",
+		"ignore_encounter": "Ignorar",
 		"no_energy": "Você está sem energia.",
 		"no_ready_pokemon": "Nenhum Pokémon está pronto para explorar.",
 		"level": "Nível",
@@ -228,8 +230,6 @@ func _explore_map() -> void:
 	SaveManager.update_current_save({"pending_encounter": current_encounter, "current_map": current_map_key, "seen_pokemon": seen})
 	_refresh_save_data()
 	_show_encounter_result(current_encounter)
-	await get_tree().create_timer(0.55).timeout
-	_open_battle_scene()
 
 
 const ITEMS_PATH = "res://data/items.json"
@@ -395,7 +395,15 @@ func _show_encounter_result(pokemon: Dictionary) -> void:
 
 	_add_fit_label(result_container, _text("found") % str(pokemon.get("name", "Pokemon")), Vector2(128, 8), Vector2(204, 40), 16, Color(0.2, 0.62, 1.0), HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "FoundText", true)
 	_add_fit_label(result_container, "%s: %d" % [_text("level"), int(pokemon.get("level", 1))], Vector2(128, 54), Vector2(204, 28), 15, Color.WHITE, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Level", false)
-	UI.add_orange_button(result_container, _text("fight"), Vector2(55, 132), Vector2(250, 52), Callable(self, "_open_battle_scene"), "FightButton")
+	UI.add_orange_button(result_container, _text("fight"), Vector2(20, 132), Vector2(158, 52), Callable(self, "_open_battle_scene"), "FightButton")
+	UI.add_orange_button(result_container, _text("ignore_encounter"), Vector2(182, 132), Vector2(158, 52), Callable(self, "_ignore_encounter"), "IgnoreButton")
+
+
+func _ignore_encounter() -> void:
+	current_encounter = {}
+	SaveManager.update_current_save({"pending_encounter": {}})
+	_refresh_save_data()
+	_clear_result()
 
 
 func _show_center_result(message: String, color: Color) -> void:

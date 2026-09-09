@@ -137,6 +137,7 @@ static func add_icon_button(parent: Node, icon_path: String, pos: Vector2, callb
 	parent.add_child(button)
 	if callback.is_valid():
 		button.pressed.connect(callback)
+		button.pressed.connect(func(): AudioManager.play_sfx("click"))
 	return button
 
 
@@ -153,6 +154,7 @@ static func add_orange_button(parent: Node, text: String, pos: Vector2, node_siz
 	parent.add_child(button)
 	if callback.is_valid():
 		button.pressed.connect(callback)
+		button.pressed.connect(func(): AudioManager.play_sfx("click"))
 
 	var label := add_label(button, text, Vector2.ZERO, node_size, 17, Color.WHITE, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Text")
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -172,6 +174,7 @@ static func add_list_button(parent: Node, text: String, icon_path: String, pos: 
 	parent.add_child(button)
 	if callback.is_valid():
 		button.pressed.connect(callback)
+		button.pressed.connect(func(): AudioManager.play_sfx("click"))
 
 	var label_x := 0.0
 	var label_width := 320.0
@@ -312,6 +315,7 @@ static func show_options_popup(parent: Node, title: String, labels: Dictionary, 
 			"sfx_enabled": sfx_check.button_pressed,
 			"language": language,
 		})
+		AudioManager.refresh_settings()
 		if on_apply.is_valid():
 			on_apply.call(SaveManager.get_settings())
 		overlay.queue_free()

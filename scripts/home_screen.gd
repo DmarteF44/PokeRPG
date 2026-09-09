@@ -724,7 +724,7 @@ func _show_specialization() -> void:
 	var available := int(save_data.get("specialization_points_available", 0))
 	UI.add_panel_label(popup, _text("specialization_points_available") % available, Vector2(42, 92), Vector2(276, 26), 14, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "PointsAvailable")
 
-	var scroll := ScrollContainer.new()
+	var scroll := TouchScrollContainer.new()
 	scroll.name = "SpecializationScroll"
 	scroll.position = Vector2(28, 128)
 	scroll.size = Vector2(304, 444)
@@ -748,31 +748,23 @@ func _show_specialization() -> void:
 		UI.add_panel_label(row, _text("spec_%s" % attribute), Vector2(12, 6), Vector2(200, 20), 13, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Name")
 		var points := int(allocations.get(attribute, 0))
 		UI.add_panel_label(row, _text("spec_points") % points, Vector2(12, 26), Vector2(180, 18), 10, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Points")
-		var add_button := _add_small_button(row, "+1", Vector2(230, 9), Vector2(56, 32), Callable(self, "_confirm_allocate_specialization").bind(attribute), "Add")
+		var add_button := _add_small_button(row, "+1", Vector2(230, 9), Vector2(56, 32), Callable(self, "_allocate_specialization").bind(attribute), "Add")
 		if available <= 0:
 			add_button.disabled = true
 			add_button.modulate = Color(0.62, 0.62, 0.62, 0.9)
-
-
-func _confirm_allocate_specialization(attribute: String) -> void:
-	var popup_root := get_node_or_null("SpecializationPopup")
-	if popup_root == null:
-		return
-	UI.show_confirm_popup(
-		popup_root,
-		_text("spec_%s" % attribute),
-		_text("spec_confirm"),
-		_text("yes"),
-		_text("no"),
-		Callable(self, "_allocate_specialization").bind(attribute)
-	)
 
 
 func _allocate_specialization(attribute: String) -> void:
 	SaveManager.allocate_specialization_point(attribute)
 	_refresh_save_data()
 	_refresh_home_stats()
+	var popup_root := get_node_or_null("SpecializationPopup")
+	var scroll := popup_root.get_node_or_null("SpecializationScroll") as ScrollContainer if popup_root != null else null
+	var scroll_position := scroll.scroll_vertical if scroll != null else 0
 	_show_specialization()
+	var new_scroll := get_node_or_null("SpecializationPopup").get_node_or_null("SpecializationScroll") as ScrollContainer
+	if new_scroll != null:
+		new_scroll.set_deferred("scroll_vertical", scroll_position)
 
 
 func _add_trainer_xp_bar(parent: Control, pos: Vector2) -> void:
@@ -828,7 +820,7 @@ func _avatar_texture_path(save: Dictionary) -> String:
 func _show_avatar_editor() -> void:
 	_refresh_save_data()
 	var popup := _create_popup(_text("change_avatar"), "AvatarEditorPopup", 34.0, 580.0, Callable(self, "_show_profile"))
-	var scroll := ScrollContainer.new()
+	var scroll := TouchScrollContainer.new()
 	scroll.name = "AvatarEditorScroll"
 	scroll.position = Vector2(28, 100)
 	scroll.size = Vector2(304, 460)
@@ -891,7 +883,7 @@ func _show_world_map() -> void:
 		VERTICAL_ALIGNMENT_CENTER,
 		"WorldMapEnergy"
 	)
-	var scroll := ScrollContainer.new()
+	var scroll := TouchScrollContainer.new()
 	scroll.name = "WorldMapScroll"
 	scroll.position = Vector2(28, 120)
 	scroll.size = Vector2(304, 452)
@@ -971,7 +963,7 @@ func _select_bag_category(category: String) -> void:
 
 
 func _add_bag_items() -> void:
-	var scroll := ScrollContainer.new()
+	var scroll := TouchScrollContainer.new()
 	scroll.name = "BagItemsScroll"
 	scroll.position = Vector2(28, 222)
 	scroll.size = Vector2(304, 166)
@@ -1453,7 +1445,7 @@ func _select_shop_category(category: String) -> void:
 
 
 func _add_shop_items() -> void:
-	var scroll := ScrollContainer.new()
+	var scroll := TouchScrollContainer.new()
 	scroll.name = "ShopItemsScroll"
 	scroll.position = Vector2(28, 246)
 	scroll.size = Vector2(304, 326)
@@ -1534,7 +1526,7 @@ func _show_tournament() -> void:
 
 	tournament_popup = _create_popup(_text("tournament"), "TournamentPopup", 34.0, 580.0)
 	UI.add_panel_label(tournament_popup, _text("tournament_soon"), Vector2(42, 92), Vector2(276, 26), 14, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Message")
-	var scroll := ScrollContainer.new()
+	var scroll := TouchScrollContainer.new()
 	scroll.name = "GymScroll"
 	scroll.position = Vector2(28, 126)
 	scroll.size = Vector2(304, 446)
@@ -1650,7 +1642,7 @@ func _show_pokemon_collection() -> void:
 	_add_collection_tab_button(pokemon_popup, "team", Vector2(42, 128), Vector2(132, 28), "CollectionTeamTab")
 	_add_collection_tab_button(pokemon_popup, "storage", Vector2(186, 128), Vector2(132, 28), "CollectionStorageTab")
 
-	var scroll := ScrollContainer.new()
+	var scroll := TouchScrollContainer.new()
 	scroll.name = "CollectionScroll"
 	scroll.position = Vector2(28, 164)
 	scroll.size = Vector2(304, 408)
@@ -1683,7 +1675,7 @@ func _show_pokemon_detail(source: String, index: int) -> void:
 
 	pokemon_popup = _create_popup(_text("selected_pokemon"), "PokemonDetailPopup", 34.0, 580.0, Callable(self, "_show_pokemon_collection"))
 
-	var scroll := ScrollContainer.new()
+	var scroll := TouchScrollContainer.new()
 	scroll.name = "PokemonDetailScroll"
 	scroll.position = Vector2(28, 92)
 	scroll.size = Vector2(304, 480)
@@ -2056,7 +2048,7 @@ func _show_move_editor(source: String, index: int, move_slot: int) -> void:
 	if pokemon.is_empty():
 		return
 	var popup := _create_popup(_text("available_moves"), "MoveEditorPopup", 64.0, 520.0, Callable(self, "_show_pokemon_detail").bind(source, index))
-	var scroll := ScrollContainer.new()
+	var scroll := TouchScrollContainer.new()
 	scroll.name = "MoveEditorScroll"
 	scroll.position = Vector2(28, 126)
 	scroll.size = Vector2(304, 420)
@@ -2203,7 +2195,7 @@ func _show_pokedex() -> void:
 	if _pokedex_filters_active():
 		UI.style_panel_button(filter_button, Color(0.95, 0.78, 0.32), Color(0.92, 0.46, 0.08), 2)
 
-	var scroll := ScrollContainer.new()
+	var scroll := TouchScrollContainer.new()
 	scroll.name = "PokeDexScroll"
 	scroll.position = Vector2(28, 172)
 	scroll.size = Vector2(304, 400)
@@ -2226,7 +2218,7 @@ func _show_pokedex_filters() -> void:
 	_close_pokemon_popup()
 	var popup := _create_popup(_text("filters"), "PokedexFiltersPopup", 34.0, 580.0, Callable(self, "_show_pokedex"))
 
-	var scroll := ScrollContainer.new()
+	var scroll := TouchScrollContainer.new()
 	scroll.name = "PokedexFiltersScroll"
 	scroll.position = Vector2(28, 92)
 	scroll.size = Vector2(304, 440)
@@ -2325,7 +2317,7 @@ func _show_pokemon_center() -> void:
 	pokemon_center_popup = _create_popup(_text("pokemon_center"), "PokemonCenterPopup", 34.0, 580.0, Callable(self, "_show_pokemon_collection"))
 	var team := _team()
 
-	var scroll := ScrollContainer.new()
+	var scroll := TouchScrollContainer.new()
 	scroll.name = "PokemonCenterScroll"
 	scroll.position = Vector2(28, 112)
 	scroll.size = Vector2(304, 330)
@@ -2473,7 +2465,19 @@ func _add_pokedex_entry(parent: Control, pokemon_id: String, index: int) -> void
 	var dex_number := int(definition.get("dex_number", 0))
 	var pokemon_name := str(definition.get("name", "Pokemon")) if registered else "????"
 	if registered:
-		PokemonHelpers.add_animated_sprite(panel, definition, Vector2(12, 18), Vector2(58, 58), false, "DexSprite")
+		var icon_texture := PokemonHelpers.icon_texture(definition)
+		if icon_texture != null:
+			var icon_rect := TextureRect.new()
+			icon_rect.name = "DexIcon"
+			icon_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			icon_rect.texture = icon_texture
+			icon_rect.position = Vector2(12, 18)
+			icon_rect.size = Vector2(58, 58)
+			icon_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			icon_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			panel.add_child(icon_rect)
+		else:
+			_add_placeholder_icon(panel, Vector2(18, 22), Vector2(46, 46), "?")
 	else:
 		_add_placeholder_icon(panel, Vector2(18, 22), Vector2(46, 46), "?")
 	var name_label := UI.add_panel_label(panel, "#%03d %s" % [dex_number, pokemon_name], Vector2(84, 12), Vector2(190, 22), 16, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Name")
@@ -2723,7 +2727,7 @@ func _show_storage() -> void:
 	_add_small_button(storage_popup, _text("sort_date"), Vector2(210, 136), Vector2(52, 28), Callable(self, "_set_storage_sort").bind("date"), "SortDate")
 	_add_small_button(storage_popup, _text("sort_generation"), Vector2(266, 136), Vector2(52, 28), Callable(self, "_set_storage_sort").bind("generation"), "SortGeneration")
 
-	var scroll := ScrollContainer.new()
+	var scroll := TouchScrollContainer.new()
 	scroll.name = "StorageScroll"
 	scroll.position = Vector2(28, 172)
 	scroll.size = Vector2(304, 398)
@@ -2965,7 +2969,7 @@ func _show_debug_menu() -> void:
 		debug_popup.queue_free()
 
 	debug_popup = _create_popup(_text("debug_menu"), "DebugPopup", 34.0, 580.0)
-	var scroll := ScrollContainer.new()
+	var scroll := TouchScrollContainer.new()
 	scroll.name = "DebugScroll"
 	scroll.position = Vector2(28, 100)
 	scroll.size = Vector2(304, 438)
@@ -3297,7 +3301,18 @@ func _update_debug_save(changes: Dictionary) -> void:
 	_refresh_save_data()
 	_refresh_home_stats()
 	if debug_popup != null and is_instance_valid(debug_popup):
+		# _show_debug_menu() rebuilds the whole popup from scratch, which would
+		# otherwise snap the scroll back to the top after every single action.
+		# The restore has to be deferred: right after the new ScrollContainer's
+		# content is (re)built, its scrollable range hasn't been recomputed yet
+		# in the same frame, so setting scroll_vertical immediately gets
+		# silently clamped back to 0.
+		var scroll := debug_popup.get_node_or_null("DebugScroll") as ScrollContainer
+		var scroll_position := scroll.scroll_vertical if scroll != null else 0
 		_show_debug_menu()
+		var new_scroll := debug_popup.get_node_or_null("DebugScroll") as ScrollContainer
+		if new_scroll != null:
+			new_scroll.set_deferred("scroll_vertical", scroll_position)
 
 
 func _close_debug_popup() -> void:
@@ -3402,6 +3417,7 @@ func _add_small_button(parent: Node, text: String, pos: Vector2, node_size: Vect
 	parent.add_child(button)
 	if callback.is_valid():
 		button.pressed.connect(callback)
+		button.pressed.connect(func(): AudioManager.play_sfx("click"))
 	return button
 
 
