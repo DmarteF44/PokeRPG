@@ -162,6 +162,10 @@ const TEXT = {
 		"debug_force_normal": "Force Normal",
 		"debug_cycle_form": "Cycle Form",
 		"debug_no_forms_available": "This Pokemon's species has no Regional/Alternate Forms available.",
+		"give_item": "Give Item",
+		"take_item": "Take Item",
+		"no_mega_stones_owned": "You don't own any Mega Stone for this Pokemon.",
+		"debug_give_mega_stone": "Give Mega Stone",
 		"debug_evolved": "Evolved: %s -> %s",
 		"debug_could_learn": "Could learn %s (use Moves to add it)",
 		"debug_moves": "Moves",
@@ -445,6 +449,10 @@ const TEXT = {
 		"debug_force_normal": "Forçar Normal",
 		"debug_cycle_form": "Alternar Forma",
 		"debug_no_forms_available": "Essa espécie não possui Formas Regionais/Alternativas disponíveis.",
+		"give_item": "Dar Item",
+		"take_item": "Tirar Item",
+		"no_mega_stones_owned": "Você não possui nenhuma Mega Stone para este Pokémon.",
+		"debug_give_mega_stone": "Dar Mega Stone",
 		"debug_evolved": "Evoluiu: %s -> %s",
 		"debug_could_learn": "Poderia aprender %s (use Movimentos para adicionar)",
 		"debug_moves": "Movimentos",
@@ -1958,10 +1966,14 @@ func _add_collection_details(parent: Control, y: float) -> float:
 		return y + 64.0
 
 	var is_black := bool(pokemon.get("black", false))
+	var can_give_mega_stone := not PokemonHelpers.megas_for_species(str(pokemon.get("id", ""))).is_empty()
+	var has_held_item := str(pokemon.get("held_item", "")) != ""
+	var show_held_item_row := has_held_item or can_give_mega_stone
+	var extra_rows := (1 if show_held_item_row else 0) + (1 if is_black else 0)
 	var panel := Panel.new()
 	panel.name = "CollectionDetails"
 	panel.position = Vector2(0, y)
-	panel.size = Vector2(296, 476 + (34.0 if is_black else 0.0))
+	panel.size = Vector2(296, 476 + 34.0 * extra_rows)
 	parent.add_child(panel)
 	UI.style_panel_button(panel, Color(0.88, 0.94, 0.98), Color(0.34, 0.50, 0.62), 2)
 	PokemonHelpers.add_animated_sprite(panel, pokemon, Vector2(10, 10), Vector2(72, 72), false, "DetailSprite")
@@ -1988,13 +2000,20 @@ func _add_collection_details(parent: Control, y: float) -> float:
 	_add_collection_moves(panel, pokemon, Vector2(12, 236))
 	_add_collection_name_editor(panel, pokemon, Vector2(12, 340))
 	_add_collection_action_buttons(panel, Vector2(12, 416))
+	# The action-buttons block above ends at y=442 (storage source) or y=476
+	# (team source, which has an extra "send to storage" row) - extra rows
+	# below are placed past both so they never overlap whichever set shows.
+	var extra_row_y := 480.0
+	if show_held_item_row:
+		if has_held_item:
+			_add_small_button(panel, _text("take_item"), Vector2(12, extra_row_y), Vector2(272, 26), Callable(self, "_take_held_item").bind(selected_collection_source, selected_collection_index), "TakeHeldItem")
+		else:
+			_add_small_button(panel, _text("give_item"), Vector2(12, extra_row_y), Vector2(272, 26), Callable(self, "_show_mega_stone_picker").bind(selected_collection_source, selected_collection_index), "GiveHeldItem")
+		extra_row_y += 34.0
 	if is_black:
-		# The action-buttons block above ends at y=442 (storage source) or
-		# y=476 (team source, which has an extra "send to storage" row) -
-		# placed past both so this never overlaps whichever set is showing.
 		var purify_label := "%s (%s x%d)" % [_text("purify"), _item_name(_item_by_id(PURIFYING_WATER_ID)), InventoryManager.get_item_amount(PURIFYING_WATER_ID)]
-		_add_small_button(panel, purify_label, Vector2(12, 480), Vector2(272, 26), Callable(self, "_purify_collection_pokemon").bind(selected_collection_source, selected_collection_index), "Purify")
-	return y + 520.0 + (34.0 if is_black else 0.0)
+		_add_small_button(panel, purify_label, Vector2(12, extra_row_y), Vector2(272, 26), Callable(self, "_purify_collection_pokemon").bind(selected_collection_source, selected_collection_index), "Purify")
+	return y + 520.0 + 34.0 * extra_rows
 
 
 func _add_collection_moves(parent: Control, pokemon: Dictionary, pos: Vector2) -> void:
@@ -2125,6 +2144,66 @@ func _rename_collection_pokemon(source: String, index: int, input: LineEdit) -> 
 	var nickname := input.text.strip_edges()
 	pokemon["nickname"] = nickname
 	pokemon["name"] = nickname if nickname != "" else str(pokemon.get("species", "Pokemon"))
+	_save_collection_pokemon(source, index, pokemon)
+	_show_pokemon_detail(source, index)
+
+
+func _show_mega_stone_picker(source: String, index: int) -> void:
+	var pokemon := _collection_pokemon(source, index)
+	if pokemon.is_empty():
+		return
+	var mega_ids := PokemonHelpers.megas_for_species(str(pokemon.get("id", "")))
+	var owned_stones := []
+	for mega_id in mega_ids:
+		var mega_def := PokemonHelpers.mega_definition(mega_id)
+		var item_id := str(mega_def.get("item_id", ""))
+		if item_id != "" and InventoryManager.get_item_amount(item_id) > 0:
+			owned_stones.append(_item_by_id(item_id))
+	if owned_stones.is_empty():
+		UI.show_message_popup(self, _text("give_item"), _text("no_mega_stones_owned"))
+		return
+	var popup := _create_popup(_text("give_item"), "MegaStonePickerPopup", 64.0, 520.0, Callable(self, "_show_pokemon_detail").bind(source, index))
+	var scroll := TouchScrollContainer.new()
+	scroll.name = "MegaStonePickerScroll"
+	scroll.position = Vector2(28, 126)
+	scroll.size = Vector2(304, 420)
+	popup.add_child(scroll)
+	var content := Control.new()
+	content.name = "MegaStonePickerContent"
+	content.custom_minimum_size = Vector2(304, max(420, owned_stones.size() * 52))
+	scroll.add_child(content)
+	for i in range(owned_stones.size()):
+		var item: Dictionary = owned_stones[i]
+		var row := Button.new()
+		row.name = "MegaStoneOption%d" % i
+		row.position = Vector2(0, float(i) * 52.0)
+		row.size = Vector2(296, 46)
+		row.focus_mode = Control.FOCUS_NONE
+		UI.style_panel_button(row, Color(0.86, 0.92, 0.96), Color(0.34, 0.50, 0.62), 2)
+		content.add_child(row)
+		var row_text := "%s (x%d)" % [_item_name(item), InventoryManager.get_item_amount(str(item.get("id", "")))]
+		var label := UI.add_panel_label(row, row_text, Vector2(10, 0), Vector2(276, 46), 11, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "StoneText")
+		_fit_label(label, false)
+		row.pressed.connect(Callable(self, "_give_held_item").bind(source, index, str(item.get("id", ""))))
+
+
+func _give_held_item(source: String, index: int, item_id: String) -> void:
+	var pokemon := _collection_pokemon(source, index)
+	if pokemon.is_empty() or InventoryManager.get_item_amount(item_id) <= 0:
+		return
+	InventoryManager.remove_item(item_id, 1)
+	pokemon["held_item"] = item_id
+	_save_collection_pokemon(source, index, pokemon)
+	_show_pokemon_detail(source, index)
+
+
+func _take_held_item(source: String, index: int) -> void:
+	var pokemon := _collection_pokemon(source, index)
+	var held_item := str(pokemon.get("held_item", ""))
+	if pokemon.is_empty() or held_item == "":
+		return
+	InventoryManager.add_item(held_item, 1)
+	pokemon["held_item"] = null
 	_save_collection_pokemon(source, index, pokemon)
 	_show_pokemon_detail(source, index)
 
@@ -3398,6 +3477,9 @@ func _debug_build_variants_rows(parent: Control, y: float) -> float:
 	y = _add_debug_button_row(parent, y, [
 		[_text("debug_cycle_form"), Callable(self, "_debug_cycle_form")],
 	])
+	y = _add_debug_button_row(parent, y, [
+		[_text("debug_give_mega_stone"), Callable(self, "_debug_give_mega_stone")],
+	])
 	return _add_debug_button_row(parent, y, [
 		[_text("debug_add") % "shiny_charm", Callable(self, "_debug_add_item_x1").bind("shiny_charm")],
 	])
@@ -3533,6 +3615,29 @@ func _debug_force_variant(variant: String) -> void:
 	_update_debug_save({"team": team})
 	var current_tag := PokemonHelpers.variant_tag(pokemon)
 	UI.show_message_popup(self, _text("debug_variants"), "%s%s" % [str(pokemon.get("name", "")), current_tag if current_tag != "" else " (normal)"])
+
+
+# Debug-only shortcut: hands the first team member's species' first known
+# Mega Stone (see PokemonHelpers.megas_for_species) straight to inventory
+# and equips it as the held item, bypassing the shop economy so Mega
+# Evolution can be tested in battle immediately.
+func _debug_give_mega_stone() -> void:
+	var team := _team()
+	if team.is_empty() or typeof(team[0]) != TYPE_DICTIONARY:
+		UI.show_message_popup(self, _text("debug_variants"), _text("debug_no_change"))
+		return
+	var pokemon: Dictionary = PokemonHelpers.normalize_pokemon(team[0])
+	var mega_ids := PokemonHelpers.megas_for_species(str(pokemon.get("id", "")))
+	if mega_ids.is_empty():
+		UI.show_message_popup(self, _text("debug_variants"), _text("no_mega_stones_owned"))
+		return
+	var mega_def := PokemonHelpers.mega_definition(mega_ids[0])
+	var item_id := str(mega_def.get("item_id", ""))
+	InventoryManager.add_item(item_id, 1)
+	pokemon["held_item"] = item_id
+	team[0] = pokemon
+	_update_debug_save({"team": team})
+	UI.show_message_popup(self, _text("debug_variants"), "%s: %s" % [str(pokemon.get("name", "")), _item_name(_item_by_id(item_id))])
 
 
 # Cycles the first team member through its species' known Regional/
