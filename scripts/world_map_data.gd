@@ -469,7 +469,7 @@ static func _starter_pokemon(pokemon_id: String, level: int, variant_modifiers: 
 	var pokemon := PokemonHelpers.starter_save_data(pokemon_id)
 	pokemon["level"] = maxi(1, level)
 	_roll_variant(pokemon, variant_modifiers)
-	var stats := PokemonHelpers.stats_for_level(pokemon_id, int(pokemon["level"]), bool(pokemon.get("black", false)), bool(pokemon.get("alpha", false)))
+	var stats := PokemonHelpers.stats_for_level(pokemon_id, int(pokemon["level"]), bool(pokemon.get("black", false)), bool(pokemon.get("alpha", false)), bool(pokemon.get("purified", false)))
 	pokemon["max_hp"] = int(stats.get("max_hp", pokemon.get("max_hp", 1)))
 	pokemon["hp"] = int(pokemon["max_hp"])
 	pokemon["attack"] = int(stats.get("attack", pokemon.get("attack", 1)))

@@ -1273,5 +1273,21 @@
     "description_en": "A fluffy, cloud-like treat. Swirlix is delighted to evolve while holding one.",
     "description_pt": "Uma guloseima fofa como nuvem. Swirlix fica encantado e evolui enquanto a segura.",
     "icon_path": "res://assets/items/evolution/whipped_dream.png"
+  },
+  {
+    "id": "purifying_water",
+    "name_en": "Purifying Water",
+    "name_pt": "Água Purificadora",
+    "category": "evolution",
+    "price": 50000,
+    "min_level": 30,
+    "min_badges": 5,
+    "effect_type": "purify",
+    "use_contexts": [
+      "pokemon_selection"
+    ],
+    "description_en": "Extremely rare, extremely expensive water said to cleanse a Black/Possuido Pokemon - it stays just as strong, but is no longer Black.",
+    "description_pt": "Água extremamente rara e cara, dita capaz de purificar um Pokémon Black/Possuído - ele continua igualmente forte, mas deixa de ser Black.",
+    "icon_path": "res://assets/items/evolution/purifying_water.png"
   }
 ]

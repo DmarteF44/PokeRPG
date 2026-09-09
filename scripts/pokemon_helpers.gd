@@ -383,13 +383,16 @@ const ALPHA_STAT_BONUS := 0.20
 # Alpha isn't absurdly stacked). Always recomputed from the pure base curve
 # here rather than multiplying a previously-stored stat value, so calling
 # this again (e.g. on every level-up recalculation) can never compound the
-# bonus.
-static func stats_for_level(pokemon_id: String, level: int, is_black: bool = false, is_alpha: bool = false) -> Dictionary:
+# bonus. is_purified keeps the exact same bonus as is_black (explicit
+# request: a Purified Pokemon "tem a forca do black mesmo") - it's the
+# "black" flag itself that gets cleared on purification (dropping the dark
+# shader/tag), not the power.
+static func stats_for_level(pokemon_id: String, level: int, is_black: bool = false, is_alpha: bool = false, is_purified: bool = false) -> Dictionary:
 	var definition := get_definition(pokemon_id)
 	var base_stats: Dictionary = definition.get("base_stats", {})
 	var safe_level := clampi(level, 1, MAX_LEVEL)
 	var bonus_level := maxi(0, safe_level - 5)
-	var multiplier := 1.0 + (BLACK_STAT_BONUS if is_black else 0.0) + (ALPHA_STAT_BONUS if is_alpha else 0.0)
+	var multiplier := 1.0 + (BLACK_STAT_BONUS if (is_black or is_purified) else 0.0) + (ALPHA_STAT_BONUS if is_alpha else 0.0)
 	return {
 		"max_hp": maxi(1, int(round((int(base_stats.get("hp", 39)) + bonus_level * 3) * multiplier))),
 		"attack": maxi(1, int(round((int(base_stats.get("attack", 50)) + int(floor(float(bonus_level) * float(base_stats.get("attack", 50)) / 50.0))) * multiplier))),
@@ -1510,7 +1513,7 @@ static func _species_id_from_value(value: Dictionary, fallback_id: String) -> St
 
 static func _recalculate_stats(pokemon: Dictionary, old_max_hp_override: int = -1) -> void:
 	var old_max_hp := old_max_hp_override if old_max_hp_override > 0 else int(pokemon.get("max_hp", 1))
-	var new_stats := stats_for_level(str(pokemon.get("id", DEFAULT_STARTER_ID)), int(pokemon.get("level", 1)), bool(pokemon.get("black", false)), bool(pokemon.get("alpha", false)))
+	var new_stats := stats_for_level(str(pokemon.get("id", DEFAULT_STARTER_ID)), int(pokemon.get("level", 1)), bool(pokemon.get("black", false)), bool(pokemon.get("alpha", false)), bool(pokemon.get("purified", false)))
 	var boosts := _normalized_stat_boosts(pokemon.get("stat_boosts", {}))
 	var new_max_hp := mini(stat_limit("max_hp"), int(new_stats.get("max_hp", old_max_hp)) + int(boosts.get("max_hp", 0)))
 	pokemon["max_hp"] = new_max_hp

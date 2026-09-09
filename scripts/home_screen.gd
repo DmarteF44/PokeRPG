@@ -60,7 +60,8 @@ const TEXT = {
 		"rename": "Rename",
 		"clear_nickname": "Clear Nickname",
 		"purify": "Purify",
-		"purified_message": "%s was purified! It's no longer Black/Possuido, and feels much closer to you.",
+		"purify_needs_water": "You need Purifying Water to purify a Black/Possuido Pokemon.",
+		"purified_message": "%s was purified! It's now a Pure Pokemon - no longer Black/Possuido, but keeping the same strength.",
 		"send_to_team": "To Team",
 		"send_to_storage": "To Storage",
 		"change_move": "Change",
@@ -340,7 +341,8 @@ const TEXT = {
 		"rename": "Renomear",
 		"clear_nickname": "Limpar apelido",
 		"purify": "Purificar",
-		"purified_message": "%s foi purificado! Não é mais Black/Possuído, e está muito mais próximo de você.",
+		"purify_needs_water": "Você precisa de Água Purificadora para purificar um Pokémon Black/Possuído.",
+		"purified_message": "%s foi purificado! Agora é um Pokémon Puro - não é mais Black/Possuído, mas mantém a mesma força.",
 		"send_to_team": "Para o time",
 		"send_to_storage": "Para Storage",
 		"change_move": "Alterar",
@@ -1986,7 +1988,8 @@ func _add_collection_details(parent: Control, y: float) -> float:
 		# The action-buttons block above ends at y=442 (storage source) or
 		# y=476 (team source, which has an extra "send to storage" row) -
 		# placed past both so this never overlaps whichever set is showing.
-		_add_small_button(panel, _text("purify"), Vector2(12, 480), Vector2(272, 26), Callable(self, "_purify_collection_pokemon").bind(selected_collection_source, selected_collection_index), "Purify")
+		var purify_label := "%s (%s x%d)" % [_text("purify"), _item_name(_item_by_id(PURIFYING_WATER_ID)), InventoryManager.get_item_amount(PURIFYING_WATER_ID)]
+		_add_small_button(panel, purify_label, Vector2(12, 480), Vector2(272, 26), Callable(self, "_purify_collection_pokemon").bind(selected_collection_source, selected_collection_index), "Purify")
 	return y + 520.0 + (34.0 if is_black else 0.0)
 
 
@@ -2122,19 +2125,26 @@ func _rename_collection_pokemon(source: String, index: int, input: LineEdit) -> 
 	_show_pokemon_detail(source, index)
 
 
+const PURIFYING_WATER_ID := "purifying_water"
+
 func _purify_collection_pokemon(source: String, index: int) -> void:
 	var pokemon := _collection_pokemon(source, index)
 	if pokemon.is_empty() or not bool(pokemon.get("black", false)):
 		return
+	if InventoryManager.get_item_amount(PURIFYING_WATER_ID) <= 0:
+		UI.show_message_popup(self, _text("purify"), _text("purify_needs_water"))
+		return
+	InventoryManager.remove_item(PURIFYING_WATER_ID, 1)
 	pokemon["black"] = false
 	# Permanent record that this individual Pokemon was purified - kept
 	# separate from "black" itself so it's never mistaken for still being
 	# Black/Possuido, and never erased just because the Pokemon is normal
 	# again now (see the expansion request: "nao apagar completamente o
-	# historico do Pokemon").
+	# historico do Pokemon"). Explicitly keeps the same stat bonus Black
+	# had (is_purified in stats_for_level) - purifying makes it a Pure
+	# Pokemon, not a weaker one; only the Black flag/shader/tag go away.
 	pokemon["purified"] = true
-	pokemon["friendship"] = maxi(int(pokemon.get("friendship", PokemonHelpers.DEFAULT_FRIENDSHIP)), 200)
-	var stats := PokemonHelpers.stats_for_level(str(pokemon.get("id", "")), int(pokemon.get("level", 1)), false, bool(pokemon.get("alpha", false)))
+	var stats := PokemonHelpers.stats_for_level(str(pokemon.get("id", "")), int(pokemon.get("level", 1)), false, bool(pokemon.get("alpha", false)), true)
 	for stat_key in ["max_hp", "attack", "defense", "sp_attack", "sp_defense", "speed"]:
 		pokemon[stat_key] = int(stats.get(stat_key, pokemon.get(stat_key, 1)))
 	pokemon["hp"] = mini(int(pokemon.get("hp", 1)), int(pokemon["max_hp"]))
@@ -3929,6 +3939,13 @@ func _load_items() -> Array:
 	if typeof(parsed) == TYPE_ARRAY:
 		return parsed
 	return []
+
+
+func _item_by_id(item_id: String) -> Dictionary:
+	for item in items:
+		if typeof(item) == TYPE_DICTIONARY and str(item.get("id", "")) == item_id:
+			return item
+	return {}
 
 
 func _items_for_category(category: String) -> Array:
