@@ -580,6 +580,28 @@ func _ready() -> void:
 	_refresh_save_data()
 	items = _load_items()
 	_build_screen()
+	_open_pending_home_popup()
+
+
+# ForestMap's HUD icons set this before switching scenes so a tap on e.g. the
+# bag icon while exploring lands the player straight in the Bag popup here,
+# instead of the plain Home view they'd then have to open Bag from again.
+func _open_pending_home_popup() -> void:
+	var popup_key := GameState.pending_home_popup
+	GameState.pending_home_popup = ""
+	match popup_key:
+		"tournament":
+			_show_tournament()
+		"pokemon":
+			_show_pokemon_menu()
+		"bag":
+			_show_bag()
+		"shop":
+			_show_shop()
+		"profile":
+			_show_profile()
+		"options":
+			_show_options()
 
 
 func _refresh_save_data() -> void:
@@ -3423,6 +3445,12 @@ func _add_small_button(parent: Node, text: String, pos: Vector2, node_size: Vect
 	button.add_theme_color_override("font_color", UI.PANEL_TEXT)
 	button.add_theme_color_override("font_hover_color", UI.PANEL_TEXT)
 	button.add_theme_color_override("font_pressed_color", UI.PANEL_TEXT)
+	# Small buttons (category tabs, sort/use/buy buttons, etc.) are packed
+	# tightly next to each other, and Portuguese labels run longer than their
+	# English source - without clipping, oversized text spilled past the
+	# button's own border into its neighbor and read as buttons "overlapping".
+	button.clip_text = true
+	button.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	UI.style_panel_button(button, Color(0.95, 0.78, 0.32), Color(0.92, 0.46, 0.08), 2)
 	parent.add_child(button)
 	if callback.is_valid():

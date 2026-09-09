@@ -14,6 +14,11 @@ var starter_id := ""
 var starter_generation := 1
 var starter_dex_number := 4
 
+# Set by other screens (e.g. ForestMap's HUD icons) right before switching to
+# HomeScreen, so Home can open the requested popup on arrival instead of
+# just landing on the plain home view. Read-and-cleared once by HomeScreen.
+var pending_home_popup := ""
+
 
 func apply_save(save_data: Dictionary) -> void:
 	current_save_slot = int(save_data.get("slot", 0))
@@ -45,3 +50,4 @@ func clear() -> void:
 	starter_name = ""
 	starter_generation = 1
 	starter_dex_number = 4
+	pending_home_popup = ""

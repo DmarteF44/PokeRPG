@@ -109,6 +109,11 @@ static func add_label(parent: Node, text: String, pos: Vector2, node_size: Vecto
 	label.horizontal_alignment = align
 	label.vertical_alignment = valign
 	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	# clip_text keeps a label that still doesn't fit (translated text is
+	# longer than English, or a box was sized too tight) cut off at its own
+	# box edge instead of spilling its text down into whatever sits below it
+	# - which is what made unrelated text look "overlapping" on some screens.
+	label.clip_text = true
 	label.add_theme_font_size_override("font_size", font_size)
 	label.add_theme_color_override("font_color", color)
 	label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))

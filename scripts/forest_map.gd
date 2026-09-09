@@ -98,6 +98,7 @@ func _ready() -> void:
 	_add_background()
 	UI.add_topbar(self)
 	_add_home_button()
+	_add_hud_icons()
 	_build_map_screen()
 
 
@@ -109,7 +110,7 @@ func _add_home_button() -> void:
 	button.name = "HomeButton"
 	button.text = "←"
 	button.position = Vector2(8, 6)
-	button.size = Vector2(40, 32)
+	button.size = Vector2(34, 32)
 	button.focus_mode = Control.FOCUS_NONE
 	button.add_theme_font_size_override("font_size", 18)
 	button.add_theme_color_override("font_color", Color.WHITE)
@@ -121,6 +122,58 @@ func _add_home_button() -> void:
 		AudioManager.play_sfx("click")
 		get_tree().change_scene_to_file("res://scenes/HomeScreen.tscn")
 	)
+
+
+# Mirrors Home's own topbar icon row (same icons, same x positions) so the
+# bag/shop/pokemon/etc. screens are one tap away while exploring too, instead
+# of forcing a trip back to Home first. World Map is left out since the
+# back arrow above already covers "leave this map", and traveling to a
+# different map is still reachable from Home.
+const HUD_ICON_DATA = [
+	["res://assets/ui/icons/icon_tournament_32.png", 58.0, "tournament", "T"],
+	["res://assets/ui/icons/icon_pokemon.png", 108.0, "pokemon", "P"],
+	["res://assets/ui/icons/icon_bag_32.png", 158.0, "bag", "B"],
+	["res://assets/ui/icons/icon_shop_32.png", 208.0, "shop", "S"],
+	["res://assets/ui/icons/icon_profile_32.png", 258.0, "profile", "U"],
+	["res://assets/ui/icons/icon_options_32.png", 318.0, "options", "O"],
+]
+
+
+func _add_hud_icons() -> void:
+	for data in HUD_ICON_DATA:
+		var icon_path: String = data[0]
+		var x: float = data[1]
+		var popup_key: String = data[2]
+		var fallback_text: String = data[3]
+		var pos := Vector2(x, 6.0)
+		var callback := Callable(self, "_open_home_popup").bind(popup_key)
+		if UI.resource_exists(icon_path):
+			UI.add_icon_button(self, icon_path, pos, callback, "Hud%s" % popup_key.capitalize())
+		else:
+			_add_hud_fallback_icon(pos, callback, popup_key, fallback_text)
+
+
+func _add_hud_fallback_icon(pos: Vector2, callback: Callable, popup_key: String, fallback_text: String) -> void:
+	var button := Button.new()
+	button.name = "Hud%sFallback" % popup_key.capitalize()
+	button.text = fallback_text
+	button.position = pos
+	button.size = Vector2(32, 32)
+	button.focus_mode = Control.FOCUS_NONE
+	button.add_theme_font_size_override("font_size", 13)
+	button.add_theme_color_override("font_color", Color.WHITE)
+	button.add_theme_color_override("font_hover_color", Color.WHITE)
+	button.add_theme_color_override("font_pressed_color", Color.WHITE)
+	add_child(button)
+	button.pressed.connect(func():
+		AudioManager.play_sfx("click")
+		callback.call()
+	)
+
+
+func _open_home_popup(popup_key: String) -> void:
+	GameState.pending_home_popup = popup_key
+	get_tree().change_scene_to_file("res://scenes/HomeScreen.tscn")
 
 
 func _refresh_save_data() -> void:
