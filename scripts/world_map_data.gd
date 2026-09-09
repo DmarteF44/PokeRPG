@@ -23,6 +23,13 @@ const BLACK_BASE_CHANCE := 1.0 / 1024.0
 # this is a deliberate PokeRPG balance choice, independent of and stackable
 # with Shiny/Black (see _roll_variant).
 const ALPHA_BASE_CHANCE := 1.0 / 150.0
+# ADAPTACAO DO POKERPG: real Regional/Alternate Forms are simply the
+# standard form encountered in their own region/context (Galar, Alola, a
+# Rotom appliance) - since this game has no region-tagged maps, a wild
+# encounter instead has a modest chance to roll into one of its species'
+# known forms (see PokemonHelpers.forms_for_species), independent of and
+# stackable with Shiny/Black/Alpha.
+const FORM_BASE_CHANCE := 1.0 / 12.0
 
 static var _map_encounters_cache := {}
 
@@ -463,6 +470,21 @@ static func _roll_variant(pokemon: Dictionary, variant_modifiers: Dictionary) ->
 	pokemon["shiny"] = randf() < SHINY_BASE_CHANCE * shiny_multiplier
 	pokemon["black"] = randf() < BLACK_BASE_CHANCE * black_multiplier
 	pokemon["alpha"] = randf() < ALPHA_BASE_CHANCE * alpha_multiplier
+	_roll_form(pokemon)
+
+
+static func _roll_form(pokemon: Dictionary) -> void:
+	var pokemon_id := str(pokemon.get("id", ""))
+	var forms := PokemonHelpers.forms_for_species(pokemon_id)
+	if forms.is_empty() or randf() >= FORM_BASE_CHANCE:
+		return
+	var form_id: String = forms[randi() % forms.size()]
+	var form_def := PokemonHelpers.form_definition(form_id)
+	pokemon["form"] = form_id
+	pokemon["types"] = form_def.get("types", pokemon.get("types", []))
+	var icon_path := str(form_def.get("icon_path", ""))
+	if icon_path != "":
+		pokemon["icon_path"] = icon_path
 
 
 static func _starter_pokemon(pokemon_id: String, level: int, variant_modifiers: Dictionary = {}) -> Dictionary:

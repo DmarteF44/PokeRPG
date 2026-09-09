@@ -363,6 +363,7 @@ func _normalize_enemy_pokemon(value: Dictionary) -> Dictionary:
 		"shiny": bool(value.get("shiny", false)),
 		"black": bool(value.get("black", false)),
 		"alpha": bool(value.get("alpha", false)),
+		"form": str(value.get("form", "")),
 		"hp": hp,
 		"max_hp": max_hp,
 		"attack": max(1, int(value.get("attack", 8))),

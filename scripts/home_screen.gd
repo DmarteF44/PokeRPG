@@ -160,6 +160,8 @@ const TEXT = {
 		"debug_force_black": "Force Black",
 		"debug_force_alpha": "Force Alpha",
 		"debug_force_normal": "Force Normal",
+		"debug_cycle_form": "Cycle Form",
+		"debug_no_forms_available": "This Pokemon's species has no Regional/Alternate Forms available.",
 		"debug_evolved": "Evolved: %s -> %s",
 		"debug_could_learn": "Could learn %s (use Moves to add it)",
 		"debug_moves": "Moves",
@@ -441,6 +443,8 @@ const TEXT = {
 		"debug_force_black": "Forçar Black",
 		"debug_force_alpha": "Forçar Alpha",
 		"debug_force_normal": "Forçar Normal",
+		"debug_cycle_form": "Alternar Forma",
+		"debug_no_forms_available": "Essa espécie não possui Formas Regionais/Alternativas disponíveis.",
 		"debug_evolved": "Evoluiu: %s -> %s",
 		"debug_could_learn": "Poderia aprender %s (use Movimentos para adicionar)",
 		"debug_moves": "Movimentos",
@@ -3391,6 +3395,9 @@ func _debug_build_variants_rows(parent: Control, y: float) -> float:
 		[_text("debug_force_alpha"), Callable(self, "_debug_force_variant").bind("alpha")],
 		[_text("debug_force_normal"), Callable(self, "_debug_force_variant").bind("normal")],
 	])
+	y = _add_debug_button_row(parent, y, [
+		[_text("debug_cycle_form"), Callable(self, "_debug_cycle_form")],
+	])
 	return _add_debug_button_row(parent, y, [
 		[_text("debug_add") % "shiny_charm", Callable(self, "_debug_add_item_x1").bind("shiny_charm")],
 	])
@@ -3522,6 +3529,31 @@ func _debug_force_variant(variant: String) -> void:
 	for stat_key in ["max_hp", "attack", "defense", "sp_attack", "sp_defense", "speed"]:
 		pokemon[stat_key] = int(stats.get(stat_key, pokemon.get(stat_key, 1)))
 	pokemon["hp"] = mini(int(pokemon["hp"]), int(pokemon["max_hp"]))
+	team[0] = pokemon
+	_update_debug_save({"team": team})
+	var current_tag := PokemonHelpers.variant_tag(pokemon)
+	UI.show_message_popup(self, _text("debug_variants"), "%s%s" % [str(pokemon.get("name", "")), current_tag if current_tag != "" else " (normal)"])
+
+
+# Cycles the first team member through its species' known Regional/
+# Alternate Forms (data/pokemon_forms.json), if any, wrapping back to no
+# form - debug-only way to validate the forms system (type override,
+# sprite, name tag) without waiting on the rare wild-encounter roll (see
+# world_map_data.gd _roll_form).
+func _debug_cycle_form() -> void:
+	var team := _team()
+	if team.is_empty() or typeof(team[0]) != TYPE_DICTIONARY:
+		UI.show_message_popup(self, _text("debug_variants"), _text("debug_no_change"))
+		return
+	var pokemon: Dictionary = PokemonHelpers.normalize_pokemon(team[0])
+	var forms := PokemonHelpers.forms_for_species(str(pokemon.get("id", "")))
+	if forms.is_empty():
+		UI.show_message_popup(self, _text("debug_variants"), _text("debug_no_forms_available"))
+		return
+	var current_form := str(pokemon.get("form", ""))
+	var next_index := 0 if current_form == "" else forms.find(current_form) + 1
+	pokemon["form"] = "" if next_index >= forms.size() else str(forms[next_index])
+	pokemon = PokemonHelpers.normalize_pokemon(pokemon)
 	team[0] = pokemon
 	_update_debug_save({"team": team})
 	var current_tag := PokemonHelpers.variant_tag(pokemon)
