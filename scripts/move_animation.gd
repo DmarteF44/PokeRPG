@@ -205,6 +205,30 @@ static func play_heal_glow(target_sprite: TextureRect, effect_layer: Control) ->
 		tween.tween_callback(mote.queue_free)
 
 
+# A team switch (voluntary or forced): the outgoing sprite slides down and
+# fades out ("recalled") while the incoming one slides up into place and
+# fades in ("sent out") - species/variant-agnostic since it only ever
+# touches the two sprite nodes handed to it.
+static func play_switch_transition(old_sprite: TextureRect, new_sprite: TextureRect) -> void:
+	if old_sprite != null and is_instance_valid(old_sprite):
+		var old_tween := old_sprite.create_tween()
+		old_tween.set_parallel(true)
+		old_tween.tween_property(old_sprite, "position:y", old_sprite.position.y + 24, 0.22).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+		old_tween.tween_property(old_sprite, "modulate:a", 0.0, 0.22)
+		old_tween.set_parallel(false)
+		old_tween.tween_callback(old_sprite.queue_free)
+
+	if new_sprite != null and is_instance_valid(new_sprite):
+		var original_pos := new_sprite.position
+		new_sprite.position.y += 24
+		new_sprite.modulate.a = 0.0
+		var new_tween := new_sprite.create_tween()
+		new_tween.tween_interval(0.14)
+		new_tween.set_parallel(true)
+		new_tween.tween_property(new_sprite, "position", original_pos, 0.26).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+		new_tween.tween_property(new_sprite, "modulate:a", 1.0, 0.26)
+
+
 static func _make_ring(center: Vector2, color: Color) -> Control:
 	var ring := Control.new()
 	ring.name = "Ring"
