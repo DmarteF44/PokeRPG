@@ -11,11 +11,15 @@ Gen 1 sources (front/back gif numbers always differ by exactly 433) and
 confirmed to hold for Gen 2 (310) and Gen 3 (362) with the same detection
 method used here (mode of front/back index deltas per species).
 
-Frame counts in the source GIFs run 20-90+ frames per direction; at that
-density, Gen 2 + Gen 3 combined would add on the order of 30,000+ PNG files
-and ~350MB, which is impractical for this pass - frames are evenly
-subsampled down to MAX_FRAMES per direction, which still reads as a smooth
-idle animation in-battle.
+Frame counts in the source GIFs run 20-90+ frames per direction; the APK
+no longer needs to fit under GitHub's git-push size limit (the compiled
+build ships via GitHub Releases instead of being committed to the repo -
+see releases/ being gitignored), so MAX_FRAMES was raised from the
+earlier 8-frame pass to noticeably smoother animation instead of staying
+size-constrained. Frames are still evenly subsampled down to MAX_FRAMES
+per direction rather than keeping every source frame, since some species'
+GIFs run 90+ frames and there's still a sane ceiling on PNG file count/
+import time even without a hard size wall.
 
 Usage: python3 extract_generation_sprites.py <gen_number>
 """
@@ -37,7 +41,7 @@ from PIL import Image, ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 ROOT = Path(__file__).resolve().parents[2]
-MAX_FRAMES = 8
+MAX_FRAMES = 24
 ICON_SIZE = 96
 
 NAME_RE = re.compile(r"^imgi_(\d+)_(.+)\.(gif|png|jpg|jpeg|svg)$", re.IGNORECASE)

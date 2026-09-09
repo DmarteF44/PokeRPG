@@ -1,10 +1,10 @@
 {
   "arceus-bug": {
-    "back_frame_count": 8,
+    "back_frame_count": 24,
     "back_frames_path": "res://assets/pokemon/item_forms/arceus-bug/back/",
     "back_gif_source": "imgi_676_arceus-bug.gif",
     "base_species": "arceus",
-    "front_frame_count": 8,
+    "front_frame_count": 24,
     "front_frames_path": "res://assets/pokemon/item_forms/arceus-bug/front/",
     "front_gif_source": "imgi_328_arceus-bug.gif",
     "has_animation": true,
@@ -17,11 +17,11 @@
     ]
   },
   "arceus-dark": {
-    "back_frame_count": 8,
+    "back_frame_count": 24,
     "back_frames_path": "res://assets/pokemon/item_forms/arceus-dark/back/",
     "back_gif_source": "imgi_696_arceus-dark.gif",
     "base_species": "arceus",
-    "front_frame_count": 8,
+    "front_frame_count": 24,
     "front_frames_path": "res://assets/pokemon/item_forms/arceus-dark/front/",
     "front_gif_source": "imgi_348_arceus-dark.gif",
     "has_animation": true,
@@ -34,11 +34,11 @@
     ]
   },
   "arceus-dragon": {
-    "back_frame_count": 8,
+    "back_frame_count": 24,
     "back_frames_path": "res://assets/pokemon/item_forms/arceus-dragon/back/",
     "back_gif_source": "imgi_694_arceus-dragon.gif",
     "base_species": "arceus",
-    "front_frame_count": 8,
+    "front_frame_count": 24,
     "front_frames_path": "res://assets/pokemon/item_forms/arceus-dragon/front/",
     "front_gif_source": "imgi_346_arceus-dragon.gif",
     "has_animation": true,
@@ -51,11 +51,11 @@
     ]
   },
   "arceus-electric": {
-    "back_frame_count": 8,
+    "back_frame_count": 24,
     "back_frames_path": "res://assets/pokemon/item_forms/arceus-electric/back/",
     "back_gif_source": "imgi_688_arceus-electric.gif",
     "base_species": "arceus",
-    "front_frame_count": 8,
+    "front_frame_count": 24,
     "front_frames_path": "res://assets/pokemon/item_forms/arceus-electric/front/",
     "front_gif_source": "imgi_340_arceus-electric.gif",
     "has_animation": true,
@@ -68,11 +68,11 @@
     ]
   },
   "arceus-fairy": {
-    "back_frame_count": 8,
+    "back_frame_count": 24,
     "back_frames_path": "res://assets/pokemon/item_forms/arceus-fairy/back/",
     "back_gif_source": "imgi_698_arceus-fairy.gif",
     "base_species": "arceus",
-    "front_frame_count": 8,
+    "front_frame_count": 24,
     "front_frames_path": "res://assets/pokemon/item_forms/arceus-fairy/front/",
     "front_gif_source": "imgi_350_arceus-fairy.gif",
     "has_animation": true,
@@ -85,11 +85,11 @@
     ]
   },
   "arceus-fighting": {
-    "back_frame_count": 8,
+    "back_frame_count": 24,
     "back_frames_path": "res://assets/pokemon/item_forms/arceus-fighting/back/",
     "back_gif_source": "imgi_666_arceus-fighting.gif",
     "base_species": "arceus",
-    "front_frame_count": 8,
+    "front_frame_count": 24,
     "front_frames_path": "res://assets/pokemon/item_forms/arceus-fighting/front/",
     "front_gif_source": "imgi_318_arceus-fighting.gif",
     "has_animation": true,
@@ -102,11 +102,11 @@
     ]
   },
   "arceus-fire": {
-    "back_frame_count": 8,
+    "back_frame_count": 24,
     "back_frames_path": "res://assets/pokemon/item_forms/arceus-fire/back/",
     "back_gif_source": "imgi_682_arceus-fire.gif",
     "base_species": "arceus",
-    "front_frame_count": 8,
+    "front_frame_count": 24,
     "front_frames_path": "res://assets/pokemon/item_forms/arceus-fire/front/",
     "front_gif_source": "imgi_334_arceus-fire.gif",
     "has_animation": true,
@@ -119,11 +119,11 @@
     ]
   },
   "arceus-flying": {
-    "back_frame_count": 8,
+    "back_frame_count": 24,
     "back_frames_path": "res://assets/pokemon/item_forms/arceus-flying/back/",
     "back_gif_source": "imgi_668_arceus-flying.gif",
     "base_species": "arceus",
-    "front_frame_count": 8,
+    "front_frame_count": 24,
     "front_frames_path": "res://assets/pokemon/item_forms/arceus-flying/front/",
     "front_gif_source": "imgi_320_arceus-flying.gif",
     "has_animation": true,
@@ -136,11 +136,11 @@
     ]
   },
   "arceus-ghost": {
-    "back_frame_count": 8,
+    "back_frame_count": 24,
     "back_frames_path": "res://assets/pokemon/item_forms/arceus-ghost/back/",
     "back_gif_source": "imgi_678_arceus-ghost.gif",
     "base_species": "arceus",
-    "front_frame_count": 8,
+    "front_frame_count": 24,
     "front_frames_path": "res://assets/pokemon/item_forms/arceus-ghost/front/",
     "front_gif_source": "imgi_330_arceus-ghost.gif",
     "has_animation": true,
@@ -153,11 +153,11 @@
     ]
   },
   "arceus-grass": {
-    "back_frame_count": 8,
+    "back_frame_count": 24,
     "back_frames_path": "res://assets/pokemon/item_forms/arceus-grass/back/",
     "back_gif_source": "imgi_686_arceus-grass.gif",
     "base_species": "arceus",
-    "front_frame_count": 8,
+    "front_frame_count": 24,
     "front_frames_path": "res://assets/pokemon/item_forms/arceus-grass/front/",
     "front_gif_source": "imgi_338_arceus-grass.gif",
     "has_animation": true,
@@ -170,11 +170,11 @@
     ]
   },
   "arceus-ground": {
-    "back_frame_count": 8,
+    "back_frame_count": 24,
     "back_frames_path": "res://assets/pokemon/item_forms/arceus-ground/back/",
     "back_gif_source": "imgi_672_arceus-ground.gif",
     "base_species": "arceus",
-    "front_frame_count": 8,
+    "front_frame_count": 24,
     "front_frames_path": "res://assets/pokemon/item_forms/arceus-ground/front/",
     "front_gif_source": "imgi_324_arceus-ground.gif",
     "has_animation": true,
@@ -187,11 +187,11 @@
     ]
   },
   "arceus-ice": {
-    "back_frame_count": 8,
+    "back_frame_count": 24,
     "back_frames_path": "res://assets/pokemon/item_forms/arceus-ice/back/",
     "back_gif_source": "imgi_692_arceus-ice.gif",
     "base_species": "arceus",
-    "front_frame_count": 8,
+    "front_frame_count": 24,
     "front_frames_path": "res://assets/pokemon/item_forms/arceus-ice/front/",
     "front_gif_source": "imgi_344_arceus-ice.gif",
     "has_animation": true,
@@ -204,11 +204,11 @@
     ]
   },
   "arceus-poison": {
-    "back_frame_count": 8,
+    "back_frame_count": 24,
     "back_frames_path": "res://assets/pokemon/item_forms/arceus-poison/back/",
     "back_gif_source": "imgi_670_arceus-poison.gif",
     "base_species": "arceus",
-    "front_frame_count": 8,
+    "front_frame_count": 24,
     "front_frames_path": "res://assets/pokemon/item_forms/arceus-poison/front/",
     "front_gif_source": "imgi_322_arceus-poison.gif",
     "has_animation": true,
@@ -221,11 +221,11 @@
     ]
   },
   "arceus-psychic": {
-    "back_frame_count": 8,
+    "back_frame_count": 24,
     "back_frames_path": "res://assets/pokemon/item_forms/arceus-psychic/back/",
     "back_gif_source": "imgi_690_arceus-psychic.gif",
     "base_species": "arceus",
-    "front_frame_count": 8,
+    "front_frame_count": 24,
     "front_frames_path": "res://assets/pokemon/item_forms/arceus-psychic/front/",
     "front_gif_source": "imgi_342_arceus-psychic.gif",
     "has_animation": true,
@@ -238,11 +238,11 @@
     ]
   },
   "arceus-rock": {
-    "back_frame_count": 8,
+    "back_frame_count": 24,
     "back_frames_path": "res://assets/pokemon/item_forms/arceus-rock/back/",
     "back_gif_source": "imgi_674_arceus-rock.gif",
     "base_species": "arceus",
-    "front_frame_count": 8,
+    "front_frame_count": 24,
     "front_frames_path": "res://assets/pokemon/item_forms/arceus-rock/front/",
     "front_gif_source": "imgi_326_arceus-rock.gif",
     "has_animation": true,
@@ -255,11 +255,11 @@
     ]
   },
   "arceus-steel": {
-    "back_frame_count": 8,
+    "back_frame_count": 24,
     "back_frames_path": "res://assets/pokemon/item_forms/arceus-steel/back/",
     "back_gif_source": "imgi_680_arceus-steel.gif",
     "base_species": "arceus",
-    "front_frame_count": 8,
+    "front_frame_count": 24,
     "front_frames_path": "res://assets/pokemon/item_forms/arceus-steel/front/",
     "front_gif_source": "imgi_332_arceus-steel.gif",
     "has_animation": true,
@@ -272,11 +272,11 @@
     ]
   },
   "arceus-water": {
-    "back_frame_count": 8,
+    "back_frame_count": 24,
     "back_frames_path": "res://assets/pokemon/item_forms/arceus-water/back/",
     "back_gif_source": "imgi_684_arceus-water.gif",
     "base_species": "arceus",
-    "front_frame_count": 8,
+    "front_frame_count": 24,
     "front_frames_path": "res://assets/pokemon/item_forms/arceus-water/front/",
     "front_gif_source": "imgi_336_arceus-water.gif",
     "has_animation": true,
@@ -289,11 +289,11 @@
     ]
   },
   "genesect-electric": {
-    "back_frame_count": 8,
+    "back_frame_count": 24,
     "back_frames_path": "res://assets/pokemon/item_forms/genesect-electric/back/",
     "back_gif_source": "imgi_722_genesect-electric.gif",
     "base_species": "genesect",
-    "front_frame_count": 8,
+    "front_frame_count": 24,
     "front_frames_path": "res://assets/pokemon/item_forms/genesect-electric/front/",
     "front_gif_source": "imgi_360_genesect-electric.gif",
     "has_animation": true,
@@ -307,11 +307,11 @@
     ]
   },
   "genesect-fire": {
-    "back_frame_count": 8,
+    "back_frame_count": 24,
     "back_frames_path": "res://assets/pokemon/item_forms/genesect-fire/back/",
     "back_gif_source": "imgi_724_genesect-fire.gif",
     "base_species": "genesect",
-    "front_frame_count": 8,
+    "front_frame_count": 24,
     "front_frames_path": "res://assets/pokemon/item_forms/genesect-fire/front/",
     "front_gif_source": "imgi_362_genesect-fire.gif",
     "has_animation": true,
@@ -325,11 +325,11 @@
     ]
   },
   "genesect-ice": {
-    "back_frame_count": 8,
+    "back_frame_count": 24,
     "back_frames_path": "res://assets/pokemon/item_forms/genesect-ice/back/",
     "back_gif_source": "imgi_726_genesect-ice.gif",
     "base_species": "genesect",
-    "front_frame_count": 8,
+    "front_frame_count": 24,
     "front_frames_path": "res://assets/pokemon/item_forms/genesect-ice/front/",
     "front_gif_source": "imgi_364_genesect-ice.gif",
     "has_animation": true,
@@ -343,11 +343,11 @@
     ]
   },
   "genesect-water": {
-    "back_frame_count": 8,
+    "back_frame_count": 24,
     "back_frames_path": "res://assets/pokemon/item_forms/genesect-water/back/",
     "back_gif_source": "imgi_720_genesect-water.gif",
     "base_species": "genesect",
-    "front_frame_count": 8,
+    "front_frame_count": 24,
     "front_frames_path": "res://assets/pokemon/item_forms/genesect-water/front/",
     "front_gif_source": "imgi_358_genesect-water.gif",
     "has_animation": true,
@@ -361,11 +361,11 @@
     ]
   },
   "giratina-origin": {
-    "back_frame_count": 8,
+    "back_frame_count": 24,
     "back_frames_path": "res://assets/pokemon/item_forms/giratina-origin/back/",
     "back_gif_source": "imgi_650_giratina-origin.gif",
     "base_species": "giratina",
-    "front_frame_count": 8,
+    "front_frame_count": 24,
     "front_frames_path": "res://assets/pokemon/item_forms/giratina-origin/front/",
     "front_gif_source": "imgi_302_giratina-origin.gif",
     "has_animation": true,
@@ -379,11 +379,11 @@
     ]
   },
   "hoopa-unbound": {
-    "back_frame_count": 8,
+    "back_frame_count": 24,
     "back_frames_path": "res://assets/pokemon/item_forms/hoopa-unbound/back/",
     "back_gif_source": "imgi_512_hoopa-unbound.gif",
     "base_species": "hoopa",
-    "front_frame_count": 8,
+    "front_frame_count": 24,
     "front_frames_path": "res://assets/pokemon/item_forms/hoopa-unbound/front/",
     "front_gif_source": "imgi_256_hoopa-unbound.gif",
     "has_animation": true,
@@ -397,11 +397,11 @@
     ]
   },
   "shaymin-sky": {
-    "back_frame_count": 8,
+    "back_frame_count": 24,
     "back_frames_path": "res://assets/pokemon/item_forms/shaymin-sky/back/",
     "back_gif_source": "imgi_662_shaymin-sky.gif",
     "base_species": "shaymin",
-    "front_frame_count": 8,
+    "front_frame_count": 24,
     "front_frames_path": "res://assets/pokemon/item_forms/shaymin-sky/front/",
     "front_gif_source": "imgi_314_shaymin-sky.gif",
     "has_animation": true,

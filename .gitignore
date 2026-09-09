@@ -2,3 +2,6 @@ archives/raw_asset_zips/*.zip
 .godot/
 build/
 .claude/
+# Compiled APKs ship via GitHub Releases now, not committed here - see the
+# repo-size cleanup that removed releases/ from git history.
+releases/
