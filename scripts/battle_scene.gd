@@ -362,6 +362,7 @@ func _normalize_enemy_pokemon(value: Dictionary) -> Dictionary:
 		"level": max(1, int(value.get("level", 3))),
 		"shiny": bool(value.get("shiny", false)),
 		"black": bool(value.get("black", false)),
+		"alpha": bool(value.get("alpha", false)),
 		"hp": hp,
 		"max_hp": max_hp,
 		"attack": max(1, int(value.get("attack", 8))),
@@ -1539,7 +1540,11 @@ func _capture_chance(item_id: String) -> float:
 	var status_bonus := float(STATUS_CAPTURE_BONUS.get(_normalized_status_key(enemy_pokemon.get("status_condition", "")), 1.0))
 	var hp_factor := float(3 * max_hp - 2 * hp) / float(3 * max_hp)
 	var specialization_bonus := 1.0 + float(SaveManager.specialization_points("captura")) * 0.01
-	var capture_value := hp_factor * catch_rate * multiplier * status_bonus * specialization_bonus
+	# Alpha Pokemon are exceptionally though to catch (Legends: Arceus) -
+	# Master Ball still bypasses this entirely via the early return above,
+	# matching how it guarantees a catch in the mainline games too.
+	var alpha_penalty := 0.6 if bool(enemy_pokemon.get("alpha", false)) else 1.0
+	var capture_value := hp_factor * catch_rate * multiplier * status_bonus * specialization_bonus * alpha_penalty
 	if capture_value >= 255.0:
 		return 1.0
 	return clampf(capture_value / 255.0, 0.01, 0.98)
@@ -1553,6 +1558,11 @@ func _capture_enemy() -> Dictionary:
 	captured["healing"] = false
 	captured["healing_finish_timestamp"] = 0
 	captured = PokemonHelpers.normalize_pokemon(captured, str(captured.get("id", PokemonHelpers.DEFAULT_STARTER_ID)))
+	# ADAPTACAO DO POKERPG: real Lucky Pokemon (Pokemon GO) come from trades,
+	# which this single-player RPG has no equivalent of - rolled directly on
+	# capture instead, as the closest "you just got this one, and it's
+	# lucky" moment the game actually has.
+	PokemonHelpers.roll_lucky(captured)
 	var storage = save_data.get("storage", [])
 	if typeof(storage) != TYPE_ARRAY:
 		storage = []
