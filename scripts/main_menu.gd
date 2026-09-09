@@ -676,6 +676,7 @@ func _add_texture_from_path(parent: Node, path: String, pos: Vector2, node_size:
 			var texture := ImageTexture.create_from_image(image)
 			var texture_rect := TextureRect.new()
 			texture_rect.name = node_name
+			texture_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 			texture_rect.texture = texture
 			texture_rect.position = pos
 			texture_rect.size = node_size

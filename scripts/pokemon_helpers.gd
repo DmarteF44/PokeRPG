@@ -618,6 +618,7 @@ static func move_by_name(move_name: String) -> Dictionary:
 static func add_animated_sprite(parent: Node, pokemon: Dictionary, pos: Vector2, node_size: Vector2, use_back: bool = false, node_name: String = "PokemonSprite") -> TextureRect:
 	var texture_rect := AnimatedTextureRect.new()
 	texture_rect.name = node_name
+	texture_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	texture_rect.position = pos
 	texture_rect.size = node_size
 	texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED

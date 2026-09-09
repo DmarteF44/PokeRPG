@@ -136,6 +136,19 @@ static func _map_definitions() -> Array:
 		"encounters": _encounters_for_map("dragon", _dragon_encounters()),
 	},
 	{
+		"key": "lava",
+		"type_key": "type_fire",
+		"icon": "res://assets/maps/map_fire_64.png",
+		"thumbnail": "res://assets/maps/thumbnails/map_fire_96x64.png",
+		"background": "res://assets/maps/backgrounds/bg_fire_360x640.png",
+		"min_level": 30,
+		"min_badges": 6,
+		"nothing_chance": DEFAULT_NOTHING_CHANCE,
+		"item_table": _lava_item_table(),
+		"encounters": _encounters_for_map("lava", _lava_encounters()),
+		"required_fishing_tier": 4,
+	},
+	{
 		"key": "safari",
 		"type_key": "type_mixed",
 		"icon": "",
@@ -373,6 +386,15 @@ static func _safari_encounters() -> Array:
 	]
 
 
+static func _lava_encounters() -> Array:
+	return [
+		{"rarity": "common", "weight": COMMON_WEIGHT, "pokemon": _wild_pokemon("rapidash", 78, "Rapidash", 34, ["Fire"])},
+		{"rarity": "uncommon", "weight": UNCOMMON_WEIGHT, "pokemon": _wild_pokemon("ninetales", 38, "Ninetales", 36, ["Fire"])},
+		{"rarity": "rare", "weight": RARE_WEIGHT, "pokemon": _wild_pokemon("magmar", 126, "Magmar", 38, ["Fire"])},
+		{"rarity": "very_rare", "weight": VERY_RARE_WEIGHT, "pokemon": _wild_pokemon("moltres", 146, "Moltres", 45, ["Fire", "Flying"])},
+	]
+
+
 static func _forest_item_table() -> Array:
 	return [
 		{"item_id": "potion", "amount": 1, "weight": 55.0},
@@ -403,6 +425,15 @@ static func _default_item_table() -> Array:
 		{"item_id": "super_potion", "amount": 1, "weight": 25.0},
 		{"item_id": "poke_ball", "amount": 1, "weight": 20.0},
 		{"item_id": "energy_snack", "amount": 1, "weight": 10.0},
+	]
+
+
+static func _lava_item_table() -> Array:
+	return [
+		{"item_id": "hyper_potion", "amount": 1, "weight": 40.0},
+		{"item_id": "ultra_ball", "amount": 1, "weight": 30.0},
+		{"item_id": "energy_crystal", "amount": 1, "weight": 20.0},
+		{"item_id": "fire_stone", "amount": 1, "weight": 10.0},
 	]
 
 

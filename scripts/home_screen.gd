@@ -133,6 +133,17 @@ const TEXT = {
 		"debug_clear_team": "Clear team",
 		"debug_clear_storage": "Clear Storage",
 		"debug_starters_storage": "Starters to Storage",
+		"debug_add_any_pokemon": "Add any Pokemon",
+		"debug_add_any_pokemon_hint": "Type a species id (e.g. pikachu)",
+		"debug_add_button": "Add",
+		"debug_pokemon_not_found": "No Pokemon found for \"%s\".",
+		"debug_specialization": "Specialization points",
+		"debug_level_up_team": "Level up team",
+		"debug_level_up": "Level up",
+		"debug_no_change": "No change (already at max level).",
+		"debug_evolved": "Evolved: %s -> %s",
+		"debug_could_learn": "Could learn %s (use Moves to add it)",
+		"debug_moves": "Moves",
 		"debug_saved": "Saved.",
 		"no_active_save": "No active save.",
 		"options": "Options",
@@ -188,6 +199,7 @@ const TEXT = {
 		"desert": "Desert Map",
 		"ghost": "Ghost Tower",
 		"dragon": "Dragon Valley",
+		"lava": "Lava Fields",
 		"safari": "Safari Zone",
 		"pokeballs": "Pokeballs",
 		"potions": "Potions",
@@ -224,6 +236,17 @@ const TEXT = {
 		"stat_at_cap": "%s cannot raise %s anymore.",
 		"evolved_with_item": "%s evolved into %s!",
 		"no_evolution_target": "None of your Pokemon can evolve with this item.",
+		"no_status_to_cure": "None of your Pokemon have a status condition to cure.",
+		"status_cured": "%s's status was cured!",
+		"xp_granted": "%s gained %d XP!",
+		"team_healed": "Healed %d Pokemon and revived %d.",
+		"research": "Research ($%d)",
+		"research_title": "Research",
+		"research_not_enough_money": "You need $%d to research this Pokemon.",
+		"research_success": "Research successful! Check the Pokedex entry.",
+		"research_failed": "The research didn't turn up anything new this time.",
+		"research_has_evolution": "Research reveals this Pokemon has an evolution.",
+		"research_no_evolution": "Research reveals this Pokemon does not evolve further.",
 		"move_already_known": "This Pokemon already knows that move in another slot.",
 		"stat_max_hp": "HP",
 		"stat_attack": "Attack",
@@ -371,6 +394,17 @@ const TEXT = {
 		"debug_clear_team": "Limpar time",
 		"debug_clear_storage": "Limpar Storage",
 		"debug_starters_storage": "Iniciais no Storage",
+		"debug_add_any_pokemon": "Adicionar qualquer Pokémon",
+		"debug_add_any_pokemon_hint": "Digite o id da espécie (ex: pikachu)",
+		"debug_add_button": "Adicionar",
+		"debug_pokemon_not_found": "Nenhum Pokémon encontrado para \"%s\".",
+		"debug_specialization": "Pontos de especialização",
+		"debug_level_up_team": "Upar time",
+		"debug_level_up": "Subiu de nível",
+		"debug_no_change": "Sem mudança (já está no nível máximo).",
+		"debug_evolved": "Evoluiu: %s -> %s",
+		"debug_could_learn": "Poderia aprender %s (use Movimentos para adicionar)",
+		"debug_moves": "Movimentos",
 		"debug_saved": "Salvo.",
 		"no_active_save": "Nenhum save ativo.",
 		"options": "Opções",
@@ -426,6 +460,7 @@ const TEXT = {
 		"desert": "Deserto",
 		"ghost": "Torre Fantasma",
 		"dragon": "Vale dos Dragões",
+		"lava": "Campos de Lava",
 		"safari": "Zona Safari",
 		"pokeballs": "Pokébolas",
 		"potions": "Poções",
@@ -462,6 +497,17 @@ const TEXT = {
 		"stat_at_cap": "%s nao pode aumentar mais %s.",
 		"evolved_with_item": "%s evoluiu para %s!",
 		"no_evolution_target": "Nenhum dos seus Pokemon evolui com esse item.",
+		"no_status_to_cure": "Nenhum dos seus Pokémon tem uma condição de status para curar.",
+		"status_cured": "O status de %s foi curado!",
+		"xp_granted": "%s ganhou %d XP!",
+		"team_healed": "%d Pokémon curados e %d reanimados.",
+		"research": "Pesquisar ($%d)",
+		"research_title": "Pesquisa",
+		"research_not_enough_money": "Você precisa de $%d para pesquisar este Pokémon.",
+		"research_success": "Pesquisa bem-sucedida! Confira a entrada na Pokédex.",
+		"research_failed": "A pesquisa não revelou nada novo desta vez.",
+		"research_has_evolution": "A pesquisa revela que este Pokémon possui uma evolução.",
+		"research_no_evolution": "A pesquisa revela que este Pokémon não evolui mais.",
 		"move_already_known": "Este Pokemon ja conhece esse golpe em outro slot.",
 		"stat_max_hp": "HP",
 		"stat_attack": "Ataque",
@@ -996,7 +1042,7 @@ func _select_bag_item(item: Dictionary) -> void:
 		]
 	if bag_use_button != null and is_instance_valid(bag_use_button):
 		var effect_type := str(item.get("effect_type", ""))
-		var is_usable_item := effect_type == "restore_energy" or effect_type == "stat_boost" or effect_type == "evolve_stone"
+		var is_usable_item := effect_type == "restore_energy" or effect_type == "stat_boost" or effect_type == "evolve_stone" or effect_type == "cure_status" or effect_type == "grant_xp" or effect_type == "team_heal"
 		var text_label := bag_use_button.get_node_or_null("Text") as Label
 		if text_label != null:
 			text_label.text = _text("use") if is_usable_item else _text("details")
@@ -1017,6 +1063,15 @@ func _show_selected_bag_item_details() -> void:
 		return
 	if effect_type == "evolve_stone":
 		_show_evolution_stone_targets(selected_bag_item)
+		return
+	if effect_type == "cure_status":
+		_show_cure_status_targets(selected_bag_item)
+		return
+	if effect_type == "grant_xp":
+		_show_grant_xp_targets(selected_bag_item)
+		return
+	if effect_type == "team_heal":
+		_use_team_heal_item(selected_bag_item)
 		return
 
 	var amount := InventoryManager.get_item_amount(str(selected_bag_item.get("id", "")))
@@ -1141,6 +1196,167 @@ func _use_stat_boost_item(item: Dictionary, team_index: int) -> void:
 	_refresh_home_stats()
 	_show_bag()
 	UI.show_message_popup(self, _item_name(item), _text("stat_boosted") % [pokemon_name, applied, _stat_name(stat_key)])
+
+
+func _show_cure_status_targets(item: Dictionary) -> void:
+	if not _has_active_save():
+		UI.show_message_popup(self, _item_name(item), _text("no_active_save"))
+		return
+	var item_id := str(item.get("id", ""))
+	if InventoryManager.get_item_amount(item_id) <= 0:
+		return
+
+	var team := _team()
+	var eligible := []
+	for i in range(team.size()):
+		if typeof(team[i]) == TYPE_DICTIONARY and str(team[i].get("status_condition", "")) != "" and int(team[i].get("hp", 0)) > 0:
+			eligible.append(i)
+	if eligible.is_empty():
+		UI.show_message_popup(self, _item_name(item), _text("no_status_to_cure"))
+		return
+
+	var existing := get_node_or_null("CureStatusPopup")
+	if existing != null:
+		existing.queue_free()
+	var popup := _create_popup(_text("choose_pokemon"), "CureStatusPopup", 92.0, 420.0)
+	UI.add_panel_label(popup, _item_name(item), Vector2(42, 154), Vector2(276, 30), 15, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "CureInfo")
+	for row_index in range(eligible.size()):
+		var team_index: int = eligible[row_index]
+		_add_generic_target_row(popup, team[team_index], team_index, 194.0 + float(row_index) * 56.0, Callable(self, "_use_cure_status_item").bind(item, team_index))
+
+
+func _use_cure_status_item(item: Dictionary, team_index: int) -> void:
+	_refresh_save_data()
+	var team := _team()
+	if team_index < 0 or team_index >= team.size() or typeof(team[team_index]) != TYPE_DICTIONARY:
+		return
+	var item_id := str(item.get("id", ""))
+	if InventoryManager.get_item_amount(item_id) <= 0:
+		return
+	if not InventoryManager.remove_item(item_id, 1):
+		return
+
+	var pokemon: Dictionary = team[team_index]
+	pokemon["status_condition"] = null
+	team[team_index] = PokemonHelpers.normalize_pokemon(pokemon, str(pokemon.get("id", PokemonHelpers.DEFAULT_STARTER_ID)))
+	SaveManager.update_current_save({"team": team})
+	_refresh_save_data()
+	_refresh_home_stats()
+	_show_bag()
+	UI.show_message_popup(self, _item_name(item), _text("status_cured") % str(pokemon.get("name", "Pokemon")))
+
+
+func _show_grant_xp_targets(item: Dictionary) -> void:
+	if not _has_active_save():
+		UI.show_message_popup(self, _item_name(item), _text("no_active_save"))
+		return
+	var item_id := str(item.get("id", ""))
+	if InventoryManager.get_item_amount(item_id) <= 0:
+		return
+
+	var team := _team()
+	var eligible := []
+	for i in range(team.size()):
+		if typeof(team[i]) == TYPE_DICTIONARY and int(team[i].get("hp", 0)) > 0:
+			eligible.append(i)
+	if eligible.is_empty():
+		UI.show_message_popup(self, _item_name(item), _text("no_active_save"))
+		return
+
+	var existing := get_node_or_null("GrantXpPopup")
+	if existing != null:
+		existing.queue_free()
+	var popup := _create_popup(_text("choose_pokemon"), "GrantXpPopup", 92.0, 420.0)
+	UI.add_panel_label(popup, "%s\n+%d XP" % [_item_name(item), int(item.get("effect_value", 100))], Vector2(42, 154), Vector2(276, 44), 15, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "XpInfo")
+	for row_index in range(eligible.size()):
+		var team_index: int = eligible[row_index]
+		_add_generic_target_row(popup, team[team_index], team_index, 214.0 + float(row_index) * 56.0, Callable(self, "_use_grant_xp_item").bind(item, team_index))
+
+
+func _use_grant_xp_item(item: Dictionary, team_index: int) -> void:
+	_refresh_save_data()
+	var team := _team()
+	if team_index < 0 or team_index >= team.size() or typeof(team[team_index]) != TYPE_DICTIONARY:
+		return
+	var item_id := str(item.get("id", ""))
+	if InventoryManager.get_item_amount(item_id) <= 0:
+		return
+	if not InventoryManager.remove_item(item_id, 1):
+		return
+
+	var pokemon: Dictionary = PokemonHelpers.normalize_pokemon(team[team_index])
+	var amount := maxi(1, int(item.get("effect_value", 100)))
+	var result := PokemonHelpers.grant_xp(pokemon, amount)
+	team[team_index] = result.get("pokemon", pokemon)
+	SaveManager.update_current_save({"team": team})
+	_refresh_save_data()
+	_refresh_home_stats()
+	_show_bag()
+	var pokemon_name := str(result.get("pokemon", pokemon).get("name", "Pokemon"))
+	UI.show_message_popup(self, _item_name(item), _text("xp_granted") % [pokemon_name, amount])
+
+
+func _add_generic_target_row(parent: Control, pokemon: Dictionary, team_index: int, y: float, callback: Callable) -> void:
+	var row := Panel.new()
+	row.name = "GenericTarget%d" % team_index
+	row.position = Vector2(42, y)
+	row.size = Vector2(276, 48)
+	parent.add_child(row)
+	UI.style_panel_button(row, Color(0.86, 0.92, 0.96), Color(0.34, 0.50, 0.62), 2)
+	PokemonHelpers.add_animated_sprite(row, pokemon, Vector2(8, 3), Vector2(42, 42), false, "PokemonSprite")
+	var name := str(pokemon.get("name", "Pokemon"))
+	var name_label := UI.add_panel_label(row, name, Vector2(56, 5), Vector2(110, 18), 12, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Name")
+	_fit_label(name_label, false)
+	UI.add_panel_label(row, "%s: %d/%d" % [_text("hp"), int(pokemon.get("hp", 0)), int(pokemon.get("max_hp", 1))], Vector2(56, 25), Vector2(116, 16), 10, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Stat")
+	_add_small_button(row, _text("use"), Vector2(198, 9), Vector2(62, 30), callback, "UseItem")
+
+
+func _use_team_heal_item(item: Dictionary) -> void:
+	if not _has_active_save():
+		UI.show_message_popup(self, _item_name(item), _text("no_active_save"))
+		return
+	var item_id := str(item.get("id", ""))
+	if InventoryManager.get_item_amount(item_id) <= 0:
+		return
+	if not InventoryManager.remove_item(item_id, 1):
+		return
+
+	_refresh_save_data()
+	var team := _team()
+	var heal_ratio := clampf(float(item.get("effect_value", 100)) / 100.0, 0.0, 1.0)
+	var cures_status := bool(item.get("cures_status", false))
+	var revives_fainted := bool(item.get("revives_fainted", false))
+	var healed_count := 0
+	var revived_count := 0
+	for i in range(team.size()):
+		if typeof(team[i]) != TYPE_DICTIONARY:
+			continue
+		var pokemon: Dictionary = team[i]
+		var max_hp := maxi(1, int(pokemon.get("max_hp", 1)))
+		var current_hp := int(pokemon.get("hp", 0))
+		if current_hp <= 0:
+			if revives_fainted:
+				pokemon["hp"] = maxi(1, int(round(float(max_hp) * heal_ratio)))
+				pokemon["healing"] = false
+				pokemon["healing_finish_timestamp"] = 0
+				revived_count += 1
+			else:
+				team[i] = pokemon
+				continue
+		else:
+			var next_hp := mini(max_hp, current_hp + int(round(float(max_hp) * heal_ratio)))
+			if next_hp > current_hp:
+				healed_count += 1
+			pokemon["hp"] = next_hp
+		if cures_status:
+			pokemon["status_condition"] = null
+		team[i] = PokemonHelpers.normalize_pokemon(pokemon, str(pokemon.get("id", PokemonHelpers.DEFAULT_STARTER_ID)))
+
+	SaveManager.update_current_save({"team": team})
+	_refresh_save_data()
+	_refresh_home_stats()
+	_show_bag()
+	UI.show_message_popup(self, _item_name(item), _text("team_healed") % [healed_count, revived_count])
 
 
 func _show_evolution_stone_targets(item: Dictionary) -> void:
@@ -1963,6 +2179,9 @@ func _filtered_pokedex_species_ids() -> Array:
 
 func _show_pokedex() -> void:
 	_close_pokemon_popup()
+	var existing_dex := get_node_or_null("PokeDexPopup")
+	if existing_dex != null:
+		existing_dex.queue_free()
 	var popup := _create_popup(_text("pokedex"), "PokeDexPopup", 34.0, 580.0, Callable(self, "_show_pokemon_collection"))
 	var all_species_ids := PokemonHelpers.available_species_ids()
 	var species_ids := _filtered_pokedex_species_ids()
@@ -2262,8 +2481,15 @@ func _add_pokedex_entry(parent: Control, pokemon_id: String, index: int) -> void
 	var type_text := _pokemon_types_text(definition) if owned else "???"
 	var info_label := UI.add_panel_label(panel, "%s: %s\n%s: %s" % [_text("type"), type_text, _text("status"), _pokedex_status(pokemon_id)], Vector2(84, 38), Vector2(190, 42), 11, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Info")
 	_fit_label(info_label, true)
-	var description_label := UI.add_panel_label(panel, _pokemon_description(definition) if owned else _text("unknown"), Vector2(12, 84), Vector2(272, 62), 10, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Description")
+
+	var researched := _researched_species_ids().has(pokemon_id)
+	var show_research_row := seen and not owned
+	var description_height := 40.0 if show_research_row else 62.0
+	var description_text := _pokemon_description(definition) if owned else (_pokedex_research_hint(pokemon_id) if researched else _text("unknown"))
+	var description_label := UI.add_panel_label(panel, description_text, Vector2(12, 84), Vector2(272, description_height), 10, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Description")
 	_fit_label(description_label, true)
+	if show_research_row and not researched:
+		_add_small_button(panel, _text("research") % RESEARCH_COST, Vector2(12, 126), Vector2(272, 26), Callable(self, "_research_species").bind(pokemon_id), "ResearchButton")
 
 
 func _count_registered_species(ids: Array, species_ids: Array) -> int:
@@ -2310,6 +2536,46 @@ func _pokedex_status_key(pokemon_id: String) -> String:
 func _pokemon_description(pokemon: Dictionary) -> String:
 	var key := "description_pt" if _language() == "pt" else "description_en"
 	return str(pokemon.get(key, ""))
+
+
+# Research: a seen-but-uncaptured species starts as "???" in the Pokedex.
+# Spending money on research has a chance to reveal whether it evolves,
+# without requiring capture - the result (species id only) is remembered so
+# it never has to be re-rolled once revealed.
+const RESEARCH_COST = 500
+const RESEARCH_SUCCESS_CHANCE = 0.35
+
+
+func _researched_species_ids() -> Array:
+	_refresh_save_data()
+	var value = save_data.get("researched_species", [])
+	return value if typeof(value) == TYPE_ARRAY else []
+
+
+func _pokedex_research_hint(pokemon_id: String) -> String:
+	var definition := PokemonHelpers.get_definition(pokemon_id)
+	var evolutions := PokemonHelpers.evolution_options_for(definition)
+	return _text("research_has_evolution") if not evolutions.is_empty() else _text("research_no_evolution")
+
+
+func _research_species(pokemon_id: String) -> void:
+	_refresh_save_data()
+	var money := int(save_data.get("money", 0))
+	if money < RESEARCH_COST:
+		UI.show_message_popup(self, _text("research_title"), _text("research_not_enough_money") % RESEARCH_COST)
+		return
+
+	var researched := _researched_species_ids().duplicate()
+	var success := randf() < RESEARCH_SUCCESS_CHANCE
+	var changes := {"money": money - RESEARCH_COST}
+	if success and not researched.has(pokemon_id):
+		researched.append(pokemon_id)
+		changes["researched_species"] = researched
+	SaveManager.update_current_save(changes)
+	_refresh_save_data()
+	_refresh_home_stats()
+	_show_pokedex()
+	UI.show_message_popup(self, _text("research_title"), _text("research_success") if success else _text("research_failed"))
 
 
 func _owned_pokemon_ids() -> Array:
@@ -2764,11 +3030,20 @@ func _show_debug_menu() -> void:
 	y = _add_debug_button_row(content, y, [
 		[_text("debug_add_squirtle"), Callable(self, "_debug_add_pokemon").bind("squirtle")],
 	])
+	y = _add_debug_section(content, _text("debug_add_any_pokemon"), y)
+	y = _add_debug_pokemon_id_input(content, y)
+	y = _add_debug_section(content, _text("debug_specialization"), y)
+	y = _add_debug_button_row(content, y, [
+		[_text("debug_add") % "1", Callable(self, "_debug_add_specialization_points").bind(1)],
+		[_text("debug_add") % "5", Callable(self, "_debug_add_specialization_points").bind(5)],
+	])
 	y = _add_debug_section(content, _text("debug_team"), y)
 	y = _add_debug_button_row(content, y, [
 		[_text("debug_fill_team"), Callable(self, "_debug_fill_team")],
 		[_text("debug_clear_team"), Callable(self, "_debug_clear_team")],
 	])
+	y = _add_debug_section(content, _text("debug_level_up_team"), y)
+	y = _add_debug_team_level_rows(content, y)
 	y = _add_debug_section(content, _text("debug_storage"), y)
 	y = _add_debug_button_row(content, y, [
 		[_text("debug_clear_storage"), Callable(self, "_debug_clear_storage")],
@@ -2795,6 +3070,90 @@ func _add_debug_button_row(parent: Control, y: float, actions: Array) -> float:
 		var callback: Callable = action[1]
 		_add_small_button(parent, str(action[0]), Vector2(x, y), Vector2(button_width, 32), callback, "DebugAction%d%d" % [int(y), i])
 	return y + 38.0
+
+
+func _add_debug_pokemon_id_input(parent: Control, y: float) -> float:
+	var input := LineEdit.new()
+	input.name = "DebugPokemonIdInput"
+	input.placeholder_text = _text("debug_add_any_pokemon_hint")
+	input.position = Vector2(0, y)
+	input.size = Vector2(190, 32)
+	input.max_length = 32
+	input.add_theme_font_size_override("font_size", 12)
+	input.add_theme_color_override("font_color", UI.PANEL_TEXT)
+	parent.add_child(input)
+	_add_small_button(parent, _text("debug_add_button"), Vector2(198, y), Vector2(94, 32), Callable(self, "_debug_add_pokemon_by_input").bind(input), "DebugAddPokemonButton")
+	return y + 38.0
+
+
+func _debug_add_pokemon_by_input(input: LineEdit) -> void:
+	if input == null or not is_instance_valid(input):
+		return
+	var raw := str(input.text).strip_edges()
+	if raw == "":
+		return
+	var species_id := raw.to_lower().replace(" ", "_")
+	if not PokemonHelpers.has_definition(species_id):
+		UI.show_message_popup(self, _text("debug_menu"), _text("debug_pokemon_not_found") % raw)
+		return
+	_debug_add_pokemon(species_id)
+
+
+func _debug_add_specialization_points(amount: int) -> void:
+	var available := maxi(0, int(save_data.get("specialization_points_available", 0))) + amount
+	_update_debug_save({"specialization_points_available": available})
+
+
+func _add_debug_team_level_rows(parent: Control, y: float) -> float:
+	var team := _team()
+	for i in range(team.size()):
+		if typeof(team[i]) != TYPE_DICTIONARY:
+			continue
+		var pokemon: Dictionary = team[i]
+		var row_label := "%s Lv%d" % [str(pokemon.get("nickname", "")) if str(pokemon.get("nickname", "")) != "" else str(pokemon.get("name", "Pokemon")), int(pokemon.get("level", 1))]
+		var label := UI.add_panel_label(parent, row_label, Vector2(0, y), Vector2(140, 32), 11, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "DebugTeamLabel%d" % i)
+		_fit_label(label, false)
+		_add_small_button(parent, _text("debug_level_up"), Vector2(146, y), Vector2(74, 32), Callable(self, "_debug_level_up_team_member").bind(i), "DebugLevelUp%d" % i)
+		_add_small_button(parent, _text("debug_moves"), Vector2(224, y), Vector2(68, 32), Callable(self, "_debug_open_team_moves").bind(i), "DebugMoves%d" % i)
+		y += 38.0
+	return y
+
+
+func _debug_level_up_team_member(index: int) -> void:
+	var team := _team()
+	if index < 0 or index >= team.size() or typeof(team[index]) != TYPE_DICTIONARY:
+		return
+	var pokemon: Dictionary = PokemonHelpers.normalize_pokemon(team[index])
+	var required := PokemonHelpers.xp_to_next_level_for(int(pokemon.get("level", 1)))
+	if required <= 0:
+		UI.show_message_popup(self, _text("debug_level_up"), _text("debug_no_change"))
+		return
+	var result := PokemonHelpers.grant_xp(pokemon, required)
+	team[index] = result.get("pokemon", pokemon)
+	_update_debug_save({"team": team})
+
+	var lines := []
+	var level_ups: Array = result.get("level_ups", [])
+	for level in level_ups:
+		lines.append("Lv %d" % int(level))
+	var evolutions: Array = result.get("evolutions", [])
+	for evo in evolutions:
+		if typeof(evo) == TYPE_DICTIONARY:
+			var before: Dictionary = evo.get("from", {})
+			var after: Dictionary = evo.get("to", {})
+			lines.append(_text("debug_evolved") % [str(before.get("species", "")), str(after.get("species", ""))])
+	var pending_learns: Array = result.get("pending_move_learns", [])
+	for pending in pending_learns:
+		if typeof(pending) == TYPE_DICTIONARY:
+			lines.append(_text("debug_could_learn") % str(pending.get("move_name", "")))
+	if lines.is_empty():
+		lines.append(_text("debug_no_change"))
+	UI.show_message_popup(self, _text("debug_level_up"), "\n".join(lines))
+
+
+func _debug_open_team_moves(index: int) -> void:
+	_close_debug_popup()
+	_show_pokemon_detail("team", index)
 
 
 func _debug_add_money(amount: int) -> void:

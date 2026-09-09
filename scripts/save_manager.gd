@@ -19,6 +19,20 @@ const DEFAULT_ENERGY_MAX = 30
 const MAX_TEAM_SIZE = 6
 const MAX_STORAGE_SIZE = 500
 
+# Trainer level gates how many of the 6 team slots are usable at once (the
+# team array can still structurally hold up to MAX_TEAM_SIZE - this only
+# governs whether a freshly-captured Pokemon goes to the active team or to
+# storage). The absolute ceiling is always MAX_TEAM_SIZE, never higher.
+func team_capacity_for_level(level: int) -> int:
+	var safe_level := maxi(1, level)
+	if safe_level >= 15:
+		return MAX_TEAM_SIZE
+	if safe_level >= 10:
+		return mini(MAX_TEAM_SIZE, 5)
+	if safe_level >= 5:
+		return mini(MAX_TEAM_SIZE, 4)
+	return mini(MAX_TEAM_SIZE, 3)
+
 # The 15 trainer specialization attributes the player invests points into as
 # they level up. Effects for encontro/exploracao/regeneracao/pesca/inventario/
 # cura/pv_batalha/tecnica/sorte/pesquisa are intentionally not wired to any

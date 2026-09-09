@@ -623,5 +623,359 @@
     "description_en": "Premium bait. Strongly improves the odds of a rarer catch.",
     "description_pt": "Isca premium. Aumenta bastante a chance de uma captura mais rara.",
     "icon_path": "res://assets/items/pesca/premium_bait.png"
+  },
+  {
+    "id": "obsidian_rod",
+    "name_en": "Obsidian Rod",
+    "name_pt": "Vara de Obsidiana",
+    "category": "pesca",
+    "price": 15000,
+    "min_level": 30,
+    "min_badges": 6,
+    "effect_type": "fishing_rod",
+    "fishing_tier": 4,
+    "use_contexts": [
+      "field"
+    ],
+    "description_en": "A rod forged from volcanic glass. Required to fish in the Lava area.",
+    "description_pt": "Uma vara forjada em vidro vulcanico. Necessaria para pescar na area de Lava.",
+    "icon_path": "res://assets/items/key_items/obsidian_rod.png"
+  },
+  {
+    "id": "obsidian_line",
+    "name_en": "Obsidian Line",
+    "name_pt": "Linha de Obsidiana",
+    "category": "pesca",
+    "price": 12000,
+    "min_level": 30,
+    "min_badges": 6,
+    "effect_type": "fishing_line",
+    "fishing_tier": 4,
+    "use_contexts": [
+      "field"
+    ],
+    "description_en": "A heat-resistant line that withstands the Lava area's molten waters.",
+    "description_pt": "Uma linha resistente ao calor, capaz de suportar as aguas ardentes da area de Lava.",
+    "icon_path": "res://assets/items/pesca/obsidian_line.png"
+  },
+  {
+    "id": "full_heal",
+    "name_en": "Full Heal",
+    "name_pt": "Cura Total",
+    "category": "cura",
+    "price": 400,
+    "min_level": 0,
+    "min_badges": 0,
+    "effect_type": "cure_status",
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "Cures any status condition (paralysis, poison, sleep, burn, freeze, confusion) on one Pokemon.",
+    "description_pt": "Cura qualquer condicao de status (paralisia, veneno, sono, queimadura, congelamento, confusao) de um Pokemon.",
+    "icon_path": "res://assets/items/potions/full_heal.png"
+  },
+  {
+    "id": "xp_potion",
+    "name_en": "XP Potion",
+    "name_pt": "Poção de XP",
+    "category": "xp",
+    "price": 800,
+    "min_level": 0,
+    "min_badges": 0,
+    "effect_type": "grant_xp",
+    "effect_value": 100,
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "Instantly grants 100 XP to one Pokemon.",
+    "description_pt": "Concede 100 XP instantaneamente a um Pokemon.",
+    "icon_path": "res://assets/items/potions/xp_potion.png"
+  },
+  {
+    "id": "instant_heal",
+    "name_en": "Instant Heal",
+    "name_pt": "Cura Instantânea",
+    "category": "cura",
+    "price": 600,
+    "min_level": 0,
+    "min_badges": 0,
+    "effect_type": "team_heal",
+    "effect_value": 50,
+    "cures_status": false,
+    "revives_fainted": false,
+    "use_contexts": [
+      "field"
+    ],
+    "description_en": "Restores 50% max HP to every non-fainted Pokemon on your team.",
+    "description_pt": "Restaura 50% do HP maximo de cada Pokemon nao desmaiado do seu time.",
+    "icon_path": "res://assets/items/potions/instant_heal.png"
+  },
+  {
+    "id": "recovery_kit",
+    "name_en": "Recovery Kit",
+    "name_pt": "Kit de Recuperação",
+    "category": "cura",
+    "price": 1500,
+    "min_level": 8,
+    "min_badges": 1,
+    "effect_type": "team_heal",
+    "effect_value": 100,
+    "cures_status": true,
+    "revives_fainted": false,
+    "use_contexts": [
+      "field"
+    ],
+    "description_en": "Fully heals HP and cures status for every non-fainted Pokemon on your team.",
+    "description_pt": "Cura totalmente o HP e remove status de cada Pokemon nao desmaiado do seu time.",
+    "icon_path": "res://assets/items/potions/recovery_kit.png"
+  },
+  {
+    "id": "full_team_heal",
+    "name_en": "Full Team Heal",
+    "name_pt": "Cura Total da Equipe",
+    "category": "cura",
+    "price": 4000,
+    "min_level": 18,
+    "min_badges": 4,
+    "effect_type": "team_heal",
+    "effect_value": 100,
+    "cures_status": true,
+    "revives_fainted": true,
+    "use_contexts": [
+      "field"
+    ],
+    "description_en": "Fully heals HP, cures status, and revives fainted Pokemon for your whole team.",
+    "description_pt": "Cura totalmente o HP, remove status e reanima Pokemon desmaiados de toda a equipe.",
+    "icon_path": "res://assets/items/potions/full_team_heal.png"
+  },
+  {
+    "id": "hp_boost_potion_small",
+    "name_en": "HP Boost (Small)",
+    "name_pt": "Impulso de PS (Pequeno)",
+    "category": "atributos",
+    "price": 5000,
+    "min_level": 3,
+    "min_badges": 0,
+    "effect_type": "stat_boost",
+    "effect_stat": "max_hp",
+    "effect_value": 1,
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "Raises a Pokemon's HP by 1, up to the stat limit.",
+    "description_pt": "Aumenta o(a) PS de um Pokemon em 1, ate o limite do atributo.",
+    "icon_path": "res://assets/items/potions/hp_boost_potion.png"
+  },
+  {
+    "id": "hp_boost_potion_large",
+    "name_en": "HP Boost (Large)",
+    "name_pt": "Impulso de PS (Grande)",
+    "category": "atributos",
+    "price": 90000,
+    "min_level": 20,
+    "min_badges": 4,
+    "effect_type": "stat_boost",
+    "effect_stat": "max_hp",
+    "effect_value": 10,
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "Raises a Pokemon's HP by 10, up to the stat limit.",
+    "description_pt": "Aumenta o(a) PS de um Pokemon em 10, ate o limite do atributo.",
+    "icon_path": "res://assets/items/potions/hp_boost_potion.png"
+  },
+  {
+    "id": "attack_boost_potion_small",
+    "name_en": "Attack Boost (Small)",
+    "name_pt": "Impulso de Ataque (Pequeno)",
+    "category": "atributos",
+    "price": 5833,
+    "min_level": 5,
+    "min_badges": 1,
+    "effect_type": "stat_boost",
+    "effect_stat": "attack",
+    "effect_value": 1,
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "Raises a Pokemon's Attack by 1, up to the stat limit.",
+    "description_pt": "Aumenta o(a) Ataque de um Pokemon em 1, ate o limite do atributo.",
+    "icon_path": "res://assets/items/potions/attack_boost_potion.png"
+  },
+  {
+    "id": "attack_boost_potion_large",
+    "name_en": "Attack Boost (Large)",
+    "name_pt": "Impulso de Ataque (Grande)",
+    "category": "atributos",
+    "price": 105000,
+    "min_level": 22,
+    "min_badges": 5,
+    "effect_type": "stat_boost",
+    "effect_stat": "attack",
+    "effect_value": 10,
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "Raises a Pokemon's Attack by 10, up to the stat limit.",
+    "description_pt": "Aumenta o(a) Ataque de um Pokemon em 10, ate o limite do atributo.",
+    "icon_path": "res://assets/items/potions/attack_boost_potion.png"
+  },
+  {
+    "id": "defense_boost_potion_small",
+    "name_en": "Defense Boost (Small)",
+    "name_pt": "Impulso de Defesa (Pequeno)",
+    "category": "atributos",
+    "price": 5833,
+    "min_level": 5,
+    "min_badges": 1,
+    "effect_type": "stat_boost",
+    "effect_stat": "defense",
+    "effect_value": 1,
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "Raises a Pokemon's Defense by 1, up to the stat limit.",
+    "description_pt": "Aumenta o(a) Defesa de um Pokemon em 1, ate o limite do atributo.",
+    "icon_path": "res://assets/items/potions/defense_boost_potion.png"
+  },
+  {
+    "id": "defense_boost_potion_large",
+    "name_en": "Defense Boost (Large)",
+    "name_pt": "Impulso de Defesa (Grande)",
+    "category": "atributos",
+    "price": 105000,
+    "min_level": 22,
+    "min_badges": 5,
+    "effect_type": "stat_boost",
+    "effect_stat": "defense",
+    "effect_value": 10,
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "Raises a Pokemon's Defense by 10, up to the stat limit.",
+    "description_pt": "Aumenta o(a) Defesa de um Pokemon em 10, ate o limite do atributo.",
+    "icon_path": "res://assets/items/potions/defense_boost_potion.png"
+  },
+  {
+    "id": "sp_attack_boost_potion_small",
+    "name_en": "Sp. Attack Boost (Small)",
+    "name_pt": "Impulso de Ataque Especial (Pequeno)",
+    "category": "atributos",
+    "price": 7500,
+    "min_level": 10,
+    "min_badges": 2,
+    "effect_type": "stat_boost",
+    "effect_stat": "sp_attack",
+    "effect_value": 1,
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "Raises a Pokemon's Sp. Attack by 1, up to the stat limit.",
+    "description_pt": "Aumenta o(a) Ataque Especial de um Pokemon em 1, ate o limite do atributo.",
+    "icon_path": "res://assets/items/potions/sp_attack_boost_potion.png"
+  },
+  {
+    "id": "sp_attack_boost_potion_large",
+    "name_en": "Sp. Attack Boost (Large)",
+    "name_pt": "Impulso de Ataque Especial (Grande)",
+    "category": "atributos",
+    "price": 135000,
+    "min_level": 27,
+    "min_badges": 6,
+    "effect_type": "stat_boost",
+    "effect_stat": "sp_attack",
+    "effect_value": 10,
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "Raises a Pokemon's Sp. Attack by 10, up to the stat limit.",
+    "description_pt": "Aumenta o(a) Ataque Especial de um Pokemon em 10, ate o limite do atributo.",
+    "icon_path": "res://assets/items/potions/sp_attack_boost_potion.png"
+  },
+  {
+    "id": "sp_defense_boost_potion_small",
+    "name_en": "Sp. Defense Boost (Small)",
+    "name_pt": "Impulso de Defesa Especial (Pequeno)",
+    "category": "atributos",
+    "price": 7500,
+    "min_level": 10,
+    "min_badges": 2,
+    "effect_type": "stat_boost",
+    "effect_stat": "sp_defense",
+    "effect_value": 1,
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "Raises a Pokemon's Sp. Defense by 1, up to the stat limit.",
+    "description_pt": "Aumenta o(a) Defesa Especial de um Pokemon em 1, ate o limite do atributo.",
+    "icon_path": "res://assets/items/potions/sp_defense_boost_potion.png"
+  },
+  {
+    "id": "sp_defense_boost_potion_large",
+    "name_en": "Sp. Defense Boost (Large)",
+    "name_pt": "Impulso de Defesa Especial (Grande)",
+    "category": "atributos",
+    "price": 135000,
+    "min_level": 27,
+    "min_badges": 6,
+    "effect_type": "stat_boost",
+    "effect_stat": "sp_defense",
+    "effect_value": 10,
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "Raises a Pokemon's Sp. Defense by 10, up to the stat limit.",
+    "description_pt": "Aumenta o(a) Defesa Especial de um Pokemon em 10, ate o limite do atributo.",
+    "icon_path": "res://assets/items/potions/sp_defense_boost_potion.png"
+  },
+  {
+    "id": "speed_boost_potion_small",
+    "name_en": "Speed Boost (Small)",
+    "name_pt": "Impulso de Velocidade (Pequeno)",
+    "category": "atributos",
+    "price": 6666,
+    "min_level": 7,
+    "min_badges": 1,
+    "effect_type": "stat_boost",
+    "effect_stat": "speed",
+    "effect_value": 1,
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "Raises a Pokemon's Speed by 1, up to the stat limit.",
+    "description_pt": "Aumenta o(a) Velocidade de um Pokemon em 1, ate o limite do atributo.",
+    "icon_path": "res://assets/items/potions/speed_boost_potion.png"
+  },
+  {
+    "id": "speed_boost_potion_large",
+    "name_en": "Speed Boost (Large)",
+    "name_pt": "Impulso de Velocidade (Grande)",
+    "category": "atributos",
+    "price": 120000,
+    "min_level": 24,
+    "min_badges": 5,
+    "effect_type": "stat_boost",
+    "effect_stat": "speed",
+    "effect_value": 10,
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "Raises a Pokemon's Speed by 10, up to the stat limit.",
+    "description_pt": "Aumenta o(a) Velocidade de um Pokemon em 10, ate o limite do atributo.",
+    "icon_path": "res://assets/items/potions/speed_boost_potion.png"
   }
 ]
