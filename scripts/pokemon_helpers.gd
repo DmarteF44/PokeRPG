@@ -19,6 +19,7 @@ const FORMS_PATH = "res://data/pokemon_forms.json"
 const MEGAS_PATH = "res://data/pokemon_megas.json"
 const GMAX_PATH = "res://data/pokemon_gmax.json"
 const BATTLE_BOND_PATH = "res://data/pokemon_battle_bond.json"
+const ITEM_FORMS_PATH = "res://data/pokemon_item_forms.json"
 const SPECIES_IDS = ["bulbasaur", "ivysaur", "venusaur", "charmander", "charmeleon", "charizard", "squirtle", "wartortle", "blastoise"]
 # Every generation's canonical starter trio, Gen 1-9 - not just Gen 1's,
 # so is_starter_id()/starter_ids() (used by the debug menu and by
@@ -81,6 +82,7 @@ static var _forms_cache := {}
 static var _megas_cache := {}
 static var _gmax_cache := {}
 static var _battle_bond_cache := {}
+static var _item_forms_cache := {}
 
 const FALLBACK_MOVES = {
 	"Tackle": {"id": "tackle", "name": "Tackle", "type": "Normal", "category": "Physical", "power": 40, "accuracy": 100, "pp": 35, "priority": 0, "target": "enemy", "effects": []},
@@ -339,6 +341,24 @@ static func normalize_pokemon(value: Dictionary, fallback_id: String = DEFAULT_S
 		normalized["types"] = _normalized_types(definition.get("types", normalized.get("types", ["Fire"])))
 		if str(normalized.get("icon_path", "")).begins_with("res://assets/pokemon/forms/"):
 			normalized.erase("icon_path")
+	# Item Forms (Arceus's Plates, Genesect's Drives, Giratina's Griseous
+	# Orb, Shaymin's Gracidea, Hoopa's Prison Bottle): unlike every other
+	# form/variant here, this is never stored - it's recomputed fresh from
+	# (species, held_item) on every single normalize_pokemon call, so it
+	# automatically reverts the instant the item is removed or swapped for
+	# something else, in and out of battle, exactly like the real games.
+	var raw_held_item = normalized.get("held_item", null)
+	var held_item_str := "" if raw_held_item == null else str(raw_held_item)
+	var item_form_id := item_form_for_held_item(pokemon_id, held_item_str)
+	var item_form_def := item_form_definition(item_form_id)
+	normalized["item_form_id"] = item_form_id
+	if not item_form_def.is_empty():
+		normalized["types"] = _normalized_types(item_form_def.get("types", normalized.get("types", ["Fire"])))
+		var item_form_icon := str(item_form_def.get("icon_path", ""))
+		if item_form_icon != "":
+			normalized["icon_path"] = item_form_icon
+	elif str(normalized.get("icon_path", "")).begins_with("res://assets/pokemon/item_forms/"):
+		normalized.erase("icon_path")
 	# Mega Evolution - deliberately validated/applied the same way as a
 	# Form, but see mega_definition's doc comment: this field must never be
 	# allowed to reach a persisted save (battle_scene.gd's responsibility),
@@ -802,7 +822,7 @@ static func add_animated_sprite(parent: Node, pokemon: Dictionary, pos: Vector2,
 	texture_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	parent.add_child(texture_rect)
 
-	var frames := frame_textures(str(pokemon.get("id", DEFAULT_STARTER_ID)), use_back, str(pokemon.get("form", "")), str(pokemon.get("mega", "")), str(pokemon.get("dynamax_gmax_id", "")), str(pokemon.get("battle_bond_id", "")))
+	var frames := frame_textures(str(pokemon.get("id", DEFAULT_STARTER_ID)), use_back, str(pokemon.get("form", "")), str(pokemon.get("mega", "")), str(pokemon.get("dynamax_gmax_id", "")), str(pokemon.get("battle_bond_id", "")), str(pokemon.get("item_form_id", "")))
 	texture_rect.set_frames(frames, _fallback_texture(pokemon), ANIMATION_LOOP_SECONDS)
 	texture_rect.material = variant_material(pokemon)
 	# Alpha's size bump and Dynamax's are both orthogonal to the shiny/black
@@ -935,6 +955,12 @@ static func variant_tag(pokemon: Dictionary) -> String:
 		tag += " ◈Tera(%s)" % str(pokemon.get("tera_type", ""))
 	if str(pokemon.get("battle_bond_id", "")) != "":
 		tag += " 🌀Bond"
+	var item_form_id := str(pokemon.get("item_form_id", ""))
+	if item_form_id != "":
+		var item_form_def := item_form_definition(item_form_id)
+		var item_form_types: Array = item_form_def.get("types", [])
+		if not item_form_types.is_empty():
+			tag += " ⬥(%s)" % str(item_form_types[0])
 	return tag
 
 
@@ -1030,7 +1056,17 @@ static func variant_material(pokemon: Dictionary):
 	return null
 
 
-static func frame_textures(pokemon_id: String, use_back: bool = false, form_id: String = "", mega_id: String = "", gmax_id: String = "", battle_bond_id: String = "") -> Array:
+static func frame_textures(pokemon_id: String, use_back: bool = false, form_id: String = "", mega_id: String = "", gmax_id: String = "", battle_bond_id: String = "", item_form_id: String = "") -> Array:
+	if item_form_id != "":
+		var item_form_def := item_form_definition(item_form_id)
+		if not item_form_def.is_empty():
+			var item_form_folder_key := "back_frames_path" if use_back else "front_frames_path"
+			var item_form_fallback_key := "front_frames_path" if use_back else "back_frames_path"
+			var item_form_frames := _textures_from_folder(str(item_form_def.get(item_form_folder_key, "")))
+			if item_form_frames.is_empty():
+				item_form_frames = _textures_from_folder(str(item_form_def.get(item_form_fallback_key, "")))
+			if not item_form_frames.is_empty():
+				return item_form_frames
 	if mega_id != "":
 		var mega_def := mega_definition(mega_id)
 		if not mega_def.is_empty():
@@ -1613,6 +1649,55 @@ static func battle_bond_definition(bond_id: String) -> Dictionary:
 	var entries := _loaded_battle_bond()
 	var entry = entries.get(bond_id, {})
 	return entry.duplicate(true) if typeof(entry) == TYPE_DICTIONARY else {}
+
+
+# Item Forms (data/pokemon_item_forms.json, see extract_item_form_sprites.py):
+# Arceus's Plates, Genesect's Drives, Giratina's Griseous Orb, Shaymin's
+# Gracidea, Hoopa's Prison Bottle - see the derivation comment in
+# normalize_pokemon for why this is never stored on the Pokemon itself.
+static func _loaded_item_forms() -> Dictionary:
+	if not _item_forms_cache.is_empty():
+		return _item_forms_cache
+	if not FileAccess.file_exists(ITEM_FORMS_PATH):
+		_item_forms_cache = {}
+		return {}
+	var file := FileAccess.open(ITEM_FORMS_PATH, FileAccess.READ)
+	if file == null:
+		_item_forms_cache = {}
+		return {}
+	var parsed = JSON.parse_string(file.get_as_text())
+	_item_forms_cache = parsed if typeof(parsed) == TYPE_DICTIONARY else {}
+	return _item_forms_cache
+
+
+static func item_form_definition(item_form_id: String) -> Dictionary:
+	if item_form_id == "":
+		return {}
+	var entries := _loaded_item_forms()
+	var entry = entries.get(item_form_id, {})
+	return entry.duplicate(true) if typeof(entry) == TYPE_DICTIONARY else {}
+
+
+static func item_forms_for_species(pokemon_id: String) -> Array:
+	var safe_id := _safe_id(pokemon_id)
+	var result := []
+	var entries := _loaded_item_forms()
+	for item_form_id in entries.keys():
+		var entry = entries[item_form_id]
+		if typeof(entry) == TYPE_DICTIONARY and str(entry.get("base_species", "")) == safe_id:
+			result.append(str(item_form_id))
+	result.sort()
+	return result
+
+
+static func item_form_for_held_item(pokemon_id: String, held_item: String) -> String:
+	if held_item == "":
+		return ""
+	for item_form_id in item_forms_for_species(pokemon_id):
+		var entry := item_form_definition(item_form_id)
+		if str(entry.get("item_id", "")) == held_item:
+			return item_form_id
+	return ""
 
 
 static func _complete_species_definition(definition: Dictionary) -> Dictionary:

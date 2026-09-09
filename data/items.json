@@ -2395,5 +2395,389 @@
     "description_en": "A trainer-wide crystalline device. Once bought, lets any of your Pokemon Terastallize in battle, turning both its types into a single Tera Type for the rest of the fight.",
     "description_pt": "Um dispositivo cristalino do treinador. Uma vez comprado, permite que qualquer um dos seus Pokemon Teracristalize em batalha, transformando seus dois tipos em um unico Tipo Tera pelo resto da luta.",
     "icon_path": "res://assets/items/key_items/tera_orb.png"
+  },
+  {
+    "id": "fist_plate",
+    "name_en": "Fist Plate",
+    "name_pt": "Fist Plate",
+    "category": "evolution",
+    "price": 30000,
+    "min_level": 30,
+    "min_badges": 5,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A tablet imbued with Fighting-type energy. While held by Arceus, changes its type to Fighting via the Multitype ability.",
+    "description_pt": "Uma tabua imbuida de energia do tipo Fighting. Enquanto segurada por Arceus, muda seu tipo para Fighting atraves da habilidade Multitipo.",
+    "icon_path": "res://assets/items/evolution/plate.png"
+  },
+  {
+    "id": "sky_plate",
+    "name_en": "Sky Plate",
+    "name_pt": "Sky Plate",
+    "category": "evolution",
+    "price": 30000,
+    "min_level": 30,
+    "min_badges": 5,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A tablet imbued with Flying-type energy. While held by Arceus, changes its type to Flying via the Multitype ability.",
+    "description_pt": "Uma tabua imbuida de energia do tipo Flying. Enquanto segurada por Arceus, muda seu tipo para Flying atraves da habilidade Multitipo.",
+    "icon_path": "res://assets/items/evolution/plate.png"
+  },
+  {
+    "id": "toxic_plate",
+    "name_en": "Toxic Plate",
+    "name_pt": "Toxic Plate",
+    "category": "evolution",
+    "price": 30000,
+    "min_level": 30,
+    "min_badges": 5,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A tablet imbued with Poison-type energy. While held by Arceus, changes its type to Poison via the Multitype ability.",
+    "description_pt": "Uma tabua imbuida de energia do tipo Poison. Enquanto segurada por Arceus, muda seu tipo para Poison atraves da habilidade Multitipo.",
+    "icon_path": "res://assets/items/evolution/plate.png"
+  },
+  {
+    "id": "earth_plate",
+    "name_en": "Earth Plate",
+    "name_pt": "Earth Plate",
+    "category": "evolution",
+    "price": 30000,
+    "min_level": 30,
+    "min_badges": 5,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A tablet imbued with Ground-type energy. While held by Arceus, changes its type to Ground via the Multitype ability.",
+    "description_pt": "Uma tabua imbuida de energia do tipo Ground. Enquanto segurada por Arceus, muda seu tipo para Ground atraves da habilidade Multitipo.",
+    "icon_path": "res://assets/items/evolution/plate.png"
+  },
+  {
+    "id": "stone_plate",
+    "name_en": "Stone Plate",
+    "name_pt": "Stone Plate",
+    "category": "evolution",
+    "price": 30000,
+    "min_level": 30,
+    "min_badges": 5,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A tablet imbued with Rock-type energy. While held by Arceus, changes its type to Rock via the Multitype ability.",
+    "description_pt": "Uma tabua imbuida de energia do tipo Rock. Enquanto segurada por Arceus, muda seu tipo para Rock atraves da habilidade Multitipo.",
+    "icon_path": "res://assets/items/evolution/plate.png"
+  },
+  {
+    "id": "insect_plate",
+    "name_en": "Insect Plate",
+    "name_pt": "Insect Plate",
+    "category": "evolution",
+    "price": 30000,
+    "min_level": 30,
+    "min_badges": 5,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A tablet imbued with Bug-type energy. While held by Arceus, changes its type to Bug via the Multitype ability.",
+    "description_pt": "Uma tabua imbuida de energia do tipo Bug. Enquanto segurada por Arceus, muda seu tipo para Bug atraves da habilidade Multitipo.",
+    "icon_path": "res://assets/items/evolution/plate.png"
+  },
+  {
+    "id": "spooky_plate",
+    "name_en": "Spooky Plate",
+    "name_pt": "Spooky Plate",
+    "category": "evolution",
+    "price": 30000,
+    "min_level": 30,
+    "min_badges": 5,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A tablet imbued with Ghost-type energy. While held by Arceus, changes its type to Ghost via the Multitype ability.",
+    "description_pt": "Uma tabua imbuida de energia do tipo Ghost. Enquanto segurada por Arceus, muda seu tipo para Ghost atraves da habilidade Multitipo.",
+    "icon_path": "res://assets/items/evolution/plate.png"
+  },
+  {
+    "id": "iron_plate",
+    "name_en": "Iron Plate",
+    "name_pt": "Iron Plate",
+    "category": "evolution",
+    "price": 30000,
+    "min_level": 30,
+    "min_badges": 5,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A tablet imbued with Steel-type energy. While held by Arceus, changes its type to Steel via the Multitype ability.",
+    "description_pt": "Uma tabua imbuida de energia do tipo Steel. Enquanto segurada por Arceus, muda seu tipo para Steel atraves da habilidade Multitipo.",
+    "icon_path": "res://assets/items/evolution/plate.png"
+  },
+  {
+    "id": "flame_plate",
+    "name_en": "Flame Plate",
+    "name_pt": "Flame Plate",
+    "category": "evolution",
+    "price": 30000,
+    "min_level": 30,
+    "min_badges": 5,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A tablet imbued with Fire-type energy. While held by Arceus, changes its type to Fire via the Multitype ability.",
+    "description_pt": "Uma tabua imbuida de energia do tipo Fire. Enquanto segurada por Arceus, muda seu tipo para Fire atraves da habilidade Multitipo.",
+    "icon_path": "res://assets/items/evolution/plate.png"
+  },
+  {
+    "id": "splash_plate",
+    "name_en": "Splash Plate",
+    "name_pt": "Splash Plate",
+    "category": "evolution",
+    "price": 30000,
+    "min_level": 30,
+    "min_badges": 5,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A tablet imbued with Water-type energy. While held by Arceus, changes its type to Water via the Multitype ability.",
+    "description_pt": "Uma tabua imbuida de energia do tipo Water. Enquanto segurada por Arceus, muda seu tipo para Water atraves da habilidade Multitipo.",
+    "icon_path": "res://assets/items/evolution/plate.png"
+  },
+  {
+    "id": "meadow_plate",
+    "name_en": "Meadow Plate",
+    "name_pt": "Meadow Plate",
+    "category": "evolution",
+    "price": 30000,
+    "min_level": 30,
+    "min_badges": 5,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A tablet imbued with Grass-type energy. While held by Arceus, changes its type to Grass via the Multitype ability.",
+    "description_pt": "Uma tabua imbuida de energia do tipo Grass. Enquanto segurada por Arceus, muda seu tipo para Grass atraves da habilidade Multitipo.",
+    "icon_path": "res://assets/items/evolution/plate.png"
+  },
+  {
+    "id": "zap_plate",
+    "name_en": "Zap Plate",
+    "name_pt": "Zap Plate",
+    "category": "evolution",
+    "price": 30000,
+    "min_level": 30,
+    "min_badges": 5,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A tablet imbued with Electric-type energy. While held by Arceus, changes its type to Electric via the Multitype ability.",
+    "description_pt": "Uma tabua imbuida de energia do tipo Electric. Enquanto segurada por Arceus, muda seu tipo para Electric atraves da habilidade Multitipo.",
+    "icon_path": "res://assets/items/evolution/plate.png"
+  },
+  {
+    "id": "mind_plate",
+    "name_en": "Mind Plate",
+    "name_pt": "Mind Plate",
+    "category": "evolution",
+    "price": 30000,
+    "min_level": 30,
+    "min_badges": 5,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A tablet imbued with Psychic-type energy. While held by Arceus, changes its type to Psychic via the Multitype ability.",
+    "description_pt": "Uma tabua imbuida de energia do tipo Psychic. Enquanto segurada por Arceus, muda seu tipo para Psychic atraves da habilidade Multitipo.",
+    "icon_path": "res://assets/items/evolution/plate.png"
+  },
+  {
+    "id": "icicle_plate",
+    "name_en": "Icicle Plate",
+    "name_pt": "Icicle Plate",
+    "category": "evolution",
+    "price": 30000,
+    "min_level": 30,
+    "min_badges": 5,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A tablet imbued with Ice-type energy. While held by Arceus, changes its type to Ice via the Multitype ability.",
+    "description_pt": "Uma tabua imbuida de energia do tipo Ice. Enquanto segurada por Arceus, muda seu tipo para Ice atraves da habilidade Multitipo.",
+    "icon_path": "res://assets/items/evolution/plate.png"
+  },
+  {
+    "id": "draco_plate",
+    "name_en": "Draco Plate",
+    "name_pt": "Draco Plate",
+    "category": "evolution",
+    "price": 30000,
+    "min_level": 30,
+    "min_badges": 5,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A tablet imbued with Dragon-type energy. While held by Arceus, changes its type to Dragon via the Multitype ability.",
+    "description_pt": "Uma tabua imbuida de energia do tipo Dragon. Enquanto segurada por Arceus, muda seu tipo para Dragon atraves da habilidade Multitipo.",
+    "icon_path": "res://assets/items/evolution/plate.png"
+  },
+  {
+    "id": "dread_plate",
+    "name_en": "Dread Plate",
+    "name_pt": "Dread Plate",
+    "category": "evolution",
+    "price": 30000,
+    "min_level": 30,
+    "min_badges": 5,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A tablet imbued with Dark-type energy. While held by Arceus, changes its type to Dark via the Multitype ability.",
+    "description_pt": "Uma tabua imbuida de energia do tipo Dark. Enquanto segurada por Arceus, muda seu tipo para Dark atraves da habilidade Multitipo.",
+    "icon_path": "res://assets/items/evolution/plate.png"
+  },
+  {
+    "id": "pixie_plate",
+    "name_en": "Pixie Plate",
+    "name_pt": "Pixie Plate",
+    "category": "evolution",
+    "price": 30000,
+    "min_level": 30,
+    "min_badges": 5,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A tablet imbued with Fairy-type energy. While held by Arceus, changes its type to Fairy via the Multitype ability.",
+    "description_pt": "Uma tabua imbuida de energia do tipo Fairy. Enquanto segurada por Arceus, muda seu tipo para Fairy atraves da habilidade Multitipo.",
+    "icon_path": "res://assets/items/evolution/plate.png"
+  },
+  {
+    "id": "douse_drive",
+    "name_en": "Douse Drive",
+    "name_pt": "Douse Drive",
+    "category": "evolution",
+    "price": 25000,
+    "min_level": 30,
+    "min_badges": 5,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A cartridge for Genesect. While held, changes its appearance (real Genesect Drives only change its move Techno Blast's type, not its own).",
+    "description_pt": "Um cartucho para Genesect. Enquanto segurado, muda sua aparencia (no jogo real, os Drives de Genesect so mudam o tipo do movimento Techno Blast, nao o proprio tipo dele).",
+    "icon_path": "res://assets/items/evolution/drive.png"
+  },
+  {
+    "id": "shock_drive",
+    "name_en": "Shock Drive",
+    "name_pt": "Shock Drive",
+    "category": "evolution",
+    "price": 25000,
+    "min_level": 30,
+    "min_badges": 5,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A cartridge for Genesect. While held, changes its appearance (real Genesect Drives only change its move Techno Blast's type, not its own).",
+    "description_pt": "Um cartucho para Genesect. Enquanto segurado, muda sua aparencia (no jogo real, os Drives de Genesect so mudam o tipo do movimento Techno Blast, nao o proprio tipo dele).",
+    "icon_path": "res://assets/items/evolution/drive.png"
+  },
+  {
+    "id": "burn_drive",
+    "name_en": "Burn Drive",
+    "name_pt": "Burn Drive",
+    "category": "evolution",
+    "price": 25000,
+    "min_level": 30,
+    "min_badges": 5,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A cartridge for Genesect. While held, changes its appearance (real Genesect Drives only change its move Techno Blast's type, not its own).",
+    "description_pt": "Um cartucho para Genesect. Enquanto segurado, muda sua aparencia (no jogo real, os Drives de Genesect so mudam o tipo do movimento Techno Blast, nao o proprio tipo dele).",
+    "icon_path": "res://assets/items/evolution/drive.png"
+  },
+  {
+    "id": "chill_drive",
+    "name_en": "Chill Drive",
+    "name_pt": "Chill Drive",
+    "category": "evolution",
+    "price": 25000,
+    "min_level": 30,
+    "min_badges": 5,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A cartridge for Genesect. While held, changes its appearance (real Genesect Drives only change its move Techno Blast's type, not its own).",
+    "description_pt": "Um cartucho para Genesect. Enquanto segurado, muda sua aparencia (no jogo real, os Drives de Genesect so mudam o tipo do movimento Techno Blast, nao o proprio tipo dele).",
+    "icon_path": "res://assets/items/evolution/drive.png"
+  },
+  {
+    "id": "griseous_orb",
+    "name_en": "Griseous Orb",
+    "name_pt": "Orbe Cinza",
+    "category": "evolution",
+    "price": 55000,
+    "min_level": 40,
+    "min_badges": 7,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "While held by Giratina, changes it to its Origin Forme.",
+    "description_pt": "Enquanto segurado por Giratina, muda para sua Forma Origem.",
+    "icon_path": "res://assets/items/evolution/griseous_orb.png"
+  },
+  {
+    "id": "gracidea",
+    "name_en": "Gracidea",
+    "name_pt": "Gracidea",
+    "category": "evolution",
+    "price": 35000,
+    "min_level": 25,
+    "min_badges": 4,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A fragrant flower. While held by Shaymin, changes it to its Sky Forme (Grass/Flying).",
+    "description_pt": "Uma flor perfumada. Enquanto segurada por Shaymin, muda para sua Forma Celeste (Grama/Voador).",
+    "icon_path": "res://assets/items/evolution/gracidea.png"
+  },
+  {
+    "id": "prison_bottle",
+    "name_en": "Prison Bottle",
+    "name_pt": "Garrafa Prisao",
+    "category": "evolution",
+    "price": 55000,
+    "min_level": 40,
+    "min_badges": 7,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "While held by Hoopa, changes it to Hoopa Unbound (Psychic/Dark).",
+    "description_pt": "Enquanto segurada por Hoopa, muda para Hoopa Desvinculado (Psiquico/Sombrio).",
+    "icon_path": "res://assets/items/evolution/prison_bottle.png"
   }
 ]

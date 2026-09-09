@@ -1,0 +1,417 @@
+{
+  "arceus-bug": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/item_forms/arceus-bug/back/",
+    "back_gif_source": "imgi_676_arceus-bug.gif",
+    "base_species": "arceus",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/item_forms/arceus-bug/front/",
+    "front_gif_source": "imgi_328_arceus-bug.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/item_forms/icons/arceus-bug.png",
+    "item_id": "insect_plate",
+    "name_en": "Arceus (Bug)",
+    "name_pt": "Arceus (Inseto)",
+    "types": [
+      "Bug"
+    ]
+  },
+  "arceus-dark": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/item_forms/arceus-dark/back/",
+    "back_gif_source": "imgi_696_arceus-dark.gif",
+    "base_species": "arceus",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/item_forms/arceus-dark/front/",
+    "front_gif_source": "imgi_348_arceus-dark.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/item_forms/icons/arceus-dark.png",
+    "item_id": "dread_plate",
+    "name_en": "Arceus (Dark)",
+    "name_pt": "Arceus (Sombrio)",
+    "types": [
+      "Dark"
+    ]
+  },
+  "arceus-dragon": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/item_forms/arceus-dragon/back/",
+    "back_gif_source": "imgi_694_arceus-dragon.gif",
+    "base_species": "arceus",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/item_forms/arceus-dragon/front/",
+    "front_gif_source": "imgi_346_arceus-dragon.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/item_forms/icons/arceus-dragon.png",
+    "item_id": "draco_plate",
+    "name_en": "Arceus (Dragon)",
+    "name_pt": "Arceus (Dragão)",
+    "types": [
+      "Dragon"
+    ]
+  },
+  "arceus-electric": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/item_forms/arceus-electric/back/",
+    "back_gif_source": "imgi_688_arceus-electric.gif",
+    "base_species": "arceus",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/item_forms/arceus-electric/front/",
+    "front_gif_source": "imgi_340_arceus-electric.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/item_forms/icons/arceus-electric.png",
+    "item_id": "zap_plate",
+    "name_en": "Arceus (Electric)",
+    "name_pt": "Arceus (Elétrico)",
+    "types": [
+      "Electric"
+    ]
+  },
+  "arceus-fairy": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/item_forms/arceus-fairy/back/",
+    "back_gif_source": "imgi_698_arceus-fairy.gif",
+    "base_species": "arceus",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/item_forms/arceus-fairy/front/",
+    "front_gif_source": "imgi_350_arceus-fairy.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/item_forms/icons/arceus-fairy.png",
+    "item_id": "pixie_plate",
+    "name_en": "Arceus (Fairy)",
+    "name_pt": "Arceus (Fada)",
+    "types": [
+      "Fairy"
+    ]
+  },
+  "arceus-fighting": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/item_forms/arceus-fighting/back/",
+    "back_gif_source": "imgi_666_arceus-fighting.gif",
+    "base_species": "arceus",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/item_forms/arceus-fighting/front/",
+    "front_gif_source": "imgi_318_arceus-fighting.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/item_forms/icons/arceus-fighting.png",
+    "item_id": "fist_plate",
+    "name_en": "Arceus (Fighting)",
+    "name_pt": "Arceus (Lutador)",
+    "types": [
+      "Fighting"
+    ]
+  },
+  "arceus-fire": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/item_forms/arceus-fire/back/",
+    "back_gif_source": "imgi_682_arceus-fire.gif",
+    "base_species": "arceus",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/item_forms/arceus-fire/front/",
+    "front_gif_source": "imgi_334_arceus-fire.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/item_forms/icons/arceus-fire.png",
+    "item_id": "flame_plate",
+    "name_en": "Arceus (Fire)",
+    "name_pt": "Arceus (Fogo)",
+    "types": [
+      "Fire"
+    ]
+  },
+  "arceus-flying": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/item_forms/arceus-flying/back/",
+    "back_gif_source": "imgi_668_arceus-flying.gif",
+    "base_species": "arceus",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/item_forms/arceus-flying/front/",
+    "front_gif_source": "imgi_320_arceus-flying.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/item_forms/icons/arceus-flying.png",
+    "item_id": "sky_plate",
+    "name_en": "Arceus (Flying)",
+    "name_pt": "Arceus (Voador)",
+    "types": [
+      "Flying"
+    ]
+  },
+  "arceus-ghost": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/item_forms/arceus-ghost/back/",
+    "back_gif_source": "imgi_678_arceus-ghost.gif",
+    "base_species": "arceus",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/item_forms/arceus-ghost/front/",
+    "front_gif_source": "imgi_330_arceus-ghost.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/item_forms/icons/arceus-ghost.png",
+    "item_id": "spooky_plate",
+    "name_en": "Arceus (Ghost)",
+    "name_pt": "Arceus (Fantasma)",
+    "types": [
+      "Ghost"
+    ]
+  },
+  "arceus-grass": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/item_forms/arceus-grass/back/",
+    "back_gif_source": "imgi_686_arceus-grass.gif",
+    "base_species": "arceus",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/item_forms/arceus-grass/front/",
+    "front_gif_source": "imgi_338_arceus-grass.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/item_forms/icons/arceus-grass.png",
+    "item_id": "meadow_plate",
+    "name_en": "Arceus (Grass)",
+    "name_pt": "Arceus (Grama)",
+    "types": [
+      "Grass"
+    ]
+  },
+  "arceus-ground": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/item_forms/arceus-ground/back/",
+    "back_gif_source": "imgi_672_arceus-ground.gif",
+    "base_species": "arceus",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/item_forms/arceus-ground/front/",
+    "front_gif_source": "imgi_324_arceus-ground.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/item_forms/icons/arceus-ground.png",
+    "item_id": "earth_plate",
+    "name_en": "Arceus (Ground)",
+    "name_pt": "Arceus (Terra)",
+    "types": [
+      "Ground"
+    ]
+  },
+  "arceus-ice": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/item_forms/arceus-ice/back/",
+    "back_gif_source": "imgi_692_arceus-ice.gif",
+    "base_species": "arceus",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/item_forms/arceus-ice/front/",
+    "front_gif_source": "imgi_344_arceus-ice.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/item_forms/icons/arceus-ice.png",
+    "item_id": "icicle_plate",
+    "name_en": "Arceus (Ice)",
+    "name_pt": "Arceus (Gelo)",
+    "types": [
+      "Ice"
+    ]
+  },
+  "arceus-poison": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/item_forms/arceus-poison/back/",
+    "back_gif_source": "imgi_670_arceus-poison.gif",
+    "base_species": "arceus",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/item_forms/arceus-poison/front/",
+    "front_gif_source": "imgi_322_arceus-poison.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/item_forms/icons/arceus-poison.png",
+    "item_id": "toxic_plate",
+    "name_en": "Arceus (Poison)",
+    "name_pt": "Arceus (Veneno)",
+    "types": [
+      "Poison"
+    ]
+  },
+  "arceus-psychic": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/item_forms/arceus-psychic/back/",
+    "back_gif_source": "imgi_690_arceus-psychic.gif",
+    "base_species": "arceus",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/item_forms/arceus-psychic/front/",
+    "front_gif_source": "imgi_342_arceus-psychic.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/item_forms/icons/arceus-psychic.png",
+    "item_id": "mind_plate",
+    "name_en": "Arceus (Psychic)",
+    "name_pt": "Arceus (Psíquico)",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "arceus-rock": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/item_forms/arceus-rock/back/",
+    "back_gif_source": "imgi_674_arceus-rock.gif",
+    "base_species": "arceus",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/item_forms/arceus-rock/front/",
+    "front_gif_source": "imgi_326_arceus-rock.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/item_forms/icons/arceus-rock.png",
+    "item_id": "stone_plate",
+    "name_en": "Arceus (Rock)",
+    "name_pt": "Arceus (Pedra)",
+    "types": [
+      "Rock"
+    ]
+  },
+  "arceus-steel": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/item_forms/arceus-steel/back/",
+    "back_gif_source": "imgi_680_arceus-steel.gif",
+    "base_species": "arceus",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/item_forms/arceus-steel/front/",
+    "front_gif_source": "imgi_332_arceus-steel.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/item_forms/icons/arceus-steel.png",
+    "item_id": "iron_plate",
+    "name_en": "Arceus (Steel)",
+    "name_pt": "Arceus (Aço)",
+    "types": [
+      "Steel"
+    ]
+  },
+  "arceus-water": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/item_forms/arceus-water/back/",
+    "back_gif_source": "imgi_684_arceus-water.gif",
+    "base_species": "arceus",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/item_forms/arceus-water/front/",
+    "front_gif_source": "imgi_336_arceus-water.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/item_forms/icons/arceus-water.png",
+    "item_id": "splash_plate",
+    "name_en": "Arceus (Water)",
+    "name_pt": "Arceus (Água)",
+    "types": [
+      "Water"
+    ]
+  },
+  "genesect-electric": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/item_forms/genesect-electric/back/",
+    "back_gif_source": "imgi_722_genesect-electric.gif",
+    "base_species": "genesect",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/item_forms/genesect-electric/front/",
+    "front_gif_source": "imgi_360_genesect-electric.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/item_forms/icons/genesect-electric.png",
+    "item_id": "shock_drive",
+    "name_en": "Genesect (Shock Drive)",
+    "name_pt": "Genesect (Shock Drive)",
+    "types": [
+      "Bug",
+      "Steel"
+    ]
+  },
+  "genesect-fire": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/item_forms/genesect-fire/back/",
+    "back_gif_source": "imgi_724_genesect-fire.gif",
+    "base_species": "genesect",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/item_forms/genesect-fire/front/",
+    "front_gif_source": "imgi_362_genesect-fire.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/item_forms/icons/genesect-fire.png",
+    "item_id": "burn_drive",
+    "name_en": "Genesect (Burn Drive)",
+    "name_pt": "Genesect (Burn Drive)",
+    "types": [
+      "Bug",
+      "Steel"
+    ]
+  },
+  "genesect-ice": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/item_forms/genesect-ice/back/",
+    "back_gif_source": "imgi_726_genesect-ice.gif",
+    "base_species": "genesect",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/item_forms/genesect-ice/front/",
+    "front_gif_source": "imgi_364_genesect-ice.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/item_forms/icons/genesect-ice.png",
+    "item_id": "chill_drive",
+    "name_en": "Genesect (Chill Drive)",
+    "name_pt": "Genesect (Chill Drive)",
+    "types": [
+      "Bug",
+      "Steel"
+    ]
+  },
+  "genesect-water": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/item_forms/genesect-water/back/",
+    "back_gif_source": "imgi_720_genesect-water.gif",
+    "base_species": "genesect",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/item_forms/genesect-water/front/",
+    "front_gif_source": "imgi_358_genesect-water.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/item_forms/icons/genesect-water.png",
+    "item_id": "douse_drive",
+    "name_en": "Genesect (Douse Drive)",
+    "name_pt": "Genesect (Douse Drive)",
+    "types": [
+      "Bug",
+      "Steel"
+    ]
+  },
+  "giratina-origin": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/item_forms/giratina-origin/back/",
+    "back_gif_source": "imgi_650_giratina-origin.gif",
+    "base_species": "giratina",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/item_forms/giratina-origin/front/",
+    "front_gif_source": "imgi_302_giratina-origin.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/item_forms/icons/giratina-origin.png",
+    "item_id": "griseous_orb",
+    "name_en": "Giratina (Origin Forme)",
+    "name_pt": "Giratina (Forma Origem)",
+    "types": [
+      "Ghost",
+      "Dragon"
+    ]
+  },
+  "hoopa-unbound": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/item_forms/hoopa-unbound/back/",
+    "back_gif_source": "imgi_512_hoopa-unbound.gif",
+    "base_species": "hoopa",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/item_forms/hoopa-unbound/front/",
+    "front_gif_source": "imgi_256_hoopa-unbound.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/item_forms/icons/hoopa-unbound.png",
+    "item_id": "prison_bottle",
+    "name_en": "Hoopa (Unbound)",
+    "name_pt": "Hoopa (Desvinculado)",
+    "types": [
+      "Psychic",
+      "Dark"
+    ]
+  },
+  "shaymin-sky": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/item_forms/shaymin-sky/back/",
+    "back_gif_source": "imgi_662_shaymin-sky.gif",
+    "base_species": "shaymin",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/item_forms/shaymin-sky/front/",
+    "front_gif_source": "imgi_314_shaymin-sky.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/item_forms/icons/shaymin-sky.png",
+    "item_id": "gracidea",
+    "name_en": "Shaymin (Sky Forme)",
+    "name_pt": "Shaymin (Forma Celeste)",
+    "types": [
+      "Grass",
+      "Flying"
+    ]
+  }
+}
