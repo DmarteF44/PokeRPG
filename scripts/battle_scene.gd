@@ -84,6 +84,9 @@ const TEXT = {
 		"run": "Run",
 		"mega_evolve": "Mega Evolve",
 		"mega_evolved_message": "%s Mega Evolved into %s!",
+		"dynamax": "Dynamax",
+		"dynamaxed_message": "%s Dynamaxed!",
+		"dynamax_wore_off": "%s's Dynamax wore off!",
 		"hp": "HP",
 		"level": "Lv.",
 		"wild_appeared": "Wild %s appeared!",
@@ -162,6 +165,9 @@ const TEXT = {
 		"run": "Fugir",
 		"mega_evolve": "Mega Evoluir",
 		"mega_evolved_message": "%s Mega Evoluiu para %s!",
+		"dynamax": "Dynamax",
+		"dynamaxed_message": "%s usou Dynamax!",
+		"dynamax_wore_off": "O Dynamax de %s acabou!",
 		"hp": "HP",
 		"level": "Nv.",
 		"wild_appeared": "%s selvagem apareceu!",
@@ -261,6 +267,7 @@ var enemy_sprite: TextureRect
 var player_sprite: TextureRect
 var battle_effect_layer: Control
 var mega_button: TextureButton
+var dynamax_button: TextureButton
 
 
 func _ready() -> void:
@@ -837,7 +844,26 @@ func _apply_end_turn_effects(lines: Array) -> void:
 		lines.append(_text("drained") % str(player_pokemon.get("name", "Pokemon")))
 	_apply_status_damage(true, lines)
 	_apply_status_damage(false, lines)
+	_apply_dynamax_countdown(lines)
 	_update_status()
+
+
+# Dynamax lasts 3 of the player's rounds, same as the real games - ticked
+# down here (once per finished round, alongside status damage) rather than
+# per raw player action, so item use/switch attempts that bail out early
+# never burn a "turn" of Dynamax that wasn't actually spent.
+func _apply_dynamax_countdown(lines: Array) -> void:
+	if not bool(player_pokemon.get("dynamax", false)):
+		return
+	var remaining := int(player_pokemon.get("dynamax_turns_remaining", 0)) - 1
+	if remaining > 0:
+		player_pokemon["dynamax_turns_remaining"] = remaining
+		return
+	var pokemon_name := str(player_pokemon.get("name", player_pokemon.get("species", "Pokemon")))
+	_revert_dynamax(player_pokemon)
+	lines.append(_text("dynamax_wore_off") % pokemon_name)
+	if int(player_pokemon.get("hp", 0)) > 0:
+		_refresh_player_sprite()
 
 
 # Poison and burn both chip 1/16 max HP at the end of the round, same
@@ -957,6 +983,7 @@ func _finish_battle_if_needed(lines: Array) -> bool:
 	if int(enemy_pokemon.get("hp", 0)) <= 0:
 		battle_over = true
 		_refresh_mega_button()
+		_refresh_dynamax_button()
 		lines.append(_text("enemy_fainted"))
 		lines.append(_grant_victory_xp())
 		var gym_result := _gym_victory_result()
@@ -982,6 +1009,7 @@ func _finish_battle_if_needed(lines: Array) -> bool:
 			return true
 		battle_over = true
 		_refresh_mega_button()
+		_refresh_dynamax_button()
 		message_label.text = _join_lines(lines)
 		_add_return_button()
 		return true
@@ -1124,22 +1152,35 @@ func _persist_player_pokemon(extra_changes: Dictionary = {}) -> void:
 	SaveManager.update_current_save(changes)
 
 
-func _battle_pokemon_copy(pokemon: Dictionary, strip_mega: bool = false) -> Dictionary:
+func _battle_pokemon_copy(pokemon: Dictionary, strip_battle_only: bool = false) -> Dictionary:
 	var source := pokemon
-	# Mega Evolution must never survive into a persisted save (see
-	# PokemonHelpers.mega_definition) - reverting both the flag and the
-	# stat bonus together here, at the one point (_battle_team_snapshot)
-	# whose output ever reaches SaveManager, is what makes it safe to let
-	# "mega" live freely on the in-memory player_pokemon/battle_team for
-	# the rest of the actual battle.
-	if strip_mega and typeof(pokemon) == TYPE_DICTIONARY and str(pokemon.get("mega", "")) != "":
+	# Mega Evolution and Dynamax must never survive into a persisted save
+	# (see PokemonHelpers.mega_definition / _dynamax below) - reverting both
+	# flags and their stat bonuses together here, at the one point
+	# (_battle_team_snapshot) whose output ever reaches SaveManager, is what
+	# makes it safe to let them live freely on the in-memory player_pokemon/
+	# battle_team for the rest of the actual battle.
+	if strip_battle_only and typeof(pokemon) == TYPE_DICTIONARY and (str(pokemon.get("mega", "")) != "" or bool(pokemon.get("dynamax", false))):
 		source = pokemon.duplicate(true)
-		var stats := PokemonHelpers.stats_for_level(str(source.get("id", "")), int(source.get("level", 1)), bool(source.get("black", false)), bool(source.get("alpha", false)), bool(source.get("purified", false)), false)
-		for stat_key in ["max_hp", "attack", "defense", "sp_attack", "sp_defense", "speed"]:
-			source[stat_key] = int(stats.get(stat_key, source.get(stat_key, 1)))
-		source["hp"] = mini(int(source.get("hp", 1)), int(source["max_hp"]))
-		source["mega"] = ""
+		if str(source.get("mega", "")) != "":
+			var stats := PokemonHelpers.stats_for_level(str(source.get("id", "")), int(source.get("level", 1)), bool(source.get("black", false)), bool(source.get("alpha", false)), bool(source.get("purified", false)), false)
+			for stat_key in ["max_hp", "attack", "defense", "sp_attack", "sp_defense", "speed"]:
+				source[stat_key] = int(stats.get(stat_key, source.get(stat_key, 1)))
+			source["hp"] = mini(int(source.get("hp", 1)), int(source["max_hp"]))
+			source["mega"] = ""
+		if bool(source.get("dynamax", false)):
+			_revert_dynamax(source)
 	return PokemonHelpers.normalize_pokemon(source).duplicate(true)
+
+
+func _revert_dynamax(pokemon: Dictionary) -> void:
+	var bonus := int(pokemon.get("dynamax_bonus_hp", 0))
+	pokemon["max_hp"] = maxi(1, int(pokemon.get("max_hp", 1)) - bonus)
+	pokemon["hp"] = clampi(int(pokemon.get("hp", 1)) - bonus, 0, int(pokemon["max_hp"]))
+	pokemon["dynamax"] = false
+	pokemon["dynamax_gmax_id"] = ""
+	pokemon["dynamax_turns_remaining"] = 0
+	pokemon["dynamax_bonus_hp"] = 0
 
 
 func _battle_team_snapshot() -> Array:
@@ -1158,6 +1199,7 @@ func _update_status() -> void:
 	_resize_hp_fill(enemy_hp_fill, enemy_pokemon)
 	_resize_hp_fill(player_hp_fill, player_pokemon)
 	_refresh_mega_button()
+	_refresh_dynamax_button()
 
 
 func _resize_hp_fill(fill: ColorRect, pokemon: Dictionary) -> void:
@@ -1511,6 +1553,7 @@ func _use_capture_item(item_id: String) -> void:
 		var destination := str(capture_data.get("destination", "team"))
 		battle_over = true
 		_refresh_mega_button()
+		_refresh_dynamax_button()
 		var lines := [_text("capture_click"), _text("caught") % enemy_name]
 		if destination == "storage":
 			lines.append(_text("sent_storage"))
@@ -1587,6 +1630,7 @@ func _capture_enemy() -> Dictionary:
 	# capture instead, as the closest "you just got this one, and it's
 	# lucky" moment the game actually has.
 	PokemonHelpers.roll_lucky(captured)
+	PokemonHelpers.roll_gmax_factor(captured)
 	var storage = save_data.get("storage", [])
 	if typeof(storage) != TYPE_ARRAY:
 		storage = []
@@ -1739,7 +1783,7 @@ func _refresh_player_sprite() -> void:
 # {} when it can't Mega Evolve right now (wrong/no held item, no Mega for
 # this species, or already Mega Evolved this battle).
 func _available_mega_for_player() -> Dictionary:
-	if str(player_pokemon.get("mega", "")) != "":
+	if str(player_pokemon.get("mega", "")) != "" or bool(player_pokemon.get("dynamax", false)):
 		return {}
 	var held_item := str(player_pokemon.get("held_item", ""))
 	if held_item == "":
@@ -1789,6 +1833,63 @@ func _mega_evolve() -> void:
 	_refresh_player_sprite()
 	var mega_name := str(mega_def.get("name_pt" if _language() == "pt" else "name_en", ""))
 	message_label.text = _text("mega_evolved_message") % [before_name, mega_name]
+	_update_status()
+
+
+# ADAPTACAO DO POKERPG: real-game Dynamax is a trainer-wide unlock (every
+# Galar trainer has a Dynamax Band), not a per-Pokemon held item like a Mega
+# Stone - gated here on owning one Dynamax Band (never consumed) instead.
+# Mutually exclusive with Mega Evolution (see _available_mega_for_player),
+# matching the real games never combining the two mechanics.
+const DYNAMAX_BAND_ID := "dynamax_band"
+
+
+func _can_dynamax() -> bool:
+	if str(player_pokemon.get("mega", "")) != "" or bool(player_pokemon.get("dynamax", false)):
+		return false
+	return InventoryManager.get_item_amount(DYNAMAX_BAND_ID) > 0
+
+
+func _refresh_dynamax_button() -> void:
+	if dynamax_button != null and is_instance_valid(dynamax_button):
+		dynamax_button.queue_free()
+		dynamax_button = null
+	if battle_over or capture_in_progress:
+		return
+	if int(player_pokemon.get("hp", 0)) <= 0:
+		return
+	if not _can_dynamax():
+		return
+	dynamax_button = UI.add_orange_button(self, _text("dynamax"), Vector2(166, 366), Vector2(120, 32), Callable(self, "_dynamax"), "DynamaxButton")
+
+
+# Lasts 3 rounds (see the countdown in _apply_end_turn_effects), same as the
+# real games, then reverts automatically - stat bonus is a stored HP delta
+# (see PokemonHelpers.dynamax_hp_bonus) added to both max_hp and current hp
+# so a Dynamaxed Pokemon is never left over/under its new max, and
+# _revert_dynamax subtracts the exact same delta back out when it ends.
+func _dynamax() -> void:
+	if battle_over or capture_in_progress or int(player_pokemon.get("hp", 0)) <= 0:
+		return
+	if not _can_dynamax():
+		return
+	var before_name := str(player_pokemon.get("name", player_pokemon.get("species", "Pokemon")))
+	var bonus := PokemonHelpers.dynamax_hp_bonus(str(player_pokemon.get("id", "")), int(player_pokemon.get("level", 1)), bool(player_pokemon.get("black", false)), bool(player_pokemon.get("alpha", false)), bool(player_pokemon.get("purified", false)))
+	var gmax_id := ""
+	if bool(player_pokemon.get("gmax_factor", false)):
+		var gmax_ids := PokemonHelpers.gmax_ids_for_species(str(player_pokemon.get("id", "")))
+		if not gmax_ids.is_empty():
+			gmax_id = str(gmax_ids[0])
+	player_pokemon["dynamax"] = true
+	player_pokemon["dynamax_gmax_id"] = gmax_id
+	player_pokemon["dynamax_bonus_hp"] = bonus
+	player_pokemon["dynamax_turns_remaining"] = 3
+	player_pokemon["max_hp"] = int(player_pokemon.get("max_hp", 1)) + bonus
+	player_pokemon["hp"] = int(player_pokemon.get("hp", 1)) + bonus
+	player_pokemon = PokemonHelpers.normalize_pokemon(player_pokemon)
+	battle_team[player_team_index] = _battle_pokemon_copy(player_pokemon)
+	_refresh_player_sprite()
+	message_label.text = _text("dynamaxed_message") % before_name
 	_update_status()
 
 

@@ -166,6 +166,7 @@ const TEXT = {
 		"take_item": "Take Item",
 		"no_mega_stones_owned": "You don't own any Mega Stone for this Pokemon.",
 		"debug_give_mega_stone": "Give Mega Stone",
+		"debug_force_gmax_factor": "Toggle Gmax Factor",
 		"debug_evolved": "Evolved: %s -> %s",
 		"debug_could_learn": "Could learn %s (use Moves to add it)",
 		"debug_moves": "Moves",
@@ -453,6 +454,7 @@ const TEXT = {
 		"take_item": "Tirar Item",
 		"no_mega_stones_owned": "Você não possui nenhuma Mega Stone para este Pokémon.",
 		"debug_give_mega_stone": "Dar Mega Stone",
+		"debug_force_gmax_factor": "Alternar Fator Gigantamax",
 		"debug_evolved": "Evoluiu: %s -> %s",
 		"debug_could_learn": "Poderia aprender %s (use Movimentos para adicionar)",
 		"debug_moves": "Movimentos",
@@ -3479,6 +3481,10 @@ func _debug_build_variants_rows(parent: Control, y: float) -> float:
 	])
 	y = _add_debug_button_row(parent, y, [
 		[_text("debug_give_mega_stone"), Callable(self, "_debug_give_mega_stone")],
+	])
+	y = _add_debug_button_row(parent, y, [
+		[_text("debug_force_gmax_factor"), Callable(self, "_debug_force_variant").bind("gmax_factor")],
+		[_text("debug_add") % "dynamax_band", Callable(self, "_debug_add_item_x1").bind("dynamax_band")],
 	])
 	return _add_debug_button_row(parent, y, [
 		[_text("debug_add") % "shiny_charm", Callable(self, "_debug_add_item_x1").bind("shiny_charm")],
