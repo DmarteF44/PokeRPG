@@ -16,12 +16,12 @@
     "icon_path": "res://assets/pokemon/icons/abra.png"
   },
   "absol": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/absol/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/absol/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/absol.png"
   },
   "accelgor": {
     "back_frame_count": 0,
@@ -48,12 +48,12 @@
     "icon_path": "res://assets/pokemon/icons/aerodactyl.png"
   },
   "aggron": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/aggron/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/aggron/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/aggron.png"
   },
   "aipom": {
     "back_frame_count": 16,
@@ -88,12 +88,12 @@
     "icon_path": ""
   },
   "altaria": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/altaria/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/altaria/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/altaria.png"
   },
   "amaura": {
     "back_frame_count": 0,
@@ -128,12 +128,12 @@
     "icon_path": "res://assets/pokemon/icons/ampharos.png"
   },
   "anorith": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/anorith/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/anorith/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/anorith.png"
   },
   "appletun": {
     "back_frame_count": 0,
@@ -224,12 +224,12 @@
     "icon_path": "res://assets/pokemon/icons/ariados.png"
   },
   "armaldo": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/armaldo/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/armaldo/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/armaldo.png"
   },
   "aromatisse": {
     "back_frame_count": 0,
@@ -240,12 +240,12 @@
     "icon_path": ""
   },
   "aron": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/aron/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/aron/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/aron.png"
   },
   "arrokuda": {
     "back_frame_count": 0,
@@ -312,36 +312,36 @@
     "icon_path": "res://assets/pokemon/icons/azumarill.png"
   },
   "azurill": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/azurill/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/azurill/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/azurill.png"
   },
   "bagon": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/bagon/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/bagon/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/bagon.png"
   },
   "baltoy": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/baltoy/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/baltoy/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/baltoy.png"
   },
   "banette": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/banette/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/banette/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/banette.png"
   },
   "barbaracle": {
     "back_frame_count": 0,
@@ -352,12 +352,12 @@
     "icon_path": ""
   },
   "barboach": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/barboach/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/barboach/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/barboach.png"
   },
   "barraskewda": {
     "back_frame_count": 0,
@@ -408,12 +408,12 @@
     "icon_path": ""
   },
   "beautifly": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/beautifly/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/beautifly/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/beautifly.png"
   },
   "beedrill": {
     "back_frame_count": 123,
@@ -432,12 +432,12 @@
     "icon_path": ""
   },
   "beldum": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/beldum/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/beldum/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/beldum.png"
   },
   "bellossom": {
     "back_frame_count": 16,
@@ -520,12 +520,12 @@
     "icon_path": "res://assets/pokemon/icons/blastoise.png"
   },
   "blaziken": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/blaziken/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/blaziken/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/blaziken.png"
   },
   "blipbug": {
     "back_frame_count": 0,
@@ -608,12 +608,12 @@
     "icon_path": ""
   },
   "breloom": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/breloom/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/breloom/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/breloom.png"
   },
   "brionne": {
     "back_frame_count": 0,
@@ -712,20 +712,20 @@
     "icon_path": ""
   },
   "cacnea": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/cacnea/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/cacnea/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/cacnea.png"
   },
   "cacturne": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/cacturne/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/cacturne/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/cacturne.png"
   },
   "calyrex": {
     "back_frame_count": 0,
@@ -736,12 +736,12 @@
     "icon_path": ""
   },
   "camerupt": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/camerupt/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/camerupt/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/camerupt.png"
   },
   "carbink": {
     "back_frame_count": 0,
@@ -776,28 +776,28 @@
     "icon_path": ""
   },
   "carvanha": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/carvanha/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/carvanha/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/carvanha.png"
   },
   "cascoon": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/cascoon/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/cascoon/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/cascoon.png"
   },
   "castform": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/castform/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/castform/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/castform.png"
   },
   "caterpie": {
     "back_frame_count": 53,
@@ -944,12 +944,12 @@
     "icon_path": ""
   },
   "chimecho": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/chimecho/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/chimecho/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/chimecho.png"
   },
   "chinchou": {
     "back_frame_count": 16,
@@ -984,12 +984,12 @@
     "icon_path": ""
   },
   "clamperl": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/clamperl/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/clamperl/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/clamperl.png"
   },
   "clauncher": {
     "back_frame_count": 0,
@@ -1008,12 +1008,12 @@
     "icon_path": ""
   },
   "claydol": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/claydol/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/claydol/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/claydol.png"
   },
   "clefable": {
     "back_frame_count": 43,
@@ -1088,12 +1088,12 @@
     "icon_path": ""
   },
   "combusken": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/combusken/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/combusken/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/combusken.png"
   },
   "comfey": {
     "back_frame_count": 0,
@@ -1120,12 +1120,12 @@
     "icon_path": ""
   },
   "corphish": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/corphish/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/corphish/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/corphish.png"
   },
   "corsola": {
     "back_frame_count": 16,
@@ -1192,12 +1192,12 @@
     "icon_path": ""
   },
   "cradily": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/cradily/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/cradily/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/cradily.png"
   },
   "cramorant": {
     "back_frame_count": 0,
@@ -1216,12 +1216,12 @@
     "icon_path": ""
   },
   "crawdaunt": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/crawdaunt/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/crawdaunt/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/crawdaunt.png"
   },
   "cresselia": {
     "back_frame_count": 0,
@@ -1384,12 +1384,12 @@
     "icon_path": ""
   },
   "delcatty": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/delcatty/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/delcatty/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/delcatty.png"
   },
   "delibird": {
     "back_frame_count": 16,
@@ -1408,12 +1408,12 @@
     "icon_path": ""
   },
   "deoxys": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/deoxys/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/deoxys/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/deoxys.png"
   },
   "dewgong": {
     "back_frame_count": 59,
@@ -1728,12 +1728,12 @@
     "icon_path": ""
   },
   "dusclops": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/dusclops/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/dusclops/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/dusclops.png"
   },
   "dusknoir": {
     "back_frame_count": 0,
@@ -1744,20 +1744,20 @@
     "icon_path": ""
   },
   "duskull": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/duskull/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/duskull/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/duskull.png"
   },
   "dustox": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/dustox/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/dustox/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/dustox.png"
   },
   "dwebble": {
     "back_frame_count": 0,
@@ -1832,12 +1832,12 @@
     "icon_path": ""
   },
   "electrike": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/electrike/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/electrike/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/electrike.png"
   },
   "electrode": {
     "back_frame_count": 93,
@@ -1960,12 +1960,12 @@
     "icon_path": "res://assets/pokemon/icons/exeggutor.png"
   },
   "exploud": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/exploud/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/exploud/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/exploud.png"
   },
   "falinks": {
     "back_frame_count": 0,
@@ -1992,12 +1992,12 @@
     "icon_path": "res://assets/pokemon/icons/fearow.png"
   },
   "feebas": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/feebas/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/feebas/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/feebas.png"
   },
   "fennekin": {
     "back_frame_count": 0,
@@ -2112,12 +2112,12 @@
     "icon_path": ""
   },
   "flygon": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/flygon/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/flygon/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/flygon.png"
   },
   "fomantis": {
     "back_frame_count": 0,
@@ -2248,12 +2248,12 @@
     "icon_path": ""
   },
   "gardevoir": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/gardevoir/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/gardevoir/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/gardevoir.png"
   },
   "gastly": {
     "back_frame_count": 64,
@@ -2336,12 +2336,12 @@
     "icon_path": ""
   },
   "glalie": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/glalie/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/glalie/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/glalie.png"
   },
   "glameow": {
     "back_frame_count": 0,
@@ -2464,12 +2464,12 @@
     "icon_path": ""
   },
   "gorebyss": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/gorebyss/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/gorebyss/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/gorebyss.png"
   },
   "gossifleur": {
     "back_frame_count": 0,
@@ -2584,20 +2584,20 @@
     "icon_path": ""
   },
   "groudon": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/groudon/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/groudon/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/groudon.png"
   },
   "grovyle": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/grovyle/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/grovyle/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/grovyle.png"
   },
   "growlithe": {
     "back_frame_count": 23,
@@ -2616,20 +2616,20 @@
     "icon_path": ""
   },
   "grumpig": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/grumpig/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/grumpig/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/grumpig.png"
   },
   "gulpin": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/gulpin/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/gulpin/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/gulpin.png"
   },
   "gumshoos": {
     "back_frame_count": 0,
@@ -2680,12 +2680,12 @@
     "icon_path": ""
   },
   "hariyama": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/hariyama/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/hariyama/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/hariyama.png"
   },
   "hatenna": {
     "back_frame_count": 0,
@@ -2896,12 +2896,12 @@
     "icon_path": "res://assets/pokemon/icons/houndour.png"
   },
   "huntail": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/huntail/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/huntail/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/huntail.png"
   },
   "hydreigon": {
     "back_frame_count": 0,
@@ -2928,12 +2928,12 @@
     "icon_path": "res://assets/pokemon/icons/igglybuff.png"
   },
   "illumise": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/illumise/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/illumise/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/illumise.png"
   },
   "impidimp": {
     "back_frame_count": 0,
@@ -3016,12 +3016,12 @@
     "icon_path": "res://assets/pokemon/icons/jigglypuff.png"
   },
   "jirachi": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/jirachi/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/jirachi/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/jirachi.png"
   },
   "jolteon": {
     "back_frame_count": 39,
@@ -3112,12 +3112,12 @@
     "icon_path": ""
   },
   "kecleon": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/kecleon/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/kecleon/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/kecleon.png"
   },
   "keldeo": {
     "back_frame_count": 0,
@@ -3144,12 +3144,12 @@
     "icon_path": "res://assets/pokemon/icons/kingler.png"
   },
   "kirlia": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/kirlia/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/kirlia/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/kirlia.png"
   },
   "klang": {
     "back_frame_count": 0,
@@ -3264,12 +3264,12 @@
     "icon_path": ""
   },
   "kyogre": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/kyogre/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/kyogre/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/kyogre.png"
   },
   "kyurem": {
     "back_frame_count": 0,
@@ -3280,12 +3280,12 @@
     "icon_path": ""
   },
   "lairon": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/lairon/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/lairon/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/lairon.png"
   },
   "lampent": {
     "back_frame_count": 0,
@@ -3336,20 +3336,20 @@
     "icon_path": "res://assets/pokemon/icons/larvitar.png"
   },
   "latias": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/latias/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/latias/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/latias.png"
   },
   "latios": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/latios/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/latios/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/latios.png"
   },
   "leafeon": {
     "back_frame_count": 0,
@@ -3408,12 +3408,12 @@
     "icon_path": ""
   },
   "lileep": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/lileep/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/lileep/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/lileep.png"
   },
   "lilligant": {
     "back_frame_count": 0,
@@ -3432,12 +3432,12 @@
     "icon_path": ""
   },
   "linoone": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/linoone/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/linoone/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/linoone.png"
   },
   "litleo": {
     "back_frame_count": 0,
@@ -3464,12 +3464,12 @@
     "icon_path": ""
   },
   "lombre": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/lombre/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/lombre/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/lombre.png"
   },
   "lopunny": {
     "back_frame_count": 0,
@@ -3480,20 +3480,20 @@
     "icon_path": ""
   },
   "lotad": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/lotad/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/lotad/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/lotad.png"
   },
   "loudred": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/loudred/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/loudred/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/loudred.png"
   },
   "lucario": {
     "back_frame_count": 0,
@@ -3504,12 +3504,12 @@
     "icon_path": ""
   },
   "ludicolo": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/ludicolo/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/ludicolo/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/ludicolo.png"
   },
   "lugia": {
     "back_frame_count": 16,
@@ -3536,12 +3536,12 @@
     "icon_path": ""
   },
   "lunatone": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/lunatone/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/lunatone/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/lunatone.png"
   },
   "lurantis": {
     "back_frame_count": 0,
@@ -3552,12 +3552,12 @@
     "icon_path": ""
   },
   "luvdisc": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/luvdisc/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/luvdisc/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/luvdisc.png"
   },
   "luxio": {
     "back_frame_count": 0,
@@ -3680,12 +3680,12 @@
     "icon_path": ""
   },
   "makuhita": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/makuhita/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/makuhita/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/makuhita.png"
   },
   "malamar": {
     "back_frame_count": 0,
@@ -3720,12 +3720,12 @@
     "icon_path": ""
   },
   "manectric": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/manectric/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/manectric/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/manectric.png"
   },
   "mankey": {
     "back_frame_count": 27,
@@ -3800,44 +3800,44 @@
     "icon_path": ""
   },
   "marshtomp": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/marshtomp/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/marshtomp/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/marshtomp.png"
   },
   "masquerain": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/masquerain/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/masquerain/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/masquerain.png"
   },
   "mawile": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/mawile/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/mawile/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/mawile.png"
   },
   "medicham": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/medicham/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/medicham/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/medicham.png"
   },
   "meditite": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/meditite/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/meditite/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/meditite.png"
   },
   "meganium": {
     "back_frame_count": 16,
@@ -3896,20 +3896,20 @@
     "icon_path": ""
   },
   "metagross": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/metagross/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/metagross/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/metagross.png"
   },
   "metang": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/metang/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/metang/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/metang.png"
   },
   "metapod": {
     "back_frame_count": 63,
@@ -3952,12 +3952,12 @@
     "icon_path": ""
   },
   "mightyena": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/mightyena/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/mightyena/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/mightyena.png"
   },
   "milcery": {
     "back_frame_count": 0,
@@ -3968,12 +3968,12 @@
     "icon_path": ""
   },
   "milotic": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/milotic/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/milotic/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/milotic.png"
   },
   "miltank": {
     "back_frame_count": 16,
@@ -4016,12 +4016,12 @@
     "icon_path": ""
   },
   "minun": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/minun/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/minun/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/minun.png"
   },
   "misdreavus": {
     "back_frame_count": 16,
@@ -4112,12 +4112,12 @@
     "icon_path": ""
   },
   "mudkip": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/mudkip/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/mudkip/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/mudkip.png"
   },
   "mudsdale": {
     "back_frame_count": 0,
@@ -4256,12 +4256,12 @@
     "icon_path": ""
   },
   "nincada": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/nincada/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/nincada/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/nincada.png"
   },
   "ninetales": {
     "back_frame_count": 63,
@@ -4272,12 +4272,12 @@
     "icon_path": "res://assets/pokemon/icons/ninetales.png"
   },
   "ninjask": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/ninjask/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/ninjask/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/ninjask.png"
   },
   "noctowl": {
     "back_frame_count": 16,
@@ -4304,28 +4304,28 @@
     "icon_path": ""
   },
   "nosepass": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/nosepass/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/nosepass/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/nosepass.png"
   },
   "numel": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/numel/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/numel/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/numel.png"
   },
   "nuzleaf": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/nuzleaf/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/nuzleaf/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/nuzleaf.png"
   },
   "obstagoon": {
     "back_frame_count": 0,
@@ -4528,12 +4528,12 @@
     "icon_path": ""
   },
   "pelipper": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/pelipper/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/pelipper/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/pelipper.png"
   },
   "perrserker": {
     "back_frame_count": 0,
@@ -4696,12 +4696,12 @@
     "icon_path": ""
   },
   "plusle": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/plusle/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/plusle/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/plusle.png"
   },
   "poipole": {
     "back_frame_count": 0,
@@ -4760,12 +4760,12 @@
     "icon_path": "res://assets/pokemon/icons/ponyta.png"
   },
   "poochyena": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/poochyena/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/poochyena/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/poochyena.png"
   },
   "popplio": {
     "back_frame_count": 0,
@@ -4944,12 +4944,12 @@
     "icon_path": "res://assets/pokemon/icons/raikou.png"
   },
   "ralts": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/ralts/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/ralts/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/ralts.png"
   },
   "rampardos": {
     "back_frame_count": 0,
@@ -4984,20 +4984,20 @@
     "icon_path": "res://assets/pokemon/icons/rattata.png"
   },
   "rayquaza": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/rayquaza/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/rayquaza/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/rayquaza.png"
   },
   "regice": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/regice/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/regice/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/regice.png"
   },
   "regidrago": {
     "back_frame_count": 0,
@@ -5024,28 +5024,28 @@
     "icon_path": ""
   },
   "regirock": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/regirock/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/regirock/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/regirock.png"
   },
   "registeel": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/registeel/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/registeel/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/registeel.png"
   },
   "relicanth": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/relicanth/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/relicanth/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/relicanth.png"
   },
   "remoraid": {
     "back_frame_count": 16,
@@ -5152,12 +5152,12 @@
     "icon_path": ""
   },
   "roselia": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/roselia/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/roselia/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/roselia.png"
   },
   "roserade": {
     "back_frame_count": 0,
@@ -5200,20 +5200,20 @@
     "icon_path": ""
   },
   "sableye": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/sableye/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/sableye/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/sableye.png"
   },
   "salamence": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/salamence/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/salamence/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/salamence.png"
   },
   "salandit": {
     "back_frame_count": 0,
@@ -5304,12 +5304,12 @@
     "icon_path": ""
   },
   "sceptile": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/sceptile/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/sceptile/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/sceptile.png"
   },
   "scizor": {
     "back_frame_count": 16,
@@ -5376,20 +5376,20 @@
     "icon_path": "res://assets/pokemon/icons/seaking.png"
   },
   "sealeo": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/sealeo/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/sealeo/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/sealeo.png"
   },
   "seedot": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/seedot/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/seedot/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/seedot.png"
   },
   "seel": {
     "back_frame_count": 59,
@@ -5432,12 +5432,12 @@
     "icon_path": ""
   },
   "seviper": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/seviper/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/seviper/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/seviper.png"
   },
   "sewaddle": {
     "back_frame_count": 0,
@@ -5448,12 +5448,12 @@
     "icon_path": ""
   },
   "sharpedo": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/sharpedo/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/sharpedo/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/sharpedo.png"
   },
   "shaymin": {
     "back_frame_count": 0,
@@ -5464,20 +5464,20 @@
     "icon_path": ""
   },
   "shedinja": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/shedinja/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/shedinja/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/shedinja.png"
   },
   "shelgon": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/shelgon/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/shelgon/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/shelgon.png"
   },
   "shellder": {
     "back_frame_count": 83,
@@ -5512,12 +5512,12 @@
     "icon_path": ""
   },
   "shiftry": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/shiftry/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/shiftry/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/shiftry.png"
   },
   "shiinotic": {
     "back_frame_count": 0,
@@ -5536,12 +5536,12 @@
     "icon_path": ""
   },
   "shroomish": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/shroomish/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/shroomish/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/shroomish.png"
   },
   "shuckle": {
     "back_frame_count": 16,
@@ -5552,12 +5552,12 @@
     "icon_path": "res://assets/pokemon/icons/shuckle.png"
   },
   "shuppet": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/shuppet/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/shuppet/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/shuppet.png"
   },
   "sigilyph": {
     "back_frame_count": 0,
@@ -5568,12 +5568,12 @@
     "icon_path": ""
   },
   "silcoon": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/silcoon/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/silcoon/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/silcoon.png"
   },
   "silicobra": {
     "back_frame_count": 0,
@@ -5664,12 +5664,12 @@
     "icon_path": "res://assets/pokemon/icons/skiploom.png"
   },
   "skitty": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/skitty/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/skitty/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/skitty.png"
   },
   "skorupi": {
     "back_frame_count": 0,
@@ -5704,20 +5704,20 @@
     "icon_path": ""
   },
   "slaking": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/slaking/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/slaking/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/slaking.png"
   },
   "slakoth": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/slakoth/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/slakoth/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/slakoth.png"
   },
   "sliggoo": {
     "back_frame_count": 0,
@@ -5824,12 +5824,12 @@
     "icon_path": "res://assets/pokemon/icons/snorlax.png"
   },
   "snorunt": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/snorunt/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/snorunt/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/snorunt.png"
   },
   "snover": {
     "back_frame_count": 0,
@@ -5872,12 +5872,12 @@
     "icon_path": ""
   },
   "solrock": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/solrock/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/solrock/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/solrock.png"
   },
   "spearow": {
     "back_frame_count": 23,
@@ -5904,12 +5904,12 @@
     "icon_path": ""
   },
   "spheal": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/spheal/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/spheal/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/spheal.png"
   },
   "spinarak": {
     "back_frame_count": 16,
@@ -5920,12 +5920,12 @@
     "icon_path": "res://assets/pokemon/icons/spinarak.png"
   },
   "spinda": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/spinda/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/spinda/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/spinda.png"
   },
   "spiritomb": {
     "back_frame_count": 0,
@@ -5936,12 +5936,12 @@
     "icon_path": ""
   },
   "spoink": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/spoink/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/spoink/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/spoink.png"
   },
   "spritzee": {
     "back_frame_count": 0,
@@ -6104,20 +6104,20 @@
     "icon_path": "res://assets/pokemon/icons/sunkern.png"
   },
   "surskit": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/surskit/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/surskit/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/surskit.png"
   },
   "swablu": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/swablu/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/swablu/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/swablu.png"
   },
   "swadloon": {
     "back_frame_count": 0,
@@ -6128,20 +6128,20 @@
     "icon_path": ""
   },
   "swalot": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/swalot/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/swalot/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/swalot.png"
   },
   "swampert": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/swampert/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/swampert/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/swampert.png"
   },
   "swanna": {
     "back_frame_count": 0,
@@ -6152,12 +6152,12 @@
     "icon_path": ""
   },
   "swellow": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/swellow/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/swellow/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/swellow.png"
   },
   "swinub": {
     "back_frame_count": 16,
@@ -6192,12 +6192,12 @@
     "icon_path": ""
   },
   "taillow": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/taillow/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/taillow/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/taillow.png"
   },
   "talonflame": {
     "back_frame_count": 0,
@@ -6384,20 +6384,20 @@
     "icon_path": "res://assets/pokemon/icons/togetic.png"
   },
   "torchic": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/torchic/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/torchic/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/torchic.png"
   },
   "torkoal": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/torkoal/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/torkoal/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/torkoal.png"
   },
   "tornadus": {
     "back_frame_count": 0,
@@ -6480,20 +6480,20 @@
     "icon_path": ""
   },
   "trapinch": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/trapinch/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/trapinch/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/trapinch.png"
   },
   "treecko": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/treecko/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/treecko/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/treecko.png"
   },
   "trevenant": {
     "back_frame_count": 0,
@@ -6504,12 +6504,12 @@
     "icon_path": ""
   },
   "tropius": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/tropius/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/tropius/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/tropius.png"
   },
   "trubbish": {
     "back_frame_count": 0,
@@ -6744,12 +6744,12 @@
     "icon_path": ""
   },
   "vibrava": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/vibrava/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/vibrava/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/vibrava.png"
   },
   "victini": {
     "back_frame_count": 0,
@@ -6768,12 +6768,12 @@
     "icon_path": "res://assets/pokemon/icons/victreebel.png"
   },
   "vigoroth": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/vigoroth/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/vigoroth/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/vigoroth.png"
   },
   "vikavolt": {
     "back_frame_count": 0,
@@ -6808,12 +6808,12 @@
     "icon_path": ""
   },
   "volbeat": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/volbeat/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/volbeat/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/volbeat.png"
   },
   "volcanion": {
     "back_frame_count": 0,
@@ -6856,28 +6856,28 @@
     "icon_path": "res://assets/pokemon/icons/vulpix.png"
   },
   "wailmer": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/wailmer/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/wailmer/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/wailmer.png"
   },
   "wailord": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/wailord/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/wailord/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/wailord.png"
   },
   "walrein": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/walrein/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/walrein/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/walrein.png"
   },
   "wartortle": {
     "back_frame_count": 35,
@@ -6944,20 +6944,20 @@
     "icon_path": ""
   },
   "whiscash": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/whiscash/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/whiscash/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/whiscash.png"
   },
   "whismur": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/whismur/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/whismur/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/whismur.png"
   },
   "wigglytuff": {
     "back_frame_count": 59,
@@ -6976,12 +6976,12 @@
     "icon_path": ""
   },
   "wingull": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/wingull/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/wingull/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/wingull.png"
   },
   "wishiwashi": {
     "back_frame_count": 0,
@@ -7032,20 +7032,20 @@
     "icon_path": ""
   },
   "wurmple": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/wurmple/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/wurmple/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/wurmple.png"
   },
   "wynaut": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/wynaut/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/wynaut/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/wynaut.png"
   },
   "wyrdeer": {
     "back_frame_count": 0,
@@ -7144,12 +7144,12 @@
     "icon_path": ""
   },
   "zangoose": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/zangoose/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/zangoose/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/zangoose.png"
   },
   "zapdos": {
     "back_frame_count": 33,
@@ -7192,12 +7192,12 @@
     "icon_path": ""
   },
   "zigzagoon": {
-    "back_frame_count": 0,
-    "back_frames_path": "",
-    "front_frame_count": 0,
-    "front_frames_path": "",
-    "has_animation": false,
-    "icon_path": ""
+    "back_frame_count": 16,
+    "back_frames_path": "res://assets/pokemon/battle/animated/gen_3/back/zigzagoon/",
+    "front_frame_count": 16,
+    "front_frames_path": "res://assets/pokemon/battle/animated/gen_3/front/zigzagoon/",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/icons/zigzagoon.png"
   },
   "zoroark": {
     "back_frame_count": 0,
