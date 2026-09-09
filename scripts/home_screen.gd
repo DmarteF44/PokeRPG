@@ -20,16 +20,16 @@ const TEXT = {
 		"tutorial_prompt": "New here? See how to play:",
 		"tutorial": "How to Play",
 		"tutorial_sections": [
-			["Goal", "Pick a starter, explore the world map, battle and catch wild Pokemon, level them up, evolve them, and earn Gym badges to unlock new maps."],
-			["Exploring", "\"Explore Map\" costs Energy and can trigger a wild Pokemon encounter. Which species can appear depends on that map's types/generation. Energy refills over time - check the energy bar on the Home screen."],
-			["Battling", "Fight uses one of your Pokemon's 4 moves (each has a type, power and PP). Bag lets you use items (Potions, stat boosts, capture items) without wasting your Pokemon's turn. Pokemon lets you switch your active Pokemon. Run ends a wild encounter (not available against trainers). Matching your move's type against the enemy's weakness deals extra damage; a resisted type deals less."],
-			["Catching", "Wearing an enemy's HP down (and inflicting status like Sleep or Paralysis) raises your catch chance. Great/Ultra/Master Balls catch more reliably than a basic Poke Ball - check the Shop and your Bag."],
-			["XP and Leveling", "Winning battles grants XP. Leveling up raises stats and can teach new moves - if all 4 move slots are full you'll be asked which move to replace."],
-			["Evolution", "Different Pokemon evolve differently: by level, by using an evolution item, by badge count, and other conditions. Open a Pokemon's details (Collection/Storage) to see exactly what it still needs."],
-			["Pokemon Center", "Heals your whole team for a small fee; recovery time scales with how much HP is missing and your Pokemon's level. Storage there lets you manage Pokemon beyond your 6-team limit."],
-			["Money and Progress", "Battling and capturing pays trainer XP and money; leveling your trainer grants specialization points (Profile screen) that boost things like capture rate or exploration. Gym badges unlock new maps and tougher trainers."],
-			["Pokedex", "Tracks every species you've seen and captured, with numbers, types and descriptions. You can pay to research a seen-but-not-caught species for more details."],
-			["Shiny and Black", "Extremely rare recolored variants that can appear on any wild encounter - Black Pokemon also get a small stat bonus. Certain items can raise the odds for a while, but never guarantee one."],
+			["Goal", "Pick a starter, explore the world map, battle and catch wild Pokemon, level them up, evolve them, and earn Gym badges to unlock new maps.", "res://assets/ui/icons/icon_world_48.png"],
+			["Exploring", "\"Explore Map\" costs Energy and can trigger a wild Pokemon encounter. Which species can appear depends on that map's types/generation. Energy refills over time - check the energy bar on the Home screen.", "res://assets/ui/icons/icon_world_48.png"],
+			["Battling", "Fight uses one of your Pokemon's 4 moves (each has a type, power and PP). Bag lets you use items (Potions, stat boosts, capture items) without wasting your Pokemon's turn. Pokemon lets you switch your active Pokemon. Run ends a wild encounter (not available against trainers). Matching your move's type against the enemy's weakness deals extra damage; a resisted type deals less.", "res://assets/ui/icons/icon_bag_48.png"],
+			["Catching", "Wearing an enemy's HP down (and inflicting status like Sleep or Paralysis) raises your catch chance. Great/Ultra/Master Balls catch more reliably than a basic Poke Ball - check the Shop and your Bag.", "res://assets/ui/icons/icon_monster_ball_48.png"],
+			["XP and Leveling", "Winning battles grants XP. Leveling up raises stats and can teach new moves - if all 4 move slots are full you'll be asked which move to replace.", "res://assets/ui/icons/icon_tournament_48.png"],
+			["Evolution", "Different Pokemon evolve differently: by level, by using an evolution item, by badge count, and other conditions. Open a Pokemon's details (Collection/Storage) to see exactly what it still needs.", ""],
+			["Pokemon Center", "Heals your whole team for a small fee; recovery time scales with how much HP is missing and your Pokemon's level. Storage there lets you manage Pokemon beyond your 6-team limit.", "res://assets/ui/icons/icon_shop_48.png"],
+			["Money and Progress", "Battling and capturing pays trainer XP and money; leveling your trainer grants specialization points (Profile screen) that boost things like capture rate or exploration. Gym badges unlock new maps and tougher trainers.", "res://assets/ui/icons/icon_coin_48.png"],
+			["Pokedex", "Tracks every species you've seen and captured, with numbers, types and descriptions. You can pay to research a seen-but-not-caught species for more details.", "res://assets/ui/icons/icon_pokemon.png"],
+			["Shiny and Black", "Extremely rare recolored variants that can appear on any wild encounter - Black Pokemon also get a small stat bonus. Certain items can raise the odds for a while, but never guarantee one.", ""],
 		],
 		"money": "Money",
 		"level": "Lv.",
@@ -297,16 +297,16 @@ const TEXT = {
 		"tutorial_prompt": "Novo por aqui? Veja como jogar:",
 		"tutorial": "Como Jogar",
 		"tutorial_sections": [
-			["Objetivo", "Escolha um inicial, explore o mapa mundial, batalhe e capture Pokémon selvagens, suba o nível deles, evolua-os e conquiste insígnias de ginásio para liberar novos mapas."],
-			["Explorando", "\"Explorar Mapa\" gasta Energia e pode gerar um encontro com Pokémon selvagem. Quais espécies aparecem depende dos tipos/geração daquele mapa. A energia recarrega com o tempo - veja a barra de energia na Tela Inicial."],
-			["Batalha", "Lutar usa um dos 4 golpes do seu Pokémon (cada um tem tipo, poder e PP). Mochila permite usar itens (Poções, aumentos de atributo, itens de captura) sem gastar o turno do seu Pokémon. Pokémon troca seu Pokémon ativo. Fugir encerra um encontro selvagem (indisponível contra treinadores). Usar um golpe do tipo que é fraqueza do inimigo causa dano extra; um tipo resistido causa menos dano."],
-			["Captura", "Reduzir o HP do selvagem (e causar status como Sono ou Paralisia) aumenta sua chance de captura. Great/Ultra/Master Ball capturam com mais confiança que a Pokébola básica - veja a Loja e sua Mochila."],
-			["XP e Nível", "Vencer batalhas concede XP. Subir de nível aumenta os atributos e pode ensinar novos golpes - se os 4 espaços de golpe estiverem cheios, você escolhe qual substituir."],
-			["Evolução", "Cada Pokémon evolui de um jeito: por nível, usando um item de evolução, por número de insígnias, entre outras condições. Abra os detalhes de um Pokémon (Coleção/Armazenamento) para ver exatamente o que falta."],
-			["Centro Pokémon", "Cura todo o time por uma taxa; o tempo de recuperação varia conforme o HP faltando e o nível do Pokémon. O Armazenamento lá permite gerenciar Pokémon além do limite de 6 no time."],
-			["Dinheiro e Progresso", "Batalhar e capturar rende XP de treinador e dinheiro; subir o nível do treinador concede pontos de especialização (tela de Perfil) que melhoram coisas como taxa de captura ou exploração. Insígnias de ginásio liberam novos mapas e treinadores mais fortes."],
-			["Pokédex", "Registra toda espécie que você já viu e capturou, com número, tipos e descrição. Você pode pagar para pesquisar uma espécie vista mas não capturada e ver mais detalhes."],
-			["Shiny e Black", "Variantes recoloridas extremamente raras que podem aparecer em qualquer encontro selvagem - Pokémon Black também ganham um pequeno bônus de atributos. Certos itens aumentam a chance por um tempo, mas nunca garantem uma."],
+			["Objetivo", "Escolha um inicial, explore o mapa mundial, batalhe e capture Pokémon selvagens, suba o nível deles, evolua-os e conquiste insígnias de ginásio para liberar novos mapas.", "res://assets/ui/icons/icon_world_48.png"],
+			["Explorando", "\"Explorar Mapa\" gasta Energia e pode gerar um encontro com Pokémon selvagem. Quais espécies aparecem depende dos tipos/geração daquele mapa. A energia recarrega com o tempo - veja a barra de energia na Tela Inicial.", "res://assets/ui/icons/icon_world_48.png"],
+			["Batalha", "Lutar usa um dos 4 golpes do seu Pokémon (cada um tem tipo, poder e PP). Mochila permite usar itens (Poções, aumentos de atributo, itens de captura) sem gastar o turno do seu Pokémon. Pokémon troca seu Pokémon ativo. Fugir encerra um encontro selvagem (indisponível contra treinadores). Usar um golpe do tipo que é fraqueza do inimigo causa dano extra; um tipo resistido causa menos dano.", "res://assets/ui/icons/icon_bag_48.png"],
+			["Captura", "Reduzir o HP do selvagem (e causar status como Sono ou Paralisia) aumenta sua chance de captura. Great/Ultra/Master Ball capturam com mais confiança que a Pokébola básica - veja a Loja e sua Mochila.", "res://assets/ui/icons/icon_monster_ball_48.png"],
+			["XP e Nível", "Vencer batalhas concede XP. Subir de nível aumenta os atributos e pode ensinar novos golpes - se os 4 espaços de golpe estiverem cheios, você escolhe qual substituir.", "res://assets/ui/icons/icon_tournament_48.png"],
+			["Evolução", "Cada Pokémon evolui de um jeito: por nível, usando um item de evolução, por número de insígnias, entre outras condições. Abra os detalhes de um Pokémon (Coleção/Armazenamento) para ver exatamente o que falta.", ""],
+			["Centro Pokémon", "Cura todo o time por uma taxa; o tempo de recuperação varia conforme o HP faltando e o nível do Pokémon. O Armazenamento lá permite gerenciar Pokémon além do limite de 6 no time.", "res://assets/ui/icons/icon_shop_48.png"],
+			["Dinheiro e Progresso", "Batalhar e capturar rende XP de treinador e dinheiro; subir o nível do treinador concede pontos de especialização (tela de Perfil) que melhoram coisas como taxa de captura ou exploração. Insígnias de ginásio liberam novos mapas e treinadores mais fortes.", "res://assets/ui/icons/icon_coin_48.png"],
+			["Pokédex", "Registra toda espécie que você já viu e capturou, com número, tipos e descrição. Você pode pagar para pesquisar uma espécie vista mas não capturada e ver mais detalhes.", "res://assets/ui/icons/icon_pokemon.png"],
+			["Shiny e Black", "Variantes recoloridas extremamente raras que podem aparecer em qualquer encontro selvagem - Pokémon Black também ganham um pequeno bônus de atributos. Certos itens aumentam a chance por um tempo, mas nunca garantem uma.", ""],
 		],
 		"money": "Dinheiro",
 		"level": "Nv.",
@@ -773,9 +773,25 @@ func _show_tutorial() -> void:
 	for section in _tutorial_sections():
 		if typeof(section) != TYPE_ARRAY or section.size() < 2:
 			continue
-		var title_label := UI.add_panel_label(content, str(section[0]), Vector2(0, y), Vector2(296, 24), 15, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Title%d" % y)
+		# Sections with a matching icon (the same ones shown in the game's
+		# own topbar/buttons) get it shown beside the title, both so the
+		# guide isn't just a wall of text and so the icon itself becomes
+		# recognizable - reusing real in-game icons rather than new art.
+		var icon_path := str(section[2]) if section.size() > 2 else ""
+		var text_x := 0.0
+		if icon_path != "" and UI.resource_exists(icon_path):
+			var icon_rect := TextureRect.new()
+			icon_rect.name = "Icon%d" % y
+			icon_rect.texture = load(icon_path)
+			icon_rect.position = Vector2(0, y)
+			icon_rect.size = Vector2(36, 36)
+			icon_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			icon_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			content.add_child(icon_rect)
+			text_x = 44.0
+		var title_label := UI.add_panel_label(content, str(section[0]), Vector2(text_x, y), Vector2(296 - text_x, 36), 15, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Title%d" % y)
 		title_label.add_theme_color_override("font_color", Color(0.72, 0.34, 0.06))
-		y += 26.0
+		y += 40.0
 		var body_label := UI.add_panel_label(content, str(section[1]), Vector2(0, y), Vector2(296, 20), 12, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_TOP, "Body%d" % y)
 		body_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		# A wrapped Label's own height doesn't reflow to fit multi-line text
