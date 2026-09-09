@@ -542,11 +542,14 @@ func _map_title() -> String:
 
 func _add_fit_label(parent: Node, text: String, pos: Vector2, node_size: Vector2, font_size: int, color: Color, align: int, valign: int, node_name: String, wrap: bool) -> Label:
 	var label := UI.add_label(parent, text, pos, node_size, font_size, color, align, valign, node_name)
+	# Godot re-inflates a Label's size the instant autowrap_mode actually
+	# changes value (WORD_SMART -> OFF) on a label already in the tree, even
+	# though UI.add_label already fixed its size up once - so the non-wrap
+	# case below deliberately leaves autowrap on WORD_SMART (its default from
+	# UI.add_label) instead of switching it off, and relies on clip_text alone
+	# to keep a label from spilling past its own box.
 	label.clip_text = true
-	if wrap:
-		label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	else:
-		label.autowrap_mode = TextServer.AUTOWRAP_OFF
+	if not wrap:
 		label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	return label
 

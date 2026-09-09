@@ -119,12 +119,19 @@ static func add_label(parent: Node, text: String, pos: Vector2, node_size: Vecto
 	label.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.7))
 	label.add_theme_constant_override("outline_size", 2)
 	parent.add_child(label)
+	# Godot computes (and appears to cache) a Label's layout the moment it
+	# enters the tree, and that first pass sometimes settles on a taller
+	# multi-line size than the text actually needs even with clip_text/autowrap
+	# already set above - re-asserting the size we actually want, now that the
+	# label is in the tree, reliably corrects it instead of leaving it inflated.
+	label.size = node_size
 	return label
 
 
 static func add_panel_label(parent: Node, text: String, pos: Vector2, node_size: Vector2, font_size: int, align: int, valign: int, node_name: String) -> Label:
 	var label := add_label(parent, text, pos, node_size, font_size, PANEL_TEXT, align, valign, node_name)
 	label.add_theme_constant_override("outline_size", 0)
+	label.size = node_size
 	return label
 
 

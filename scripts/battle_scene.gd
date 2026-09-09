@@ -520,9 +520,14 @@ func _show_attack_panel() -> void:
 		var button := UI.add_orange_button(attack_panel, move_text, pos, Vector2(140, 44), Callable(self, "_use_move_index").bind(i), str(move.get("name", "Move")).replace(" ", ""))
 		var label = button.get_node_or_null("Text")
 		if label is Label:
+			# Re-asserting size after these overrides works around the same
+			# Label-inflates-on-property-change quirk UI.add_label already
+			# corrects for once, right after it's created (see that function).
+			var target_size: Vector2 = label.size
 			label.add_theme_font_size_override("font_size", 11)
 			label.clip_text = true
 			label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			label.size = target_size
 
 	UI.add_orange_button(attack_panel, _text("back"), Vector2(132, 474), Vector2(96, 26), Callable(self, "_hide_attack_panel"), "Back")
 

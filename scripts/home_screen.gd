@@ -1485,7 +1485,7 @@ func _add_shop_items() -> void:
 
 	var content := Control.new()
 	content.name = "ShopItems"
-	content.custom_minimum_size = Vector2(304, max(326, shop_items.size() * 126))
+	content.custom_minimum_size = Vector2(304, max(326, shop_items.size() * SHOP_ROW_SPACING))
 	scroll.add_child(content)
 
 	if shop_items.is_empty():
@@ -1497,6 +1497,10 @@ func _add_shop_items() -> void:
 		_add_shop_item_row(content, item, i)
 
 
+const SHOP_ROW_HEIGHT = 168.0
+const SHOP_ROW_SPACING = 184.0
+
+
 func _add_shop_item_row(parent: Control, item: Dictionary, index: int) -> void:
 	var player_level: int = maxi(1, int(save_data.get("level", 1)))
 	var player_badges: int = int(save_data.get("badges", 0))
@@ -1505,26 +1509,32 @@ func _add_shop_item_row(parent: Control, item: Dictionary, index: int) -> void:
 	var locked: bool = min_level > player_level or min_badges > player_badges
 	var row := Panel.new()
 	row.name = "Shop%s" % str(item.get("id", "")).capitalize()
-	row.position = Vector2(0, float(index) * 126.0)
-	row.size = Vector2(296, 118)
+	row.position = Vector2(0, float(index) * SHOP_ROW_SPACING)
+	row.size = Vector2(296, SHOP_ROW_HEIGHT)
 	parent.add_child(row)
 	row.modulate = Color(1, 1, 1, 1) if not locked else Color(0.66, 0.70, 0.75, 1)
 	UI.style_panel_button(row, Color(0.86, 0.92, 0.96), Color(0.34, 0.50, 0.62), 2)
 
-	_add_item_icon(row, item, Vector2(10, 10), Vector2(42, 42))
-	var name_label := UI.add_panel_label(row, _item_name(item), Vector2(58, 6), Vector2(154, 20), 13, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Name")
+	# The description runs the full row width (instead of stopping short to
+	# leave room for the Buy button beside it) because most item descriptions
+	# need 2-3 wrapped lines even at the wider width - a narrower box made most
+	# of them hard-cut mid-sentence once clip_text started actually enforcing
+	# the box (previously the box silently grew and overlapped the row below
+	# it instead). Buy now sits below the text instead of floating beside it.
+	_add_item_icon(row, item, Vector2(10, 8), Vector2(42, 42))
+	var name_label := UI.add_panel_label(row, _item_name(item), Vector2(58, 6), Vector2(226, 20), 13, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Name")
 	_fit_label(name_label, false)
-	var description_label := UI.add_panel_label(row, _item_description(item), Vector2(58, 27), Vector2(156, 38), 9, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Description")
+	var description_label := UI.add_panel_label(row, _item_description(item), Vector2(58, 26), Vector2(226, 58), 9, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Description")
 	_fit_label(description_label, true)
-	var price_label := UI.add_panel_label(row, "%s: $%d" % [_text("price"), int(item.get("price", 0))], Vector2(58, 66), Vector2(154, 16), 11, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Price")
+	var price_label := UI.add_panel_label(row, "%s: $%d" % [_text("price"), int(item.get("price", 0))], Vector2(58, 90), Vector2(130, 20), 11, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Price")
 	_fit_label(price_label, false)
 
 	var status := _text("locked") if locked else _text("available_status")
 	var requirement := _text("requires") % [min_level, min_badges]
-	var requirement_label := UI.add_panel_label(row, "%s\n%s" % [status, requirement], Vector2(58, 84), Vector2(166, 28), 9, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Requirement")
+	var requirement_label := UI.add_panel_label(row, "%s\n%s" % [status, requirement], Vector2(58, 132), Vector2(226, 28), 9, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Requirement")
 	_fit_label(requirement_label, true)
 
-	var buy_button := _add_small_button(row, _text("buy"), Vector2(222, 43), Vector2(64, 32), Callable(self, "_buy_item").bind(item), "Buy")
+	var buy_button := _add_small_button(row, _text("buy"), Vector2(196, 88), Vector2(90, 32), Callable(self, "_buy_item").bind(item), "Buy")
 	if locked:
 		buy_button.disabled = true
 		buy_button.modulate = Color(0.55, 0.55, 0.55, 0.9)
@@ -2549,11 +2559,14 @@ func _count_registered_species(ids: Array, species_ids: Array) -> int:
 
 
 func _fit_label(label: Label, wrap: bool) -> void:
+	# Godot re-inflates a Label's size the instant autowrap_mode actually
+	# changes value (WORD_SMART -> OFF) on a label already in the tree, even
+	# though UI.add_label already fixed its size up once - so the non-wrap
+	# case below deliberately leaves autowrap on WORD_SMART (its default from
+	# UI.add_label) instead of switching it off, and relies on clip_text alone
+	# to keep a name/price label from spilling past its own box.
 	label.clip_text = true
-	if wrap:
-		label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	else:
-		label.autowrap_mode = TextServer.AUTOWRAP_OFF
+	if not wrap:
 		label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 
 
@@ -3453,6 +3466,11 @@ func _add_small_button(parent: Node, text: String, pos: Vector2, node_size: Vect
 	button.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 	UI.style_panel_button(button, Color(0.95, 0.78, 0.32), Color(0.92, 0.46, 0.08), 2)
 	parent.add_child(button)
+	# Same fix as UI.add_label: Godot settles on an inflated minimum height
+	# for the button's text the moment it enters the tree, ignoring
+	# clip_text - re-asserting the size we actually want now that it's in
+	# the tree reliably corrects it.
+	button.size = node_size
 	if callback.is_valid():
 		button.pressed.connect(callback)
 		button.pressed.connect(func(): AudioManager.play_sfx("click"))
