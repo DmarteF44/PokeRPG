@@ -158,11 +158,21 @@ static func add_orange_button(parent: Node, text: String, pos: Vector2, node_siz
 	button.name = node_name
 	button.texture_normal = load(_orange_normal_for_size(node_size))
 	button.texture_pressed = load(_orange_pressed_for_size(node_size))
-	button.position = pos
-	button.size = node_size
 	button.ignore_texture_size = true
 	button.stretch_mode = TextureButton.STRETCH_SCALE
 	button.focus_mode = Control.FOCUS_NONE
+	# ignore_texture_size must be set BEFORE .size/.position: Control clamps
+	# an assigned size up to whatever the node's minimum size is AT THAT
+	# MOMENT, and a TextureButton's minimum size is its texture's own pixel
+	# size until ignore_texture_size takes effect - assigning size first (as
+	# this used to) silently inflated every button to its background
+	# texture's width (e.g. 140px requested -> clamped to the 180px
+	# button_orange_180x40 texture), which is exactly what made adjacent two-
+	# button rows (Options' Apply/Cancel, Profile's avatar/specialization,
+	# the Pokemon Center's heal/storage, ...) overlap or bleed past their
+	# panel's edge.
+	button.position = pos
+	button.size = node_size
 	parent.add_child(button)
 	if callback.is_valid():
 		button.pressed.connect(callback)

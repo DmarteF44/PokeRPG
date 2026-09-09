@@ -54,17 +54,17 @@ static func play_impact(target_sprite: TextureRect, effect_layer: Control, textu
 
 	var tween := effect.create_tween()
 	tween.set_parallel(true)
-	tween.tween_property(effect, "scale", Vector2(1.26, 1.26), 0.42).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	tween.tween_property(effect, "rotation", randf_range(-0.18, 0.18), 0.42)
-	tween.tween_property(effect, "modulate", Color(1, 1, 1, 0.0), 0.42).set_delay(0.18)
+	tween.tween_property(effect, "scale", Vector2(1.26, 1.26), 0.34).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(effect, "rotation", randf_range(-0.18, 0.18), 0.34)
+	tween.tween_property(effect, "modulate", Color(1, 1, 1, 0.0), 0.34).set_delay(0.14)
 	tween.set_parallel(false)
 	tween.tween_callback(effect.queue_free)
 
 	var original_pos := target_sprite.position
 	var jolt := target_sprite.create_tween()
-	jolt.tween_property(target_sprite, "position", original_pos + Vector2(6, 0), 0.08)
-	jolt.tween_property(target_sprite, "position", original_pos - Vector2(6, 0), 0.10)
-	jolt.tween_property(target_sprite, "position", original_pos, 0.08)
+	jolt.tween_property(target_sprite, "position", original_pos + Vector2(6, 0), 0.06)
+	jolt.tween_property(target_sprite, "position", original_pos - Vector2(6, 0), 0.07)
+	jolt.tween_property(target_sprite, "position", original_pos, 0.06)
 
 
 # Special moves (Ember, Water Gun, Ice Beam, Thunderbolt, Vine Whip, Gust,
@@ -96,8 +96,8 @@ static func play_projectile(attacker_sprite: TextureRect, target_sprite: Texture
 	effect_layer.add_child(effect)
 
 	var tween := effect.create_tween()
-	tween.tween_property(effect, "position", dest, 0.55).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
-	tween.parallel().tween_property(effect, "scale", Vector2(0.85, 0.85), 0.55)
+	tween.tween_property(effect, "position", dest, 0.45).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	tween.parallel().tween_property(effect, "scale", Vector2(0.85, 0.85), 0.45)
 	tween.tween_callback(func():
 		effect.queue_free()
 		if on_impact.is_valid():
@@ -115,8 +115,8 @@ static func play_status_wave(caster_sprite: TextureRect, effect_layer: Control) 
 	effect_layer.add_child(ring)
 	var tween := ring.create_tween()
 	tween.set_parallel(true)
-	tween.tween_property(ring, "scale", Vector2(2.2, 2.2), 0.7).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	tween.tween_property(ring, "modulate:a", 0.0, 0.7)
+	tween.tween_property(ring, "scale", Vector2(2.2, 2.2), 0.59).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property(ring, "modulate:a", 0.0, 0.59)
 	tween.set_parallel(false)
 	tween.tween_callback(ring.queue_free)
 
@@ -134,9 +134,9 @@ static func play_stat_aura(target_sprite: TextureRect, effect_layer: Control, is
 	var drift := Vector2(0, -18) if is_buff else Vector2(0, 18)
 	var tween := ring.create_tween()
 	tween.set_parallel(true)
-	tween.tween_property(ring, "scale", Vector2(1.6, 1.6), 0.85).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	tween.tween_property(ring, "position", ring.position + drift, 0.85).set_trans(Tween.TRANS_SINE)
-	tween.tween_property(ring, "modulate:a", 0.0, 0.85)
+	tween.tween_property(ring, "scale", Vector2(1.6, 1.6), 0.7).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.tween_property(ring, "position", ring.position + drift, 0.7).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(ring, "modulate:a", 0.0, 0.7)
 	tween.set_parallel(false)
 	tween.tween_callback(ring.queue_free)
 
@@ -152,8 +152,8 @@ static func play_status_condition(target_sprite: TextureRect, effect_layer: Cont
 	var original_modulate := target_sprite.modulate
 	var flash := target_sprite.create_tween()
 	for i in range(2):
-		flash.tween_property(target_sprite, "modulate", color, 0.16)
-		flash.tween_property(target_sprite, "modulate", original_modulate, 0.16)
+		flash.tween_property(target_sprite, "modulate", color, 0.13)
+		flash.tween_property(target_sprite, "modulate", original_modulate, 0.13)
 
 	var glyph_text: String = STATUS_GLYPHS.get(status_key, "?")
 	var glyph := Label.new()
@@ -169,9 +169,9 @@ static func play_status_condition(target_sprite: TextureRect, effect_layer: Cont
 	glyph.modulate.a = 0.0
 	effect_layer.add_child(glyph)
 	var tween := glyph.create_tween()
-	tween.tween_property(glyph, "modulate:a", 1.0, 0.2)
-	tween.parallel().tween_property(glyph, "position", glyph.position + Vector2(0, -14), 0.9).set_trans(Tween.TRANS_SINE)
-	tween.tween_property(glyph, "modulate:a", 0.0, 0.35)
+	tween.tween_property(glyph, "modulate:a", 1.0, 0.17)
+	tween.parallel().tween_property(glyph, "position", glyph.position + Vector2(0, -14), 0.77).set_trans(Tween.TRANS_SINE)
+	tween.tween_property(glyph, "modulate:a", 0.0, 0.28)
 	tween.tween_callback(glyph.queue_free)
 
 
@@ -184,8 +184,8 @@ static func play_heal_glow(target_sprite: TextureRect, effect_layer: Control) ->
 	var color := Color(0.35, 0.9, 0.45)
 	var original_modulate := target_sprite.modulate
 	var flash := target_sprite.create_tween()
-	flash.tween_property(target_sprite, "modulate", color.lerp(original_modulate, 0.35), 0.2)
-	flash.tween_property(target_sprite, "modulate", original_modulate, 0.45)
+	flash.tween_property(target_sprite, "modulate", color.lerp(original_modulate, 0.35), 0.17)
+	flash.tween_property(target_sprite, "modulate", original_modulate, 0.39)
 
 	var base := _sprite_center(target_sprite)
 	for i in range(4):
@@ -198,10 +198,10 @@ static func play_heal_glow(target_sprite: TextureRect, effect_layer: Control) ->
 		mote.modulate.a = 0.0
 		effect_layer.add_child(mote)
 		var tween := mote.create_tween()
-		tween.tween_interval(randf_range(0.0, 0.2))
-		tween.tween_property(mote, "modulate:a", 0.9, 0.15)
-		tween.parallel().tween_property(mote, "position", mote.position + Vector2(0, -46), 0.8).set_trans(Tween.TRANS_SINE)
-		tween.tween_property(mote, "modulate:a", 0.0, 0.3)
+		tween.tween_interval(randf_range(0.0, 0.17))
+		tween.tween_property(mote, "modulate:a", 0.9, 0.14)
+		tween.parallel().tween_property(mote, "position", mote.position + Vector2(0, -46), 0.7).set_trans(Tween.TRANS_SINE)
+		tween.tween_property(mote, "modulate:a", 0.0, 0.25)
 		tween.tween_callback(mote.queue_free)
 
 
@@ -213,8 +213,8 @@ static func play_switch_transition(old_sprite: TextureRect, new_sprite: TextureR
 	if old_sprite != null and is_instance_valid(old_sprite):
 		var old_tween := old_sprite.create_tween()
 		old_tween.set_parallel(true)
-		old_tween.tween_property(old_sprite, "position:y", old_sprite.position.y + 24, 0.4).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
-		old_tween.tween_property(old_sprite, "modulate:a", 0.0, 0.4)
+		old_tween.tween_property(old_sprite, "position:y", old_sprite.position.y + 24, 0.31).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+		old_tween.tween_property(old_sprite, "modulate:a", 0.0, 0.31)
 		old_tween.set_parallel(false)
 		old_tween.tween_callback(old_sprite.queue_free)
 
@@ -223,10 +223,10 @@ static func play_switch_transition(old_sprite: TextureRect, new_sprite: TextureR
 		new_sprite.position.y += 24
 		new_sprite.modulate.a = 0.0
 		var new_tween := new_sprite.create_tween()
-		new_tween.tween_interval(0.25)
+		new_tween.tween_interval(0.2)
 		new_tween.set_parallel(true)
-		new_tween.tween_property(new_sprite, "position", original_pos, 0.45).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-		new_tween.tween_property(new_sprite, "modulate:a", 1.0, 0.45)
+		new_tween.tween_property(new_sprite, "position", original_pos, 0.36).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+		new_tween.tween_property(new_sprite, "modulate:a", 1.0, 0.36)
 
 
 static func _make_ring(center: Vector2, color: Color) -> Control:

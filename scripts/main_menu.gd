@@ -247,27 +247,36 @@ func _add_save_slot(parent: Control, slot: int, y: float) -> void:
 	], Vector2(66, 7), Vector2(132, 68), 11, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "SaveText")
 	slot_button.pressed.connect(Callable(self, "_load_save").bind(slot))
 
+	# Every theme/style override that can affect a Button's minimum size
+	# (font size, stylebox padding) has to land BEFORE .size is assigned -
+	# Control clamps an assigned size up to whatever the minimum size is at
+	# that exact moment, and the default theme's minimum (larger font,
+	# wider default padding) is bigger than these small buttons are meant
+	# to be, so setting .size first got silently inflated back up past it,
+	# which is what made these two buttons overlap.
 	var load_button := Button.new()
 	load_button.name = "LoadSave%d" % slot
 	load_button.text = _text("load")
-	load_button.position = Vector2(206, y + 10)
-	load_button.size = Vector2(58, 30)
 	load_button.focus_mode = Control.FOCUS_NONE
 	load_button.add_theme_font_size_override("font_size", 11)
 	load_button.add_theme_color_override("font_color", UI.PANEL_TEXT)
+	load_button.clip_text = true
 	UI.style_panel_button(load_button, Color(0.95, 0.78, 0.32), Color(0.92, 0.46, 0.08), 2)
+	load_button.position = Vector2(206, y + 10)
+	load_button.size = Vector2(58, 30)
 	parent.add_child(load_button)
 	load_button.pressed.connect(Callable(self, "_load_save").bind(slot))
 
 	var delete_button := Button.new()
 	delete_button.name = "DeleteSave%d" % slot
 	delete_button.text = _text("delete")
-	delete_button.position = Vector2(270, y + 10)
-	delete_button.size = Vector2(58, 30)
 	delete_button.focus_mode = Control.FOCUS_NONE
 	delete_button.add_theme_font_size_override("font_size", 11)
 	delete_button.add_theme_color_override("font_color", Color.WHITE)
+	delete_button.clip_text = true
 	UI.style_panel_button(delete_button, Color(0.74, 0.18, 0.16), Color(0.44, 0.08, 0.08), 2)
+	delete_button.position = Vector2(270, y + 10)
+	delete_button.size = Vector2(58, 30)
 	parent.add_child(delete_button)
 	delete_button.pressed.connect(Callable(self, "_confirm_delete_save").bind(slot))
 
