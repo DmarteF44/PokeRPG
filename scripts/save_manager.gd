@@ -541,6 +541,16 @@ func _backfill_owned_pokemon_instances(save_data: Dictionary) -> void:
 	var owned = save_data.get("owned_pokemon", [])
 	if typeof(owned) != TYPE_ARRAY:
 		return
+	# owned_pokemon is an append-only Pokedex-style history of every species
+	# ever owned, so a species the player owned but later evolved away from
+	# (its team/storage entry's id changed to the evolved species) is
+	# expected to be "owned" with no live instance sharing that id - that is
+	# not data loss and must never be re-materialized as a duplicate. Only
+	# fabricate instances for the genuine recovery case this function exists
+	# for: an old/corrupted save whose roster is completely empty despite a
+	# non-empty owned_pokemon history.
+	if not team.is_empty() or not storage.is_empty():
+		return
 
 	var represented := {}
 	for entry in team:

@@ -1790,13 +1790,29 @@ func _show_evolution_popup(before: Dictionary, after: Dictionary) -> void:
 
 	UI.add_texture(overlay, UI.POPUP_PANEL, Vector2(15, 120), Vector2(330, 360), "Panel", TextureRect.STRETCH_SCALE)
 	UI.add_panel_label(overlay, _text("evolution_start") % before_name, Vector2(38, 150), Vector2(284, 42), 16, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "StartText")
-	PokemonHelpers.add_animated_sprite(overlay, before, Vector2(66, 222), Vector2(78, 78), false, "BeforeSprite")
-	UI.add_panel_label(overlay, "↓", Vector2(160, 234), Vector2(40, 44), 30, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Arrow")
-	PokemonHelpers.add_animated_sprite(overlay, after, Vector2(216, 222), Vector2(78, 78), false, "AfterSprite")
-	UI.add_panel_label(overlay, _text("evolution_done") % [before_name, after_name], Vector2(38, 318), Vector2(284, 58), 15, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "DoneText")
+	# One sprite slot, centered - the "before" sprite transforms in place into
+	# the "after" sprite (see EvolutionAnimation.play) rather than a static
+	# before/after side-by-side, so this reads as an actual transformation.
+	var before_sprite := PokemonHelpers.add_animated_sprite(overlay, before, Vector2(141, 210), Vector2(96, 96), false, "BeforeSprite")
+	var after_sprite := PokemonHelpers.add_animated_sprite(overlay, after, Vector2(141, 210), Vector2(96, 96), false, "AfterSprite")
+	var flash := ColorRect.new()
+	flash.name = "Flash"
+	flash.position = Vector2(141, 210)
+	flash.size = Vector2(96, 96)
+	flash.color = Color(1, 1, 1, 1)
+	flash.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	flash.modulate.a = 0.0
+	overlay.add_child(flash)
+	var done_text := UI.add_panel_label(overlay, _text("evolution_done") % [before_name, after_name], Vector2(38, 318), Vector2(284, 58), 15, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "DoneText")
+	done_text.visible = false
 	var close_callback = func():
 		overlay.queue_free()
-	UI.add_orange_button(overlay, "OK", Vector2(70, 396), Vector2(220, 48), close_callback, "CloseEvolution")
+	var close_button := UI.add_orange_button(overlay, "OK", Vector2(70, 396), Vector2(220, 48), close_callback, "CloseEvolution")
+	close_button.visible = false
+	var reveal := func():
+		done_text.visible = true
+		close_button.visible = true
+	EvolutionAnimation.play(before_sprite, after_sprite, flash, reveal)
 
 
 func _show_move_learn_popup(move_name: String) -> void:
