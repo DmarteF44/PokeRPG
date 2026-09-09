@@ -628,6 +628,7 @@ func _execute_enemy_turn(lines: Array) -> void:
 func _execute_attack(attacker_is_player: bool, move: Dictionary, lines: Array) -> void:
 	var attacker := player_pokemon if attacker_is_player else enemy_pokemon
 	var defender := enemy_pokemon if attacker_is_player else player_pokemon
+	var attacker_sprite := player_sprite if attacker_is_player else enemy_sprite
 	var target_sprite := enemy_sprite if attacker_is_player else player_sprite
 	var attacker_name := str(attacker.get("name", "Pokemon"))
 	var move_name := str(move.get("name", "Move"))
@@ -652,7 +653,7 @@ func _execute_attack(attacker_is_player: bool, move: Dictionary, lines: Array) -
 		else:
 			player_pokemon = defender
 
-		_play_move_feedback(move, target_sprite)
+		_play_move_feedback(move, attacker_sprite, target_sprite)
 		_update_status()
 		lines.append(_text("damage") % damage)
 		if bool(damage_result.get("critical", false)):
@@ -661,6 +662,11 @@ func _execute_attack(attacker_is_player: bool, move: Dictionary, lines: Array) -
 		var effect_line := _effectiveness_message(effectiveness)
 		if effect_line != "":
 			lines.append(effect_line)
+	elif str(move.get("category", "Physical")) == "Status":
+		# Zero-power status moves (Growl, ...) never called _play_move_feedback
+		# above, so without this they had no animation at all - a soft cast
+		# wave on the user, shared by every status move regardless of type.
+		MoveAnimation.play_status_wave(attacker_sprite, battle_effect_layer)
 	_apply_move_effects(attacker_is_player, move, lines)
 
 
@@ -781,6 +787,7 @@ func _apply_move_effects(attacker_is_player: bool, move: Dictionary, lines: Arra
 					_adjust_stat_stage(target_is_player, stat_key, stages)
 					var target_name := str((player_pokemon if target_is_player else enemy_pokemon).get("name", "Pokemon"))
 					lines.append(_text("stat_stage_changed") % [target_name, stat_key])
+					MoveAnimation.play_stat_aura(player_sprite if target_is_player else enemy_sprite, battle_effect_layer, stages > 0)
 			"drain":
 				if str(effect.get("timing", "")) == "end_turn":
 					if target_is_player:
@@ -804,6 +811,7 @@ func _apply_move_effects(attacker_is_player: bool, move: Dictionary, lines: Arra
 						else:
 							enemy_pokemon = target_pokemon
 						lines.append(_text("status_applied") % [target_name, _status_display(status_key)])
+						MoveAnimation.play_status_condition(player_sprite if target_is_player else enemy_sprite, battle_effect_layer, status_key)
 						_update_status()
 					else:
 						lines.append(_text("already_status") % [target_name, _status_display(_normalized_status_key(current_status))])
@@ -1142,59 +1150,29 @@ func _resize_hp_fill(fill: ColorRect, pokemon: Dictionary) -> void:
 	tween.tween_property(fill, "size:x", target_width, 0.35).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
 
-# Simple color-pulse "glow" on the target sprite when a healing item is used -
-# reuses the same tween approach as _play_damage_flash/_play_attack_effect so
-# it needs no new art assets.
-func _play_heal_glow(target_sprite: TextureRect) -> void:
-	if target_sprite == null or not is_instance_valid(target_sprite):
+# Physical moves (Tackle, Scratch, Quick Attack, ...) land instantly, so the
+# impact and the damage flash play together. Special moves (Ember, Water
+# Gun, Ice Beam, Thunderbolt, Vine Whip, Gust, ...) travel from the attacker
+# to the target first - the damage flash is deferred to the moment the
+# projectile actually lands, via MoveAnimation.play_projectile's on_impact
+# callback, instead of flashing before the "attack" visibly arrives.
+func _play_move_feedback(move: Dictionary, attacker_sprite: TextureRect, target_sprite: TextureRect) -> void:
+	var texture := _effect_texture_for_move(move)
+	if texture == null or battle_effect_layer == null or not is_instance_valid(battle_effect_layer):
+		_play_damage_flash(target_sprite)
 		return
-	AudioManager.play_sfx("heal")
-	var original_modulate := target_sprite.modulate
-	var tween := create_tween()
-	tween.tween_property(target_sprite, "modulate", Color(0.55, 1.0, 0.55, 1.0), 0.16)
-	tween.tween_property(target_sprite, "modulate", original_modulate, 0.16)
-	tween.tween_property(target_sprite, "modulate", Color(0.55, 1.0, 0.55, 1.0), 0.16)
-	tween.tween_property(target_sprite, "modulate", original_modulate, 0.16)
+	if str(move.get("category", "Physical")) == "Special":
+		MoveAnimation.play_projectile(attacker_sprite, target_sprite, battle_effect_layer, texture, Callable(self, "_play_damage_flash").bind(target_sprite))
+	else:
+		MoveAnimation.play_impact(target_sprite, battle_effect_layer, texture)
+		_play_damage_flash(target_sprite)
 
 
-func _play_move_feedback(move: Dictionary, target_sprite: TextureRect) -> void:
-	_play_attack_effect(move, target_sprite)
-	_play_damage_flash(target_sprite)
-
-
-func _play_attack_effect(move: Dictionary, target_sprite: TextureRect) -> void:
-	if target_sprite == null or not is_instance_valid(target_sprite):
-		return
-	if battle_effect_layer == null or not is_instance_valid(battle_effect_layer):
-		return
-
+func _effect_texture_for_move(move: Dictionary) -> Texture2D:
 	var effect_path := _effect_path_for_move(move)
 	if not UI.resource_exists(effect_path):
-		return
-	var texture = load(effect_path)
-	if texture == null:
-		return
-
-	var effect := TextureRect.new()
-	effect.name = "MoveEffect"
-	effect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	effect.texture = texture
-	effect.size = Vector2(96, 96)
-	effect.position = target_sprite.position + target_sprite.size * 0.5 - effect.size * 0.5
-	effect.pivot_offset = effect.size * 0.5
-	effect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	effect.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	effect.modulate = Color(1, 1, 1, 0.95)
-	effect.scale = Vector2(0.72, 0.72)
-	battle_effect_layer.add_child(effect)
-
-	var tween := create_tween()
-	tween.set_parallel(true)
-	tween.tween_property(effect, "scale", Vector2(1.26, 1.26), 0.24).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	tween.tween_property(effect, "rotation", randf_range(-0.18, 0.18), 0.24)
-	tween.tween_property(effect, "modulate", Color(1, 1, 1, 0.0), 0.24).set_delay(0.10)
-	tween.set_parallel(false)
-	tween.tween_callback(effect.queue_free)
+		return null
+	return load(effect_path)
 
 
 func _play_damage_flash(target_sprite: TextureRect) -> void:
@@ -1452,6 +1430,10 @@ func _use_bag_item(item_id: String) -> void:
 	InventoryManager.remove_item(item_id, 1)
 	_hide_attack_panel()
 	_update_status()
+	if target_index == player_team_index:
+		# A revive targets a benched, currently-off-screen Pokemon - only the
+		# active player sprite is ever visible to glow.
+		MoveAnimation.play_heal_glow(player_sprite, battle_effect_layer)
 	var lines := [_text("item_used") % [str(target_pokemon.get("name", "Pokemon")), _item_name(item_id)]]
 	_execute_enemy_turn(lines)
 	if _finish_battle_if_needed(lines):
@@ -1470,6 +1452,7 @@ func _use_temp_stat_boost_item(item_id: String, item_data: Dictionary) -> void:
 	var amount := maxi(1, int(item_data.get("effect_value", 1)))
 	_adjust_stat_stage(true, stat_key, amount)
 	_hide_attack_panel()
+	MoveAnimation.play_stat_aura(player_sprite, battle_effect_layer, amount > 0)
 	var lines := [_text("item_used") % [str(player_pokemon.get("name", "Pokemon")), _item_name(item_id)]]
 	lines.append(_text("stat_stage_boosted") % [str(player_pokemon.get("name", "Pokemon")), stat_key.capitalize()])
 	_execute_enemy_turn(lines)
