@@ -579,6 +579,9 @@ var debug_click_count := 0
 var debug_click_deadline_msec := 0
 var debug_enabled := true
 var debug_popup: Control
+# Which debug section is expanded (accordion - only one open at a time, the
+# rest collapse to just their header). "" means all collapsed.
+var debug_expanded_section := ""
 var healing_in_progress := false
 
 
@@ -3092,97 +3095,152 @@ func _show_debug_menu() -> void:
 	content.custom_minimum_size = Vector2(304, 806)
 	scroll.add_child(content)
 
+	# Accordion: every category always shows its header, but only the
+	# expanded one (debug_expanded_section) actually builds its rows below
+	# it - the rest collapse to just their header line. Keeps a menu this
+	# large (10+ categories) from being one long wall of buttons to scroll
+	# through, and makes which category is open unambiguous.
+	var categories := [
+		{"key": "gold", "title": _text("debug_gold"), "build": Callable(self, "_debug_build_gold_rows")},
+		{"key": "account_xp", "title": _text("debug_account_xp"), "build": Callable(self, "_debug_build_account_xp_rows")},
+		{"key": "badges", "title": _text("debug_badges"), "build": Callable(self, "_debug_build_badges_rows")},
+		{"key": "energy", "title": _text("debug_energy"), "build": Callable(self, "_debug_build_energy_rows")},
+		{"key": "pokemon", "title": _text("debug_pokemon"), "build": Callable(self, "_debug_build_pokemon_rows")},
+		{"key": "add_any", "title": _text("debug_add_any_pokemon"), "build": Callable(self, "_add_debug_pokemon_id_input")},
+		{"key": "specialization", "title": _text("debug_specialization"), "build": Callable(self, "_debug_build_specialization_rows")},
+		{"key": "team", "title": _text("debug_team"), "build": Callable(self, "_debug_build_team_rows")},
+		{"key": "level_up_team", "title": _text("debug_level_up_team"), "build": Callable(self, "_add_debug_team_level_rows")},
+		{"key": "variants", "title": _text("debug_variants"), "build": Callable(self, "_debug_build_variants_rows")},
+		{"key": "storage", "title": _text("debug_storage"), "build": Callable(self, "_debug_build_storage_rows")},
+	]
+
 	var y := 0.0
-	y = _add_debug_section(content, _text("debug_gold"), y)
-	y = _add_debug_button_row(content, y, [
-		[_text("debug_add") % "1.000", Callable(self, "_debug_add_money").bind(1000)],
-		[_text("debug_add") % "10.000", Callable(self, "_debug_add_money").bind(10000)],
-	])
-	y = _add_debug_button_row(content, y, [
-		[_text("debug_add") % "100.000", Callable(self, "_debug_add_money").bind(100000)],
-		[_text("debug_add") % "1.000.000", Callable(self, "_debug_add_money").bind(1000000)],
-	])
-	y = _add_debug_section(content, _text("debug_account_xp"), y)
-	y = _add_debug_button_row(content, y, [
-		[_text("debug_add") % "100", Callable(self, "_debug_add_account_xp").bind(100)],
-		[_text("debug_add") % "1.000", Callable(self, "_debug_add_account_xp").bind(1000)],
-	])
-	y = _add_debug_button_row(content, y, [
-		[_text("debug_add") % "10.000", Callable(self, "_debug_add_account_xp").bind(10000)],
-	])
-	y = _add_debug_section(content, _text("debug_badges"), y)
-	y = _add_debug_button_row(content, y, [
-		[_text("debug_add") % "1", Callable(self, "_debug_add_badges").bind(1)],
-		[_text("debug_all_badges"), Callable(self, "_debug_set_badges").bind(8)],
-	])
-	y = _add_debug_button_row(content, y, [
-		[_text("debug_remove_badges"), Callable(self, "_debug_set_badges").bind(0)],
-	])
-	y = _add_debug_section(content, _text("debug_energy"), y)
-	y = _add_debug_button_row(content, y, [
-		[_text("debug_restore_energy"), Callable(self, "_debug_restore_energy")],
-	])
-	y = _add_debug_button_row(content, y, [
-		[_text("debug_add") % "5", Callable(self, "_debug_add_energy").bind(5)],
-		[_text("debug_add") % "10", Callable(self, "_debug_add_energy").bind(10)],
-	])
-	y = _add_debug_button_row(content, y, [
-		[_text("debug_add") % "30", Callable(self, "_debug_add_energy").bind(30)],
-	])
-	y = _add_debug_section(content, _text("debug_pokemon"), y)
-	y = _add_debug_button_row(content, y, [
-		[_text("debug_heal_team"), Callable(self, "_debug_heal_team")],
-		[_text("debug_clear_status"), Callable(self, "_debug_clear_status")],
-	])
-	y = _add_debug_button_row(content, y, [
-		[_text("debug_restore_pp"), Callable(self, "_debug_restore_pp")],
-	])
-	y = _add_debug_button_row(content, y, [
-		[_text("debug_add_bulbasaur"), Callable(self, "_debug_add_pokemon").bind("bulbasaur")],
-	])
-	y = _add_debug_button_row(content, y, [
-		[_text("debug_add_charmander"), Callable(self, "_debug_add_pokemon").bind("charmander")],
-	])
-	y = _add_debug_button_row(content, y, [
-		[_text("debug_add_squirtle"), Callable(self, "_debug_add_pokemon").bind("squirtle")],
-	])
-	y = _add_debug_section(content, _text("debug_add_any_pokemon"), y)
-	y = _add_debug_pokemon_id_input(content, y)
-	y = _add_debug_section(content, _text("debug_specialization"), y)
-	y = _add_debug_button_row(content, y, [
-		[_text("debug_add") % "1", Callable(self, "_debug_add_specialization_points").bind(1)],
-		[_text("debug_add") % "5", Callable(self, "_debug_add_specialization_points").bind(5)],
-	])
-	y = _add_debug_section(content, _text("debug_team"), y)
-	y = _add_debug_button_row(content, y, [
-		[_text("debug_fill_team"), Callable(self, "_debug_fill_team")],
-		[_text("debug_clear_team"), Callable(self, "_debug_clear_team")],
-	])
-	y = _add_debug_section(content, _text("debug_level_up_team"), y)
-	y = _add_debug_team_level_rows(content, y)
-	y = _add_debug_section(content, _text("debug_variants"), y)
-	y = _add_debug_button_row(content, y, [
-		[_text("debug_force_shiny"), Callable(self, "_debug_force_variant").bind("shiny")],
-		[_text("debug_force_black"), Callable(self, "_debug_force_variant").bind("black")],
-	])
-	y = _add_debug_button_row(content, y, [
-		[_text("debug_force_normal"), Callable(self, "_debug_force_variant").bind("normal")],
-		[_text("debug_add") % "shiny_charm", Callable(self, "_debug_add_item_x1").bind("shiny_charm")],
-	])
-	y = _add_debug_section(content, _text("debug_storage"), y)
-	y = _add_debug_button_row(content, y, [
-		[_text("debug_clear_storage"), Callable(self, "_debug_clear_storage")],
-	])
-	y = _add_debug_button_row(content, y, [
-		[_text("debug_starters_storage"), Callable(self, "_debug_add_starters_to_storage")],
-	])
+	for category in categories:
+		var key: String = category["key"]
+		var expanded := debug_expanded_section == key
+		y = _add_debug_accordion_header(content, str(category["title"]), y, expanded, key)
+		if expanded:
+			var build: Callable = category["build"]
+			y = build.call(content, y)
+			y += 6.0
 	content.custom_minimum_size = Vector2(304, y + 12.0)
 
 
-func _add_debug_section(parent: Control, title: String, y: float) -> float:
-	var label := UI.add_panel_label(parent, title, Vector2(0, y), Vector2(296, 24), 14, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "DebugSection%s" % title.replace(" ", ""))
-	_fit_label(label, false)
-	return y + 28.0
+func _add_debug_accordion_header(parent: Control, title: String, y: float, expanded: bool, key: String) -> float:
+	var button := Button.new()
+	button.name = "DebugSection%s" % key.capitalize().replace(" ", "")
+	button.text = "%s %s" % ["▼" if expanded else "▶", title]
+	button.position = Vector2(0, y)
+	button.size = Vector2(296, 32)
+	button.focus_mode = Control.FOCUS_NONE
+	button.alignment = HORIZONTAL_ALIGNMENT_LEFT
+	button.add_theme_font_size_override("font_size", 14)
+	UI.style_panel_button(button, Color(0.90, 0.78, 0.42) if expanded else Color(0.82, 0.88, 0.94), Color(0.92, 0.46, 0.08) if expanded else Color(0.36, 0.50, 0.62), 3 if expanded else 2)
+	parent.add_child(button)
+	button.pressed.connect(Callable(self, "_debug_toggle_section").bind(key))
+	return y + 36.0
+
+
+func _debug_toggle_section(key: String) -> void:
+	debug_expanded_section = "" if debug_expanded_section == key else key
+	_show_debug_menu()
+
+
+func _debug_build_gold_rows(parent: Control, y: float) -> float:
+	y = _add_debug_button_row(parent, y, [
+		[_text("debug_add") % "1.000", Callable(self, "_debug_add_money").bind(1000)],
+		[_text("debug_add") % "10.000", Callable(self, "_debug_add_money").bind(10000)],
+	])
+	return _add_debug_button_row(parent, y, [
+		[_text("debug_add") % "100.000", Callable(self, "_debug_add_money").bind(100000)],
+		[_text("debug_add") % "1.000.000", Callable(self, "_debug_add_money").bind(1000000)],
+	])
+
+
+func _debug_build_account_xp_rows(parent: Control, y: float) -> float:
+	y = _add_debug_button_row(parent, y, [
+		[_text("debug_add") % "100", Callable(self, "_debug_add_account_xp").bind(100)],
+		[_text("debug_add") % "1.000", Callable(self, "_debug_add_account_xp").bind(1000)],
+	])
+	return _add_debug_button_row(parent, y, [
+		[_text("debug_add") % "10.000", Callable(self, "_debug_add_account_xp").bind(10000)],
+	])
+
+
+func _debug_build_badges_rows(parent: Control, y: float) -> float:
+	y = _add_debug_button_row(parent, y, [
+		[_text("debug_add") % "1", Callable(self, "_debug_add_badges").bind(1)],
+		[_text("debug_all_badges"), Callable(self, "_debug_set_badges").bind(8)],
+	])
+	return _add_debug_button_row(parent, y, [
+		[_text("debug_remove_badges"), Callable(self, "_debug_set_badges").bind(0)],
+	])
+
+
+func _debug_build_energy_rows(parent: Control, y: float) -> float:
+	y = _add_debug_button_row(parent, y, [
+		[_text("debug_restore_energy"), Callable(self, "_debug_restore_energy")],
+	])
+	y = _add_debug_button_row(parent, y, [
+		[_text("debug_add") % "5", Callable(self, "_debug_add_energy").bind(5)],
+		[_text("debug_add") % "10", Callable(self, "_debug_add_energy").bind(10)],
+	])
+	return _add_debug_button_row(parent, y, [
+		[_text("debug_add") % "30", Callable(self, "_debug_add_energy").bind(30)],
+	])
+
+
+func _debug_build_pokemon_rows(parent: Control, y: float) -> float:
+	y = _add_debug_button_row(parent, y, [
+		[_text("debug_heal_team"), Callable(self, "_debug_heal_team")],
+		[_text("debug_clear_status"), Callable(self, "_debug_clear_status")],
+	])
+	y = _add_debug_button_row(parent, y, [
+		[_text("debug_restore_pp"), Callable(self, "_debug_restore_pp")],
+	])
+	y = _add_debug_button_row(parent, y, [
+		[_text("debug_add_bulbasaur"), Callable(self, "_debug_add_pokemon").bind("bulbasaur")],
+	])
+	y = _add_debug_button_row(parent, y, [
+		[_text("debug_add_charmander"), Callable(self, "_debug_add_pokemon").bind("charmander")],
+	])
+	return _add_debug_button_row(parent, y, [
+		[_text("debug_add_squirtle"), Callable(self, "_debug_add_pokemon").bind("squirtle")],
+	])
+
+
+func _debug_build_specialization_rows(parent: Control, y: float) -> float:
+	return _add_debug_button_row(parent, y, [
+		[_text("debug_add") % "1", Callable(self, "_debug_add_specialization_points").bind(1)],
+		[_text("debug_add") % "5", Callable(self, "_debug_add_specialization_points").bind(5)],
+	])
+
+
+func _debug_build_team_rows(parent: Control, y: float) -> float:
+	return _add_debug_button_row(parent, y, [
+		[_text("debug_fill_team"), Callable(self, "_debug_fill_team")],
+		[_text("debug_clear_team"), Callable(self, "_debug_clear_team")],
+	])
+
+
+func _debug_build_variants_rows(parent: Control, y: float) -> float:
+	y = _add_debug_button_row(parent, y, [
+		[_text("debug_force_shiny"), Callable(self, "_debug_force_variant").bind("shiny")],
+		[_text("debug_force_black"), Callable(self, "_debug_force_variant").bind("black")],
+	])
+	return _add_debug_button_row(parent, y, [
+		[_text("debug_force_normal"), Callable(self, "_debug_force_variant").bind("normal")],
+		[_text("debug_add") % "shiny_charm", Callable(self, "_debug_add_item_x1").bind("shiny_charm")],
+	])
+
+
+func _debug_build_storage_rows(parent: Control, y: float) -> float:
+	y = _add_debug_button_row(parent, y, [
+		[_text("debug_clear_storage"), Callable(self, "_debug_clear_storage")],
+	])
+	return _add_debug_button_row(parent, y, [
+		[_text("debug_starters_storage"), Callable(self, "_debug_add_starters_to_storage")],
+	])
 
 
 func _add_debug_button_row(parent: Control, y: float, actions: Array) -> float:
