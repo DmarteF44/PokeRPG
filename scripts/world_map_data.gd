@@ -11,6 +11,13 @@ const DEFAULT_NOTHING_CHANCE = 25.0
 const DEFAULT_ITEM_CHANCE = 20.0
 const MAP_ENCOUNTERS_PATH = "res://data/map_encounters.json"
 
+# Kept deliberately rare per the expansion request ("nao tornar Shiny/Black
+# garantido facilmente") - Black stays rarer than Shiny by default. Both are
+# base rates; variant_modifiers (see _roll_variant) can raise them
+# temporarily via items, but never guarantees a hit.
+const SHINY_BASE_CHANCE := 1.0 / 512.0
+const BLACK_BASE_CHANCE := 1.0 / 1024.0
+
 static var _map_encounters_cache := {}
 
 static func _map_definitions() -> Array:
@@ -179,7 +186,7 @@ static func meets_requirements(save_data: Dictionary, map_data: Dictionary) -> b
 	return max(1, int(save_data.get("level", 1))) >= int(map_data.get("min_level", 1)) and int(save_data.get("badges", 0)) >= int(map_data.get("min_badges", 0))
 
 
-static func roll_exploration(map_key: String) -> Dictionary:
+static func roll_exploration(map_key: String, variant_modifiers: Dictionary = {}) -> Dictionary:
 	var map_data := map_for_key(map_key)
 	var nothing_chance := clampf(float(map_data.get("nothing_chance", DEFAULT_NOTHING_CHANCE)), 0.0, 100.0)
 	if randf() * 100.0 < nothing_chance:
@@ -195,18 +202,18 @@ static func roll_exploration(map_key: String) -> Dictionary:
 				"amount": maxi(1, int(item.get("amount", 1))),
 			}
 
-	var pokemon := _roll_pokemon_encounter(map_data)
+	var pokemon := _roll_pokemon_encounter(map_data, variant_modifiers)
 	if pokemon.is_empty():
 		return {"type": "nothing"}
 	return {"type": "pokemon", "pokemon": pokemon}
 
 
-static func roll_encounter(map_key: String) -> Dictionary:
+static func roll_encounter(map_key: String, variant_modifiers: Dictionary = {}) -> Dictionary:
 	var map_data := map_for_key(map_key)
-	return _roll_pokemon_encounter(map_data)
+	return _roll_pokemon_encounter(map_data, variant_modifiers)
 
 
-static func _roll_pokemon_encounter(map_data: Dictionary) -> Dictionary:
+static func _roll_pokemon_encounter(map_data: Dictionary, variant_modifiers: Dictionary = {}) -> Dictionary:
 	var table: Array = map_data.get("encounters", [])
 	if table.is_empty():
 		return {}
@@ -217,10 +224,12 @@ static func _roll_pokemon_encounter(map_data: Dictionary) -> Dictionary:
 	if entry.has("pokemon_id"):
 		var pokemon_id := str(entry.get("pokemon_id", ""))
 		if pokemon_id != "" and PokemonHelpers.is_available(pokemon_id):
-			return _starter_pokemon(pokemon_id, maxi(1, int(entry.get("level", 5))))
+			return _starter_pokemon(pokemon_id, maxi(1, int(entry.get("level", 5))), variant_modifiers)
 	var pokemon = entry.get("pokemon", {})
 	if typeof(pokemon) == TYPE_DICTIONARY:
-		return _complete_pokemon_model(pokemon)
+		var completed := _complete_pokemon_model(pokemon)
+		_roll_variant(completed, variant_modifiers)
+		return completed
 	return {}
 
 
@@ -437,10 +446,22 @@ static func _lava_item_table() -> Array:
 	]
 
 
-static func _starter_pokemon(pokemon_id: String, level: int) -> Dictionary:
+# variant_modifiers is built by the caller (ForestMap) from save state this
+# file deliberately doesn't touch directly (active Shiny/Black Charm boosts,
+# the "encontro" specialization) - see ForestMap._variant_modifiers(). Kept
+# as plain multipliers so this stays a pure roll with no side effects.
+static func _roll_variant(pokemon: Dictionary, variant_modifiers: Dictionary) -> void:
+	var shiny_multiplier := maxf(1.0, float(variant_modifiers.get("shiny_multiplier", 1.0)))
+	var black_multiplier := maxf(1.0, float(variant_modifiers.get("black_multiplier", 1.0)))
+	pokemon["shiny"] = randf() < SHINY_BASE_CHANCE * shiny_multiplier
+	pokemon["black"] = randf() < BLACK_BASE_CHANCE * black_multiplier
+
+
+static func _starter_pokemon(pokemon_id: String, level: int, variant_modifiers: Dictionary = {}) -> Dictionary:
 	var pokemon := PokemonHelpers.starter_save_data(pokemon_id)
 	pokemon["level"] = maxi(1, level)
-	var stats := PokemonHelpers.stats_for_level(pokemon_id, int(pokemon["level"]))
+	_roll_variant(pokemon, variant_modifiers)
+	var stats := PokemonHelpers.stats_for_level(pokemon_id, int(pokemon["level"]), bool(pokemon.get("black", false)))
 	pokemon["max_hp"] = int(stats.get("max_hp", pokemon.get("max_hp", 1)))
 	pokemon["hp"] = int(pokemon["max_hp"])
 	pokemon["attack"] = int(stats.get("attack", pokemon.get("attack", 1)))

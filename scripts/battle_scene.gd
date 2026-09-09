@@ -280,7 +280,8 @@ func _ready() -> void:
 		message_label.text = _text("no_ready_pokemon")
 		_add_return_button()
 		return
-	var opening := _text("trainer_appeared") % [str(enemy_pokemon.get("trainer_name", "Trainer")), str(enemy_pokemon.get("name", "Pokemon"))] if _is_trainer_battle() else _text("wild_appeared") % str(enemy_pokemon.get("name", "Wild Dummy"))
+	var variant_tag := PokemonHelpers.variant_tag(enemy_pokemon)
+	var opening := _text("trainer_appeared") % [str(enemy_pokemon.get("trainer_name", "Trainer")), str(enemy_pokemon.get("name", "Pokemon")) + variant_tag] if _is_trainer_battle() else _text("wild_appeared") % (str(enemy_pokemon.get("name", "Wild Dummy")) + variant_tag)
 	message_label.text = "%s\n%s\n%s" % [
 		opening,
 		_text("go") % str(player_pokemon.get("name", "Pokemon")),
@@ -359,6 +360,8 @@ func _normalize_enemy_pokemon(value: Dictionary) -> Dictionary:
 		"nickname": str(value.get("nickname", "")),
 		"name": str(value.get("name", "Pokemon")),
 		"level": max(1, int(value.get("level", 3))),
+		"shiny": bool(value.get("shiny", false)),
+		"black": bool(value.get("black", false)),
 		"hp": hp,
 		"max_hp": max_hp,
 		"attack": max(1, int(value.get("attack", 8))),
@@ -1017,7 +1020,7 @@ func _victory_trainer_xp() -> int:
 	var amount := maxi(2, int(level / 2) + 1)
 	if _is_trainer_battle():
 		amount = int(round(amount * 1.5))
-	return amount
+	return int(round(amount * PokemonHelpers.variant_reward_multiplier(enemy_pokemon)))
 
 
 # Player-progress facts a PokeRPG-adapted evolution condition (badge count,
@@ -1592,7 +1595,8 @@ func _capture_enemy() -> Dictionary:
 func _capture_trainer_xp(captured: Dictionary) -> int:
 	var catch_rate := clampf(float(captured.get("catch_rate", DEFAULT_WILD_CATCH_RATE)), 1.0, 255.0)
 	var level := maxi(1, int(captured.get("level", 1)))
-	return maxi(5, int((255.0 - catch_rate) / 8.0) + level)
+	var base := maxi(5, int((255.0 - catch_rate) / 8.0) + level)
+	return int(round(base * PokemonHelpers.variant_reward_multiplier(captured)))
 
 
 func _merged_pokemon_ids(value, pokemon_id: String) -> Array:

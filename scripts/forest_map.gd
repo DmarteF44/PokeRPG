@@ -270,7 +270,7 @@ func _explore_map() -> void:
 		return
 
 	var next_energy: int = max(0, energy_current - 1)
-	var exploration_result := WorldMapData.roll_exploration(current_map_key)
+	var exploration_result := WorldMapData.roll_exploration(current_map_key, _variant_modifiers())
 	var changes: Dictionary = {
 		"energy_current": next_energy,
 		"current_map": current_map_key,
@@ -448,7 +448,7 @@ func _resolve_fishing() -> void:
 		_show_center_result(_text("fish_escaped"), Color.WHITE)
 		return
 
-	var exploration_result := WorldMapData.roll_encounter(current_map_key)
+	var exploration_result := WorldMapData.roll_encounter(current_map_key, _variant_modifiers())
 	current_encounter = exploration_result
 	if current_encounter.is_empty():
 		_show_center_result(_text("fish_escaped"), Color.WHITE)
@@ -526,6 +526,22 @@ func _item_display_name(item_id: String) -> String:
 func _update_energy_label() -> void:
 	if energy_label != null and is_instance_valid(energy_label):
 		energy_label.text = _energy_text()
+
+
+# Shiny/Black rarity boosts (a timed Charm item, plus a small passive nudge
+# from the "encontro" specialization) live in save_data, not in
+# WorldMapData (kept a pure data/roll module with no save-state access) -
+# built here and passed into every roll_exploration/roll_encounter call.
+func _variant_modifiers() -> Dictionary:
+	var now := int(Time.get_unix_time_from_system())
+	var encounter_bonus := 1.0 + float(SaveManager.specialization_points("encontro")) * 0.01
+	var shiny_multiplier := encounter_bonus
+	if int(save_data.get("shiny_boost_until", 0)) > now:
+		shiny_multiplier *= 4.0
+	var black_multiplier := encounter_bonus
+	if int(save_data.get("black_boost_until", 0)) > now:
+		black_multiplier *= 3.0
+	return {"shiny_multiplier": shiny_multiplier, "black_multiplier": black_multiplier}
 
 
 func _energy_text() -> String:

@@ -278,6 +278,7 @@ static func normalize_pokemon(value: Dictionary, fallback_id: String = DEFAULT_S
 	normalized["ability"] = str(definition.get("ability", normalized.get("ability", "Unknown")))
 	normalized["gender"] = str(normalized.get("gender", definition.get("gender", "Unknown")))
 	normalized["shiny"] = bool(normalized.get("shiny", false))
+	normalized["black"] = bool(normalized.get("black", false))
 	normalized["types"] = _normalized_types(definition.get("types", normalized.get("types", ["Fire"])))
 	normalized["max_hp"] = maxi(1, int(normalized.get("max_hp", base_stats.get("hp", 39))))
 	normalized["hp"] = clampi(int(normalized.get("hp", normalized["max_hp"])), 0, int(normalized["max_hp"]))
@@ -344,18 +345,26 @@ static func xp_to_next_level_for(level: int) -> int:
 	return 0 if safe_level >= MAX_LEVEL else safe_level * 100
 
 
-static func stats_for_level(pokemon_id: String, level: int) -> Dictionary:
+const BLACK_STAT_BONUS := 0.12
+
+# is_black applies a flat stat bonus (see VARIANTS.md / section 26 of the
+# expansion request: "mais forte, mas nao destruir o jogo") on top of the
+# normal level curve. Always recomputed from the pure base curve here rather
+# than multiplying a previously-stored stat value, so calling this again
+# (e.g. on every level-up recalculation) can never compound the bonus.
+static func stats_for_level(pokemon_id: String, level: int, is_black: bool = false) -> Dictionary:
 	var definition := get_definition(pokemon_id)
 	var base_stats: Dictionary = definition.get("base_stats", {})
 	var safe_level := clampi(level, 1, MAX_LEVEL)
 	var bonus_level := maxi(0, safe_level - 5)
+	var multiplier := 1.0 + BLACK_STAT_BONUS if is_black else 1.0
 	return {
-		"max_hp": maxi(1, int(base_stats.get("hp", 39)) + bonus_level * 3),
-		"attack": maxi(1, int(base_stats.get("attack", 50)) + int(floor(float(bonus_level) * float(base_stats.get("attack", 50)) / 50.0))),
-		"defense": maxi(1, int(base_stats.get("defense", 45)) + int(floor(float(bonus_level) * float(base_stats.get("defense", 45)) / 50.0))),
-		"sp_attack": maxi(1, int(base_stats.get("sp_attack", 50)) + int(floor(float(bonus_level) * float(base_stats.get("sp_attack", 50)) / 50.0))),
-		"sp_defense": maxi(1, int(base_stats.get("sp_defense", 50)) + int(floor(float(bonus_level) * float(base_stats.get("sp_defense", 50)) / 50.0))),
-		"speed": maxi(1, int(base_stats.get("speed", 50)) + int(floor(float(bonus_level) * float(base_stats.get("speed", 50)) / 50.0))),
+		"max_hp": maxi(1, int(round((int(base_stats.get("hp", 39)) + bonus_level * 3) * multiplier))),
+		"attack": maxi(1, int(round((int(base_stats.get("attack", 50)) + int(floor(float(bonus_level) * float(base_stats.get("attack", 50)) / 50.0))) * multiplier))),
+		"defense": maxi(1, int(round((int(base_stats.get("defense", 45)) + int(floor(float(bonus_level) * float(base_stats.get("defense", 45)) / 50.0))) * multiplier))),
+		"sp_attack": maxi(1, int(round((int(base_stats.get("sp_attack", 50)) + int(floor(float(bonus_level) * float(base_stats.get("sp_attack", 50)) / 50.0))) * multiplier))),
+		"sp_defense": maxi(1, int(round((int(base_stats.get("sp_defense", 50)) + int(floor(float(bonus_level) * float(base_stats.get("sp_defense", 50)) / 50.0))) * multiplier))),
+		"speed": maxi(1, int(round((int(base_stats.get("speed", 50)) + int(floor(float(bonus_level) * float(base_stats.get("speed", 50)) / 50.0))) * multiplier))),
 	}
 
 
@@ -646,7 +655,58 @@ static func add_animated_sprite(parent: Node, pokemon: Dictionary, pos: Vector2,
 
 	var frames := frame_textures(str(pokemon.get("id", DEFAULT_STARTER_ID)), use_back)
 	texture_rect.set_frames(frames, _fallback_texture(pokemon), ANIMATION_FPS)
+	texture_rect.material = variant_material(pokemon)
 	return texture_rect
+
+
+const SHINY_SHADER_PATH = "res://assets/shaders/pokemon_shiny.gdshader"
+const BLACK_SHADER_PATH = "res://assets/shaders/pokemon_black.gdshader"
+static var _shiny_material: ShaderMaterial
+static var _black_material: ShaderMaterial
+
+# One shared ShaderMaterial per variant (not per-Pokemon) - the same shader
+# recolors any species' existing sprite at render time, so a future
+# generation gets Shiny/Black for free the moment its sprites are wired in,
+# with no per-species or per-generation code. Returns null for a normal
+# Pokemon (no material override, cheapest case).
+# Short text badge for name labels that can't rely on the shader-recolored
+# sprite alone to convey variant (list rows, small icons). Black takes
+# precedence when a Pokemon somehow rolled both (see variant_material).
+static func variant_tag(pokemon: Dictionary) -> String:
+	if bool(pokemon.get("black", false)):
+		return " ◆Black"
+	if bool(pokemon.get("shiny", false)):
+		return " ✨"
+	return ""
+
+
+# Modest, configurable XP/value bonus for a rarer catch - deliberately
+# small (see "nao exagerar" in the expansion request) since Black already
+# gets a stat bonus (stats_for_level's BLACK_STAT_BONUS) and Shiny is
+# purely cosmetic by design (rarity and power are kept separate).
+const SHINY_REWARD_BONUS := 0.10
+const BLACK_REWARD_BONUS := 0.25
+
+static func variant_reward_multiplier(pokemon: Dictionary) -> float:
+	if bool(pokemon.get("black", false)):
+		return 1.0 + BLACK_REWARD_BONUS
+	if bool(pokemon.get("shiny", false)):
+		return 1.0 + SHINY_REWARD_BONUS
+	return 1.0
+
+
+static func variant_material(pokemon: Dictionary):
+	if bool(pokemon.get("black", false)):
+		if _black_material == null:
+			_black_material = ShaderMaterial.new()
+			_black_material.shader = load(BLACK_SHADER_PATH)
+		return _black_material
+	if bool(pokemon.get("shiny", false)):
+		if _shiny_material == null:
+			_shiny_material = ShaderMaterial.new()
+			_shiny_material.shader = load(SHINY_SHADER_PATH)
+		return _shiny_material
+	return null
 
 
 static func frame_textures(pokemon_id: String, use_back: bool = false) -> Array:
@@ -1338,7 +1398,7 @@ static func _species_id_from_value(value: Dictionary, fallback_id: String) -> St
 
 static func _recalculate_stats(pokemon: Dictionary, old_max_hp_override: int = -1) -> void:
 	var old_max_hp := old_max_hp_override if old_max_hp_override > 0 else int(pokemon.get("max_hp", 1))
-	var new_stats := stats_for_level(str(pokemon.get("id", DEFAULT_STARTER_ID)), int(pokemon.get("level", 1)))
+	var new_stats := stats_for_level(str(pokemon.get("id", DEFAULT_STARTER_ID)), int(pokemon.get("level", 1)), bool(pokemon.get("black", false)))
 	var boosts := _normalized_stat_boosts(pokemon.get("stat_boosts", {}))
 	var new_max_hp := mini(stat_limit("max_hp"), int(new_stats.get("max_hp", old_max_hp)) + int(boosts.get("max_hp", 0)))
 	pokemon["max_hp"] = new_max_hp
