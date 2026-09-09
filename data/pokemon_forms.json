@@ -283,6 +283,66 @@
       "Grass"
     ]
   },
+  "deoxys-attack": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/deoxys-attack/back/",
+    "back_gif_source": "imgi_722_deoxys-attack.gif",
+    "base_species": "deoxys",
+    "category": "special",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/deoxys-attack/front/",
+    "front_gif_source": "imgi_360_deoxys-attack.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/deoxys-attack.png",
+    "name_en": "Deoxys (Attack Forme)",
+    "name_pt": "Deoxys (Forma Ataque)",
+    "region": "",
+    "short_label": "Attack",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "deoxys-defense": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/deoxys-defense/back/",
+    "back_gif_source": "imgi_724_deoxys-defense.gif",
+    "base_species": "deoxys",
+    "category": "special",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/deoxys-defense/front/",
+    "front_gif_source": "imgi_362_deoxys-defense.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/deoxys-defense.png",
+    "name_en": "Deoxys (Defense Forme)",
+    "name_pt": "Deoxys (Forma Defesa)",
+    "region": "",
+    "short_label": "Defense",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "deoxys-speed": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/deoxys-speed/back/",
+    "back_gif_source": "imgi_726_deoxys-speed.gif",
+    "base_species": "deoxys",
+    "category": "special",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/deoxys-speed/front/",
+    "front_gif_source": "imgi_364_deoxys-speed.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/deoxys-speed.png",
+    "name_en": "Deoxys (Speed Forme)",
+    "name_pt": "Deoxys (Forma Velocidade)",
+    "region": "",
+    "short_label": "Speed",
+    "types": [
+      "Psychic"
+    ]
+  },
   "diglett-alola": {
     "back_frame_count": 8,
     "back_frames_path": "res://assets/pokemon/forms/diglett-alola/back/",
@@ -345,6 +405,186 @@
       "Fighting"
     ]
   },
+  "furfrou-dandy": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/furfrou-dandy/back/",
+    "back_gif_source": "imgi_392_furfrou-dandy.gif",
+    "base_species": "furfrou",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/furfrou-dandy/front/",
+    "front_gif_source": "imgi_136_furfrou-dandy.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/furfrou-dandy.png",
+    "name_en": "Furfrou (Dandy Trim)",
+    "name_pt": "Furfrou (Dândi)",
+    "region": "",
+    "short_label": "Dandy",
+    "types": [
+      "Normal"
+    ]
+  },
+  "furfrou-debutante": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/furfrou-debutante/back/",
+    "back_gif_source": "imgi_388_furfrou-debutante.gif",
+    "base_species": "furfrou",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/furfrou-debutante/front/",
+    "front_gif_source": "imgi_132_furfrou-debutante.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/furfrou-debutante.png",
+    "name_en": "Furfrou (Debutante Trim)",
+    "name_pt": "Furfrou (Debutante)",
+    "region": "",
+    "short_label": "Debutante",
+    "types": [
+      "Normal"
+    ]
+  },
+  "furfrou-diamond": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/furfrou-diamond/back/",
+    "back_gif_source": "imgi_386_furfrou-diamond.gif",
+    "base_species": "furfrou",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/furfrou-diamond/front/",
+    "front_gif_source": "imgi_130_furfrou-diamond.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/furfrou-diamond.png",
+    "name_en": "Furfrou (Diamond Trim)",
+    "name_pt": "Furfrou (Diamante)",
+    "region": "",
+    "short_label": "Diamond",
+    "types": [
+      "Normal"
+    ]
+  },
+  "furfrou-heart": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/furfrou-heart/back/",
+    "back_gif_source": "imgi_382_furfrou-heart.gif",
+    "base_species": "furfrou",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/furfrou-heart/front/",
+    "front_gif_source": "imgi_126_furfrou-heart.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/furfrou-heart.png",
+    "name_en": "Furfrou (Heart Trim)",
+    "name_pt": "Furfrou (Coração)",
+    "region": "",
+    "short_label": "Heart",
+    "types": [
+      "Normal"
+    ]
+  },
+  "furfrou-kabuki": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/furfrou-kabuki/back/",
+    "back_gif_source": "imgi_396_furfrou-kabuki.gif",
+    "base_species": "furfrou",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/furfrou-kabuki/front/",
+    "front_gif_source": "imgi_140_furfrou-kabuki.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/furfrou-kabuki.png",
+    "name_en": "Furfrou (Kabuki Trim)",
+    "name_pt": "Furfrou (Kabuki)",
+    "region": "",
+    "short_label": "Kabuki",
+    "types": [
+      "Normal"
+    ]
+  },
+  "furfrou-lareine": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/furfrou-lareine/back/",
+    "back_gif_source": "imgi_394_furfrou-lareine.gif",
+    "base_species": "furfrou",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/furfrou-lareine/front/",
+    "front_gif_source": "imgi_138_furfrou-lareine.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/furfrou-lareine.png",
+    "name_en": "Furfrou (La Reine Trim)",
+    "name_pt": "Furfrou (La Reine)",
+    "region": "",
+    "short_label": "La Reine",
+    "types": [
+      "Normal"
+    ]
+  },
+  "furfrou-matron": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/furfrou-matron/back/",
+    "back_gif_source": "imgi_390_furfrou-matron.gif",
+    "base_species": "furfrou",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/furfrou-matron/front/",
+    "front_gif_source": "imgi_134_furfrou-matron.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/furfrou-matron.png",
+    "name_en": "Furfrou (Matron Trim)",
+    "name_pt": "Furfrou (Matrona)",
+    "region": "",
+    "short_label": "Matron",
+    "types": [
+      "Normal"
+    ]
+  },
+  "furfrou-pharaoh": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/furfrou-pharaoh/back/",
+    "back_gif_source": "imgi_398_furfrou-pharaoh.gif",
+    "base_species": "furfrou",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/furfrou-pharaoh/front/",
+    "front_gif_source": "imgi_142_furfrou-pharaoh.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/furfrou-pharaoh.png",
+    "name_en": "Furfrou (Pharaoh Trim)",
+    "name_pt": "Furfrou (Faraó)",
+    "region": "",
+    "short_label": "Pharaoh",
+    "types": [
+      "Normal"
+    ]
+  },
+  "furfrou-star": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/furfrou-star/back/",
+    "back_gif_source": "imgi_384_furfrou-star.gif",
+    "base_species": "furfrou",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/furfrou-star/front/",
+    "front_gif_source": "imgi_128_furfrou-star.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/furfrou-star.png",
+    "name_en": "Furfrou (Star Trim)",
+    "name_pt": "Furfrou (Estrela)",
+    "region": "",
+    "short_label": "Star",
+    "types": [
+      "Normal"
+    ]
+  },
   "gastrodon-east": {
     "back_frame_count": 8,
     "back_frames_path": "res://assets/pokemon/forms/gastrodon-east/back/",
@@ -364,6 +604,27 @@
     "types": [
       "Water",
       "Ground"
+    ]
+  },
+  "keldeo-resolute": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/keldeo-resolute/back/",
+    "back_gif_source": "imgi_712_keldeo-resolute.gif",
+    "base_species": "keldeo",
+    "category": "special",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/keldeo-resolute/front/",
+    "front_gif_source": "imgi_350_keldeo-resolute.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/keldeo-resolute.png",
+    "name_en": "Keldeo (Resolute Form)",
+    "name_pt": "Keldeo (Forma Resoluta)",
+    "region": "",
+    "short_label": "Resolute",
+    "types": [
+      "Water",
+      "Fighting"
     ]
   },
   "linoone-galar": {
@@ -904,6 +1165,546 @@
       "Steel"
     ]
   },
+  "unown-bravo": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/unown-bravo/back/",
+    "back_gif_source": "imgi_436_unown-bravo.gif",
+    "base_species": "unown",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/unown-bravo/front/",
+    "front_gif_source": "imgi_126_unown-bravo.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/unown-bravo.png",
+    "name_en": "Unown (B)",
+    "name_pt": "Unown (B)",
+    "region": "",
+    "short_label": "B",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "unown-charlie": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/unown-charlie/back/",
+    "back_gif_source": "imgi_438_unown-charlie.gif",
+    "base_species": "unown",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/unown-charlie/front/",
+    "front_gif_source": "imgi_128_unown-charlie.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/unown-charlie.png",
+    "name_en": "Unown (C)",
+    "name_pt": "Unown (C)",
+    "region": "",
+    "short_label": "C",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "unown-delta": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/unown-delta/back/",
+    "back_gif_source": "imgi_440_unown-delta.gif",
+    "base_species": "unown",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/unown-delta/front/",
+    "front_gif_source": "imgi_130_unown-delta.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/unown-delta.png",
+    "name_en": "Unown (D)",
+    "name_pt": "Unown (D)",
+    "region": "",
+    "short_label": "D",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "unown-echo": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/unown-echo/back/",
+    "back_gif_source": "imgi_442_unown-echo.gif",
+    "base_species": "unown",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/unown-echo/front/",
+    "front_gif_source": "imgi_132_unown-echo.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/unown-echo.png",
+    "name_en": "Unown (E)",
+    "name_pt": "Unown (E)",
+    "region": "",
+    "short_label": "E",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "unown-exclamation": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/unown-exclamation/back/",
+    "back_gif_source": "imgi_488_unown-exclamation.gif",
+    "base_species": "unown",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/unown-exclamation/front/",
+    "front_gif_source": "imgi_178_unown-exclamation.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/unown-exclamation.png",
+    "name_en": "Unown (!)",
+    "name_pt": "Unown (!)",
+    "region": "",
+    "short_label": "!",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "unown-foxtrot": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/unown-foxtrot/back/",
+    "back_gif_source": "imgi_444_unown-foxtrot.gif",
+    "base_species": "unown",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/unown-foxtrot/front/",
+    "front_gif_source": "imgi_134_unown-foxtrot.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/unown-foxtrot.png",
+    "name_en": "Unown (F)",
+    "name_pt": "Unown (F)",
+    "region": "",
+    "short_label": "F",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "unown-golf": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/unown-golf/back/",
+    "back_gif_source": "imgi_446_unown-golf.gif",
+    "base_species": "unown",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/unown-golf/front/",
+    "front_gif_source": "imgi_136_unown-golf.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/unown-golf.png",
+    "name_en": "Unown (G)",
+    "name_pt": "Unown (G)",
+    "region": "",
+    "short_label": "G",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "unown-hotel": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/unown-hotel/back/",
+    "back_gif_source": "imgi_448_unown-hotel.gif",
+    "base_species": "unown",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/unown-hotel/front/",
+    "front_gif_source": "imgi_138_unown-hotel.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/unown-hotel.png",
+    "name_en": "Unown (H)",
+    "name_pt": "Unown (H)",
+    "region": "",
+    "short_label": "H",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "unown-india": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/unown-india/back/",
+    "back_gif_source": "imgi_450_unown-india.gif",
+    "base_species": "unown",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/unown-india/front/",
+    "front_gif_source": "imgi_140_unown-india.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/unown-india.png",
+    "name_en": "Unown (I)",
+    "name_pt": "Unown (I)",
+    "region": "",
+    "short_label": "I",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "unown-interrogation": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/unown-interrogation/back/",
+    "back_gif_source": "imgi_486_unown-interrogation.gif",
+    "base_species": "unown",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/unown-interrogation/front/",
+    "front_gif_source": "imgi_176_unown-interrogation.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/unown-interrogation.png",
+    "name_en": "Unown (?)",
+    "name_pt": "Unown (?)",
+    "region": "",
+    "short_label": "?",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "unown-juliet": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/unown-juliet/back/",
+    "back_gif_source": "imgi_452_unown-juliet.gif",
+    "base_species": "unown",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/unown-juliet/front/",
+    "front_gif_source": "imgi_142_unown-juliet.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/unown-juliet.png",
+    "name_en": "Unown (J)",
+    "name_pt": "Unown (J)",
+    "region": "",
+    "short_label": "J",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "unown-kilo": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/unown-kilo/back/",
+    "back_gif_source": "imgi_454_unown-kilo.gif",
+    "base_species": "unown",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/unown-kilo/front/",
+    "front_gif_source": "imgi_144_unown-kilo.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/unown-kilo.png",
+    "name_en": "Unown (K)",
+    "name_pt": "Unown (K)",
+    "region": "",
+    "short_label": "K",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "unown-lima": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/unown-lima/back/",
+    "back_gif_source": "imgi_456_unown-lima.gif",
+    "base_species": "unown",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/unown-lima/front/",
+    "front_gif_source": "imgi_146_unown-lima.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/unown-lima.png",
+    "name_en": "Unown (L)",
+    "name_pt": "Unown (L)",
+    "region": "",
+    "short_label": "L",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "unown-mike": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/unown-mike/back/",
+    "back_gif_source": "imgi_458_unown-mike.gif",
+    "base_species": "unown",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/unown-mike/front/",
+    "front_gif_source": "imgi_148_unown-mike.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/unown-mike.png",
+    "name_en": "Unown (M)",
+    "name_pt": "Unown (M)",
+    "region": "",
+    "short_label": "M",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "unown-november": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/unown-november/back/",
+    "back_gif_source": "imgi_460_unown-november.gif",
+    "base_species": "unown",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/unown-november/front/",
+    "front_gif_source": "imgi_150_unown-november.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/unown-november.png",
+    "name_en": "Unown (N)",
+    "name_pt": "Unown (N)",
+    "region": "",
+    "short_label": "N",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "unown-oscar": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/unown-oscar/back/",
+    "back_gif_source": "imgi_462_unown-oscar.gif",
+    "base_species": "unown",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/unown-oscar/front/",
+    "front_gif_source": "imgi_152_unown-oscar.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/unown-oscar.png",
+    "name_en": "Unown (O)",
+    "name_pt": "Unown (O)",
+    "region": "",
+    "short_label": "O",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "unown-papa": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/unown-papa/back/",
+    "back_gif_source": "imgi_464_unown-papa.gif",
+    "base_species": "unown",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/unown-papa/front/",
+    "front_gif_source": "imgi_154_unown-papa.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/unown-papa.png",
+    "name_en": "Unown (P)",
+    "name_pt": "Unown (P)",
+    "region": "",
+    "short_label": "P",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "unown-quebec": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/unown-quebec/back/",
+    "back_gif_source": "imgi_466_unown-quebec.gif",
+    "base_species": "unown",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/unown-quebec/front/",
+    "front_gif_source": "imgi_156_unown-quebec.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/unown-quebec.png",
+    "name_en": "Unown (Q)",
+    "name_pt": "Unown (Q)",
+    "region": "",
+    "short_label": "Q",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "unown-romeo": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/unown-romeo/back/",
+    "back_gif_source": "imgi_468_unown-romeo.gif",
+    "base_species": "unown",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/unown-romeo/front/",
+    "front_gif_source": "imgi_158_unown-romeo.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/unown-romeo.png",
+    "name_en": "Unown (R)",
+    "name_pt": "Unown (R)",
+    "region": "",
+    "short_label": "R",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "unown-sierra": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/unown-sierra/back/",
+    "back_gif_source": "imgi_470_unown-sierra.gif",
+    "base_species": "unown",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/unown-sierra/front/",
+    "front_gif_source": "imgi_160_unown-sierra.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/unown-sierra.png",
+    "name_en": "Unown (S)",
+    "name_pt": "Unown (S)",
+    "region": "",
+    "short_label": "S",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "unown-tango": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/unown-tango/back/",
+    "back_gif_source": "imgi_472_unown-tango.gif",
+    "base_species": "unown",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/unown-tango/front/",
+    "front_gif_source": "imgi_162_unown-tango.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/unown-tango.png",
+    "name_en": "Unown (T)",
+    "name_pt": "Unown (T)",
+    "region": "",
+    "short_label": "T",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "unown-uniform": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/unown-uniform/back/",
+    "back_gif_source": "imgi_474_unown-uniform.gif",
+    "base_species": "unown",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/unown-uniform/front/",
+    "front_gif_source": "imgi_164_unown-uniform.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/unown-uniform.png",
+    "name_en": "Unown (U)",
+    "name_pt": "Unown (U)",
+    "region": "",
+    "short_label": "U",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "unown-victor": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/unown-victor/back/",
+    "back_gif_source": "imgi_476_unown-victor.gif",
+    "base_species": "unown",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/unown-victor/front/",
+    "front_gif_source": "imgi_166_unown-victor.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/unown-victor.png",
+    "name_en": "Unown (V)",
+    "name_pt": "Unown (V)",
+    "region": "",
+    "short_label": "V",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "unown-whiskey": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/unown-whiskey/back/",
+    "back_gif_source": "imgi_478_unown-whiskey.gif",
+    "base_species": "unown",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/unown-whiskey/front/",
+    "front_gif_source": "imgi_168_unown-whiskey.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/unown-whiskey.png",
+    "name_en": "Unown (W)",
+    "name_pt": "Unown (W)",
+    "region": "",
+    "short_label": "W",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "unown-xray": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/unown-xray/back/",
+    "back_gif_source": "imgi_480_unown-xray.gif",
+    "base_species": "unown",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/unown-xray/front/",
+    "front_gif_source": "imgi_170_unown-xray.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/unown-xray.png",
+    "name_en": "Unown (X)",
+    "name_pt": "Unown (X)",
+    "region": "",
+    "short_label": "X",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "unown-yankee": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/unown-yankee/back/",
+    "back_gif_source": "imgi_482_unown-yankee.gif",
+    "base_species": "unown",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/unown-yankee/front/",
+    "front_gif_source": "imgi_172_unown-yankee.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/unown-yankee.png",
+    "name_en": "Unown (Y)",
+    "name_pt": "Unown (Y)",
+    "region": "",
+    "short_label": "Y",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "unown-zulu": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/unown-zulu/back/",
+    "back_gif_source": "imgi_484_unown-zulu.gif",
+    "base_species": "unown",
+    "category": "costume",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/unown-zulu/front/",
+    "front_gif_source": "imgi_174_unown-zulu.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/unown-zulu.png",
+    "name_en": "Unown (Z)",
+    "name_pt": "Unown (Z)",
+    "region": "",
+    "short_label": "Z",
+    "types": [
+      "Psychic"
+    ]
+  },
   "vulpix-alola": {
     "back_frame_count": 1,
     "back_frames_path": "res://assets/pokemon/forms/vulpix-alola/back/",
@@ -1027,6 +1828,48 @@
     "types": [
       "Dark",
       "Normal"
+    ]
+  },
+  "zygarde-10": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/zygarde-10/back/",
+    "back_gif_source": "imgi_502_zygarde-10.gif",
+    "base_species": "zygarde",
+    "category": "special",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/zygarde-10/front/",
+    "front_gif_source": "imgi_246_zygarde-10.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/zygarde-10.png",
+    "name_en": "Zygarde (10% Forme)",
+    "name_pt": "Zygarde (Forma 10%)",
+    "region": "",
+    "short_label": "10%",
+    "types": [
+      "Dragon",
+      "Ground"
+    ]
+  },
+  "zygarde-complete": {
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/forms/zygarde-complete/back/",
+    "back_gif_source": "imgi_504_zygarde-complete.gif",
+    "base_species": "zygarde",
+    "category": "special",
+    "evolves_to_form": "",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/forms/zygarde-complete/front/",
+    "front_gif_source": "imgi_248_zygarde-complete.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/forms/icons/zygarde-complete.png",
+    "name_en": "Zygarde (Complete Forme)",
+    "name_pt": "Zygarde (Forma Completa)",
+    "region": "",
+    "short_label": "Complete",
+    "types": [
+      "Dragon",
+      "Ground"
     ]
   }
 }

@@ -168,6 +168,7 @@ const TEXT = {
 		"debug_give_mega_stone": "Give Mega Stone",
 		"debug_force_gmax_factor": "Toggle Gmax Factor",
 		"debug_give_z_crystal": "Give Z-Crystal",
+		"debug_give_item_form": "Give Item Form",
 		"debug_evolved": "Evolved: %s -> %s",
 		"debug_could_learn": "Could learn %s (use Moves to add it)",
 		"debug_moves": "Moves",
@@ -457,6 +458,7 @@ const TEXT = {
 		"debug_give_mega_stone": "Dar Mega Stone",
 		"debug_force_gmax_factor": "Alternar Fator Gigantamax",
 		"debug_give_z_crystal": "Dar Z-Crystal",
+		"debug_give_item_form": "Dar Forma por Item",
 		"debug_evolved": "Evoluiu: %s -> %s",
 		"debug_could_learn": "Poderia aprender %s (use Movimentos para adicionar)",
 		"debug_moves": "Movimentos",
@@ -1970,7 +1972,7 @@ func _add_collection_details(parent: Control, y: float) -> float:
 		return y + 64.0
 
 	var is_black := bool(pokemon.get("black", false))
-	var can_give_mega_stone := not PokemonHelpers.megas_for_species(str(pokemon.get("id", ""))).is_empty()
+	var can_give_mega_stone := not PokemonHelpers.megas_for_species(str(pokemon.get("id", ""))).is_empty() or not PokemonHelpers.item_forms_for_species(str(pokemon.get("id", ""))).is_empty()
 	var has_held_item := str(pokemon.get("held_item", "")) != ""
 	var show_held_item_row := has_held_item or can_give_mega_stone or _owns_any_z_crystal()
 	var extra_rows := (1 if show_held_item_row else 0) + (1 if is_black else 0)
@@ -2177,6 +2179,15 @@ func _show_mega_stone_picker(source: String, index: int) -> void:
 	for item in items:
 		if typeof(item) == TYPE_DICTIONARY and str(item.get("effect_type", "")) == "z_crystal" and InventoryManager.get_item_amount(str(item.get("id", ""))) > 0:
 			owned_stones.append(item)
+	# Item Forms (Arceus's Plates, Genesect's Drives, Giratina/Shaymin/
+	# Hoopa's special items) take effect the instant they're held (see
+	# PokemonHelpers.item_form_for_held_item) - offered here the same way
+	# a Mega Stone is, species-matched.
+	for item_form_id in PokemonHelpers.item_forms_for_species(str(pokemon.get("id", ""))):
+		var item_form_def := PokemonHelpers.item_form_definition(item_form_id)
+		var item_form_item_id := str(item_form_def.get("item_id", ""))
+		if item_form_item_id != "" and InventoryManager.get_item_amount(item_form_item_id) > 0:
+			owned_stones.append(_item_by_id(item_form_item_id))
 	if owned_stones.is_empty():
 		UI.show_message_popup(self, _text("give_item"), _text("no_mega_stones_owned"))
 		return
@@ -3506,6 +3517,9 @@ func _debug_build_variants_rows(parent: Control, y: float) -> float:
 		[_text("debug_give_z_crystal"), Callable(self, "_debug_give_z_crystal")],
 		[_text("debug_add") % "tera_orb", Callable(self, "_debug_add_item_x1").bind("tera_orb")],
 	])
+	y = _add_debug_button_row(parent, y, [
+		[_text("debug_give_item_form"), Callable(self, "_debug_give_item_form")],
+	])
 	return _add_debug_button_row(parent, y, [
 		[_text("debug_add") % "shiny_charm", Callable(self, "_debug_add_item_x1").bind("shiny_charm")],
 	])
@@ -3659,6 +3673,29 @@ func _debug_give_mega_stone() -> void:
 		return
 	var mega_def := PokemonHelpers.mega_definition(mega_ids[0])
 	var item_id := str(mega_def.get("item_id", ""))
+	InventoryManager.add_item(item_id, 1)
+	pokemon["held_item"] = item_id
+	team[0] = pokemon
+	_update_debug_save({"team": team})
+	UI.show_message_popup(self, _text("debug_variants"), "%s: %s" % [str(pokemon.get("name", "")), _item_name(_item_by_id(item_id))])
+
+
+# Debug-only shortcut: hands over the first team member's species' first
+# known Item Form item (an Arceus Plate, a Genesect Drive, ...) and equips
+# it as the held item - useful together with the "add any Pokemon by id"
+# debug input to test e.g. "arceus" + a Plate without hunting the shop.
+func _debug_give_item_form() -> void:
+	var team := _team()
+	if team.is_empty() or typeof(team[0]) != TYPE_DICTIONARY:
+		UI.show_message_popup(self, _text("debug_variants"), _text("debug_no_change"))
+		return
+	var pokemon: Dictionary = PokemonHelpers.normalize_pokemon(team[0])
+	var item_form_ids := PokemonHelpers.item_forms_for_species(str(pokemon.get("id", "")))
+	if item_form_ids.is_empty():
+		UI.show_message_popup(self, _text("debug_variants"), _text("no_mega_stones_owned"))
+		return
+	var item_form_def := PokemonHelpers.item_form_definition(item_form_ids[0])
+	var item_id := str(item_form_def.get("item_id", ""))
 	InventoryManager.add_item(item_id, 1)
 	pokemon["held_item"] = item_id
 	team[0] = pokemon
