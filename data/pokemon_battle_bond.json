@@ -1,11 +1,11 @@
 {
   "greninja-battle-bond": {
     "ability": "Battle Bond",
-    "back_frame_count": 24,
+    "back_frame_count": 12,
     "back_frames_path": "res://assets/pokemon/battle_bond/greninja-battle-bond/back/",
     "back_gif_source": "imgi_278_greninja-active.gif",
     "base_species": "greninja",
-    "front_frame_count": 24,
+    "front_frame_count": 12,
     "front_frames_path": "res://assets/pokemon/battle_bond/greninja-battle-bond/front/",
     "front_gif_source": "imgi_22_greninja-active.gif",
     "has_animation": true,

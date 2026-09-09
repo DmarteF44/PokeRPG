@@ -11,15 +11,34 @@ Gen 1 sources (front/back gif numbers always differ by exactly 433) and
 confirmed to hold for Gen 2 (310) and Gen 3 (362) with the same detection
 method used here (mode of front/back index deltas per species).
 
-Frame counts in the source GIFs run 20-90+ frames per direction; the APK
-no longer needs to fit under GitHub's git-push size limit (the compiled
-build ships via GitHub Releases instead of being committed to the repo -
-see releases/ being gitignored), so MAX_FRAMES was raised from the
-earlier 8-frame pass to noticeably smoother animation instead of staying
-size-constrained. Frames are still evenly subsampled down to MAX_FRAMES
-per direction rather than keeping every source frame, since some species'
-GIFs run 90+ frames and there's still a sane ceiling on PNG file count/
-import time even without a hard size wall.
+Frame counts in the source GIFs run 20-90+ frames per direction. MAX_FRAMES
+is NOT just a quality/size dial - it's capped by a hard technical ceiling in
+this environment's Android build pipeline. Godot's non-gradle Android export
+mode gives each imported PNG two ZIP entries (a compiled assets/.godot/
+imported/*.ctex plus a required assets/*.png.import remap sidecar - see
+scripts/tools/build_android_release.sh for why the sidecar can't be
+stripped), and the whole APK's ZIP entry count must stay under the classic
+65535 cap: past that, Zip64 format kicks in, and every apksigner available
+here - and, it turns out, Android's own on-device package parser, which
+shares the same Zip64-handling code - fails to read the file at all ("As
+the package appears to be invalid" on install, no signing scheme fixes it).
+MAX_FRAMES=24 produced ~107k total entries and every install failed; testing
+narrowed the safe ceiling to MAX_FRAMES=12 (~55k entries, real margin under
+the cap). Raise this only after re-deriving that math for the current asset
+count, and rebuild+verify entry count BEFORE handing off an APK.
+
+LOWERING MAX_FRAMES after a higher-count run has already been extracted
+leaves orphaned res://....png.import sidecars behind for the now-deleted
+higher-numbered frames (save_frames() only clears frames it's about to
+rewrite in that same run, and Godot never wrote those .import files itself -
+they're the editor's own artifacts from a prior import pass, so it's the
+only thing that can prune them). Before re-exporting, delete every
+*.import file under assets/ whose corresponding source file no longer
+exists, then delete .godot/imported/ and run a headless editor pass
+(`godot --headless --editor --quit-after 480`, adjust the timeout for the
+asset count) to force a clean reimport - otherwise the orphaned files get
+bundled into the APK for nothing, right back over the entry-count cap this
+constant exists to stay under.
 
 Usage: python3 extract_generation_sprites.py <gen_number>
 """
@@ -41,7 +60,7 @@ from PIL import Image, ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 ROOT = Path(__file__).resolve().parents[2]
-MAX_FRAMES = 24
+MAX_FRAMES = 12
 ICON_SIZE = 96
 
 NAME_RE = re.compile(r"^imgi_(\d+)_(.+)\.(gif|png|jpg|jpeg|svg)$", re.IGNORECASE)
