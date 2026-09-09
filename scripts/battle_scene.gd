@@ -87,6 +87,8 @@ const TEXT = {
 		"damage": "Damage: %d",
 		"enemy_fainted": "Enemy fainted!",
 		"your_fainted": "Your Pokemon fainted!",
+		"switch_fainted_tag": "Fainted",
+		"switch_active_tag": "In battle",
 		"choose_next": "Choose another Pokemon.",
 		"no_ready_pokemon": "No Pokemon is ready to battle.",
 		"xp_gain": "%s gained 25 XP!",
@@ -97,6 +99,7 @@ const TEXT = {
 		"move_learn_wants": "%s wants to learn %s!",
 		"move_learn_full": "But %s already knows 4 moves. Choose a move to forget, or give up learning %s.",
 		"move_learn_replaced": "%s forgot %s and learned %s!",
+		"move_learn_already_known": "%s already knows %s!",
 		"move_learn_cancelled": "%s did not learn %s.",
 		"give_up_learning": "Give Up",
 		"no_pp": "No PP left.",
@@ -159,6 +162,8 @@ const TEXT = {
 		"damage": "Dano: %d",
 		"enemy_fainted": "O inimigo desmaiou!",
 		"your_fainted": "Seu Pokémon desmaiou!",
+		"switch_fainted_tag": "Desmaiado",
+		"switch_active_tag": "Em batalha",
 		"choose_next": "Escolha outro Pokémon.",
 		"no_ready_pokemon": "Nenhum Pokémon está pronto para batalhar.",
 		"xp_gain": "%s ganhou 25 XP!",
@@ -169,6 +174,7 @@ const TEXT = {
 		"move_learn_wants": "%s quer aprender %s!",
 		"move_learn_full": "Mas %s já conhece 4 golpes. Escolha um golpe para esquecer, ou desista de aprender %s.",
 		"move_learn_replaced": "%s esqueceu %s e aprendeu %s!",
+		"move_learn_already_known": "%s já conhece %s!",
 		"move_learn_cancelled": "%s não aprendeu %s.",
 		"give_up_learning": "Desistir",
 		"no_pp": "Sem PP suficientes.",
@@ -976,6 +982,19 @@ func _gym_victory_result() -> Dictionary:
 	}
 
 
+# Trainer XP earned for winning a battle (independent of whether the enemy is
+# captured afterward - previously only captures granted trainer XP, so a
+# player who battled without catching never leveled up or earned
+# specialization points). Scales with the enemy's level; trainer/gym
+# opponents are harder to reach and pay out more.
+func _victory_trainer_xp() -> int:
+	var level := maxi(1, int(enemy_pokemon.get("level", 1)))
+	var amount := maxi(2, int(level / 2) + 1)
+	if _is_trainer_battle():
+		amount = int(round(amount * 1.5))
+	return amount
+
+
 func _grant_victory_xp() -> String:
 	var player_name := str(player_pokemon.get("name", "Pokemon"))
 	var training_bonus := 1.0 + float(SaveManager.specialization_points("treinamento")) * 0.02
@@ -985,6 +1004,11 @@ func _grant_victory_xp() -> String:
 	var level_ups: Array = xp_result.get("level_ups", [])
 	for level in level_ups:
 		lines.append(_text("level_up") % [player_name, int(level)])
+
+	var trainer_xp_result := SaveManager.grant_trainer_xp(_victory_trainer_xp())
+	var trainer_level_ups: Array = trainer_xp_result.get("level_ups", [])
+	for trainer_level in trainer_level_ups:
+		lines.append(_text("trainer_level_up") % int(trainer_level))
 
 	var evolutions: Array = xp_result.get("evolutions", [])
 	for evolution in evolutions:
@@ -1070,8 +1094,26 @@ func _resize_hp_fill(fill: ColorRect, pokemon: Dictionary) -> void:
 	var max_hp: int = max(1, int(pokemon.get("max_hp", 1)))
 	var hp: int = clampi(int(pokemon.get("hp", max_hp)), 0, max_hp)
 	var ratio: float = float(hp) / float(max_hp)
-	fill.size = Vector2(142.0 * ratio, fill.size.y)
 	fill.color = Color(0.24, 0.85, 0.24) if ratio > 0.5 else Color(0.95, 0.75, 0.18) if ratio > 0.2 else Color(0.88, 0.20, 0.16)
+	var target_width := 142.0 * ratio
+	if is_equal_approx(fill.size.x, target_width):
+		return
+	var tween := create_tween()
+	tween.tween_property(fill, "size:x", target_width, 0.35).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+
+
+# Simple color-pulse "glow" on the target sprite when a healing item is used -
+# reuses the same tween approach as _play_damage_flash/_play_attack_effect so
+# it needs no new art assets.
+func _play_heal_glow(target_sprite: TextureRect) -> void:
+	if target_sprite == null or not is_instance_valid(target_sprite):
+		return
+	var original_modulate := target_sprite.modulate
+	var tween := create_tween()
+	tween.tween_property(target_sprite, "modulate", Color(0.55, 1.0, 0.55, 1.0), 0.16)
+	tween.tween_property(target_sprite, "modulate", original_modulate, 0.16)
+	tween.tween_property(target_sprite, "modulate", Color(0.55, 1.0, 0.55, 1.0), 0.16)
+	tween.tween_property(target_sprite, "modulate", original_modulate, 0.16)
 
 
 func _play_move_feedback(move: Dictionary, target_sprite: TextureRect) -> void:
@@ -1086,7 +1128,7 @@ func _play_attack_effect(move: Dictionary, target_sprite: TextureRect) -> void:
 		return
 
 	var effect_path := _effect_path_for_move(move)
-	if effect_path == "" or not FileAccess.file_exists(effect_path):
+	if not UI.resource_exists(effect_path):
 		return
 	var texture = load(effect_path)
 	if texture == null:
@@ -1224,22 +1266,37 @@ func _show_pokemon() -> void:
 			continue
 		var pokemon: Dictionary = PokemonHelpers.normalize_pokemon(team[i])
 		var pos := Vector2(28.0 + float(i % 2) * 164.0, 506.0 + float(int(i / 2)) * 34.0)
-		var button_text := "%s %s%d\n%s %d/%d" % [
+		var max_hp := maxi(1, int(pokemon.get("max_hp", 1)))
+		var hp := clampi(int(pokemon.get("hp", 0)), 0, max_hp)
+		var fainted := hp <= 0
+		var status_key := _normalized_status_key(pokemon.get("status_condition", ""))
+		var tag := ""
+		if i == player_team_index:
+			tag = " • %s" % _text("switch_active_tag")
+		elif fainted:
+			tag = " • %s" % _text("switch_fainted_tag")
+		elif status_key != "":
+			tag = " • %s" % _status_display(status_key)
+		var button_text := "%s%s %s%d\n%s %d/%d" % [
 			str(pokemon.get("name", "Pokemon")),
+			tag,
 			_text("level"),
 			int(pokemon.get("level", 1)),
 			_text("hp"),
-			int(pokemon.get("hp", 0)),
-			int(pokemon.get("max_hp", 1)),
+			hp,
+			max_hp,
 		]
 		var button := UI.add_orange_button(attack_panel, button_text, pos, Vector2(140, 30), Callable(self, "_switch_pokemon").bind(i), "Switch%d" % i)
 		var label = button.get_node_or_null("Text")
 		if label is Label:
 			label.add_theme_font_size_override("font_size", 10)
-		var disabled := i == player_team_index or int(pokemon.get("hp", 0)) <= 0 or PokemonHelpers.is_healing(pokemon)
+		var disabled := i == player_team_index or fainted or PokemonHelpers.is_healing(pokemon)
 		if disabled:
 			button.disabled = true
 			button.modulate = Color(0.62, 0.62, 0.62, 0.9)
+		var hp_ratio := float(hp) / float(max_hp)
+		var hp_color := Color(0.24, 0.85, 0.24) if hp_ratio > 0.5 else (Color(0.95, 0.78, 0.20) if hp_ratio > 0.2 else Color(0.90, 0.24, 0.24))
+		UI.add_ratio_bar(attack_panel, pos + Vector2(0, 30), Vector2(140, 3), hp_ratio, hp_color, Color(0.05, 0.05, 0.05, 0.85), "SwitchHp%d" % i)
 	UI.add_orange_button(attack_panel, _text("back"), Vector2(192, 610), Vector2(140, 24), Callable(self, "_hide_attack_panel"), "Back")
 
 
@@ -1478,7 +1535,7 @@ func _play_capture_feedback(item_id: String, shakes: int, caught: bool) -> void:
 	if battle_effect_layer == null or not is_instance_valid(battle_effect_layer):
 		return
 	var texture_path := "res://assets/items/pokeballs/%s.png" % item_id
-	if not FileAccess.file_exists(texture_path):
+	if not UI.resource_exists(texture_path):
 		return
 	var ball := TextureRect.new()
 	ball.name = "CaptureBall"
@@ -1702,6 +1759,18 @@ func _resolve_move_learn(overlay: Control, slot: int, new_move: Dictionary) -> v
 	if slot < 0 or slot >= moves.size():
 		overlay.queue_free()
 		return
+	var new_name := str(new_move.get("name", ""))
+	for i in range(moves.size()):
+		if i == slot:
+			continue
+		var other: Dictionary = moves[i] if typeof(moves[i]) == TYPE_DICTIONARY else {}
+		if str(other.get("name", "")) == new_name:
+			# The same move was already learned into another slot (e.g. queued
+			# twice by grant_xp across two level-ups before either was resolved) -
+			# never write a second copy of an identical move.
+			message_label.text = "%s\n%s" % [message_label.text, _text("move_learn_already_known") % [str(player_pokemon.get("name", "Pokemon")), new_name]]
+			overlay.queue_free()
+			return
 	var old_move: Dictionary = moves[slot] if typeof(moves[slot]) == TYPE_DICTIONARY else {}
 	var old_name := str(old_move.get("name", "Move"))
 	moves[slot] = new_move

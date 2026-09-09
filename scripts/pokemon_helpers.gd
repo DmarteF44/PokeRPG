@@ -458,6 +458,11 @@ static func grant_xp(pokemon: Dictionary, amount: int) -> Dictionary:
 
 	result["xp_gained"] = amount
 	updated["xp"] = int(updated.get("xp", 0)) + amount
+	# Persists across every level-up processed in this single grant_xp call so a
+	# move already queued for a pending learn-choice (still absent from the
+	# actual moves array, since it isn't written until the player accepts) is
+	# never queued a second time if a later level in the same call also learns it.
+	var queued_names := {}
 	while int(updated.get("level", 1)) < MAX_LEVEL:
 		var required := xp_to_next_level_for(int(updated.get("level", 1)))
 		if required <= 0 or int(updated.get("xp", 0)) < required:
@@ -477,12 +482,13 @@ static func grant_xp(pokemon: Dictionary, amount: int) -> Dictionary:
 		var slots_free := maxi(0, MAX_MOVE_SLOTS - pre_level_moves.size())
 		var pending_learns: Array = result["pending_move_learns"]
 		for move_name in newly_learnable:
-			if known_names.has(move_name):
+			if known_names.has(move_name) or queued_names.has(move_name):
 				continue
 			if slots_free > 0:
 				slots_free -= 1
 				known_names[move_name] = true
 				continue
+			queued_names[move_name] = true
 			pending_learns.append({
 				"pokemon_id": str(updated.get("id", DEFAULT_STARTER_ID)),
 				"move_name": move_name,
@@ -502,6 +508,34 @@ static func grant_xp(pokemon: Dictionary, amount: int) -> Dictionary:
 			var evolutions: Array = result["evolutions"]
 			evolutions.append({"from": before, "to": updated.duplicate(true)})
 			result["evolutions"] = evolutions
+
+			# evolve_pokemon()/normalize_pokemon() only fill empty move slots, so
+			# any move the evolved species should already know at this level (e.g.
+			# Charmeleon's level-15 Leer on a Charmander that evolves at 16 with a
+			# full moveset) is otherwise silently and permanently lost. Offer it
+			# through the same pending-learn popup as a normal level-up move instead.
+			var evolved_moves: Array = updated.get("moves", [])
+			if evolved_moves.size() >= MAX_MOVE_SLOTS:
+				var evolved_known := {}
+				for move in evolved_moves:
+					var known_move_name := str(move.get("name", "")) if typeof(move) == TYPE_DICTIONARY else str(move)
+					if known_move_name != "":
+						evolved_known[known_move_name] = true
+				var evolved_id := str(updated.get("id", DEFAULT_STARTER_ID))
+				var evolved_level := int(updated.get("level", 1))
+				var evolved_pending: Array = result["pending_move_learns"]
+				for move in moves_for(evolved_id, evolved_level):
+					var move_name := str(move.get("name", "")) if typeof(move) == TYPE_DICTIONARY else str(move)
+					if move_name == "" or evolved_known.has(move_name) or queued_names.has(move_name):
+						continue
+					queued_names[move_name] = true
+					evolved_pending.append({
+						"pokemon_id": evolved_id,
+						"move_name": move_name,
+						"level": evolved_level,
+					})
+				result["pending_move_learns"] = evolved_pending
+
 			evolution_target = _evolution_target_for_level(updated)
 
 	if int(updated.get("level", 1)) >= MAX_LEVEL:
@@ -652,13 +686,27 @@ static func available_species_ids() -> Array:
 	return result
 
 
+# Godot's Android (and any non-gradle) export ships imported textures as
+# .import remap + compiled .ctex cache only - the raw source .png is not
+# bundled, so FileAccess.file_exists() on a res:// image path is always
+# false there even though the resource loads fine. ResourceLoader.exists()
+# checks the resource system (respecting .import remaps) instead of the
+# raw filesystem, so it works correctly on every platform; FileAccess is
+# kept only as a fallback for the rare loose/non-imported file case.
+static func _resource_path_exists(path: String) -> bool:
+	return path != "" and (ResourceLoader.exists(path) or FileAccess.file_exists(path))
+
+
 static func _textures_from_folder(folder: String) -> Array:
 	var textures := []
 	if folder == "":
 		return textures
-	for index in range(0, 160):
+	# Loop breaks on the first missing frame index, so this cap only needs to
+	# exceed the longest animation on disk (weezing's front animation has 239
+	# frames) - it is not a per-species budget.
+	for index in range(0, 256):
 		var path := "%s%03d.png" % [folder, index]
-		if not FileAccess.file_exists(path):
+		if not _resource_path_exists(path):
 			if index == 0:
 				return textures
 			break
@@ -669,12 +717,14 @@ static func _textures_from_folder(folder: String) -> Array:
 
 
 static func _texture_from_png(path: String) -> Texture2D:
-	if path == "" or not FileAccess.file_exists(path):
+	if path == "":
 		return null
-	if FileAccess.file_exists("%s.import" % path):
+	if ResourceLoader.exists(path):
 		var imported_texture = load(path)
 		if imported_texture != null:
 			return imported_texture
+	if not FileAccess.file_exists(path):
+		return null
 	var image := Image.new()
 	var err := image.load(path)
 	if err != OK:
@@ -694,7 +744,7 @@ static func _fallback_texture(pokemon: Dictionary) -> Texture2D:
 		"res://assets/sprites/sprite_charmander_96.png",
 	]
 	for path in candidates:
-		if path != "" and FileAccess.file_exists(path):
+		if _resource_path_exists(path):
 			var texture := _texture_from_png(path)
 			if texture != null:
 				return texture
@@ -911,16 +961,16 @@ static func _with_asset_paths(definition: Dictionary) -> Dictionary:
 				definition[key] = assets[key]
 	if str(definition.get("icon_path", "")) == "":
 		for icon_path in ["res://assets/pokemon/icons/%s.png" % pokemon_id, "res://assets/pokemon/icons/gen_%d/%s.png" % [generation, pokemon_id]]:
-			if FileAccess.file_exists(icon_path):
+			if _resource_path_exists(icon_path):
 				definition["icon_path"] = icon_path
 				break
 	if str(definition.get("front_frames_path", "")) == "":
 		var front_path := "res://assets/pokemon/battle/animated/gen_%d/front/%s/" % [generation, pokemon_id]
-		if FileAccess.file_exists("%s000.png" % front_path):
+		if _resource_path_exists("%s000.png" % front_path):
 			definition["front_frames_path"] = front_path
 	if str(definition.get("back_frames_path", "")) == "":
 		var back_path := "res://assets/pokemon/battle/animated/gen_%d/back/%s/" % [generation, pokemon_id]
-		if FileAccess.file_exists("%s000.png" % back_path):
+		if _resource_path_exists("%s000.png" % back_path):
 			definition["back_frames_path"] = back_path
 	return definition
 

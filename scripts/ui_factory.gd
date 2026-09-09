@@ -13,6 +13,31 @@ static func setup_screen(root: Control) -> void:
 	root.size = SCREEN_SIZE
 
 
+static func add_ratio_bar(parent: Node, pos: Vector2, node_size: Vector2, ratio: float, fill_color: Color, bg_color: Color, node_name: String) -> ColorRect:
+	var bg := ColorRect.new()
+	bg.name = "%sBarBack" % node_name
+	bg.position = pos
+	bg.size = node_size
+	bg.color = bg_color
+	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	parent.add_child(bg)
+
+	var fill := ColorRect.new()
+	fill.name = "%sBarFill" % node_name
+	fill.position = pos + Vector2(1, 1)
+	fill.size = Vector2(maxf(0.0, (node_size.x - 2.0) * clampf(ratio, 0.0, 1.0)), node_size.y - 2.0)
+	fill.color = fill_color
+	fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	parent.add_child(fill)
+	return fill
+
+
+static func set_ratio_bar_value(fill: ColorRect, full_width: float, ratio: float) -> void:
+	if fill == null or not is_instance_valid(fill):
+		return
+	fill.size = Vector2(maxf(0.0, full_width * clampf(ratio, 0.0, 1.0)), fill.size.y)
+
+
 static func add_background(parent: Node) -> TextureRect:
 	var bg := add_texture(parent, BACKGROUND, Vector2.ZERO, SCREEN_SIZE, "GrayBackground", TextureRect.STRETCH_SCALE)
 	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -23,10 +48,43 @@ static func add_topbar(parent: Node) -> TextureRect:
 	return add_texture(parent, TOPBAR, Vector2.ZERO, Vector2(360, 44), "Topbar", TextureRect.STRETCH_SCALE)
 
 
+# Godot's Android (and any non-gradle) export ships imported textures as an
+# .import remap + compiled .ctex cache only - the raw source .png is never
+# bundled - so FileAccess.file_exists() on a res:// image path is always
+# false there even though the resource loads fine. ResourceLoader.exists()
+# checks the resource system itself (respecting .import remaps) instead of
+# the raw filesystem, so it gives the right answer on every platform.
+# FileAccess is kept as a fallback for real, non-imported files such as a
+# runtime-written user:// image, which ResourceLoader doesn't recognize.
+static func resource_exists(path: String) -> bool:
+	return path != "" and (ResourceLoader.exists(path) or FileAccess.file_exists(path))
+
+
+static func load_texture(path: String) -> Texture2D:
+	if path == "":
+		return null
+	if ResourceLoader.exists(path):
+		var texture = load(path)
+		if texture != null:
+			return texture
+	if not FileAccess.file_exists(path):
+		return null
+	# Raw, non-imported file (e.g. a user:// image saved at runtime by the
+	# app itself): the generic ResourceLoader has no loader for a bare
+	# image file outside the import system, so decode it manually.
+	var image := Image.new()
+	var err := image.load(path)
+	if err != OK:
+		err = image.load(ProjectSettings.globalize_path(path))
+	if err != OK:
+		return null
+	return ImageTexture.create_from_image(image)
+
+
 static func add_texture(parent: Node, path: String, pos: Vector2, node_size: Vector2, node_name: String, stretch_mode: int) -> TextureRect:
 	var texture_rect := TextureRect.new()
 	texture_rect.name = node_name
-	texture_rect.texture = load(path)
+	texture_rect.texture = load_texture(path)
 	texture_rect.position = pos
 	texture_rect.size = node_size
 	texture_rect.stretch_mode = stretch_mode
@@ -61,8 +119,9 @@ static func add_panel_label(parent: Node, text: String, pos: Vector2, node_size:
 static func add_icon_button(parent: Node, icon_path: String, pos: Vector2, callback: Callable, node_name: String) -> TextureButton:
 	var button := TextureButton.new()
 	button.name = node_name
-	button.texture_normal = load(icon_path)
-	button.texture_pressed = load(icon_path)
+	var icon_texture := load_texture(icon_path)
+	button.texture_normal = icon_texture
+	button.texture_pressed = icon_texture
 	button.position = pos
 	button.size = Vector2(32, 32)
 	button.ignore_texture_size = true

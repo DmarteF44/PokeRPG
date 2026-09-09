@@ -413,7 +413,7 @@ func _add_custom_avatar_button(parent: Control, pos: Vector2) -> void:
 	custom_avatar_button = button
 
 	var custom_path := CUSTOM_AVATAR_PATH if FileAccess.file_exists(CUSTOM_AVATAR_PATH) else "res://assets/avatars/avatar_card_custom_image.png"
-	if custom_path != "" and FileAccess.file_exists(custom_path):
+	if UI.resource_exists(custom_path):
 		_add_texture_from_path(button, custom_path, Vector2(17, 7), Vector2(58, 58), "AvatarImage")
 	else:
 		var swatch := ColorRect.new()
@@ -442,7 +442,7 @@ func _add_starter_button(parent: Control, starter: Dictionary, pos: Vector2) -> 
 	starter_buttons.append(button)
 
 	var sprite_path := str(starter.get("sprite", ""))
-	if sprite_path != "" and FileAccess.file_exists(sprite_path):
+	if UI.resource_exists(sprite_path):
 		UI.add_texture(button, sprite_path, Vector2(18, 4), Vector2(56, 56), "StarterSprite", TextureRect.STRETCH_KEEP_ASPECT_CENTERED)
 	else:
 		UI.add_panel_label(button, "?", Vector2(0, 8), Vector2(92, 42), 28, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "StarterPlaceholder")
@@ -636,9 +636,9 @@ func _animate_popup(overlay: Control, panel: Control) -> void:
 
 func _avatar_asset_path(avatar_id: int) -> String:
 	var index := avatar_id - 1
-	if index >= 0 and index < AVATAR_ASSETS_96.size() and FileAccess.file_exists(AVATAR_ASSETS_96[index]):
+	if index >= 0 and index < AVATAR_ASSETS_96.size() and UI.resource_exists(AVATAR_ASSETS_96[index]):
 		return AVATAR_ASSETS_96[index]
-	if index >= 0 and index < AVATAR_ASSETS.size() and FileAccess.file_exists(AVATAR_ASSETS[index]):
+	if index >= 0 and index < AVATAR_ASSETS.size() and UI.resource_exists(AVATAR_ASSETS[index]):
 		return AVATAR_ASSETS[index]
 	return ""
 
@@ -646,9 +646,9 @@ func _avatar_asset_path(avatar_id: int) -> String:
 func _save_avatar_path(save_data: Dictionary) -> String:
 	if str(save_data.get("avatar_type", "preset")) == "custom":
 		var custom_path := str(save_data.get("avatar_custom_path", CUSTOM_AVATAR_PATH))
-		if custom_path != "" and FileAccess.file_exists(custom_path):
+		if UI.resource_exists(custom_path):
 			return custom_path
-		if FileAccess.file_exists("res://assets/avatars/avatar_card_custom_image.png"):
+		if UI.resource_exists("res://assets/avatars/avatar_card_custom_image.png"):
 			return "res://assets/avatars/avatar_card_custom_image.png"
 	return _avatar_asset_path(int(save_data.get("avatar_id", 1)))
 

@@ -102,7 +102,7 @@ func _refresh_save_data() -> void:
 
 func _add_background() -> void:
 	var background := str(map_data.get("background", ""))
-	if background != "" and FileAccess.file_exists(background):
+	if UI.resource_exists(background):
 		var texture := UI.add_texture(self, background, Vector2.ZERO, UI.SCREEN_SIZE, "MapBackground", TextureRect.STRETCH_SCALE)
 		texture.modulate = Color(0.78, 0.82, 0.86, 1)
 	else:
@@ -138,10 +138,10 @@ func _build_map_screen() -> void:
 
 func _add_map_icon() -> void:
 	var icon_path := str(map_data.get("icon", ""))
-	if icon_path == "" or not FileAccess.file_exists(icon_path):
+	if not UI.resource_exists(icon_path):
 		icon_path = str(map_data.get("thumbnail", ""))
 
-	if icon_path != "" and FileAccess.file_exists(icon_path):
+	if UI.resource_exists(icon_path):
 		UI.add_texture(self, icon_path, Vector2(142, 88), Vector2(76, 58), "MapIcon", TextureRect.STRETCH_KEEP_ASPECT_CENTERED)
 		return
 
