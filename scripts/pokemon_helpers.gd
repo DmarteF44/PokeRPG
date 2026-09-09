@@ -15,6 +15,7 @@ const GENERATION_FILES = {
 const MOVES_PATH = "res://data/moves.json"
 const ABILITIES_PATH = "res://data/abilities/abilities.json"
 const MANIFEST_PATH = "res://data/pokemon_assets_manifest.json"
+const FORMS_PATH = "res://data/pokemon_forms.json"
 const SPECIES_IDS = ["bulbasaur", "ivysaur", "venusaur", "charmander", "charmeleon", "charizard", "squirtle", "wartortle", "blastoise"]
 # Every generation's canonical starter trio, Gen 1-9 - not just Gen 1's,
 # so is_starter_id()/starter_ids() (used by the debug menu and by
@@ -73,6 +74,7 @@ static var _legacy_definitions_cache := {}
 static var _moves_cache := {}
 static var _abilities_cache := {}
 static var _asset_manifest_cache := {}
+static var _forms_cache := {}
 
 const FALLBACK_MOVES = {
 	"Tackle": {"id": "tackle", "name": "Tackle", "type": "Normal", "category": "Physical", "power": 40, "accuracy": 100, "pp": 35, "priority": 0, "target": "enemy", "effects": []},
@@ -305,7 +307,26 @@ static func normalize_pokemon(value: Dictionary, fallback_id: String = DEFAULT_S
 	# false once true, since it's meant to survive the Pokemon no longer
 	# being Black.
 	normalized["purified"] = bool(normalized.get("purified", false))
-	normalized["types"] = _normalized_types(definition.get("types", normalized.get("types", ["Fire"])))
+	# Regional/Alternate Forms: pokemon["form"] is a purely additive overlay
+	# on top of the base species (see form_definition) - validated against
+	# base_species every time so a form can never survive onto a species it
+	# doesn't belong to (e.g. after evolving into a species with no matching
+	# form, see evolve_pokemon's evolves_to_form handling).
+	var form_id := str(normalized.get("form", ""))
+	var form_def := form_definition(form_id)
+	if not form_def.is_empty() and str(form_def.get("base_species", "")) != pokemon_id:
+		form_id = ""
+		form_def = {}
+	normalized["form"] = form_id
+	if not form_def.is_empty():
+		normalized["types"] = _normalized_types(form_def.get("types", definition.get("types", normalized.get("types", ["Fire"]))))
+		var form_icon := str(form_def.get("icon_path", ""))
+		if form_icon != "":
+			normalized["icon_path"] = form_icon
+	else:
+		normalized["types"] = _normalized_types(definition.get("types", normalized.get("types", ["Fire"])))
+		if str(normalized.get("icon_path", "")).begins_with("res://assets/pokemon/forms/"):
+			normalized.erase("icon_path")
 	normalized["max_hp"] = maxi(1, int(normalized.get("max_hp", base_stats.get("hp", 39))))
 	normalized["hp"] = clampi(int(normalized.get("hp", normalized["max_hp"])), 0, int(normalized["max_hp"]))
 	normalized["attack"] = maxi(1, int(normalized.get("attack", base_stats.get("attack", 50))))
@@ -625,6 +646,13 @@ static func evolve_pokemon(pokemon: Dictionary, target_id: String) -> Dictionary
 	evolved["generation"] = int(target_definition.get("generation", evolved.get("generation", 1)))
 	evolved["ability"] = str(target_definition.get("ability", evolved.get("ability", "Unknown")))
 	evolved["types"] = _normalized_types(target_definition.get("types", evolved.get("types", ["Normal"])))
+	# Carry a Regional/Alternate Form forward only when the evolved species
+	# has a matching real-game form (see evolves_to_form in
+	# data/pokemon_forms.json, e.g. Vulpix-Alola -> Ninetales-Alola) -
+	# normalize_pokemon() would clear a mismatched form anyway, but resolving
+	# it here means the correct evolved form's types apply immediately.
+	var pre_evolution_form := form_definition(str(evolved.get("form", "")))
+	evolved["form"] = str(pre_evolution_form.get("evolves_to_form", "")) if not pre_evolution_form.is_empty() else ""
 	_recalculate_stats(evolved, old_max_hp)
 	return normalize_pokemon(evolved, str(evolved["id"]))
 
@@ -692,7 +720,7 @@ static func add_animated_sprite(parent: Node, pokemon: Dictionary, pos: Vector2,
 	texture_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	parent.add_child(texture_rect)
 
-	var frames := frame_textures(str(pokemon.get("id", DEFAULT_STARTER_ID)), use_back)
+	var frames := frame_textures(str(pokemon.get("id", DEFAULT_STARTER_ID)), use_back, str(pokemon.get("form", "")))
 	texture_rect.set_frames(frames, _fallback_texture(pokemon), ANIMATION_LOOP_SECONDS)
 	texture_rect.material = variant_material(pokemon)
 	# Alpha is "exceptionally large" (Legends: Arceus) - a size bump is
@@ -743,6 +771,12 @@ static func variant_tag(pokemon: Dictionary) -> String:
 		tag += " ◆Black"
 	elif bool(pokemon.get("shiny", false)):
 		tag += " ✨"
+	var form_id := str(pokemon.get("form", ""))
+	if form_id != "":
+		var form_def := form_definition(form_id)
+		var short_label := str(form_def.get("short_label", ""))
+		if short_label != "":
+			tag += " (%s)" % short_label
 	return tag
 
 
@@ -782,6 +816,9 @@ static func pokedex_seen_updates(pokemon: Dictionary, save_data: Dictionary) -> 
 		updates["seen_black_pokemon"] = _merge_id_list(save_data.get("seen_black_pokemon", []), pokemon_id)
 	if bool(pokemon.get("alpha", false)):
 		updates["seen_alpha_pokemon"] = _merge_id_list(save_data.get("seen_alpha_pokemon", []), pokemon_id)
+	var seen_form_id := str(pokemon.get("form", ""))
+	if seen_form_id != "":
+		updates["seen_form_pokemon"] = _merge_id_list(save_data.get("seen_form_pokemon", []), seen_form_id)
 	return updates
 
 
@@ -796,6 +833,9 @@ static func pokedex_owned_updates(pokemon: Dictionary, save_data: Dictionary) ->
 		updates["owned_black_pokemon"] = _merge_id_list(save_data.get("owned_black_pokemon", []), pokemon_id)
 	if bool(pokemon.get("alpha", false)):
 		updates["owned_alpha_pokemon"] = _merge_id_list(save_data.get("owned_alpha_pokemon", []), pokemon_id)
+	var owned_form_id := str(pokemon.get("form", ""))
+	if owned_form_id != "":
+		updates["owned_form_pokemon"] = _merge_id_list(save_data.get("owned_form_pokemon", []), owned_form_id)
 	return updates
 
 
@@ -824,7 +864,17 @@ static func variant_material(pokemon: Dictionary):
 	return null
 
 
-static func frame_textures(pokemon_id: String, use_back: bool = false) -> Array:
+static func frame_textures(pokemon_id: String, use_back: bool = false, form_id: String = "") -> Array:
+	if form_id != "":
+		var form_def := form_definition(form_id)
+		if not form_def.is_empty():
+			var form_folder_key := "back_frames_path" if use_back else "front_frames_path"
+			var form_fallback_key := "front_frames_path" if use_back else "back_frames_path"
+			var form_frames := _textures_from_folder(str(form_def.get(form_folder_key, "")))
+			if form_frames.is_empty():
+				form_frames = _textures_from_folder(str(form_def.get(form_fallback_key, "")))
+			if not form_frames.is_empty():
+				return form_frames
 	if not has_definition(pokemon_id):
 		return []
 	var definition := get_definition(pokemon_id)
@@ -1191,6 +1241,52 @@ static func _asset_manifest() -> Dictionary:
 	var parsed = JSON.parse_string(file.get_as_text())
 	_asset_manifest_cache = parsed if typeof(parsed) == TYPE_DICTIONARY else {}
 	return _asset_manifest_cache
+
+
+# Regional/Alternate Forms (data/pokemon_forms.json, see extract_form_sprites.py):
+# a form is a real-game variant of an existing species (Galarian/Alolan
+# forms, Rotom's appliance forms) that only changes type and appearance,
+# never a separate id-keyed species - moves, evolutions, capture rate and
+# every other lookup stays keyed by the base species id (pokemon["id"]),
+# with pokemon["form"] as a purely additive overlay normalize_pokemon()
+# applies types/sprite from. This avoids duplicating species data per the
+# expansion request's "nao duplicar especies desnecessariamente" rule.
+static func _loaded_forms() -> Dictionary:
+	if not _forms_cache.is_empty():
+		return _forms_cache
+	if not FileAccess.file_exists(FORMS_PATH):
+		_forms_cache = {}
+		return {}
+	var file := FileAccess.open(FORMS_PATH, FileAccess.READ)
+	if file == null:
+		_forms_cache = {}
+		return {}
+	var parsed = JSON.parse_string(file.get_as_text())
+	_forms_cache = parsed if typeof(parsed) == TYPE_DICTIONARY else {}
+	return _forms_cache
+
+
+static func form_definition(form_id: String) -> Dictionary:
+	if form_id == "":
+		return {}
+	var forms := _loaded_forms()
+	var entry = forms.get(form_id, {})
+	return entry.duplicate(true) if typeof(entry) == TYPE_DICTIONARY else {}
+
+
+# All real-game forms available for a base species id, in stable declared
+# order - used to populate a "cycle form" debug control and to roll a
+# random form on a wild encounter (see world_map_data.gd _roll_variant).
+static func forms_for_species(pokemon_id: String) -> Array:
+	var safe_id := _safe_id(pokemon_id)
+	var result := []
+	var forms := _loaded_forms()
+	for form_id in forms.keys():
+		var entry = forms[form_id]
+		if typeof(entry) == TYPE_DICTIONARY and str(entry.get("base_species", "")) == safe_id:
+			result.append(str(form_id))
+	result.sort()
+	return result
 
 
 static func _complete_species_definition(definition: Dictionary) -> Dictionary:
