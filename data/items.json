@@ -1203,5 +1203,41 @@
     "description_en": "A mysterious device used for certain evolutions.",
     "description_pt": "Um dispositivo misterioso usado em certas evolucoes.",
     "icon_path": "res://assets/items/evolution/up_grade.png"
+  },
+  {
+    "id": "shiny_charm",
+    "name_en": "Shiny Charm",
+    "name_pt": "Amuleto Brilhante",
+    "category": "buffs",
+    "price": 8000,
+    "min_level": 10,
+    "min_badges": 1,
+    "effect_type": "variant_boost",
+    "effect_stat": "shiny",
+    "effect_value": 30,
+    "use_contexts": [
+      "field"
+    ],
+    "description_en": "Raises the chance of a Shiny encounter for 30 minutes.",
+    "description_pt": "Aumenta a chance de encontrar um Pokemon Shiny por 30 minutos.",
+    "icon_path": "res://assets/items/buffs/shiny_charm.png"
+  },
+  {
+    "id": "black_charm",
+    "name_en": "Black Charm",
+    "name_pt": "Amuleto Negro",
+    "category": "buffs",
+    "price": 12000,
+    "min_level": 18,
+    "min_badges": 2,
+    "effect_type": "variant_boost",
+    "effect_stat": "black",
+    "effect_value": 20,
+    "use_contexts": [
+      "field"
+    ],
+    "description_en": "Raises the chance of a Black/Possessed encounter for 20 minutes.",
+    "description_pt": "Aumenta a chance de encontrar um Pokemon Black/Possuido por 20 minutos.",
+    "icon_path": "res://assets/items/buffs/black_charm.png"
   }
 ]

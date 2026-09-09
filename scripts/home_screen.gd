@@ -141,6 +141,10 @@ const TEXT = {
 		"debug_level_up_team": "Level up team",
 		"debug_level_up": "Level up",
 		"debug_no_change": "No change (already at max level).",
+		"debug_variants": "Variants (slot 1)",
+		"debug_force_shiny": "Force Shiny",
+		"debug_force_black": "Force Black",
+		"debug_force_normal": "Force Normal",
 		"debug_evolved": "Evolved: %s -> %s",
 		"debug_could_learn": "Could learn %s (use Moves to add it)",
 		"debug_moves": "Moves",
@@ -231,6 +235,7 @@ const TEXT = {
 		"bought": "Bought %s!",
 		"energy_full": "Your energy is already full.",
 		"energy_restored": "Energy restored by %d.",
+		"variant_boost_active": "Rarity boost active for %d minutes!",
 		"choose_pokemon": "Choose Pokemon",
 		"stat_boosted": "%s gained +%d %s!",
 		"stat_at_cap": "%s cannot raise %s anymore.",
@@ -402,6 +407,10 @@ const TEXT = {
 		"debug_level_up_team": "Upar time",
 		"debug_level_up": "Subiu de nível",
 		"debug_no_change": "Sem mudança (já está no nível máximo).",
+		"debug_variants": "Variantes (slot 1)",
+		"debug_force_shiny": "Forçar Shiny",
+		"debug_force_black": "Forçar Black",
+		"debug_force_normal": "Forçar Normal",
 		"debug_evolved": "Evoluiu: %s -> %s",
 		"debug_could_learn": "Poderia aprender %s (use Movimentos para adicionar)",
 		"debug_moves": "Movimentos",
@@ -492,6 +501,7 @@ const TEXT = {
 		"bought": "%s comprado!",
 		"energy_full": "Sua energia já está completa.",
 		"energy_restored": "Energia restaurada em %d.",
+		"variant_boost_active": "Bonus de raridade ativo por %d minutos!",
 		"choose_pokemon": "Escolha o Pokemon",
 		"stat_boosted": "%s ganhou +%d em %s!",
 		"stat_at_cap": "%s nao pode aumentar mais %s.",
@@ -1069,7 +1079,7 @@ func _select_bag_item(item: Dictionary) -> void:
 		]
 	if bag_use_button != null and is_instance_valid(bag_use_button):
 		var effect_type := str(item.get("effect_type", ""))
-		var is_usable_item := effect_type == "restore_energy" or effect_type == "stat_boost" or effect_type == "evolve_stone" or effect_type == "cure_status" or effect_type == "grant_xp" or effect_type == "team_heal"
+		var is_usable_item := effect_type == "restore_energy" or effect_type == "stat_boost" or effect_type == "evolve_stone" or effect_type == "cure_status" or effect_type == "grant_xp" or effect_type == "team_heal" or effect_type == "variant_boost"
 		var text_label := bag_use_button.get_node_or_null("Text") as Label
 		if text_label != null:
 			text_label.text = _text("use") if is_usable_item else _text("details")
@@ -1099,6 +1109,9 @@ func _show_selected_bag_item_details() -> void:
 		return
 	if effect_type == "team_heal":
 		_use_team_heal_item(selected_bag_item)
+		return
+	if effect_type == "variant_boost":
+		_use_variant_boost_item(selected_bag_item)
 		return
 
 	var amount := InventoryManager.get_item_amount(str(selected_bag_item.get("id", "")))
@@ -1141,6 +1154,33 @@ func _use_energy_item(item: Dictionary) -> void:
 	_refresh_home_stats()
 	_show_bag()
 	UI.show_message_popup(self, _item_name(item), _text("energy_restored") % restored)
+
+
+# Shiny/Black Charm: sets a save-level "boost active until" timestamp that
+# ForestMap._variant_modifiers() reads on every encounter/fishing roll. A
+# second use before the first expires simply extends it from now, rather
+# than stacking, so back-to-back charms don't compound into an ever-larger
+# window.
+func _use_variant_boost_item(item: Dictionary) -> void:
+	if not _has_active_save():
+		UI.show_message_popup(self, _item_name(item), _text("no_active_save"))
+		return
+
+	_refresh_save_data()
+	var item_id := str(item.get("id", ""))
+	if InventoryManager.get_item_amount(item_id) <= 0:
+		return
+	if not InventoryManager.remove_item(item_id, 1):
+		return
+
+	var variant := str(item.get("effect_stat", "shiny"))
+	var duration_minutes := maxi(1, int(item.get("effect_value", 30)))
+	var until := int(Time.get_unix_time_from_system()) + duration_minutes * 60
+	var save_key := "shiny_boost_until" if variant == "shiny" else "black_boost_until"
+	SaveManager.update_current_save({save_key: until})
+	_refresh_save_data()
+	_show_bag()
+	UI.show_message_popup(self, _item_name(item), _text("variant_boost_active") % duration_minutes)
 
 
 func _show_stat_boost_targets(item: Dictionary) -> void:
@@ -1779,7 +1819,7 @@ func _add_collection_row(parent: Control, pokemon: Dictionary, source: String, i
 	parent.add_child(row)
 	row.pressed.connect(Callable(self, "_select_collection_pokemon").bind(source, index))
 	PokemonHelpers.add_animated_sprite(row, pokemon, Vector2(8, 7), Vector2(40, 40), false, "Sprite")
-	var name := str(pokemon.get("name", pokemon.get("species", "Pokemon")))
+	var name := str(pokemon.get("name", pokemon.get("species", "Pokemon"))) + PokemonHelpers.variant_tag(pokemon)
 	var title := "%s%s  %s %d" % ["★ " if active else "", name, _text("level"), int(pokemon.get("level", 1))]
 	var title_label := UI.add_panel_label(row, title, Vector2(56, 5), Vector2(180, 18), 12, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Name")
 	_fit_label(title_label, false)
@@ -1834,7 +1874,7 @@ func _add_collection_details(parent: Control, y: float) -> float:
 	parent.add_child(panel)
 	UI.style_panel_button(panel, Color(0.88, 0.94, 0.98), Color(0.34, 0.50, 0.62), 2)
 	PokemonHelpers.add_animated_sprite(panel, pokemon, Vector2(10, 10), Vector2(72, 72), false, "DetailSprite")
-	var name := str(pokemon.get("name", pokemon.get("species", "Pokemon")))
+	var name := str(pokemon.get("name", pokemon.get("species", "Pokemon"))) + PokemonHelpers.variant_tag(pokemon)
 	var species := str(pokemon.get("species", name))
 	var header := "#%03d %s\n%s %d | %s" % [int(pokemon.get("dex_number", 0)), name, _text("level"), int(pokemon.get("level", 1)), species]
 	var header_label := UI.add_panel_label(panel, header, Vector2(92, 8), Vector2(188, 44), 13, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Header")
@@ -3101,6 +3141,15 @@ func _show_debug_menu() -> void:
 	])
 	y = _add_debug_section(content, _text("debug_level_up_team"), y)
 	y = _add_debug_team_level_rows(content, y)
+	y = _add_debug_section(content, _text("debug_variants"), y)
+	y = _add_debug_button_row(content, y, [
+		[_text("debug_force_shiny"), Callable(self, "_debug_force_variant").bind("shiny")],
+		[_text("debug_force_black"), Callable(self, "_debug_force_variant").bind("black")],
+	])
+	y = _add_debug_button_row(content, y, [
+		[_text("debug_force_normal"), Callable(self, "_debug_force_variant").bind("normal")],
+		[_text("debug_add") % "shiny_charm", Callable(self, "_debug_add_item_x1").bind("shiny_charm")],
+	])
 	y = _add_debug_section(content, _text("debug_storage"), y)
 	y = _add_debug_button_row(content, y, [
 		[_text("debug_clear_storage"), Callable(self, "_debug_clear_storage")],
@@ -3206,6 +3255,35 @@ func _debug_level_up_team_member(index: int) -> void:
 	if lines.is_empty():
 		lines.append(_text("debug_no_change"))
 	UI.show_message_popup(self, _text("debug_level_up"), "\n".join(lines))
+
+
+# Forces the first team member's Shiny/Black flag directly - debug-only
+# way to validate the variant systems (sprite shader, stat bonus, name tag)
+# without waiting on the real (deliberately rare) encounter roll.
+func _debug_force_variant(variant: String) -> void:
+	var team := _team()
+	if team.is_empty() or typeof(team[0]) != TYPE_DICTIONARY:
+		UI.show_message_popup(self, _text("debug_variants"), _text("debug_no_change"))
+		return
+	var pokemon: Dictionary = PokemonHelpers.normalize_pokemon(team[0])
+	pokemon["shiny"] = variant == "shiny"
+	pokemon["black"] = variant == "black"
+	# normalize_pokemon() preserves already-stored stats (so a save reload
+	# doesn't silently re-roll them) - forcing a variant here has to
+	# recompute from the level curve directly, same as a real level-up does,
+	# so the Black stat bonus actually takes effect immediately.
+	var stats := PokemonHelpers.stats_for_level(str(pokemon.get("id", "")), int(pokemon.get("level", 1)), pokemon["black"])
+	for stat_key in ["max_hp", "attack", "defense", "sp_attack", "sp_defense", "speed"]:
+		pokemon[stat_key] = int(stats.get(stat_key, pokemon.get(stat_key, 1)))
+	pokemon["hp"] = mini(int(pokemon["hp"]), int(pokemon["max_hp"]))
+	team[0] = pokemon
+	_update_debug_save({"team": team})
+	UI.show_message_popup(self, _text("debug_variants"), "%s -> %s" % [str(pokemon.get("name", "")), variant])
+
+
+func _debug_add_item_x1(item_id: String) -> void:
+	InventoryManager.add_item(item_id, 1)
+	_update_debug_save({})
 
 
 func _debug_open_team_moves(index: int) -> void:
