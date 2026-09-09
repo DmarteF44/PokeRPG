@@ -3129,12 +3129,19 @@ func _show_debug_menu() -> void:
 func _add_debug_accordion_header(parent: Control, title: String, y: float, expanded: bool, key: String) -> float:
 	var button := Button.new()
 	button.name = "DebugSection%s" % key.capitalize().replace(" ", "")
-	button.text = "%s %s" % ["▼" if expanded else "▶", title]
+	button.text = "  %s %s" % ["▼" if expanded else "▶", title]
 	button.position = Vector2(0, y)
 	button.size = Vector2(296, 32)
 	button.focus_mode = Control.FOCUS_NONE
 	button.alignment = HORIZONTAL_ALIGNMENT_LEFT
 	button.add_theme_font_size_override("font_size", 14)
+	# style_panel_button only styles the fill/border - without an explicit
+	# font color override, these fell back to the default Button theme's
+	# (very light) text color and were nearly invisible against the light
+	# panel fill.
+	button.add_theme_color_override("font_color", UI.PANEL_TEXT)
+	button.add_theme_color_override("font_hover_color", UI.PANEL_TEXT)
+	button.add_theme_color_override("font_pressed_color", UI.PANEL_TEXT)
 	UI.style_panel_button(button, Color(0.90, 0.78, 0.42) if expanded else Color(0.82, 0.88, 0.94), Color(0.92, 0.46, 0.08) if expanded else Color(0.36, 0.50, 0.62), 3 if expanded else 2)
 	parent.add_child(button)
 	button.pressed.connect(Callable(self, "_debug_toggle_section").bind(key))
