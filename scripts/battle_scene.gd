@@ -84,6 +84,8 @@ const TEXT = {
 		"run": "Run",
 		"mega_evolve": "Mega Evolve",
 		"mega_evolved_message": "%s Mega Evolved into %s!",
+		"primal_revert": "Primal Revert",
+		"primal_reverted_message": "Reverted to its Primal form: %s!",
 		"dynamax": "Dynamax",
 		"dynamaxed_message": "%s Dynamaxed!",
 		"dynamax_wore_off": "%s's Dynamax wore off!",
@@ -165,6 +167,8 @@ const TEXT = {
 		"run": "Fugir",
 		"mega_evolve": "Mega Evoluir",
 		"mega_evolved_message": "%s Mega Evoluiu para %s!",
+		"primal_revert": "Regressão Primitiva",
+		"primal_reverted_message": "Regrediu para sua forma Primitiva: %s!",
 		"dynamax": "Dynamax",
 		"dynamaxed_message": "%s usou Dynamax!",
 		"dynamax_wore_off": "O Dynamax de %s acabou!",
@@ -1805,9 +1809,11 @@ func _refresh_mega_button() -> void:
 		return
 	if int(player_pokemon.get("hp", 0)) <= 0:
 		return
-	if _available_mega_for_player().is_empty():
+	var mega_def := _available_mega_for_player()
+	if mega_def.is_empty():
 		return
-	mega_button = UI.add_orange_button(self, _text("mega_evolve"), Vector2(166, 330), Vector2(120, 32), Callable(self, "_mega_evolve"), "MegaEvolveButton")
+	var button_label := _text("primal_revert") if str(mega_def.get("category", "mega")) == "primal" else _text("mega_evolve")
+	mega_button = UI.add_orange_button(self, button_label, Vector2(166, 330), Vector2(120, 32), Callable(self, "_mega_evolve"), "MegaEvolveButton")
 
 
 # Mega Evolving is "free" the same way it is in the real games - it doesn't
@@ -1832,7 +1838,10 @@ func _mega_evolve() -> void:
 	battle_team[player_team_index] = _battle_pokemon_copy(player_pokemon)
 	_refresh_player_sprite()
 	var mega_name := str(mega_def.get("name_pt" if _language() == "pt" else "name_en", ""))
-	message_label.text = _text("mega_evolved_message") % [before_name, mega_name]
+	if str(mega_def.get("category", "mega")) == "primal":
+		message_label.text = _text("primal_reverted_message") % mega_name
+	else:
+		message_label.text = _text("mega_evolved_message") % [before_name, mega_name]
 	_update_status()
 
 

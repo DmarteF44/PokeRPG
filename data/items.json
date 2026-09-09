@@ -2041,5 +2041,37 @@
     "description_en": "A trainer-wide wristband. Once bought, lets any of your Pokemon Dynamax in battle for 3 turns, growing giant and gaining a temporary HP boost.",
     "description_pt": "Um bracelete do treinador. Uma vez comprado, permite que qualquer um dos seus Pokemon use Dynamax em batalha por 3 turnos, crescendo e ganhando um bonus temporario de HP.",
     "icon_path": "res://assets/items/key_items/dynamax_band.png"
+  },
+  {
+    "id": "blue_orb",
+    "name_en": "Blue Orb",
+    "name_pt": "Orbe Azul",
+    "category": "evolution",
+    "price": 60000,
+    "min_level": 35,
+    "min_badges": 6,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A mysterious blue orb. While held in battle, lets Kyogre undergo Primal Reversion.",
+    "description_pt": "Um misterioso orbe azul. Enquanto segurado em batalha, permite que Kyogre passe por Regressao Primitiva.",
+    "icon_path": "res://assets/items/evolution/blue_orb.png"
+  },
+  {
+    "id": "red_orb",
+    "name_en": "Red Orb",
+    "name_pt": "Orbe Vermelho",
+    "category": "evolution",
+    "price": 60000,
+    "min_level": 35,
+    "min_badges": 6,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A mysterious red orb. While held in battle, lets Groudon undergo Primal Reversion.",
+    "description_pt": "Um misterioso orbe vermelho. Enquanto segurado em batalha, permite que Groudon passe por Regressao Primitiva.",
+    "icon_path": "res://assets/items/evolution/red_orb.png"
   }
 ]
