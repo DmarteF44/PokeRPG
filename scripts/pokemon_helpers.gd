@@ -17,6 +17,7 @@ const ABILITIES_PATH = "res://data/abilities/abilities.json"
 const MANIFEST_PATH = "res://data/pokemon_assets_manifest.json"
 const FORMS_PATH = "res://data/pokemon_forms.json"
 const MEGAS_PATH = "res://data/pokemon_megas.json"
+const GMAX_PATH = "res://data/pokemon_gmax.json"
 const SPECIES_IDS = ["bulbasaur", "ivysaur", "venusaur", "charmander", "charmeleon", "charizard", "squirtle", "wartortle", "blastoise"]
 # Every generation's canonical starter trio, Gen 1-9 - not just Gen 1's,
 # so is_starter_id()/starter_ids() (used by the debug menu and by
@@ -77,6 +78,7 @@ static var _abilities_cache := {}
 static var _asset_manifest_cache := {}
 static var _forms_cache := {}
 static var _megas_cache := {}
+static var _gmax_cache := {}
 
 const FALLBACK_MOVES = {
 	"Tackle": {"id": "tackle", "name": "Tackle", "type": "Normal", "category": "Physical", "power": 40, "accuracy": 100, "pp": 35, "priority": 0, "target": "enemy", "effects": []},
@@ -309,6 +311,12 @@ static func normalize_pokemon(value: Dictionary, fallback_id: String = DEFAULT_S
 	# false once true, since it's meant to survive the Pokemon no longer
 	# being Black.
 	normalized["purified"] = bool(normalized.get("purified", false))
+	# Gigantamax Factor (real-game hidden per-individual trait, see
+	# world_map_data.gd roll_gmax_factor) - persistent like Alpha/Lucky, but
+	# automatically cleared if this species has no real Gigantamax sprite at
+	# all (e.g. after evolving into/being a species outside the 32 with one),
+	# since a Factor with nothing to show is just confusing dead state.
+	normalized["gmax_factor"] = bool(normalized.get("gmax_factor", false)) and not gmax_ids_for_species(pokemon_id).is_empty()
 	# Regional/Alternate Forms: pokemon["form"] is a purely additive overlay
 	# on top of the base species (see form_definition) - validated against
 	# base_species every time so a form can never survive onto a species it
@@ -424,6 +432,17 @@ const ALPHA_STAT_BONUS := 0.20
 # instead (see stats_for_level). Bigger than Alpha's since a Mega is a
 # temporary, battle-only power spike, not a permanent trait.
 const MEGA_STAT_BONUS := 0.30
+# Real-game Dynamax roughly doubles max HP via a per-species table and
+# changes no other stat - this project uses one flat multiplier instead of
+# reproducing 900+ individual HP entries, applied additively as a stored
+# HP delta (see battle_scene.gd _dynamax/_revert_dynamax) rather than
+# folded into stats_for_level's multiplier, since it must affect only HP.
+const DYNAMAX_HP_BONUS := 1.0
+
+
+static func dynamax_hp_bonus(pokemon_id: String, level: int, is_black: bool = false, is_alpha: bool = false, is_purified: bool = false) -> int:
+	var base_stats := stats_for_level(pokemon_id, level, is_black, is_alpha, is_purified, false)
+	return maxi(1, int(round(float(base_stats.get("max_hp", 1)) * DYNAMAX_HP_BONUS)))
 
 # is_black/is_alpha apply a flat stat bonus (see VARIANTS.md / section 26 of
 # the expansion request: "mais forte, mas nao destruir o jogo") on top of the
@@ -747,20 +766,27 @@ static func add_animated_sprite(parent: Node, pokemon: Dictionary, pos: Vector2,
 	texture_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	parent.add_child(texture_rect)
 
-	var frames := frame_textures(str(pokemon.get("id", DEFAULT_STARTER_ID)), use_back, str(pokemon.get("form", "")), str(pokemon.get("mega", "")))
+	var frames := frame_textures(str(pokemon.get("id", DEFAULT_STARTER_ID)), use_back, str(pokemon.get("form", "")), str(pokemon.get("mega", "")), str(pokemon.get("dynamax_gmax_id", "")))
 	texture_rect.set_frames(frames, _fallback_texture(pokemon), ANIMATION_LOOP_SECONDS)
 	texture_rect.material = variant_material(pokemon)
-	# Alpha is "exceptionally large" (Legends: Arceus) - a size bump is
-	# orthogonal to the shiny/black recolor shader, so it stacks with either
-	# with no conflict. Pivoted at center so it grows in place instead of
-	# shifting out of its slot.
+	# Alpha's size bump and Dynamax's are both orthogonal to the shiny/black
+	# recolor shader, and (unlike real games, which never combine the two)
+	# nothing stops an Alpha Pokemon from Dynamaxing here - multiplied
+	# together instead of one overwriting the other so both always show.
+	# Pivoted at center so it grows in place instead of shifting out of its slot.
+	var sprite_scale := 1.0
 	if bool(pokemon.get("alpha", false)):
+		sprite_scale *= ALPHA_SPRITE_SCALE
+	if bool(pokemon.get("dynamax", false)):
+		sprite_scale *= DYNAMAX_SPRITE_SCALE
+	if sprite_scale != 1.0:
 		texture_rect.pivot_offset = node_size / 2.0
-		texture_rect.scale = Vector2(ALPHA_SPRITE_SCALE, ALPHA_SPRITE_SCALE)
+		texture_rect.scale = Vector2(sprite_scale, sprite_scale)
 	return texture_rect
 
 
 const ALPHA_SPRITE_SCALE := 1.18
+const DYNAMAX_SPRITE_SCALE := 1.6
 
 # ADAPTACAO DO POKERPG: real Lucky Pokemon (Pokemon GO) are a trade
 # byproduct; there is no trading here, so this rolls independently on
@@ -772,6 +798,20 @@ const LUCKY_XP_BONUS := 0.10
 
 static func roll_lucky(pokemon: Dictionary) -> void:
 	pokemon["lucky"] = randf() < LUCKY_CHANCE
+
+
+# Real-game Gigantamax Factor is granted by Max Raid Battles or specific
+# NPC gifts, neither of which this project has - rolled on capture instead,
+# same adaptation as Lucky, and only for a species with a real extracted
+# Gigantamax sprite (see gmax_ids_for_species) so it's never a dead flag.
+const GMAX_FACTOR_CHANCE := 1.0 / 20.0
+
+static func roll_gmax_factor(pokemon: Dictionary) -> void:
+	var pokemon_id := str(pokemon.get("id", ""))
+	if gmax_ids_for_species(pokemon_id).is_empty():
+		pokemon["gmax_factor"] = false
+		return
+	pokemon["gmax_factor"] = randf() < GMAX_FACTOR_CHANCE
 
 
 const SHINY_SHADER_PATH = "res://assets/shaders/pokemon_shiny.gdshader"
@@ -891,7 +931,7 @@ static func variant_material(pokemon: Dictionary):
 	return null
 
 
-static func frame_textures(pokemon_id: String, use_back: bool = false, form_id: String = "", mega_id: String = "") -> Array:
+static func frame_textures(pokemon_id: String, use_back: bool = false, form_id: String = "", mega_id: String = "", gmax_id: String = "") -> Array:
 	if mega_id != "":
 		var mega_def := mega_definition(mega_id)
 		if not mega_def.is_empty():
@@ -902,6 +942,16 @@ static func frame_textures(pokemon_id: String, use_back: bool = false, form_id: 
 				mega_frames = _textures_from_folder(str(mega_def.get(mega_fallback_key, "")))
 			if not mega_frames.is_empty():
 				return mega_frames
+	if gmax_id != "":
+		var gmax_def := gmax_definition(gmax_id)
+		if not gmax_def.is_empty():
+			var gmax_folder_key := "back_frames_path" if use_back else "front_frames_path"
+			var gmax_fallback_key := "front_frames_path" if use_back else "back_frames_path"
+			var gmax_frames := _textures_from_folder(str(gmax_def.get(gmax_folder_key, "")))
+			if gmax_frames.is_empty():
+				gmax_frames = _textures_from_folder(str(gmax_def.get(gmax_fallback_key, "")))
+			if not gmax_frames.is_empty():
+				return gmax_frames
 	if form_id != "":
 		var form_def := form_definition(form_id)
 		if not form_def.is_empty():
@@ -1366,6 +1416,48 @@ static func megas_for_species(pokemon_id: String) -> Array:
 		var entry = megas[mega_id]
 		if typeof(entry) == TYPE_DICTIONARY and str(entry.get("base_species", "")) == safe_id:
 			result.append(str(mega_id))
+	result.sort()
+	return result
+
+
+# Gigantamax (data/pokemon_gmax.json, see extract_gmax_sprites.py): purely
+# a sprite swap layered under the generic Dynamax mechanic (battle_scene.gd
+# _dynamax) - unlike a Mega, real-game Gigantamax changes no type/ability/
+# stat beyond what plain Dynamax already does, and only a species-specific
+# INDIVIDUAL Pokemon carrying the hidden "Gigantamax Factor" (see the
+# "gmax_factor" save field, rolled the same way as Alpha/Lucky) can use its
+# species' unique form instead of a plain giant version of its normal sprite.
+static func _loaded_gmax() -> Dictionary:
+	if not _gmax_cache.is_empty():
+		return _gmax_cache
+	if not FileAccess.file_exists(GMAX_PATH):
+		_gmax_cache = {}
+		return {}
+	var file := FileAccess.open(GMAX_PATH, FileAccess.READ)
+	if file == null:
+		_gmax_cache = {}
+		return {}
+	var parsed = JSON.parse_string(file.get_as_text())
+	_gmax_cache = parsed if typeof(parsed) == TYPE_DICTIONARY else {}
+	return _gmax_cache
+
+
+static func gmax_definition(gmax_id: String) -> Dictionary:
+	if gmax_id == "":
+		return {}
+	var gmax := _loaded_gmax()
+	var entry = gmax.get(gmax_id, {})
+	return entry.duplicate(true) if typeof(entry) == TYPE_DICTIONARY else {}
+
+
+static func gmax_ids_for_species(pokemon_id: String) -> Array:
+	var safe_id := _safe_id(pokemon_id)
+	var result := []
+	var gmax := _loaded_gmax()
+	for gmax_id in gmax.keys():
+		var entry = gmax[gmax_id]
+		if typeof(entry) == TYPE_DICTIONARY and str(entry.get("base_species", "")) == safe_id:
+			result.append(str(gmax_id))
 	result.sort()
 	return result
 

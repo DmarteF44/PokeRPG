@@ -2025,5 +2025,21 @@
     "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Venusaur.",
     "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Venusaur.",
     "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "dynamax_band",
+    "name_en": "Dynamax Band",
+    "name_pt": "Bracelete Dynamax",
+    "category": "key_items",
+    "price": 40000,
+    "min_level": 25,
+    "min_badges": 4,
+    "effect_type": "dynamax_band",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A trainer-wide wristband. Once bought, lets any of your Pokemon Dynamax in battle for 3 turns, growing giant and gaining a temporary HP boost.",
+    "description_pt": "Um bracelete do treinador. Uma vez comprado, permite que qualquer um dos seus Pokemon use Dynamax em batalha por 3 turnos, crescendo e ganhando um bonus temporario de HP.",
+    "icon_path": "res://assets/items/key_items/dynamax_band.png"
   }
 ]
