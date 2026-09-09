@@ -9,10 +9,10 @@ extends RefCounted
 # Shiny/Black, whose recolor shader is already applied to the sprites by
 # PokemonHelpers.add_animated_sprite before play() is called.
 
-const PREP_PULSES := 4
-const PREP_PULSE_DURATION := 0.42
-const FLASH_DURATION := 0.32
-const REVEAL_DURATION := 1.0
+const PREP_PULSES := 3
+const PREP_PULSE_DURATION := 0.31
+const FLASH_DURATION := 0.22
+const REVEAL_DURATION := 0.7
 
 static func play(before_sprite: TextureRect, after_sprite: TextureRect, flash: ColorRect, on_done: Callable) -> void:
 	before_sprite.pivot_offset = before_sprite.size / 2.0
