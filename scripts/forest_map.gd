@@ -297,13 +297,10 @@ func _explore_map() -> void:
 		_show_center_result(_text("none_found"), Color.WHITE)
 		return
 
-	var seen = save_data.get("seen_pokemon", [])
-	if typeof(seen) != TYPE_ARRAY:
-		seen = []
-	var encounter_id := str(current_encounter.get("id", ""))
-	if encounter_id != "" and not seen.has(encounter_id):
-		seen.append(encounter_id)
-	SaveManager.update_current_save({"pending_encounter": current_encounter, "current_map": current_map_key, "seen_pokemon": seen})
+	var pokedex_updates := PokemonHelpers.pokedex_seen_updates(current_encounter, save_data)
+	pokedex_updates["pending_encounter"] = current_encounter
+	pokedex_updates["current_map"] = current_map_key
+	SaveManager.update_current_save(pokedex_updates)
 	_refresh_save_data()
 	_show_encounter_result(current_encounter)
 
@@ -454,13 +451,10 @@ func _resolve_fishing() -> void:
 		_show_center_result(_text("fish_escaped"), Color.WHITE)
 		return
 
-	var seen = save_data.get("seen_pokemon", [])
-	if typeof(seen) != TYPE_ARRAY:
-		seen = []
-	var encounter_id := str(current_encounter.get("id", ""))
-	if encounter_id != "" and not seen.has(encounter_id):
-		seen.append(encounter_id)
-	SaveManager.update_current_save({"pending_encounter": current_encounter, "current_map": current_map_key, "seen_pokemon": seen})
+	var pokedex_updates := PokemonHelpers.pokedex_seen_updates(current_encounter, save_data)
+	pokedex_updates["pending_encounter"] = current_encounter
+	pokedex_updates["current_map"] = current_map_key
+	SaveManager.update_current_save(pokedex_updates)
 	_refresh_save_data()
 	_show_encounter_result(current_encounter)
 

@@ -1575,16 +1575,15 @@ func _capture_enemy() -> Dictionary:
 	else:
 		storage.append(_battle_pokemon_copy(captured))
 		destination = "storage"
-	var seen := _merged_pokemon_ids(save_data.get("seen_pokemon", []), str(captured.get("id", "")))
-	var owned := _merged_pokemon_ids(save_data.get("owned_pokemon", []), str(captured.get("id", "")))
-	SaveManager.update_current_save({
-		"team": _battle_team_snapshot(),
-		"storage": storage,
-		"seen_pokemon": seen,
-		"owned_pokemon": owned,
-		"pending_encounter": {},
-		"active_pokemon_index": player_team_index,
-	})
+	var pokedex_updates := PokemonHelpers.pokedex_seen_updates(captured, save_data)
+	var owned_updates := PokemonHelpers.pokedex_owned_updates(captured, save_data)
+	for key in owned_updates:
+		pokedex_updates[key] = owned_updates[key]
+	pokedex_updates["team"] = _battle_team_snapshot()
+	pokedex_updates["storage"] = storage
+	pokedex_updates["pending_encounter"] = {}
+	pokedex_updates["active_pokemon_index"] = player_team_index
+	SaveManager.update_current_save(pokedex_updates)
 	var trainer_xp_result := SaveManager.grant_trainer_xp(_capture_trainer_xp(captured))
 	save_data = SaveManager.get_current_save()
 	return {"pokemon": captured, "destination": destination, "trainer_xp": trainer_xp_result}
@@ -1597,18 +1596,6 @@ func _capture_trainer_xp(captured: Dictionary) -> int:
 	var level := maxi(1, int(captured.get("level", 1)))
 	var base := maxi(5, int((255.0 - catch_rate) / 8.0) + level)
 	return int(round(base * PokemonHelpers.variant_reward_multiplier(captured)))
-
-
-func _merged_pokemon_ids(value, pokemon_id: String) -> Array:
-	var ids := []
-	if typeof(value) == TYPE_ARRAY:
-		for entry in value:
-			var safe_id := str(entry)
-			if safe_id != "" and not ids.has(safe_id):
-				ids.append(safe_id)
-	if pokemon_id != "" and not ids.has(pokemon_id):
-		ids.append(pokemon_id)
-	return ids
 
 
 func _first_fainted_team_index() -> int:
