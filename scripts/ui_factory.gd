@@ -84,6 +84,13 @@ static func load_texture(path: String) -> Texture2D:
 static func add_texture(parent: Node, path: String, pos: Vector2, node_size: Vector2, node_name: String, stretch_mode: int) -> TextureRect:
 	var texture_rect := TextureRect.new()
 	texture_rect.name = node_name
+	# TextureRect's default expand_mode (EXPAND_KEEP_SIZE) treats the source
+	# image's native pixel size as a size FLOOR: Godot silently clamps `size`
+	# back up to it whenever the image is bigger than the box we ask for, so
+	# an image larger than its intended box overflows past it (this was the
+	# real cause of the title logo and other art spilling off-screen). Setting
+	# EXPAND_IGNORE_SIZE makes the explicit size below authoritative.
+	texture_rect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	texture_rect.texture = load_texture(path)
 	texture_rect.position = pos
 	texture_rect.size = node_size

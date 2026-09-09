@@ -1136,6 +1136,7 @@ func _play_attack_effect(move: Dictionary, target_sprite: TextureRect) -> void:
 
 	var effect := TextureRect.new()
 	effect.name = "MoveEffect"
+	effect.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	effect.texture = texture
 	effect.size = Vector2(96, 96)
 	effect.position = target_sprite.position + target_sprite.size * 0.5 - effect.size * 0.5
@@ -1483,7 +1484,8 @@ func _capture_enemy() -> Dictionary:
 	if typeof(storage) != TYPE_ARRAY:
 		storage = []
 	var destination := "team"
-	if battle_team.size() < SaveManager.MAX_TEAM_SIZE:
+	var team_capacity := SaveManager.team_capacity_for_level(int(save_data.get("level", 1)))
+	if battle_team.size() < team_capacity:
 		battle_team.append(_battle_pokemon_copy(captured))
 	else:
 		storage.append(_battle_pokemon_copy(captured))
@@ -1539,6 +1541,7 @@ func _play_capture_feedback(item_id: String, shakes: int, caught: bool) -> void:
 		return
 	var ball := TextureRect.new()
 	ball.name = "CaptureBall"
+	ball.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	ball.texture = load(texture_path)
 	ball.position = player_sprite.position + Vector2(44, 12)
 	ball.size = Vector2(34, 34)

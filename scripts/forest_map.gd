@@ -32,6 +32,8 @@ const TEXT = {
 		"no_fishing_gear": "You need a fishing rod and line to fish here.",
 		"no_bait": "You have no bait left.",
 		"incompatible_gear": "Your line is too strong for your rod! Fishing with reduced tier.",
+		"gear_too_weak": "This area needs stronger fishing gear (an Obsidian Rod and matching line).",
+		"lava": "Lava Fields",
 		"reel": "Reel!",
 		"fishing_hint": "Tap Reel when the marker is in the zone!",
 		"fish_hooked": "Something's biting!",
@@ -64,6 +66,8 @@ const TEXT = {
 		"no_fishing_gear": "Você precisa de uma vara e uma linha de pesca para pescar aqui.",
 		"no_bait": "Você não tem mais iscas.",
 		"incompatible_gear": "Sua linha é forte demais para sua vara! Pescando com nível reduzido.",
+		"gear_too_weak": "Esta área exige equipamento de pesca mais forte (uma Vara de Obsidiana e linha compatível).",
+		"lava": "Campos de Lava",
 		"reel": "Puxar!",
 		"fishing_hint": "Toque em Puxar quando o marcador estiver na zona!",
 		"fish_hooked": "Algo está mordendo a isca!",
@@ -299,6 +303,10 @@ func _start_fishing() -> void:
 		return
 	if int(gear.get("bait_amount", 0)) <= 0:
 		_show_center_result(_text("no_bait"), Color.WHITE)
+		return
+	var required_tier := int(map_data.get("required_fishing_tier", 0))
+	if required_tier > 0 and int(gear.get("effective_tier", 0)) < required_tier:
+		_show_center_result(_text("gear_too_weak"), Color.WHITE)
 		return
 	fishing_gear_cache = gear
 	_show_fishing_minigame(gear)
