@@ -46,11 +46,23 @@ const AVATAR_COLORS = [
 	Color(0.46, 0.32, 0.20),
 	Color(0.68, 0.70, 0.72),
 ]
-const STARTERS = [
-	{"id": "bulbasaur", "name": "Bulbasaur", "dex": 1, "sprite": "res://assets/pokemon/icons/bulbasaur.png", "available": true},
-	{"id": "charmander", "name": "Charmander", "dex": 4, "sprite": "res://assets/pokemon/icons/charmander.png", "available": true},
-	{"id": "squirtle", "name": "Squirtle", "dex": 7, "sprite": "res://assets/pokemon/icons/squirtle.png", "available": true},
-]
+# The canonical starter trio for each generation - which three species are
+# "the starters" is fixed by the games themselves, not something to derive
+# from arbitrary data. Everything ABOUT each one (name, dex number, sprite,
+# whether it's actually playable) is still read live from the species data
+# below in _starters_for_generation(), not hardcoded here - so a generation
+# whose data/assets land later becomes selectable with no code change here.
+const STARTERS_BY_GENERATION = {
+	1: ["bulbasaur", "charmander", "squirtle"],
+	2: ["chikorita", "cyndaquil", "totodile"],
+	3: ["treecko", "torchic", "mudkip"],
+	4: ["turtwig", "chimchar", "piplup"],
+	5: ["snivy", "tepig", "oshawott"],
+	6: ["chespin", "fennekin", "froakie"],
+	7: ["rowlet", "litten", "popplio"],
+	8: ["grookey", "scorbunny", "sobble"],
+	9: ["sprigatito", "fuecoco", "quaxly"],
+}
 const TEXT = {
 	"en": {
 		"load_game": "Load Game",
@@ -148,6 +160,7 @@ var avatar_buttons: Array = []
 var custom_avatar_button: Button
 var generation_buttons: Array = []
 var starter_buttons: Array = []
+var new_game_content: Control
 var player_name_edit: LineEdit
 var starter_nickname_edit: LineEdit
 var start_game_button: TextureButton
@@ -355,9 +368,9 @@ func _build_new_game_content(content: Control) -> void:
 		generation_buttons.append(button)
 		button.pressed.connect(Callable(self, "_select_generation").bind(generation))
 
+	new_game_content = content
 	UI.add_panel_label(content, _text("choose_starter"), Vector2(0, 804), Vector2(296, 28), 17, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "StarterLabel")
-	for i in range(STARTERS.size()):
-		_add_starter_button(content, STARTERS[i], Vector2(float(i) * 102.0, 840.0))
+	_refresh_starter_buttons()
 
 	UI.add_panel_label(content, _text("starter_nickname"), Vector2(0, 940), Vector2(296, 24), 15, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "StarterNicknameLabel")
 	starter_nickname_edit = LineEdit.new()
@@ -451,6 +464,40 @@ func _add_starter_button(parent: Control, starter: Dictionary, pos: Vector2) -> 
 	button.pressed.connect(Callable(self, "_select_starter").bind(starter))
 
 
+# Builds the 3 starter entries for a generation straight from the real
+# species data (name/dex/sprite/availability) - only which 3 ids belong to
+# a generation is fixed (STARTERS_BY_GENERATION), everything about each one
+# is read live so newly-added data/assets show up with no code change here.
+# Returns [] for a generation with no species data yet (e.g. Gen 9).
+func _starters_for_generation(generation: int) -> Array:
+	var ids: Array = STARTERS_BY_GENERATION.get(generation, [])
+	var starters: Array = []
+	for pokemon_id in ids:
+		if not PokemonHelpers.has_definition(str(pokemon_id)):
+			return []
+		var definition := PokemonHelpers.get_definition(str(pokemon_id))
+		starters.append({
+			"id": str(definition.get("id", pokemon_id)),
+			"name": str(definition.get("name", definition.get("species", pokemon_id))),
+			"dex": int(definition.get("dex_number", 0)),
+			"sprite": str(definition.get("icon_path", "")),
+			"available": PokemonHelpers.is_available(str(pokemon_id)),
+		})
+	return starters
+
+
+func _refresh_starter_buttons() -> void:
+	for button in starter_buttons:
+		if is_instance_valid(button):
+			button.queue_free()
+	starter_buttons.clear()
+	if new_game_content == null or not is_instance_valid(new_game_content):
+		return
+	var starters := _starters_for_generation(selected_generation)
+	for i in range(starters.size()):
+		_add_starter_button(new_game_content, starters[i], Vector2(float(i) * 102.0, 840.0))
+
+
 func _select_avatar(avatar_id: int) -> void:
 	selected_avatar_id = avatar_id
 	selected_avatar_type = "preset"
@@ -467,15 +514,21 @@ func _select_custom_avatar() -> void:
 
 func _select_generation(generation: int) -> void:
 	selected_generation = generation
-	if generation == 1:
-		selected_starter_name = "Charmander"
-		selected_starter_id = "charmander"
-		selected_starter_dex = 4
-	else:
+	var starters := _starters_for_generation(generation)
+	_refresh_starter_buttons()
+	if starters.is_empty():
 		selected_starter_name = ""
 		selected_starter_id = ""
 		selected_starter_dex = 0
 		UI.show_message_popup(self, "Gen %d" % generation, _text("coming_generation"))
+	else:
+		# Mirrors the previous Gen-1 behavior of defaulting to the first
+		# starter in the trio so a generation switch always leaves a valid
+		# selection, without hardcoding which species that is.
+		var first: Dictionary = starters[0]
+		selected_starter_id = str(first.get("id", ""))
+		selected_starter_name = str(first.get("name", ""))
+		selected_starter_dex = int(first.get("dex", 0))
 	_update_new_game_selection_styles()
 
 
@@ -484,7 +537,6 @@ func _select_starter(starter: Dictionary) -> void:
 		UI.show_message_popup(self, str(starter["name"]), _text("coming_starter"))
 		return
 
-	selected_generation = 1
 	selected_starter_id = str(starter.get("id", PokemonHelpers.id_from_name(str(starter["name"]))))
 	selected_starter_name = str(starter["name"])
 	selected_starter_dex = int(starter["dex"])
@@ -492,7 +544,7 @@ func _select_starter(starter: Dictionary) -> void:
 
 
 func _starter_is_available(starter_name: String) -> bool:
-	for starter in STARTERS:
+	for starter in _starters_for_generation(selected_generation):
 		if str(starter.get("name", "")) == starter_name:
 			return bool(starter.get("available", false))
 	return false
@@ -508,14 +560,18 @@ func _update_new_game_selection_styles() -> void:
 		var button: Button = generation_buttons[i]
 		var gen := i + 1
 		var selected := selected_generation == gen
+		# Every generation with a real starter trio (currently Gen 1-8) looks
+		# the same, selectable regardless of which one - only a generation
+		# with no species data yet (Gen 9) reads as muted.
+		var has_data := not _starters_for_generation(gen).is_empty()
 		var fill := Color(0.95, 0.78, 0.32) if selected else Color(0.82, 0.88, 0.94)
-		if gen != 1:
+		if not has_data:
 			fill = Color(0.70, 0.76, 0.82) if not selected else Color(0.88, 0.70, 0.30)
 		UI.style_panel_button(button, fill, Color(0.92, 0.46, 0.08) if selected else Color(0.36, 0.50, 0.62), 3 if selected else 2)
 
 	for button: Button in starter_buttons:
 		var starter_name: String = button.name
-		var selected: bool = selected_generation == 1 and selected_starter_name == starter_name
+		var selected: bool = selected_starter_name == starter_name
 		var available := _starter_is_available(starter_name)
 		var fill := Color(0.95, 0.78, 0.32) if selected else Color(0.82, 0.88, 0.94)
 		if not available:
@@ -523,7 +579,7 @@ func _update_new_game_selection_styles() -> void:
 		UI.style_panel_button(button, fill, Color(0.92, 0.46, 0.08) if selected else Color(0.36, 0.50, 0.62), 3 if selected else 2)
 
 	if start_game_button != null and is_instance_valid(start_game_button):
-		var can_start := selected_generation == 1 and PokemonHelpers.is_starter_id(selected_starter_id)
+		var can_start := PokemonHelpers.is_starter_id(selected_starter_id) and PokemonHelpers.has_definition(selected_starter_id)
 		start_game_button.disabled = not can_start
 		start_game_button.modulate = Color(1, 1, 1, 1) if can_start else Color(0.62, 0.62, 0.62, 0.88)
 
@@ -533,7 +589,7 @@ func _update_new_game_selection_styles() -> void:
 
 
 func _try_start_new_game() -> void:
-	if selected_generation != 1 or not PokemonHelpers.is_starter_id(selected_starter_id):
+	if not PokemonHelpers.is_starter_id(selected_starter_id) or not PokemonHelpers.has_definition(selected_starter_id):
 		UI.show_message_popup(self, _text("new_game"), _text("coming_starter"))
 		return
 

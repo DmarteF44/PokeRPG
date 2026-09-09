@@ -3412,7 +3412,10 @@ func _debug_clear_storage() -> void:
 
 func _debug_add_starters_to_storage() -> void:
 	var storage := _storage()
-	var starter_ids := PokemonHelpers.starter_ids()
+	# starter_ids() now spans every generation's trio (Gen 1-9), but a
+	# generation with no species data yet (Gen 9) would otherwise silently
+	# fall back to the default starter's data under the wrong id/name.
+	var starter_ids := PokemonHelpers.starter_ids().filter(func(id): return PokemonHelpers.has_definition(id))
 	for pokemon_id in starter_ids:
 		if storage.size() >= SaveManager.MAX_STORAGE_SIZE:
 			break
