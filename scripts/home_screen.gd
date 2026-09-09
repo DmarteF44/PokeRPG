@@ -551,6 +551,7 @@ var pokemon_center_status_label: Label
 var pokemon_center_heal_button: TextureButton
 var stats_label: Label
 var energy_bar_fill: ColorRect
+var energy_amount_label: Label
 var selected_bag_category := "pokeballs"
 var selected_bag_item: Dictionary = {}
 var selected_shop_category := "pokeballs"
@@ -621,7 +622,8 @@ const ENERGY_BAR_WIDTH = 240.0
 func _add_home_energy_bar() -> void:
 	var energy_max := maxi(1, int(save_data.get("energy_max", 30)))
 	var energy_current := clampi(int(save_data.get("energy_current", energy_max)), 0, energy_max)
-	energy_bar_fill = UI.add_ratio_bar(self, Vector2(60, 214), Vector2(ENERGY_BAR_WIDTH, 10), float(energy_current) / float(energy_max), Color(0.30, 0.78, 0.95), Color(0.05, 0.05, 0.05, 0.9), "HomeEnergy")
+	energy_bar_fill = UI.add_ratio_bar(self, Vector2(52, 214), Vector2(ENERGY_BAR_WIDTH, 10), float(energy_current) / float(energy_max), Color(0.30, 0.78, 0.95), Color(0.05, 0.05, 0.05, 0.9), "HomeEnergy")
+	energy_amount_label = UI.add_label(self, "%d/%d" % [energy_current, energy_max], Vector2(296, 208), Vector2(56, 20), 11, Color(0.94, 0.97, 1.0), HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "HomeEnergyAmount")
 
 
 func _add_topbar_icons() -> void:
@@ -663,15 +665,16 @@ func _add_topbar_icon(icon_path: String, pos: Vector2, callback: Callable, node_
 
 
 func _stats_text() -> String:
-	return "%s: $%d  |  %s %d  |  %s  |  %s %d/%d" % [
+	# Energy has its own bar+number just below this line (see
+	# _add_home_energy_bar) - repeating "Energia X/Y" here as well made this
+	# single-line label too long for the screen width and it clipped off the
+	# right edge.
+	return "%s: $%d  |  %s %d  |  %s" % [
 		_text("money"),
 		int(save_data.get("money", 3000)),
 		_text("level"),
 		max(1, int(save_data.get("level", 1))),
 		_text("badges_short") % int(save_data.get("badges", 0)),
-		_text("energy"),
-		int(save_data.get("energy_current", 30)),
-		int(save_data.get("energy_max", 30)),
 	]
 
 
@@ -681,6 +684,8 @@ func _refresh_home_stats() -> void:
 	var energy_max := maxi(1, int(save_data.get("energy_max", 30)))
 	var energy_current := clampi(int(save_data.get("energy_current", energy_max)), 0, energy_max)
 	UI.set_ratio_bar_value(energy_bar_fill, ENERGY_BAR_WIDTH - 2.0, float(energy_current) / float(energy_max))
+	if energy_amount_label != null and is_instance_valid(energy_amount_label):
+		energy_amount_label.text = "%d/%d" % [energy_current, energy_max]
 
 
 func _show_tutorial() -> void:
@@ -1013,6 +1018,7 @@ func _add_bag_description() -> void:
 	bag_popup.add_child(panel)
 	UI.style_panel_button(panel, Color(0.88, 0.94, 0.98), Color(0.34, 0.50, 0.62), 2)
 	bag_description_label = UI.add_panel_label(panel, "%s\n%s" % [_text("select_item"), _text("items_use_hint")], Vector2(12, 8), Vector2(280, 86), 12, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Description")
+	bag_description_label.clip_text = true
 
 	bag_use_button = UI.add_orange_button(bag_popup, _text("details"), Vector2(110, 512), Vector2(140, 44), Callable(self, "_show_selected_bag_item_details"), "DetailsItem")
 	bag_use_button.disabled = true
@@ -1023,14 +1029,13 @@ func _select_bag_item(item: Dictionary) -> void:
 	selected_bag_item = item.duplicate(true)
 	var amount := InventoryManager.get_item_amount(str(item.get("id", "")))
 	if bag_description_label != null and is_instance_valid(bag_description_label):
-		bag_description_label.text = "%s\n%s: %d | %s: %s\n%s\n%s" % [
+		bag_description_label.text = "%s\n%s: %d | %s: %s\n%s" % [
 			_item_name(item),
 			_text("quantity"),
 			amount,
 			_text("type"),
 			_text(str(item.get("category", ""))),
 			_item_description(item),
-			_text("items_use_hint"),
 		]
 	if bag_use_button != null and is_instance_valid(bag_use_button):
 		var effect_type := str(item.get("effect_type", ""))
