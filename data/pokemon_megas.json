@@ -1,0 +1,867 @@
+{
+  "abomasnow-mega": {
+    "ability": "Snow Warning",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/abomasnow-mega/back/",
+    "back_gif_source": "imgi_576_abomasnow-mega.gif",
+    "base_species": "abomasnow",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/abomasnow-mega/front/",
+    "front_gif_source": "imgi_228_abomasnow-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/abomasnow-mega.png",
+    "item_id": "abomasite",
+    "name_en": "Mega Abomasnow",
+    "name_pt": "Mega Abomasnow",
+    "types": [
+      "Grass",
+      "Ice"
+    ]
+  },
+  "absol-mega": {
+    "ability": "Magic Bounce",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/absol-mega/back/",
+    "back_gif_source": "imgi_648_absol-mega.gif",
+    "base_species": "absol",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/absol-mega/front/",
+    "front_gif_source": "imgi_286_absol-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/absol-mega.png",
+    "item_id": "absolite",
+    "name_en": "Mega Absol",
+    "name_pt": "Mega Absol",
+    "types": [
+      "Dark"
+    ]
+  },
+  "aerodactyl-mega": {
+    "ability": "Tough Claws",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/aerodactyl-mega/back/",
+    "back_gif_source": "imgi_846_aerodactyl-mega.gif",
+    "base_species": "aerodactyl",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/aerodactyl-mega/front/",
+    "front_gif_source": "imgi_413_aerodactyl-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/aerodactyl-mega.png",
+    "item_id": "aerodactylite",
+    "name_en": "Mega Aerodactyl",
+    "name_pt": "Mega Aerodactyl",
+    "types": [
+      "Rock",
+      "Flying"
+    ]
+  },
+  "aggron-mega": {
+    "ability": "Filter",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/aggron-mega/back/",
+    "back_gif_source": "imgi_504_aggron-mega.gif",
+    "base_species": "aggron",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/aggron-mega/front/",
+    "front_gif_source": "imgi_142_aggron-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/aggron-mega.png",
+    "item_id": "aggronite",
+    "name_en": "Mega Aggron",
+    "name_pt": "Mega Aggron",
+    "types": [
+      "Steel"
+    ]
+  },
+  "alakazam-mega": {
+    "ability": "Trace",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/alakazam-mega/back/",
+    "back_gif_source": "imgi_644_alakazam-mega.gif",
+    "base_species": "alakazam",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/alakazam-mega/front/",
+    "front_gif_source": "imgi_211_alakazam-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/alakazam-mega.png",
+    "item_id": "alakazite",
+    "name_en": "Mega Alakazam",
+    "name_pt": "Mega Alakazam",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "altaria-mega": {
+    "ability": "Pixilate",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/altaria-mega/back/",
+    "back_gif_source": "imgi_586_altaria-mega.gif",
+    "base_species": "altaria",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/altaria-mega/front/",
+    "front_gif_source": "imgi_224_altaria-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/altaria-mega.png",
+    "item_id": "altarianite",
+    "name_en": "Mega Altaria",
+    "name_pt": "Mega Altaria",
+    "types": [
+      "Dragon",
+      "Fairy"
+    ]
+  },
+  "ampharos-mega": {
+    "ability": "Mold Breaker",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/ampharos-mega/back/",
+    "back_gif_source": "imgi_382_ampharos-mega.gif",
+    "base_species": "ampharos",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/ampharos-mega/front/",
+    "front_gif_source": "imgi_72_ampharos-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/ampharos-mega.png",
+    "item_id": "ampharosite",
+    "name_en": "Mega Ampharos",
+    "name_pt": "Mega Ampharos",
+    "types": [
+      "Electric",
+      "Dragon"
+    ]
+  },
+  "audino-mega": {
+    "ability": "Healer",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/audino-mega/back/",
+    "back_gif_source": "imgi_444_audino-mega.gif",
+    "base_species": "audino",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/audino-mega/front/",
+    "front_gif_source": "imgi_82_audino-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/audino-mega.png",
+    "item_id": "audinite",
+    "name_en": "Mega Audino",
+    "name_pt": "Mega Audino",
+    "types": [
+      "Normal",
+      "Fairy"
+    ]
+  },
+  "banette-mega": {
+    "ability": "Prankster",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/banette-mega/back/",
+    "back_gif_source": "imgi_636_banette-mega.gif",
+    "base_species": "banette",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/banette-mega/front/",
+    "front_gif_source": "imgi_274_banette-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/banette-mega.png",
+    "item_id": "banettite",
+    "name_en": "Mega Banette",
+    "name_pt": "Mega Banette",
+    "types": [
+      "Ghost"
+    ]
+  },
+  "beedrill-mega": {
+    "ability": "Adaptability",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/beedrill-mega/back/",
+    "back_gif_source": "imgi_479_beedrill-mega.gif",
+    "base_species": "beedrill",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/beedrill-mega/front/",
+    "front_gif_source": "imgi_46_beedrill-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/beedrill-mega.png",
+    "item_id": "beedrillite",
+    "name_en": "Mega Beedrill",
+    "name_pt": "Mega Beedrill",
+    "types": [
+      "Bug",
+      "Poison"
+    ]
+  },
+  "blastoise-mega": {
+    "ability": "Mega Launcher",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/blastoise-mega/back/",
+    "back_gif_source": "imgi_463_blastoise-mega.gif",
+    "base_species": "blastoise",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/blastoise-mega/front/",
+    "front_gif_source": "imgi_30_blastoise-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/blastoise-mega.png",
+    "item_id": "blastoisinite",
+    "name_en": "Mega Blastoise",
+    "name_pt": "Mega Blastoise",
+    "types": [
+      "Water"
+    ]
+  },
+  "blaziken-mega": {
+    "ability": "Speed Boost",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/blaziken-mega/back/",
+    "back_gif_source": "imgi_386_blaziken-mega.gif",
+    "base_species": "blaziken",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/blaziken-mega/front/",
+    "front_gif_source": "imgi_24_blaziken-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/blaziken-mega.png",
+    "item_id": "blazikenite",
+    "name_en": "Mega Blaziken",
+    "name_pt": "Mega Blaziken",
+    "types": [
+      "Fire",
+      "Fighting"
+    ]
+  },
+  "camerupt-mega": {
+    "ability": "Sheer Force",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/camerupt-mega/back/",
+    "back_gif_source": "imgi_560_camerupt-mega.gif",
+    "base_species": "camerupt",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/camerupt-mega/front/",
+    "front_gif_source": "imgi_198_camerupt-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/camerupt-mega.png",
+    "item_id": "cameruptite",
+    "name_en": "Mega Camerupt",
+    "name_pt": "Mega Camerupt",
+    "types": [
+      "Fire",
+      "Ground"
+    ]
+  },
+  "charizard-mega-x": {
+    "ability": "Tough Claws",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/charizard-mega-x/back/",
+    "back_gif_source": "imgi_453_charizard-megax.gif",
+    "base_species": "charizard",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/charizard-mega-x/front/",
+    "front_gif_source": "imgi_20_charizard-megax.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/charizard-mega-x.png",
+    "item_id": "charizardite_x",
+    "name_en": "Mega Charizard X",
+    "name_pt": "Mega Charizard X",
+    "types": [
+      "Fire",
+      "Dragon"
+    ]
+  },
+  "charizard-mega-y": {
+    "ability": "Drought",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/charizard-mega-y/back/",
+    "back_gif_source": "imgi_455_charizard-megay.gif",
+    "base_species": "charizard",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/charizard-mega-y/front/",
+    "front_gif_source": "imgi_22_charizard-megay.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/charizard-mega-y.png",
+    "item_id": "charizardite_y",
+    "name_en": "Mega Charizard Y",
+    "name_pt": "Mega Charizard Y",
+    "types": [
+      "Fire",
+      "Flying"
+    ]
+  },
+  "diancie-mega": {
+    "ability": "Magic Bounce",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/diancie-mega/back/",
+    "back_gif_source": "imgi_508_diancie-mega.gif",
+    "base_species": "diancie",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/diancie-mega/front/",
+    "front_gif_source": "imgi_252_diancie-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/diancie-mega.png",
+    "item_id": "diancite",
+    "name_en": "Mega Diancie",
+    "name_pt": "Mega Diancie",
+    "types": [
+      "Rock",
+      "Fairy"
+    ]
+  },
+  "garchomp-mega": {
+    "ability": "Sand Force",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/garchomp-mega/back/",
+    "back_gif_source": "imgi_526_garchomp-mega.gif",
+    "base_species": "garchomp",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/garchomp-mega/front/",
+    "front_gif_source": "imgi_178_garchomp-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/garchomp-mega.png",
+    "item_id": "garchompite",
+    "name_en": "Mega Garchomp",
+    "name_pt": "Mega Garchomp",
+    "types": [
+      "Dragon",
+      "Ground"
+    ]
+  },
+  "gardevoir-mega": {
+    "ability": "Pixilate",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/gardevoir-mega/back/",
+    "back_gif_source": "imgi_450_gardevoir-mega.gif",
+    "base_species": "gardevoir",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/gardevoir-mega/front/",
+    "front_gif_source": "imgi_88_gardevoir-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/gardevoir-mega.png",
+    "item_id": "gardevoirite",
+    "name_en": "Mega Gardevoir",
+    "name_pt": "Mega Gardevoir",
+    "types": [
+      "Psychic",
+      "Fairy"
+    ]
+  },
+  "gengar-mega": {
+    "ability": "Shadow Tag",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/gengar-mega/back/",
+    "back_gif_source": "imgi_720_gengar-mega.gif",
+    "base_species": "gengar",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/gengar-mega/front/",
+    "front_gif_source": "imgi_287_gengar-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/gengar-mega.png",
+    "item_id": "gengarite",
+    "name_en": "Mega Gengar",
+    "name_pt": "Mega Gengar",
+    "types": [
+      "Ghost",
+      "Poison"
+    ]
+  },
+  "glalie-mega": {
+    "ability": "Refrigerate",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/glalie-mega/back/",
+    "back_gif_source": "imgi_656_glalie-mega.gif",
+    "base_species": "glalie",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/glalie-mega/front/",
+    "front_gif_source": "imgi_294_glalie-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/glalie-mega.png",
+    "item_id": "glalitite",
+    "name_en": "Mega Glalie",
+    "name_pt": "Mega Glalie",
+    "types": [
+      "Ice"
+    ]
+  },
+  "gyarados-mega": {
+    "ability": "Mold Breaker",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/gyarados-mega/back/",
+    "back_gif_source": "imgi_820_gyarados-mega.gif",
+    "base_species": "gyarados",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/gyarados-mega/front/",
+    "front_gif_source": "imgi_387_gyarados-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/gyarados-mega.png",
+    "item_id": "gyaradosite",
+    "name_en": "Mega Gyarados",
+    "name_pt": "Mega Gyarados",
+    "types": [
+      "Water",
+      "Dark"
+    ]
+  },
+  "heracross-mega": {
+    "ability": "Skill Link",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/heracross-mega/back/",
+    "back_gif_source": "imgi_532_heracross-mega.gif",
+    "base_species": "heracross",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/heracross-mega/front/",
+    "front_gif_source": "imgi_222_heracross-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/heracross-mega.png",
+    "item_id": "heracronite",
+    "name_en": "Mega Heracross",
+    "name_pt": "Mega Heracross",
+    "types": [
+      "Bug",
+      "Fighting"
+    ]
+  },
+  "houndoom-mega": {
+    "ability": "Solar Power",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/houndoom-mega/back/",
+    "back_gif_source": "imgi_574_houndoom-mega.gif",
+    "base_species": "houndoom",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/houndoom-mega/front/",
+    "front_gif_source": "imgi_264_houndoom-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/houndoom-mega.png",
+    "item_id": "houndoominite",
+    "name_en": "Mega Houndoom",
+    "name_pt": "Mega Houndoom",
+    "types": [
+      "Dark",
+      "Fire"
+    ]
+  },
+  "kangaskhan-mega": {
+    "ability": "Parental Bond",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/kangaskhan-mega/back/",
+    "back_gif_source": "imgi_776_kangaskhan-mega.gif",
+    "base_species": "kangaskhan",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/kangaskhan-mega/front/",
+    "front_gif_source": "imgi_343_kangaskhan-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/kangaskhan-mega.png",
+    "item_id": "kangaskhanite",
+    "name_en": "Mega Kangaskhan",
+    "name_pt": "Mega Kangaskhan",
+    "types": [
+      "Normal"
+    ]
+  },
+  "latias-mega": {
+    "ability": "Levitate",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/latias-mega/back/",
+    "back_gif_source": "imgi_700_latias-mega.gif",
+    "base_species": "latias",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/latias-mega/front/",
+    "front_gif_source": "imgi_338_latias-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/latias-mega.png",
+    "item_id": "latiasite",
+    "name_en": "Mega Latias",
+    "name_pt": "Mega Latias",
+    "types": [
+      "Dragon",
+      "Psychic"
+    ]
+  },
+  "latios-mega": {
+    "ability": "Levitate",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/latios-mega/back/",
+    "back_gif_source": "imgi_704_latios-mega.gif",
+    "base_species": "latios",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/latios-mega/front/",
+    "front_gif_source": "imgi_342_latios-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/latios-mega.png",
+    "item_id": "latiosite",
+    "name_en": "Mega Latios",
+    "name_pt": "Mega Latios",
+    "types": [
+      "Dragon",
+      "Psychic"
+    ]
+  },
+  "lopunny-mega": {
+    "ability": "Scrappy",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/lopunny-mega/back/",
+    "back_gif_source": "imgi_482_lopunny-mega.gif",
+    "base_species": "lopunny",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/lopunny-mega/front/",
+    "front_gif_source": "imgi_134_lopunny-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/lopunny-mega.png",
+    "item_id": "lopunnite",
+    "name_en": "Mega Lopunny",
+    "name_pt": "Mega Lopunny",
+    "types": [
+      "Normal",
+      "Fighting"
+    ]
+  },
+  "lucario-mega": {
+    "ability": "Adaptability",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/lucario-mega/back/",
+    "back_gif_source": "imgi_534_lucario-mega.gif",
+    "base_species": "lucario",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/lucario-mega/front/",
+    "front_gif_source": "imgi_186_lucario-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/lucario-mega.png",
+    "item_id": "lucarionite",
+    "name_en": "Mega Lucario",
+    "name_pt": "Mega Lucario",
+    "types": [
+      "Fighting",
+      "Steel"
+    ]
+  },
+  "manectric-mega": {
+    "ability": "Intimidate",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/manectric-mega/back/",
+    "back_gif_source": "imgi_520_manectric-mega.gif",
+    "base_species": "manectric",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/manectric-mega/front/",
+    "front_gif_source": "imgi_158_manectric-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/manectric-mega.png",
+    "item_id": "manectite",
+    "name_en": "Mega Manectric",
+    "name_pt": "Mega Manectric",
+    "types": [
+      "Electric"
+    ]
+  },
+  "mawile-mega": {
+    "ability": "Huge Power",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/mawile-mega/back/",
+    "back_gif_source": "imgi_496_mawile-mega.gif",
+    "base_species": "mawile",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/mawile-mega/front/",
+    "front_gif_source": "imgi_134_mawile-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/mawile-mega.png",
+    "item_id": "mawilite",
+    "name_en": "Mega Mawile",
+    "name_pt": "Mega Mawile",
+    "types": [
+      "Steel",
+      "Fairy"
+    ]
+  },
+  "medicham-mega": {
+    "ability": "Pure Power",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/medicham-mega/back/",
+    "back_gif_source": "imgi_514_medicham-mega.gif",
+    "base_species": "medicham",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/medicham-mega/front/",
+    "front_gif_source": "imgi_152_medicham-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/medicham-mega.png",
+    "item_id": "medichamite",
+    "name_en": "Mega Medicham",
+    "name_pt": "Mega Medicham",
+    "types": [
+      "Fighting",
+      "Psychic"
+    ]
+  },
+  "metagross-mega": {
+    "ability": "Tough Claws",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/metagross-mega/back/",
+    "back_gif_source": "imgi_690_metagross-mega.gif",
+    "base_species": "metagross",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/metagross-mega/front/",
+    "front_gif_source": "imgi_328_metagross-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/metagross-mega.png",
+    "item_id": "metagrossite",
+    "name_en": "Mega Metagross",
+    "name_pt": "Mega Metagross",
+    "types": [
+      "Steel",
+      "Psychic"
+    ]
+  },
+  "mewtwo-mega-x": {
+    "ability": "Steadfast",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/mewtwo-mega-x/back/",
+    "back_gif_source": "imgi_864_mewtwo-megax.gif",
+    "base_species": "mewtwo",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/mewtwo-mega-x/front/",
+    "front_gif_source": "imgi_431_mewtwo-megax.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/mewtwo-mega-x.png",
+    "item_id": "mewtwonite_x",
+    "name_en": "Mega Mewtwo X",
+    "name_pt": "Mega Mewtwo X",
+    "types": [
+      "Psychic",
+      "Fighting"
+    ]
+  },
+  "mewtwo-mega-y": {
+    "ability": "Insomnia",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/mewtwo-mega-y/back/",
+    "back_gif_source": "imgi_866_mewtwo-megay.gif",
+    "base_species": "mewtwo",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/mewtwo-mega-y/front/",
+    "front_gif_source": "imgi_433_mewtwo-megay.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/mewtwo-mega-y.png",
+    "item_id": "mewtwonite_y",
+    "name_en": "Mega Mewtwo Y",
+    "name_pt": "Mega Mewtwo Y",
+    "types": [
+      "Psychic"
+    ]
+  },
+  "pinsir-mega": {
+    "ability": "Aerilate",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/pinsir-mega/back/",
+    "back_gif_source": "imgi_808_pinsir-mega.gif",
+    "base_species": "pinsir",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/pinsir-mega/front/",
+    "front_gif_source": "imgi_375_pinsir-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/pinsir-mega.png",
+    "item_id": "pinsirite",
+    "name_en": "Mega Pinsir",
+    "name_pt": "Mega Pinsir",
+    "types": [
+      "Bug",
+      "Flying"
+    ]
+  },
+  "rayquaza-mega": {
+    "ability": "Delta Stream",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/rayquaza-mega/back/",
+    "back_gif_source": "imgi_716_rayquaza-mega.gif",
+    "base_species": "rayquaza",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/rayquaza-mega/front/",
+    "front_gif_source": "imgi_354_rayquaza-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/rayquaza-mega.png",
+    "item_id": "rayquazite",
+    "name_en": "Mega Rayquaza",
+    "name_pt": "Mega Rayquaza",
+    "types": [
+      "Dragon",
+      "Flying"
+    ]
+  },
+  "sableye-mega": {
+    "ability": "Magic Bounce",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/sableye-mega/back/",
+    "back_gif_source": "imgi_492_sableye-mega.gif",
+    "base_species": "sableye",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/sableye-mega/front/",
+    "front_gif_source": "imgi_130_sableye-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/sableye-mega.png",
+    "item_id": "sablenite",
+    "name_en": "Mega Sableye",
+    "name_pt": "Mega Sableye",
+    "types": [
+      "Dark",
+      "Ghost"
+    ]
+  },
+  "salamence-mega": {
+    "ability": "Aerilate",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/salamence-mega/back/",
+    "back_gif_source": "imgi_682_salamence-mega.gif",
+    "base_species": "salamence",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/salamence-mega/front/",
+    "front_gif_source": "imgi_320_salamence-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/salamence-mega.png",
+    "item_id": "salamencite",
+    "name_en": "Mega Salamence",
+    "name_pt": "Mega Salamence",
+    "types": [
+      "Dragon",
+      "Flying"
+    ]
+  },
+  "sceptile-mega": {
+    "ability": "Lightning Rod",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/sceptile-mega/back/",
+    "back_gif_source": "imgi_372_sceptile-mega.gif",
+    "base_species": "sceptile",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/sceptile-mega/front/",
+    "front_gif_source": "imgi_10_sceptile-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/sceptile-mega.png",
+    "item_id": "sceptilite",
+    "name_en": "Mega Sceptile",
+    "name_pt": "Mega Sceptile",
+    "types": [
+      "Grass",
+      "Dragon"
+    ]
+  },
+  "scizor-mega": {
+    "ability": "Technician",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/scizor-mega/back/",
+    "back_gif_source": "imgi_524_scizor-mega.gif",
+    "base_species": "scizor",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/scizor-mega/front/",
+    "front_gif_source": "imgi_214_scizor-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/scizor-mega.png",
+    "item_id": "scizorite",
+    "name_en": "Mega Scizor",
+    "name_pt": "Mega Scizor",
+    "types": [
+      "Bug",
+      "Steel"
+    ]
+  },
+  "sharpedo-mega": {
+    "ability": "Strong Jaw",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/sharpedo-mega/back/",
+    "back_gif_source": "imgi_546_sharpedo-mega.gif",
+    "base_species": "sharpedo",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/sharpedo-mega/front/",
+    "front_gif_source": "imgi_184_sharpedo-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/sharpedo-mega.png",
+    "item_id": "sharpedonite",
+    "name_en": "Mega Sharpedo",
+    "name_pt": "Mega Sharpedo",
+    "types": [
+      "Water",
+      "Dark"
+    ]
+  },
+  "slowbro-mega": {
+    "ability": "Shell Armor",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/slowbro-mega/back/",
+    "back_gif_source": "imgi_682_slowbro-mega.gif",
+    "base_species": "slowbro",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/slowbro-mega/front/",
+    "front_gif_source": "imgi_249_slowbro-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/slowbro-mega.png",
+    "item_id": "slowbronite",
+    "name_en": "Mega Slowbro",
+    "name_pt": "Mega Slowbro",
+    "types": [
+      "Water",
+      "Psychic"
+    ]
+  },
+  "steelix-mega": {
+    "ability": "Sand Force",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/steelix-mega/back/",
+    "back_gif_source": "imgi_512_steelix-mega.gif",
+    "base_species": "steelix",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/steelix-mega/front/",
+    "front_gif_source": "imgi_202_steelix-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/steelix-mega.png",
+    "item_id": "steelixite",
+    "name_en": "Mega Steelix",
+    "name_pt": "Mega Steelix",
+    "types": [
+      "Steel",
+      "Ground"
+    ]
+  },
+  "swampert-mega": {
+    "ability": "Swift Swim",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/swampert-mega/back/",
+    "back_gif_source": "imgi_394_swampert-mega.gif",
+    "base_species": "swampert",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/swampert-mega/front/",
+    "front_gif_source": "imgi_32_swampert-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/swampert-mega.png",
+    "item_id": "swampertite",
+    "name_en": "Mega Swampert",
+    "name_pt": "Mega Swampert",
+    "types": [
+      "Water",
+      "Ground"
+    ]
+  },
+  "tyranitar-mega": {
+    "ability": "Sand Stream",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/tyranitar-mega/back/",
+    "back_gif_source": "imgi_616_tyranitar-mega.gif",
+    "base_species": "tyranitar",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/tyranitar-mega/front/",
+    "front_gif_source": "imgi_306_tyranitar-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/tyranitar-mega.png",
+    "item_id": "tyranitarite",
+    "name_en": "Mega Tyranitar",
+    "name_pt": "Mega Tyranitar",
+    "types": [
+      "Rock",
+      "Dark"
+    ]
+  },
+  "venusaur-mega": {
+    "ability": "Thick Fat",
+    "back_frame_count": 8,
+    "back_frames_path": "res://assets/pokemon/megas/venusaur-mega/back/",
+    "back_gif_source": "imgi_445_venusaur-mega.gif",
+    "base_species": "venusaur",
+    "front_frame_count": 8,
+    "front_frames_path": "res://assets/pokemon/megas/venusaur-mega/front/",
+    "front_gif_source": "imgi_12_venusaur-mega.gif",
+    "has_animation": true,
+    "icon_path": "res://assets/pokemon/megas/icons/venusaur-mega.png",
+    "item_id": "venusaurite",
+    "name_en": "Mega Venusaur",
+    "name_pt": "Mega Venusaur",
+    "types": [
+      "Grass",
+      "Poison"
+    ]
+  }
+}

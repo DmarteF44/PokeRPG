@@ -82,6 +82,8 @@ const TEXT = {
 		"bag": "Bag",
 		"pokemon": "Pokemon",
 		"run": "Run",
+		"mega_evolve": "Mega Evolve",
+		"mega_evolved_message": "%s Mega Evolved into %s!",
 		"hp": "HP",
 		"level": "Lv.",
 		"wild_appeared": "Wild %s appeared!",
@@ -158,6 +160,8 @@ const TEXT = {
 		"bag": "Mochila",
 		"pokemon": "Pokemon",
 		"run": "Fugir",
+		"mega_evolve": "Mega Evoluir",
+		"mega_evolved_message": "%s Mega Evoluiu para %s!",
 		"hp": "HP",
 		"level": "Nv.",
 		"wild_appeared": "%s selvagem apareceu!",
@@ -256,6 +260,7 @@ var player_name_label: Label
 var enemy_sprite: TextureRect
 var player_sprite: TextureRect
 var battle_effect_layer: Control
+var mega_button: TextureButton
 
 
 func _ready() -> void:
@@ -951,6 +956,7 @@ func _finish_battle_if_needed(lines: Array) -> bool:
 	_persist_player_pokemon()
 	if int(enemy_pokemon.get("hp", 0)) <= 0:
 		battle_over = true
+		_refresh_mega_button()
 		lines.append(_text("enemy_fainted"))
 		lines.append(_grant_victory_xp())
 		var gym_result := _gym_victory_result()
@@ -975,6 +981,7 @@ func _finish_battle_if_needed(lines: Array) -> bool:
 			_show_pokemon()
 			return true
 		battle_over = true
+		_refresh_mega_button()
 		message_label.text = _join_lines(lines)
 		_add_return_button()
 		return true
@@ -1117,15 +1124,29 @@ func _persist_player_pokemon(extra_changes: Dictionary = {}) -> void:
 	SaveManager.update_current_save(changes)
 
 
-func _battle_pokemon_copy(pokemon: Dictionary) -> Dictionary:
-	return PokemonHelpers.normalize_pokemon(pokemon).duplicate(true)
+func _battle_pokemon_copy(pokemon: Dictionary, strip_mega: bool = false) -> Dictionary:
+	var source := pokemon
+	# Mega Evolution must never survive into a persisted save (see
+	# PokemonHelpers.mega_definition) - reverting both the flag and the
+	# stat bonus together here, at the one point (_battle_team_snapshot)
+	# whose output ever reaches SaveManager, is what makes it safe to let
+	# "mega" live freely on the in-memory player_pokemon/battle_team for
+	# the rest of the actual battle.
+	if strip_mega and typeof(pokemon) == TYPE_DICTIONARY and str(pokemon.get("mega", "")) != "":
+		source = pokemon.duplicate(true)
+		var stats := PokemonHelpers.stats_for_level(str(source.get("id", "")), int(source.get("level", 1)), bool(source.get("black", false)), bool(source.get("alpha", false)), bool(source.get("purified", false)), false)
+		for stat_key in ["max_hp", "attack", "defense", "sp_attack", "sp_defense", "speed"]:
+			source[stat_key] = int(stats.get(stat_key, source.get(stat_key, 1)))
+		source["hp"] = mini(int(source.get("hp", 1)), int(source["max_hp"]))
+		source["mega"] = ""
+	return PokemonHelpers.normalize_pokemon(source).duplicate(true)
 
 
 func _battle_team_snapshot() -> Array:
 	var snapshot: Array = []
 	for entry in battle_team:
 		if typeof(entry) == TYPE_DICTIONARY:
-			snapshot.append(_battle_pokemon_copy(entry))
+			snapshot.append(_battle_pokemon_copy(entry, true))
 	return snapshot
 
 
@@ -1136,6 +1157,7 @@ func _update_status() -> void:
 	player_hp_label.text = "%s %d/%d" % [_text("hp"), int(player_pokemon.get("hp", 0)), int(player_pokemon.get("max_hp", 1))]
 	_resize_hp_fill(enemy_hp_fill, enemy_pokemon)
 	_resize_hp_fill(player_hp_fill, player_pokemon)
+	_refresh_mega_button()
 
 
 func _resize_hp_fill(fill: ColorRect, pokemon: Dictionary) -> void:
@@ -1488,6 +1510,7 @@ func _use_capture_item(item_id: String) -> void:
 		var capture_data := _capture_enemy()
 		var destination := str(capture_data.get("destination", "team"))
 		battle_over = true
+		_refresh_mega_button()
 		var lines := [_text("capture_click"), _text("caught") % enemy_name]
 		if destination == "storage":
 			lines.append(_text("sent_storage"))
@@ -1709,6 +1732,64 @@ func _refresh_player_sprite() -> void:
 	var outgoing_sprite := player_sprite
 	player_sprite = PokemonHelpers.add_animated_sprite(self, player_pokemon, Vector2(36, 266), Vector2(112, 112), true, "PlayerSprite")
 	MoveAnimation.play_switch_transition(outgoing_sprite, player_sprite)
+
+
+# The Mega Stone this battle's active Pokemon is both a real species match
+# for (see PokemonHelpers.megas_for_species) and actually holding - returns
+# {} when it can't Mega Evolve right now (wrong/no held item, no Mega for
+# this species, or already Mega Evolved this battle).
+func _available_mega_for_player() -> Dictionary:
+	if str(player_pokemon.get("mega", "")) != "":
+		return {}
+	var held_item := str(player_pokemon.get("held_item", ""))
+	if held_item == "":
+		return {}
+	var pokemon_id := str(player_pokemon.get("id", ""))
+	for mega_id in PokemonHelpers.megas_for_species(pokemon_id):
+		var mega_def := PokemonHelpers.mega_definition(mega_id)
+		if str(mega_def.get("item_id", "")) == held_item:
+			mega_def["mega_id"] = mega_id
+			return mega_def
+	return {}
+
+
+func _refresh_mega_button() -> void:
+	if mega_button != null and is_instance_valid(mega_button):
+		mega_button.queue_free()
+		mega_button = null
+	if battle_over or capture_in_progress:
+		return
+	if int(player_pokemon.get("hp", 0)) <= 0:
+		return
+	if _available_mega_for_player().is_empty():
+		return
+	mega_button = UI.add_orange_button(self, _text("mega_evolve"), Vector2(166, 330), Vector2(120, 32), Callable(self, "_mega_evolve"), "MegaEvolveButton")
+
+
+# Mega Evolving is "free" the same way it is in the real games - it doesn't
+# consume this turn by itself, just transforms the Pokemon immediately, so
+# the player can Mega Evolve and then still pick a move via the Fight panel
+# in the same turn. Reverts automatically at the end of the battle (or if
+# switched out and the battle ends before switching back) - see
+# _battle_pokemon_copy's strip_mega handling, the only place the "mega"
+# flag and its stat bonus are ever cleared.
+func _mega_evolve() -> void:
+	if battle_over or capture_in_progress or int(player_pokemon.get("hp", 0)) <= 0:
+		return
+	var mega_def := _available_mega_for_player()
+	if mega_def.is_empty():
+		return
+	var before_name := str(player_pokemon.get("name", player_pokemon.get("species", "Pokemon")))
+	player_pokemon["mega"] = str(mega_def.get("mega_id", ""))
+	var stats := PokemonHelpers.stats_for_level(str(player_pokemon.get("id", "")), int(player_pokemon.get("level", 1)), bool(player_pokemon.get("black", false)), bool(player_pokemon.get("alpha", false)), bool(player_pokemon.get("purified", false)), true)
+	for stat_key in ["max_hp", "attack", "defense", "sp_attack", "sp_defense", "speed"]:
+		player_pokemon[stat_key] = int(stats.get(stat_key, player_pokemon.get(stat_key, 1)))
+	player_pokemon = PokemonHelpers.normalize_pokemon(player_pokemon)
+	battle_team[player_team_index] = _battle_pokemon_copy(player_pokemon)
+	_refresh_player_sprite()
+	var mega_name := str(mega_def.get("name_pt" if _language() == "pt" else "name_en", ""))
+	message_label.text = _text("mega_evolved_message") % [before_name, mega_name]
+	_update_status()
 
 
 func _item_name(item_id: String) -> String:

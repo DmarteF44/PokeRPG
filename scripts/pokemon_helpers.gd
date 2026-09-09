@@ -16,6 +16,7 @@ const MOVES_PATH = "res://data/moves.json"
 const ABILITIES_PATH = "res://data/abilities/abilities.json"
 const MANIFEST_PATH = "res://data/pokemon_assets_manifest.json"
 const FORMS_PATH = "res://data/pokemon_forms.json"
+const MEGAS_PATH = "res://data/pokemon_megas.json"
 const SPECIES_IDS = ["bulbasaur", "ivysaur", "venusaur", "charmander", "charmeleon", "charizard", "squirtle", "wartortle", "blastoise"]
 # Every generation's canonical starter trio, Gen 1-9 - not just Gen 1's,
 # so is_starter_id()/starter_ids() (used by the debug menu and by
@@ -75,6 +76,7 @@ static var _moves_cache := {}
 static var _abilities_cache := {}
 static var _asset_manifest_cache := {}
 static var _forms_cache := {}
+static var _megas_cache := {}
 
 const FALLBACK_MOVES = {
 	"Tackle": {"id": "tackle", "name": "Tackle", "type": "Normal", "category": "Physical", "power": 40, "accuracy": 100, "pp": 35, "priority": 0, "target": "enemy", "effects": []},
@@ -327,6 +329,24 @@ static func normalize_pokemon(value: Dictionary, fallback_id: String = DEFAULT_S
 		normalized["types"] = _normalized_types(definition.get("types", normalized.get("types", ["Fire"])))
 		if str(normalized.get("icon_path", "")).begins_with("res://assets/pokemon/forms/"):
 			normalized.erase("icon_path")
+	# Mega Evolution - deliberately validated/applied the same way as a
+	# Form, but see mega_definition's doc comment: this field must never be
+	# allowed to reach a persisted save (battle_scene.gd's responsibility),
+	# so it takes priority over any Form's type/sprite override while set.
+	var mega_id := str(normalized.get("mega", ""))
+	var mega_def := mega_definition(mega_id)
+	if not mega_def.is_empty() and str(mega_def.get("base_species", "")) != pokemon_id:
+		mega_id = ""
+		mega_def = {}
+	normalized["mega"] = mega_id
+	if not mega_def.is_empty():
+		normalized["types"] = _normalized_types(mega_def.get("types", normalized.get("types", ["Fire"])))
+		normalized["ability"] = str(mega_def.get("ability", normalized.get("ability", "Unknown")))
+		var mega_icon := str(mega_def.get("icon_path", ""))
+		if mega_icon != "":
+			normalized["icon_path"] = mega_icon
+	elif str(normalized.get("icon_path", "")).begins_with("res://assets/pokemon/megas/"):
+		normalized.erase("icon_path")
 	normalized["max_hp"] = maxi(1, int(normalized.get("max_hp", base_stats.get("hp", 39))))
 	normalized["hp"] = clampi(int(normalized.get("hp", normalized["max_hp"])), 0, int(normalized["max_hp"]))
 	normalized["attack"] = maxi(1, int(normalized.get("attack", base_stats.get("attack", 50))))
@@ -397,6 +417,13 @@ const BLACK_STAT_BONUS := 0.12
 # large and powerful, so its bonus is bigger than Black's - but still a flat
 # curve bonus, not a separate species/form.
 const ALPHA_STAT_BONUS := 0.20
+# Mega Evolution's real-game stat spread differs per species (each Mega
+# Stone grants a distinct +~100 BST distributed unevenly across stats) -
+# reproducing all 46 exact spreads from memory risked subtly wrong numbers,
+# so this project uses the same flat-curve-bonus approach as Black/Alpha
+# instead (see stats_for_level). Bigger than Alpha's since a Mega is a
+# temporary, battle-only power spike, not a permanent trait.
+const MEGA_STAT_BONUS := 0.30
 
 # is_black/is_alpha apply a flat stat bonus (see VARIANTS.md / section 26 of
 # the expansion request: "mais forte, mas nao destruir o jogo") on top of the
@@ -408,12 +435,12 @@ const ALPHA_STAT_BONUS := 0.20
 # request: a Purified Pokemon "tem a forca do black mesmo") - it's the
 # "black" flag itself that gets cleared on purification (dropping the dark
 # shader/tag), not the power.
-static func stats_for_level(pokemon_id: String, level: int, is_black: bool = false, is_alpha: bool = false, is_purified: bool = false) -> Dictionary:
+static func stats_for_level(pokemon_id: String, level: int, is_black: bool = false, is_alpha: bool = false, is_purified: bool = false, is_mega: bool = false) -> Dictionary:
 	var definition := get_definition(pokemon_id)
 	var base_stats: Dictionary = definition.get("base_stats", {})
 	var safe_level := clampi(level, 1, MAX_LEVEL)
 	var bonus_level := maxi(0, safe_level - 5)
-	var multiplier := 1.0 + (BLACK_STAT_BONUS if (is_black or is_purified) else 0.0) + (ALPHA_STAT_BONUS if is_alpha else 0.0)
+	var multiplier := 1.0 + (BLACK_STAT_BONUS if (is_black or is_purified) else 0.0) + (ALPHA_STAT_BONUS if is_alpha else 0.0) + (MEGA_STAT_BONUS if is_mega else 0.0)
 	return {
 		"max_hp": maxi(1, int(round((int(base_stats.get("hp", 39)) + bonus_level * 3) * multiplier))),
 		"attack": maxi(1, int(round((int(base_stats.get("attack", 50)) + int(floor(float(bonus_level) * float(base_stats.get("attack", 50)) / 50.0))) * multiplier))),
@@ -720,7 +747,7 @@ static func add_animated_sprite(parent: Node, pokemon: Dictionary, pos: Vector2,
 	texture_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	parent.add_child(texture_rect)
 
-	var frames := frame_textures(str(pokemon.get("id", DEFAULT_STARTER_ID)), use_back, str(pokemon.get("form", "")))
+	var frames := frame_textures(str(pokemon.get("id", DEFAULT_STARTER_ID)), use_back, str(pokemon.get("form", "")), str(pokemon.get("mega", "")))
 	texture_rect.set_frames(frames, _fallback_texture(pokemon), ANIMATION_LOOP_SECONDS)
 	texture_rect.material = variant_material(pokemon)
 	# Alpha is "exceptionally large" (Legends: Arceus) - a size bump is
@@ -864,7 +891,17 @@ static func variant_material(pokemon: Dictionary):
 	return null
 
 
-static func frame_textures(pokemon_id: String, use_back: bool = false, form_id: String = "") -> Array:
+static func frame_textures(pokemon_id: String, use_back: bool = false, form_id: String = "", mega_id: String = "") -> Array:
+	if mega_id != "":
+		var mega_def := mega_definition(mega_id)
+		if not mega_def.is_empty():
+			var mega_folder_key := "back_frames_path" if use_back else "front_frames_path"
+			var mega_fallback_key := "front_frames_path" if use_back else "back_frames_path"
+			var mega_frames := _textures_from_folder(str(mega_def.get(mega_folder_key, "")))
+			if mega_frames.is_empty():
+				mega_frames = _textures_from_folder(str(mega_def.get(mega_fallback_key, "")))
+			if not mega_frames.is_empty():
+				return mega_frames
 	if form_id != "":
 		var form_def := form_definition(form_id)
 		if not form_def.is_empty():
@@ -1285,6 +1322,50 @@ static func forms_for_species(pokemon_id: String) -> Array:
 		var entry = forms[form_id]
 		if typeof(entry) == TYPE_DICTIONARY and str(entry.get("base_species", "")) == safe_id:
 			result.append(str(form_id))
+	result.sort()
+	return result
+
+
+# Mega Evolution (data/pokemon_megas.json, see extract_mega_sprites.py): a
+# strictly temporary, battle-only transformation - unlike a Regional/
+# Alternate Form, pokemon["mega"] must never survive into the persisted
+# save (battle_scene.gd strips it before every SaveManager write, see
+# _battle_team_snapshot), reverting automatically once the battle ends.
+# While active it overrides type the same way a Form does, plus ability
+# (display only - abilities have no coded battle effects in this project
+# yet, same as every other species' "ability" field) and sprite/stats via
+# the same choke points.
+static func _loaded_megas() -> Dictionary:
+	if not _megas_cache.is_empty():
+		return _megas_cache
+	if not FileAccess.file_exists(MEGAS_PATH):
+		_megas_cache = {}
+		return {}
+	var file := FileAccess.open(MEGAS_PATH, FileAccess.READ)
+	if file == null:
+		_megas_cache = {}
+		return {}
+	var parsed = JSON.parse_string(file.get_as_text())
+	_megas_cache = parsed if typeof(parsed) == TYPE_DICTIONARY else {}
+	return _megas_cache
+
+
+static func mega_definition(mega_id: String) -> Dictionary:
+	if mega_id == "":
+		return {}
+	var megas := _loaded_megas()
+	var entry = megas.get(mega_id, {})
+	return entry.duplicate(true) if typeof(entry) == TYPE_DICTIONARY else {}
+
+
+static func megas_for_species(pokemon_id: String) -> Array:
+	var safe_id := _safe_id(pokemon_id)
+	var result := []
+	var megas := _loaded_megas()
+	for mega_id in megas.keys():
+		var entry = megas[mega_id]
+		if typeof(entry) == TYPE_DICTIONARY and str(entry.get("base_species", "")) == safe_id:
+			result.append(str(mega_id))
 	result.sort()
 	return result
 

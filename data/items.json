@@ -1289,5 +1289,741 @@
     "description_en": "Extremely rare, extremely expensive water said to cleanse a Black/Possuido Pokemon - it stays just as strong, but is no longer Black.",
     "description_pt": "Água extremamente rara e cara, dita capaz de purificar um Pokémon Black/Possuído - ele continua igualmente forte, mas deixa de ser Black.",
     "icon_path": "res://assets/items/evolution/purifying_water.png"
+  },
+  {
+    "id": "abomasite",
+    "name_en": "Abomasite",
+    "name_pt": "Abomasite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Abomasnow.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Abomasnow.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "absolite",
+    "name_en": "Absolite",
+    "name_pt": "Absolite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Absol.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Absol.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "aerodactylite",
+    "name_en": "Aerodactylite",
+    "name_pt": "Aerodactylite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Aerodactyl.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Aerodactyl.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "aggronite",
+    "name_en": "Aggronite",
+    "name_pt": "Aggronite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Aggron.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Aggron.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "alakazite",
+    "name_en": "Alakazite",
+    "name_pt": "Alakazite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Alakazam.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Alakazam.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "altarianite",
+    "name_en": "Altarianite",
+    "name_pt": "Altarianite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Altaria.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Altaria.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "ampharosite",
+    "name_en": "Ampharosite",
+    "name_pt": "Ampharosite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Ampharos.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Ampharos.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "audinite",
+    "name_en": "Audinite",
+    "name_pt": "Audinite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Audino.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Audino.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "banettite",
+    "name_en": "Banettite",
+    "name_pt": "Banettite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Banette.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Banette.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "beedrillite",
+    "name_en": "Beedrillite",
+    "name_pt": "Beedrillite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Beedrill.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Beedrill.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "blastoisinite",
+    "name_en": "Blastoisinite",
+    "name_pt": "Blastoisinite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Blastoise.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Blastoise.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "blazikenite",
+    "name_en": "Blazikenite",
+    "name_pt": "Blazikenite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Blaziken.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Blaziken.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "cameruptite",
+    "name_en": "Cameruptite",
+    "name_pt": "Cameruptite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Camerupt.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Camerupt.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "charizardite_x",
+    "name_en": "Charizardite X",
+    "name_pt": "Charizardite X",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Charizard X.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Charizard X.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "charizardite_y",
+    "name_en": "Charizardite Y",
+    "name_pt": "Charizardite Y",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Charizard Y.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Charizard Y.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "diancite",
+    "name_en": "Diancite",
+    "name_pt": "Diancite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Diancie.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Diancie.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "garchompite",
+    "name_en": "Garchompite",
+    "name_pt": "Garchompite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Garchomp.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Garchomp.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "gardevoirite",
+    "name_en": "Gardevoirite",
+    "name_pt": "Gardevoirite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Gardevoir.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Gardevoir.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "gengarite",
+    "name_en": "Gengarite",
+    "name_pt": "Gengarite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Gengar.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Gengar.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "glalitite",
+    "name_en": "Glalitite",
+    "name_pt": "Glalitite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Glalie.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Glalie.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "gyaradosite",
+    "name_en": "Gyaradosite",
+    "name_pt": "Gyaradosite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Gyarados.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Gyarados.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "heracronite",
+    "name_en": "Heracronite",
+    "name_pt": "Heracronite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Heracross.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Heracross.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "houndoominite",
+    "name_en": "Houndoominite",
+    "name_pt": "Houndoominite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Houndoom.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Houndoom.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "kangaskhanite",
+    "name_en": "Kangaskhanite",
+    "name_pt": "Kangaskhanite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Kangaskhan.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Kangaskhan.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "latiasite",
+    "name_en": "Latiasite",
+    "name_pt": "Latiasite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Latias.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Latias.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "latiosite",
+    "name_en": "Latiosite",
+    "name_pt": "Latiosite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Latios.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Latios.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "lopunnite",
+    "name_en": "Lopunnite",
+    "name_pt": "Lopunnite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Lopunny.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Lopunny.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "lucarionite",
+    "name_en": "Lucarionite",
+    "name_pt": "Lucarionite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Lucario.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Lucario.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "manectite",
+    "name_en": "Manectite",
+    "name_pt": "Manectite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Manectric.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Manectric.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "mawilite",
+    "name_en": "Mawilite",
+    "name_pt": "Mawilite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Mawile.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Mawile.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "medichamite",
+    "name_en": "Medichamite",
+    "name_pt": "Medichamite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Medicham.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Medicham.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "metagrossite",
+    "name_en": "Metagrossite",
+    "name_pt": "Metagrossite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Metagross.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Metagross.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "mewtwonite_x",
+    "name_en": "Mewtwonite X",
+    "name_pt": "Mewtwonite X",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Mewtwo X.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Mewtwo X.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "mewtwonite_y",
+    "name_en": "Mewtwonite Y",
+    "name_pt": "Mewtwonite Y",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Mewtwo Y.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Mewtwo Y.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "pinsirite",
+    "name_en": "Pinsirite",
+    "name_pt": "Pinsirite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Pinsir.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Pinsir.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "rayquazite",
+    "name_en": "Rayquazite",
+    "name_pt": "Rayquazite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Rayquaza.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Rayquaza.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "sablenite",
+    "name_en": "Sablenite",
+    "name_pt": "Sablenite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Sableye.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Sableye.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "salamencite",
+    "name_en": "Salamencite",
+    "name_pt": "Salamencite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Salamence.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Salamence.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "sceptilite",
+    "name_en": "Sceptilite",
+    "name_pt": "Sceptilite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Sceptile.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Sceptile.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "scizorite",
+    "name_en": "Scizorite",
+    "name_pt": "Scizorite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Scizor.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Scizor.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "sharpedonite",
+    "name_en": "Sharpedonite",
+    "name_pt": "Sharpedonite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Sharpedo.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Sharpedo.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "slowbronite",
+    "name_en": "Slowbronite",
+    "name_pt": "Slowbronite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Slowbro.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Slowbro.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "steelixite",
+    "name_en": "Steelixite",
+    "name_pt": "Steelixite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Steelix.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Steelix.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "swampertite",
+    "name_en": "Swampertite",
+    "name_pt": "Swampertite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Swampert.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Swampert.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "tyranitarite",
+    "name_en": "Tyranitarite",
+    "name_pt": "Tyranitarite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Tyranitar.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Tyranitar.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
+  },
+  {
+    "id": "venusaurite",
+    "name_en": "Venusaurite",
+    "name_pt": "Venusaurite",
+    "category": "evolution",
+    "price": 15000,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "mega_stone",
+    "use_contexts": [
+      "hold"
+    ],
+    "description_en": "A Mega Stone. While held in battle, lets this Pokemon Mega Evolve into Mega Venusaur.",
+    "description_pt": "Uma Mega Stone. Enquanto segurada em batalha, permite que este Pokemon Mega Evolua para Mega Venusaur.",
+    "icon_path": "res://assets/items/evolution/mega_stone.png"
   }
 ]
