@@ -97,7 +97,30 @@ func _ready() -> void:
 	UI.setup_screen(self)
 	_add_background()
 	UI.add_topbar(self)
+	_add_home_button()
 	_build_map_screen()
+
+
+# The topbar here is just a static background image (unlike Home's, which
+# adds its own icon row) - without this there was no way back to Home short
+# of the Android hardware back button.
+func _add_home_button() -> void:
+	var button := Button.new()
+	button.name = "HomeButton"
+	button.text = "←"
+	button.position = Vector2(8, 6)
+	button.size = Vector2(40, 32)
+	button.focus_mode = Control.FOCUS_NONE
+	button.add_theme_font_size_override("font_size", 18)
+	button.add_theme_color_override("font_color", Color.WHITE)
+	button.add_theme_color_override("font_hover_color", Color.WHITE)
+	button.add_theme_color_override("font_pressed_color", Color.WHITE)
+	button.flat = true
+	add_child(button)
+	button.pressed.connect(func():
+		AudioManager.play_sfx("click")
+		get_tree().change_scene_to_file("res://scenes/HomeScreen.tscn")
+	)
 
 
 func _refresh_save_data() -> void:

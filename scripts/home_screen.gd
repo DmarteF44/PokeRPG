@@ -36,7 +36,7 @@ const TEXT = {
 		"pokemon_center": "Pokemon Center",
 		"heal_team": "Heal Team",
 		"healed_team": "Your Pokemon were healed!",
-		"center_cost_time": "Cost: $%d | Recovery: 15/30/60 min",
+		"center_cost_time": "Cost: $%d | Recovery time varies by HP and level",
 		"healing_started": "Recovery started.",
 		"healing_remaining": "Recovering: %s",
 		"pokemon_recovering": "This Pokemon is recovering.",
@@ -297,7 +297,7 @@ const TEXT = {
 		"pokemon_center": "Centro Pokémon",
 		"heal_team": "Curar Time",
 		"healed_team": "Seus Pokémon foram curados!",
-		"center_cost_time": "Custo: $%d | Recuperação: 15/30/60 min",
+		"center_cost_time": "Custo: $%d | Tempo de recuperação varia por HP e nível",
 		"healing_started": "Recuperação iniciada.",
 		"healing_remaining": "Recuperando: %s",
 		"pokemon_recovering": "Este Pokémon está em recuperação.",
@@ -702,9 +702,9 @@ func _show_profile() -> void:
 	var popup := _create_popup(_text("profile"), "ProfilePopup", 60.0, 460.0)
 	var avatar_path := _avatar_texture_path(save_data)
 	if avatar_path != "":
-		UI.add_texture(popup, avatar_path, Vector2(117, 96), Vector2(96, 96), "Avatar", TextureRect.STRETCH_KEEP_ASPECT_CENTERED)
-	UI.add_panel_label(popup, player_name, Vector2(15, 202), Vector2(300, 26), 20, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Name")
-	UI.add_panel_label(popup, "%s: %s" % [_text("starter"), str(save_data.get("starter_name", "Charmander"))], Vector2(15, 230), Vector2(300, 22), 14, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "StarterLine")
+		UI.add_texture(popup, avatar_path, Vector2(117, 128), Vector2(96, 96), "Avatar", TextureRect.STRETCH_KEEP_ASPECT_CENTERED)
+	UI.add_panel_label(popup, player_name, Vector2(15, 234), Vector2(300, 26), 20, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Name")
+	UI.add_panel_label(popup, "%s: %s" % [_text("starter"), str(save_data.get("starter_name", "Charmander"))], Vector2(15, 262), Vector2(300, 22), 14, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "StarterLine")
 	var stats_text := "%s: $%d | %s %d | %s" % [
 		_text("money"),
 		int(save_data.get("money", 3000)),
@@ -712,11 +712,11 @@ func _show_profile() -> void:
 		max(1, int(save_data.get("level", 1))),
 		_text("badges_short") % int(save_data.get("badges", 0)),
 	]
-	UI.add_panel_label(popup, stats_text, Vector2(15, 258), Vector2(300, 40), 12, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Stats")
-	_add_trainer_xp_bar(popup, Vector2(55, 306))
-	UI.add_orange_button(popup, _text("change_avatar"), Vector2(28, 388), Vector2(150, 44), Callable(self, "_show_avatar_editor"), "ChangeAvatar")
+	UI.add_panel_label(popup, stats_text, Vector2(15, 290), Vector2(300, 40), 12, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Stats")
+	_add_trainer_xp_bar(popup, Vector2(55, 338))
+	UI.add_orange_button(popup, _text("change_avatar"), Vector2(28, 420), Vector2(150, 44), Callable(self, "_show_avatar_editor"), "ChangeAvatar")
 	var specialization_label := _text("specialization_points_short") % int(save_data.get("specialization_points_available", 0)) if int(save_data.get("specialization_points_available", 0)) > 0 else _text("specialization")
-	UI.add_orange_button(popup, specialization_label, Vector2(182, 388), Vector2(150, 44), Callable(self, "_show_specialization"), "Specialization")
+	UI.add_orange_button(popup, specialization_label, Vector2(182, 420), Vector2(150, 44), Callable(self, "_show_specialization"), "Specialization")
 
 
 func _show_specialization() -> void:
@@ -2153,6 +2153,10 @@ func _pokedex_filters_active() -> bool:
 
 
 func _filtered_pokedex_species_ids() -> Array:
+	# See the note in _show_pokedex(): fetch these once rather than letting a
+	# per-species status-filter check re-trigger a full save refresh per row.
+	var seen_ids := _seen_pokemon_ids()
+	var owned_ids := _owned_pokemon_ids()
 	var result := []
 	for pokemon_id in PokemonHelpers.available_species_ids():
 		var definition := PokemonHelpers.get_definition(str(pokemon_id))
@@ -2168,8 +2172,11 @@ func _filtered_pokedex_species_ids() -> Array:
 				continue
 		if pokedex_filter_generation != 0 and int(definition.get("generation", 1)) != pokedex_filter_generation:
 			continue
-		if pokedex_filter_status != "" and _pokedex_status_key(str(pokemon_id)) != pokedex_filter_status:
-			continue
+		if pokedex_filter_status != "":
+			var safe_id := str(pokemon_id)
+			var status_key := "owned" if owned_ids.has(safe_id) else ("seen" if seen_ids.has(safe_id) else "unknown")
+			if status_key != pokedex_filter_status:
+				continue
 		result.append(pokemon_id)
 	return result
 
@@ -2215,8 +2222,17 @@ func _show_pokedex() -> void:
 		UI.add_panel_label(content, _text("category_empty"), Vector2(0, 16), Vector2(296, 60), 13, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "NoResults")
 		return
 
+	# _seen_pokemon_ids()/_owned_pokemon_ids()/_researched_species_ids() each
+	# call _refresh_save_data(), which fully re-normalizes the save (including
+	# re-validating every stored Pokemon, up to MAX_STORAGE_SIZE of them) and
+	# deep-copies it - fine once, but calling it 3x per row for up to 151 rows
+	# is exactly the kind of O(n * expensive) pattern that reads as the
+	# Pokedex "freezing". Fetch each list once and reuse it for every row.
+	var seen_ids := _seen_pokemon_ids()
+	var owned_ids := _owned_pokemon_ids()
+	var researched_ids := _researched_species_ids()
 	for i in range(species_ids.size()):
-		_add_pokedex_entry(content, str(species_ids[i]), i)
+		_add_pokedex_entry(content, str(species_ids[i]), i, seen_ids, owned_ids, researched_ids)
 
 
 func _show_pokedex_filters() -> void:
@@ -2454,9 +2470,9 @@ func _add_empty_team_slot(parent: Control, slot: int, y: float, slot_height: flo
 	UI.add_panel_label(panel, "%s %d" % [_text("empty_slot"), slot], Vector2(12, 0), Vector2(252, slot_height), 15, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Empty")
 
 
-func _add_pokedex_entry(parent: Control, pokemon_id: String, index: int) -> void:
-	var seen := _seen_pokemon_ids().has(pokemon_id)
-	var owned := _owned_pokemon_ids().has(pokemon_id)
+func _add_pokedex_entry(parent: Control, pokemon_id: String, index: int, seen_ids: Array, owned_ids: Array, researched_ids: Array) -> void:
+	var seen := seen_ids.has(pokemon_id)
+	var owned := owned_ids.has(pokemon_id)
 	var registered := seen or owned
 	var index_entry := PokemonHelpers.species_index_entry(pokemon_id)
 	var definition := PokemonHelpers.get_definition(pokemon_id) if registered else index_entry
@@ -2488,10 +2504,11 @@ func _add_pokedex_entry(parent: Control, pokemon_id: String, index: int) -> void
 	var name_label := UI.add_panel_label(panel, "#%03d %s" % [dex_number, pokemon_name], Vector2(84, 12), Vector2(190, 22), 16, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Name")
 	_fit_label(name_label, false)
 	var type_text := _pokemon_types_text(definition) if owned else "???"
-	var info_label := UI.add_panel_label(panel, "%s: %s\n%s: %s" % [_text("type"), type_text, _text("status"), _pokedex_status(pokemon_id)], Vector2(84, 38), Vector2(190, 42), 11, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Info")
+	var status_key := "owned" if owned else ("seen" if seen else "unknown")
+	var info_label := UI.add_panel_label(panel, "%s: %s\n%s: %s" % [_text("type"), type_text, _text("status"), _text(status_key)], Vector2(84, 38), Vector2(190, 42), 11, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Info")
 	_fit_label(info_label, true)
 
-	var researched := _researched_species_ids().has(pokemon_id)
+	var researched := researched_ids.has(pokemon_id)
 	var show_research_row := seen and not owned
 	var description_height := 40.0 if show_research_row else 62.0
 	var description_text := _pokemon_description(definition) if owned else (_pokedex_research_hint(pokemon_id) if researched else _text("unknown"))
@@ -2528,18 +2545,6 @@ func _pokemon_types_text(pokemon: Dictionary) -> String:
 		var type_key := "type_%s" % str(type_name).to_lower()
 		translated.append(_text(type_key))
 	return ", ".join(translated)
-
-
-func _pokedex_status(pokemon_id: String) -> String:
-	return _text(_pokedex_status_key(pokemon_id))
-
-
-func _pokedex_status_key(pokemon_id: String) -> String:
-	if _owned_pokemon_ids().has(pokemon_id):
-		return "owned"
-	if _seen_pokemon_ids().has(pokemon_id):
-		return "seen"
-	return "unknown"
 
 
 func _pokemon_description(pokemon: Dictionary) -> String:

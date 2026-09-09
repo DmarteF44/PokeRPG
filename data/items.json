@@ -977,5 +977,95 @@
     "description_en": "Raises a Pokemon's Speed by 10, up to the stat limit.",
     "description_pt": "Aumenta o(a) Velocidade de um Pokemon em 10, ate o limite do atributo.",
     "icon_path": "res://assets/items/potions/speed_boost_potion.png"
+  },
+  {
+    "id": "x_attack",
+    "name_en": "X Attack",
+    "name_pt": "X Ataque",
+    "category": "buffs",
+    "price": 1000,
+    "min_level": 5,
+    "min_badges": 0,
+    "effect_type": "temp_stat_boost",
+    "effect_stat": "attack",
+    "effect_value": 1,
+    "use_contexts": [
+      "battle"
+    ],
+    "description_en": "Raises Attack by one stage for the rest of the battle only.",
+    "description_pt": "Aumenta Ataque em um estagio, apenas durante esta batalha.",
+    "icon_path": "res://assets/items/potions/x_attack.png"
+  },
+  {
+    "id": "x_defense",
+    "name_en": "X Defense",
+    "name_pt": "X Defesa",
+    "category": "buffs",
+    "price": 1000,
+    "min_level": 5,
+    "min_badges": 0,
+    "effect_type": "temp_stat_boost",
+    "effect_stat": "defense",
+    "effect_value": 1,
+    "use_contexts": [
+      "battle"
+    ],
+    "description_en": "Raises Defense by one stage for the rest of the battle only.",
+    "description_pt": "Aumenta Defesa em um estagio, apenas durante esta batalha.",
+    "icon_path": "res://assets/items/potions/x_defense.png"
+  },
+  {
+    "id": "x_sp_attack",
+    "name_en": "X Sp. Attack",
+    "name_pt": "X Ataque Especial",
+    "category": "buffs",
+    "price": 1000,
+    "min_level": 5,
+    "min_badges": 0,
+    "effect_type": "temp_stat_boost",
+    "effect_stat": "sp_attack",
+    "effect_value": 1,
+    "use_contexts": [
+      "battle"
+    ],
+    "description_en": "Raises Sp. Attack by one stage for the rest of the battle only.",
+    "description_pt": "Aumenta Ataque Especial em um estagio, apenas durante esta batalha.",
+    "icon_path": "res://assets/items/potions/x_sp_attack.png"
+  },
+  {
+    "id": "x_sp_defense",
+    "name_en": "X Sp. Defense",
+    "name_pt": "X Defesa Especial",
+    "category": "buffs",
+    "price": 1000,
+    "min_level": 5,
+    "min_badges": 0,
+    "effect_type": "temp_stat_boost",
+    "effect_stat": "sp_defense",
+    "effect_value": 1,
+    "use_contexts": [
+      "battle"
+    ],
+    "description_en": "Raises Sp. Defense by one stage for the rest of the battle only.",
+    "description_pt": "Aumenta Defesa Especial em um estagio, apenas durante esta batalha.",
+    "icon_path": "res://assets/items/potions/x_sp_defense.png"
+  },
+  {
+    "id": "x_speed",
+    "name_en": "X Speed",
+    "name_pt": "X Velocidade",
+    "category": "buffs",
+    "price": 1000,
+    "min_level": 5,
+    "min_badges": 0,
+    "effect_type": "temp_stat_boost",
+    "effect_stat": "speed",
+    "effect_value": 1,
+    "use_contexts": [
+      "battle"
+    ],
+    "description_en": "Raises Speed by one stage for the rest of the battle only.",
+    "description_pt": "Aumenta Velocidade em um estagio, apenas durante esta batalha.",
+    "icon_path": "res://assets/items/potions/x_speed.png"
   }
 ]

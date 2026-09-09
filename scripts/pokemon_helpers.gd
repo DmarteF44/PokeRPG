@@ -24,9 +24,14 @@ const DEFAULT_FRIENDSHIP = 70
 const MAX_MOVE_SLOTS = 4
 const MAX_LEVEL = 100
 const STAT_BOOST_AMOUNT = 5
-const HEALING_LIGHT_SECONDS = 15 * 60
-const HEALING_NORMAL_SECONDS = 30 * 60
-const HEALING_INTENSIVE_SECONDS = 60 * 60
+# Base real-world wait per tier at level 1 - scaled up by level in
+# healing_tier_for() below (a level 100 Pokemon has far more HP to recover
+# than a level 1 one, so it takes proportionally longer). These bases used
+# to be a flat 15/30/60 minutes regardless of level, which was excessive for
+# a mobile session even at level 1.
+const HEALING_LIGHT_SECONDS = 3 * 60
+const HEALING_NORMAL_SECONDS = 6 * 60
+const HEALING_INTENSIVE_SECONDS = 12 * 60
 const STAT_KEYS = ["max_hp", "attack", "defense", "sp_attack", "sp_defense", "speed"]
 const STAT_LIMITS = {
 	"max_hp": 999,
@@ -364,11 +369,20 @@ static func healing_tier_for(pokemon: Dictionary) -> Dictionary:
 	var status_value = normalized.get("status_condition", null)
 	var has_status := status_value != null and str(status_value) != ""
 	var hp_ratio := float(hp) / float(max_hp)
+	var level := clampi(int(normalized.get("level", 1)), 1, MAX_LEVEL)
+	# A level 100 Pokemon has roughly 3x the HP of a level 1 one, so it takes
+	# proportionally longer to fully recover - mild enough that even a
+	# level 100 intensive heal stays well under the old flat 60-minute cost.
+	var level_factor := 1.0 + float(level - 1) * 0.02
+	var key := "light"
+	var base_seconds := HEALING_LIGHT_SECONDS
 	if hp <= 0 or hp_ratio < 0.30:
-		return {"key": "intensive", "seconds": HEALING_INTENSIVE_SECONDS}
-	if hp_ratio <= 0.70 or has_status:
-		return {"key": "normal", "seconds": HEALING_NORMAL_SECONDS}
-	return {"key": "light", "seconds": HEALING_LIGHT_SECONDS}
+		key = "intensive"
+		base_seconds = HEALING_INTENSIVE_SECONDS
+	elif hp_ratio <= 0.70 or has_status:
+		key = "normal"
+		base_seconds = HEALING_NORMAL_SECONDS
+	return {"key": key, "seconds": int(round(float(base_seconds) * level_factor))}
 
 
 static func start_healing(pokemon: Dictionary) -> Dictionary:
