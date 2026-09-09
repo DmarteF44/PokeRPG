@@ -1519,15 +1519,6 @@
         "trigger": "level-up",
         "level": 20,
         "min_level": 20
-      },
-      {
-        "target": "raticate",
-        "target_dex_number": 20,
-        "method": "time",
-        "trigger": "level-up",
-        "level": 20,
-        "min_level": 20,
-        "time_of_day": "night"
       }
     ],
     "starter": false,
@@ -3402,9 +3393,10 @@
       {
         "target": "crobat",
         "target_dex_number": 169,
-        "method": "friendship",
+        "method": "badge",
         "trigger": "level-up",
-        "min_happiness": 160
+        "min_badges": 1,
+        "min_level": 22
       }
     ],
     "starter": false,
@@ -4259,23 +4251,8 @@
         "target_dex_number": 53,
         "method": "level",
         "trigger": "level-up",
-        "level": 28,
-        "min_level": 28
-      },
-      {
-        "target": "persian",
-        "target_dex_number": 53,
-        "method": "friendship",
-        "trigger": "level-up",
-        "min_happiness": 160
-      },
-      {
-        "target": "perrserker",
-        "target_dex_number": 863,
-        "method": "level",
-        "trigger": "level-up",
-        "level": 28,
-        "min_level": 28
+        "level": 20,
+        "min_level": 20
       }
     ],
     "starter": false,
@@ -5035,10 +5012,10 @@
       {
         "target": "politoed",
         "target_dex_number": 186,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Kings Rock",
-        "held_item_id": "kings_rock"
+        "method": "item",
+        "trigger": "level-up",
+        "item_id": "kings_rock",
+        "min_level": 25
       }
     ],
     "starter": false,
@@ -5266,8 +5243,10 @@
       {
         "target": "alakazam",
         "target_dex_number": 65,
-        "method": "trade",
-        "trigger": "trade"
+        "method": "level",
+        "trigger": "level-up",
+        "level": 32,
+        "min_level": 32
       }
     ],
     "starter": false,
@@ -5517,8 +5496,10 @@
       {
         "target": "machamp",
         "target_dex_number": 68,
-        "method": "trade",
-        "trigger": "trade"
+        "method": "level",
+        "trigger": "level-up",
+        "level": 35,
+        "min_level": 35
       }
     ],
     "starter": false,
@@ -6221,14 +6202,10 @@
       {
         "target": "golem",
         "target_dex_number": 76,
-        "method": "trade",
-        "trigger": "trade"
-      },
-      {
-        "target": "golem",
-        "target_dex_number": 76,
-        "method": "trade",
-        "trigger": "trade"
+        "method": "level",
+        "trigger": "level-up",
+        "level": 32,
+        "min_level": 32
       }
     ],
     "starter": false,
@@ -6589,18 +6566,10 @@
       {
         "target": "slowking",
         "target_dex_number": 199,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Kings Rock",
-        "held_item_id": "kings_rock"
-      },
-      {
-        "target": "slowking",
-        "target_dex_number": 199,
         "method": "item",
-        "trigger": "use-item",
-        "item": "Galarica Wreath",
-        "item_id": "galarica_wreath"
+        "trigger": "level-up",
+        "item_id": "kings_rock",
+        "min_level": 25
       }
     ],
     "starter": false,
@@ -6860,56 +6829,7 @@
     "learnset_source_version_group": "red-blue",
     "learnset_dependencies": [],
     "evolves_from": "magnemite",
-    "evolutions": [
-      {
-        "target": "magnezone",
-        "target_dex_number": 462,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Mt Coronet",
-        "location_id": "mt_coronet"
-      },
-      {
-        "target": "magnezone",
-        "target_dex_number": 462,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Chargestone Cave",
-        "location_id": "chargestone_cave"
-      },
-      {
-        "target": "magnezone",
-        "target_dex_number": 462,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Kalos Route 13",
-        "location_id": "kalos_route_13"
-      },
-      {
-        "target": "magnezone",
-        "target_dex_number": 462,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Blush Mountain",
-        "location_id": "blush_mountain"
-      },
-      {
-        "target": "magnezone",
-        "target_dex_number": 462,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Vast Poni Canyon",
-        "location_id": "vast_poni_canyon"
-      },
-      {
-        "target": "magnezone",
-        "target_dex_number": 462,
-        "method": "stone",
-        "trigger": "use-item",
-        "item": "Thunder Stone",
-        "item_id": "thunder_stone"
-      }
-    ],
+    "evolutions": [],
     "starter": false,
     "seen": false,
     "owned": false,
@@ -6987,14 +6907,7 @@
     "learnset_source_version_group": "red-blue",
     "learnset_dependencies": [],
     "evolves_from": "",
-    "evolutions": [
-      {
-        "target": "sirfetchd",
-        "target_dex_number": 865,
-        "method": "three-critical-hits",
-        "trigger": "three-critical-hits"
-      }
-    ],
+    "evolutions": [],
     "starter": false,
     "seen": false,
     "owned": false,
@@ -7815,8 +7728,10 @@
       {
         "target": "gengar",
         "target_dex_number": 94,
-        "method": "trade",
-        "trigger": "trade"
+        "method": "level",
+        "trigger": "level-up",
+        "level": 38,
+        "min_level": 38
       }
     ],
     "starter": false,
@@ -7969,10 +7884,10 @@
       {
         "target": "steelix",
         "target_dex_number": 208,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Metal Coat",
-        "held_item_id": "metal_coat"
+        "method": "item",
+        "trigger": "level-up",
+        "item_id": "metal_coat",
+        "min_level": 30
       }
     ],
     "starter": false,
@@ -8728,15 +8643,6 @@
         "trigger": "level-up",
         "level": 28,
         "min_level": 28
-      },
-      {
-        "target": "marowak",
-        "target_dex_number": 105,
-        "method": "time",
-        "trigger": "level-up",
-        "level": 28,
-        "min_level": 28,
-        "time_of_day": "night"
       }
     ],
     "starter": false,
@@ -9048,16 +8954,7 @@
     "learnset_source_version_group": "red-blue",
     "learnset_dependencies": [],
     "evolves_from": "",
-    "evolutions": [
-      {
-        "target": "lickilicky",
-        "target_dex_number": 463,
-        "method": "known_move",
-        "trigger": "level-up",
-        "known_move": "Rollout",
-        "known_move_id": "rollout"
-      }
-    ],
+    "evolutions": [],
     "starter": false,
     "seen": false,
     "owned": false,
@@ -9402,16 +9299,7 @@
     "learnset_source_version_group": "red-blue",
     "learnset_dependencies": [],
     "evolves_from": "rhyhorn",
-    "evolutions": [
-      {
-        "target": "rhyperior",
-        "target_dex_number": 464,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Protector",
-        "held_item_id": "protector"
-      }
-    ],
+    "evolutions": [],
     "starter": false,
     "seen": false,
     "owned": false,
@@ -9496,9 +9384,10 @@
       {
         "target": "blissey",
         "target_dex_number": 242,
-        "method": "friendship",
+        "method": "badge",
         "trigger": "level-up",
-        "min_happiness": 160
+        "min_badges": 3,
+        "min_level": 30
       }
     ],
     "starter": false,
@@ -9580,16 +9469,7 @@
     "learnset_source_version_group": "red-blue",
     "learnset_dependencies": [],
     "evolves_from": "",
-    "evolutions": [
-      {
-        "target": "tangrowth",
-        "target_dex_number": 465,
-        "method": "known_move",
-        "trigger": "level-up",
-        "known_move": "Ancient Power",
-        "known_move_id": "ancient_power"
-      }
-    ],
+    "evolutions": [],
     "starter": false,
     "seen": false,
     "owned": false,
@@ -9833,10 +9713,10 @@
       {
         "target": "kingdra",
         "target_dex_number": 230,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Dragon Scale",
-        "held_item_id": "dragon_scale"
+        "method": "item",
+        "trigger": "level-up",
+        "item_id": "dragon_scale",
+        "min_level": 30
       }
     ],
     "starter": false,
@@ -10242,16 +10122,7 @@
     "learnset_source_version_group": "red-blue",
     "learnset_dependencies": [],
     "evolves_from": "mime_jr",
-    "evolutions": [
-      {
-        "target": "mr_rime",
-        "target_dex_number": 866,
-        "method": "level",
-        "trigger": "level-up",
-        "level": 42,
-        "min_level": 42
-      }
-    ],
+    "evolutions": [],
     "starter": false,
     "seen": false,
     "owned": false,
@@ -10335,18 +10206,10 @@
       {
         "target": "scizor",
         "target_dex_number": 212,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Metal Coat",
-        "held_item_id": "metal_coat"
-      },
-      {
-        "target": "kleavor",
-        "target_dex_number": 900,
         "method": "item",
-        "trigger": "use-item",
-        "item": "Black Augurite",
-        "item_id": "black_augurite"
+        "trigger": "level-up",
+        "item_id": "metal_coat",
+        "min_level": 30
       }
     ],
     "starter": false,
@@ -10505,16 +10368,7 @@
     "learnset_source_version_group": "red-blue",
     "learnset_dependencies": [],
     "evolves_from": "elekid",
-    "evolutions": [
-      {
-        "target": "electivire",
-        "target_dex_number": 466,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Electirizer",
-        "held_item_id": "electirizer"
-      }
-    ],
+    "evolutions": [],
     "starter": false,
     "seen": false,
     "owned": false,
@@ -10592,16 +10446,7 @@
     "learnset_source_version_group": "red-blue",
     "learnset_dependencies": [],
     "evolves_from": "magby",
-    "evolutions": [
-      {
-        "target": "magmortar",
-        "target_dex_number": 467,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Magmarizer",
-        "held_item_id": "magmarizer"
-      }
-    ],
+    "evolutions": [],
     "starter": false,
     "seen": false,
     "owned": false,
@@ -11153,42 +10998,18 @@
       {
         "target": "espeon",
         "target_dex_number": 196,
-        "method": "friendship",
+        "method": "item",
         "trigger": "level-up",
-        "min_happiness": 160,
-        "time_of_day": "day"
+        "item_id": "sun_stone",
+        "min_level": 25
       },
       {
         "target": "umbreon",
         "target_dex_number": 197,
-        "method": "friendship",
+        "method": "item",
         "trigger": "level-up",
-        "min_happiness": 160,
-        "time_of_day": "night"
-      },
-      {
-        "target": "leafeon",
-        "target_dex_number": 470,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Eterna Forest",
-        "location_id": "eterna_forest"
-      },
-      {
-        "target": "leafeon",
-        "target_dex_number": 470,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Pinwheel Forest",
-        "location_id": "pinwheel_forest"
-      },
-      {
-        "target": "leafeon",
-        "target_dex_number": 470,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Kalos Route 20",
-        "location_id": "kalos_route_20"
+        "item_id": "moon_stone",
+        "min_level": 25
       },
       {
         "target": "leafeon",
@@ -11201,50 +11022,10 @@
       {
         "target": "glaceon",
         "target_dex_number": 471,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Sinnoh Route 217",
-        "location_id": "sinnoh_route_217"
-      },
-      {
-        "target": "glaceon",
-        "target_dex_number": 471,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Twist Mountain",
-        "location_id": "twist_mountain"
-      },
-      {
-        "target": "glaceon",
-        "target_dex_number": 471,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Frost Cavern",
-        "location_id": "frost_cavern"
-      },
-      {
-        "target": "glaceon",
-        "target_dex_number": 471,
         "method": "stone",
         "trigger": "use-item",
         "item": "Ice Stone",
         "item_id": "ice_stone"
-      },
-      {
-        "target": "sylveon",
-        "target_dex_number": 700,
-        "method": "affection",
-        "trigger": "level-up",
-        "min_affection": 2,
-        "known_move_type": "Fairy"
-      },
-      {
-        "target": "sylveon",
-        "target_dex_number": 700,
-        "method": "friendship",
-        "trigger": "level-up",
-        "min_happiness": 160,
-        "known_move_type": "Fairy"
       }
     ],
     "starter": false,
@@ -11586,10 +11367,10 @@
       {
         "target": "porygon2",
         "target_dex_number": 233,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Up Grade",
-        "held_item_id": "up_grade"
+        "method": "item",
+        "trigger": "level-up",
+        "item_id": "up_grade",
+        "min_level": 20
       }
     ],
     "starter": false,

@@ -1353,17 +1353,7 @@
     },
     "learnset_source_version_group": "sword-shield",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "obstagoon",
-        "target_dex_number": 862,
-        "method": "time",
-        "trigger": "level-up",
-        "level": 35,
-        "min_level": 35,
-        "time_of_day": "night"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "zigzagoon",
     "description_en": "It charges prey at speeds over 60 mph. However, because it can only run straight, it often fails.",
     "description_pt": "It charges prey at speeds over 60 mph. However, because it can only run straight, it often fails.",
@@ -2868,15 +2858,6 @@
         "trigger": "level-up",
         "level": 30,
         "min_level": 30
-      },
-      {
-        "target": "gallade",
-        "target_dex_number": 475,
-        "method": "stone",
-        "trigger": "use-item",
-        "item": "Dawn Stone",
-        "item_id": "dawn_stone",
-        "gender": "male"
       }
     ],
     "evolves_from": "ralts",
@@ -3737,12 +3718,6 @@
         "trigger": "level-up",
         "level": 20,
         "min_level": 20
-      },
-      {
-        "target": "shedinja",
-        "target_dex_number": 292,
-        "method": "shed",
-        "trigger": "shed"
       }
     ],
     "evolves_from": "",
@@ -4510,9 +4485,10 @@
       {
         "target": "marill",
         "target_dex_number": 183,
-        "method": "friendship",
+        "method": "level",
         "trigger": "level-up",
-        "min_happiness": 160
+        "level": 10,
+        "min_level": 10
       }
     ],
     "evolves_from": "",
@@ -4590,56 +4566,7 @@
     },
     "learnset_source_version_group": "legends-arceus",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "probopass",
-        "target_dex_number": 476,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Mt Coronet",
-        "location_id": "mt_coronet"
-      },
-      {
-        "target": "probopass",
-        "target_dex_number": 476,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Chargestone Cave",
-        "location_id": "chargestone_cave"
-      },
-      {
-        "target": "probopass",
-        "target_dex_number": 476,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Kalos Route 13",
-        "location_id": "kalos_route_13"
-      },
-      {
-        "target": "probopass",
-        "target_dex_number": 476,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Blush Mountain",
-        "location_id": "blush_mountain"
-      },
-      {
-        "target": "probopass",
-        "target_dex_number": 476,
-        "method": "location",
-        "trigger": "level-up",
-        "location": "Vast Poni Canyon",
-        "location_id": "vast_poni_canyon"
-      },
-      {
-        "target": "probopass",
-        "target_dex_number": 476,
-        "method": "stone",
-        "trigger": "use-item",
-        "item": "Thunder Stone",
-        "item_id": "thunder_stone"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "",
     "description_en": "Once the people of Hisui discovered that its red nose always points north, they grew to rely on it greatly when traveling afar. The nose seems to work in a similar way to ancient compasses.",
     "description_pt": "Once the people of Hisui discovered that its red nose always points north, they grew to rely on it greatly when traveling afar. The nose seems to work in a similar way to ancient compasses.",
@@ -6273,16 +6200,7 @@
     },
     "learnset_source_version_group": "legends-arceus",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "roserade",
-        "target_dex_number": 407,
-        "method": "stone",
-        "trigger": "use-item",
-        "item": "Shiny Stone",
-        "item_id": "shiny_stone"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "budew",
     "description_en": "Though beautiful, it has highly poisonous thorns. There is an old tradition in my homeland wherein one would send these thorns to an opponent to challenge them to a duel.",
     "description_pt": "Though beautiful, it has highly poisonous thorns. There is an old tradition in my homeland wherein one would send these thorns to an opponent to challenge them to a duel.",
@@ -9692,17 +9610,10 @@
       {
         "target": "milotic",
         "target_dex_number": 350,
-        "method": "level",
+        "method": "item",
         "trigger": "level-up",
-        "min_beauty": 170
-      },
-      {
-        "target": "milotic",
-        "target_dex_number": 350,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Prism Scale",
-        "held_item_id": "prism_scale"
+        "item_id": "prism_scale",
+        "min_level": 20
       }
     ],
     "evolves_from": "",
@@ -10370,16 +10281,7 @@
     },
     "learnset_source_version_group": "legends-arceus",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "dusknoir",
-        "target_dex_number": 477,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Reaper Cloth",
-        "held_item_id": "reaper_cloth"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "duskull",
     "description_en": "There are rumors that peeking inside its bandage-wrapped body will cause one to get pulled in through the gaps between the bandages, never to return. I've been too scared to verify.",
     "description_pt": "There are rumors that peeking inside its bandage-wrapped body will cause one to get pulled in through the gaps between the bandages, never to return. I've been too scared to verify.",
@@ -10804,15 +10706,6 @@
         "trigger": "level-up",
         "level": 42,
         "min_level": 42
-      },
-      {
-        "target": "froslass",
-        "target_dex_number": 478,
-        "method": "stone",
-        "trigger": "use-item",
-        "item": "Dawn Stone",
-        "item_id": "dawn_stone",
-        "gender": "female"
       }
     ],
     "evolves_from": "",
@@ -11211,18 +11104,18 @@
       {
         "target": "huntail",
         "target_dex_number": 367,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Deep Sea Tooth",
-        "held_item_id": "deep_sea_tooth"
+        "method": "item",
+        "trigger": "level-up",
+        "item_id": "deep_sea_tooth",
+        "min_level": 25
       },
       {
         "target": "gorebyss",
         "target_dex_number": 368,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Deep Sea Scale",
-        "held_item_id": "deep_sea_scale"
+        "method": "item",
+        "trigger": "level-up",
+        "item_id": "deep_sea_scale",
+        "min_level": 25
       }
     ],
     "evolves_from": "",

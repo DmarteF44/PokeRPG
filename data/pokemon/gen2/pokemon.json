@@ -2097,9 +2097,10 @@
       {
         "target": "pikachu",
         "target_dex_number": 25,
-        "method": "friendship",
+        "method": "level",
         "trigger": "level-up",
-        "min_happiness": 220
+        "level": 8,
+        "min_level": 8
       }
     ],
     "evolves_from": "",
@@ -2184,9 +2185,10 @@
       {
         "target": "clefairy",
         "target_dex_number": 35,
-        "method": "friendship",
+        "method": "level",
         "trigger": "level-up",
-        "min_happiness": 160
+        "level": 6,
+        "min_level": 6
       }
     ],
     "evolves_from": "",
@@ -2268,9 +2270,10 @@
       {
         "target": "jigglypuff",
         "target_dex_number": 39,
-        "method": "friendship",
+        "method": "level",
         "trigger": "level-up",
-        "min_happiness": 160
+        "level": 6,
+        "min_level": 6
       }
     ],
     "evolves_from": "",
@@ -2352,9 +2355,10 @@
       {
         "target": "togetic",
         "target_dex_number": 176,
-        "method": "friendship",
+        "method": "level",
         "trigger": "level-up",
-        "min_happiness": 160
+        "level": 12,
+        "min_level": 12
       }
     ],
     "evolves_from": "",
@@ -2436,16 +2440,7 @@
     },
     "learnset_source_version_group": "legends-arceus",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "togekiss",
-        "target_dex_number": 468,
-        "method": "stone",
-        "trigger": "use-item",
-        "item": "Shiny Stone",
-        "item_id": "shiny_stone"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "togepi",
     "description_en": "No records exist of Togetic being seen in the wilds. Rumors abound that it evolves under the loving care of a trusted human companion, upon whom the Pokémon then bestows great joy.",
     "description_pt": "No records exist of Togetic being seen in the wilds. Rumors abound that it evolves under the loving care of a trusted human companion, upon whom the Pokémon then bestows great joy.",
@@ -3827,16 +3822,7 @@
     },
     "learnset_source_version_group": "legends-arceus",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "ambipom",
-        "target_dex_number": 424,
-        "method": "known_move",
-        "trigger": "level-up",
-        "known_move": "Double Hit",
-        "known_move_id": "double_hit"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "",
     "description_en": "This treetop dweller possesses a tail as dexterous as a hand. Ancient writings describe this Pokémon as a one-armed oddity.",
     "description_pt": "This treetop dweller possesses a tail as dexterous as a hand. Ancient writings describe this Pokémon as a one-armed oddity.",
@@ -4129,16 +4115,7 @@
     },
     "learnset_source_version_group": "legends-arceus",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "yanmega",
-        "target_dex_number": 469,
-        "method": "known_move",
-        "trigger": "level-up",
-        "known_move": "Ancient Power",
-        "known_move_id": "ancient_power"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "",
     "description_en": "Its frail wings are so thin that one can see clear through them. However, during flight these wings exhibit the power to churn air with force enough to launch a house skyward.",
     "description_pt": "Its frail wings are so thin that one can see clear through them. However, during flight these wings exhibit the power to churn air with force enough to launch a house skyward.",
@@ -4573,16 +4550,7 @@
     },
     "learnset_source_version_group": "legends-arceus",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "honchkrow",
-        "target_dex_number": 430,
-        "method": "stone",
-        "trigger": "use-item",
-        "item": "Dusk Stone",
-        "item_id": "dusk_stone"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "",
     "description_en": "Widely shunned as a bearer of ill fortune. Upon crossing paths with this creature, I've been told one must chant ”Workrum, Workrum—bad luck, don't come” as a protective incantation.",
     "description_pt": "Widely shunned as a bearer of ill fortune. Upon crossing paths with this creature, I've been told one must chant ”Workrum, Workrum—bad luck, don't come” as a protective incantation.",
@@ -4762,16 +4730,7 @@
     },
     "learnset_source_version_group": "legends-arceus",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "mismagius",
-        "target_dex_number": 429,
-        "method": "stone",
-        "trigger": "use-item",
-        "item": "Dusk Stone",
-        "item_id": "dusk_stone"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "",
     "description_en": "It conceals itself in darkness, sending chills up travelers' spines with its childlike weeping. As it observes the frightened travelers with glee, the red orbs upon its chest let off an eerie light.",
     "description_pt": "It conceals itself in darkness, sending chills up travelers' spines with its childlike weeping. As it observes the frightened travelers with glee, the red orbs upon its chest let off an eerie light.",
@@ -5406,17 +5365,7 @@
     },
     "learnset_source_version_group": "legends-arceus",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "gliscor",
-        "target_dex_number": 472,
-        "method": "time",
-        "trigger": "level-up",
-        "held_item": "Razor Fang",
-        "held_item_id": "razor_fang",
-        "time_of_day": "night"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "",
     "description_en": "Its tail is tipped by a thick, horrible stinger. To bring down prey, it will first obscure their vision by covering their faces with its body, and then it will use the stinger to inject them with venom.",
     "description_pt": "Its tail is tipped by a thick, horrible stinger. To bring down prey, it will first obscure their vision by covering their faces with its body, and then it will use the stinger to inject them with venom.",
@@ -5793,28 +5742,7 @@
     },
     "learnset_source_version_group": "sword-shield",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "overqwil",
-        "target_dex_number": 904,
-        "method": "strong-style-move",
-        "trigger": "strong-style-move"
-      },
-      {
-        "target": "overqwil",
-        "target_dex_number": 904,
-        "method": "known_move",
-        "trigger": "level-up",
-        "known_move": "Barb Barrage",
-        "known_move_id": "barb_barrage"
-      },
-      {
-        "target": "overqwil",
-        "target_dex_number": 904,
-        "method": "use-move",
-        "trigger": "use-move"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "",
     "description_en": "Fishers detest this troublesome Pokémon because it sprays poison from its spines, getting it everywhere. A different form of Qwilfish lives in other regions.",
     "description_pt": "Fishers detest this troublesome Pokémon because it sprays poison from its spines, getting it everywhere. A different form of Qwilfish lives in other regions.",
@@ -6158,26 +6086,7 @@
     },
     "learnset_source_version_group": "legends-arceus",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "weavile",
-        "target_dex_number": 461,
-        "method": "time",
-        "trigger": "level-up",
-        "held_item": "Razor Claw",
-        "held_item_id": "razor_claw",
-        "time_of_day": "night"
-      },
-      {
-        "target": "sneasler",
-        "target_dex_number": 903,
-        "method": "time",
-        "trigger": "level-up",
-        "held_item": "Razor Claw",
-        "held_item_id": "razor_claw",
-        "time_of_day": "day"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "",
     "description_en": "Its sturdy, curved claws are ideal for traversing precipitous cliffs. From the tips of these claws drips a venom that infiltrates the nerves of any prey caught in Sneasel's grasp.",
     "description_pt": "Its sturdy, curved claws are ideal for traversing precipitous cliffs. From the tips of these claws drips a venom that infiltrates the nerves of any prey caught in Sneasel's grasp.",
@@ -6338,17 +6247,7 @@
     },
     "learnset_source_version_group": "legends-arceus",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "ursaluna",
-        "target_dex_number": 901,
-        "method": "item",
-        "trigger": "use-item",
-        "item": "Peat Block",
-        "item_id": "peat_block",
-        "time_of_day": "full-moon"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "teddiursa",
     "description_en": "When the cold season arrives in Hisui, this Pokémon will wander fields and mountains alike in search of its favorite berries. Ursaring's hunger during this time makes it a ferocious danger.",
     "description_pt": "When the cold season arrives in Hisui, this Pokémon will wander fields and mountains alike in search of its favorite berries. Ursaring's hunger during this time makes it a ferocious danger.",
@@ -6733,16 +6632,7 @@
     },
     "learnset_source_version_group": "legends-arceus",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "mamoswine",
-        "target_dex_number": 473,
-        "method": "known_move",
-        "trigger": "level-up",
-        "known_move": "Ancient Power",
-        "known_move_id": "ancient_power"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "swinub",
     "description_en": "The long fur of this Pokémon covers its eyes, ears, and even limbs, allowing Piloswine to resist harshly frigid conditions. The Pokémon's white tusks can be used to defeat its enemies.",
     "description_pt": "The long fur of this Pokémon covers its eyes, ears, and even limbs, allowing Piloswine to resist harshly frigid conditions. The Pokémon's white tusks can be used to defeat its enemies.",
@@ -6836,16 +6726,7 @@
     },
     "learnset_source_version_group": "sword-shield",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "cursola",
-        "target_dex_number": 864,
-        "method": "level",
-        "trigger": "level-up",
-        "level": 38,
-        "min_level": 38
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "",
     "description_en": "Many live in the clean seas of the south. They apparently can’t live in polluted waters.",
     "description_pt": "Many live in the clean seas of the south. They apparently can’t live in polluted waters.",
@@ -7842,16 +7723,7 @@
     },
     "learnset_source_version_group": "sword-shield",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "porygon_z",
-        "target_dex_number": 474,
-        "method": "trade",
-        "trigger": "trade",
-        "held_item": "Dubious Disc",
-        "held_item_id": "dubious_disc"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "porygon",
     "description_en": "A bizarre item caused this Pokémon to evolve. While it now exhibits many new gestures and expressions, its biology remains inscrutable.",
     "description_pt": "A bizarre item caused this Pokémon to evolve. While it now exhibits many new gestures and expressions, its biology remains inscrutable.",
@@ -7930,14 +7802,7 @@
     },
     "learnset_source_version_group": "legends-arceus",
     "learnset_dependencies": [],
-    "evolutions": [
-      {
-        "target": "wyrdeer",
-        "target_dex_number": 899,
-        "method": "agile-style-move",
-        "trigger": "agile-style-move"
-      }
-    ],
+    "evolutions": [],
     "evolves_from": "",
     "description_en": "Its strangely shaped antlers have the power to bewitch those who see them. Medicine made by grinding up the black orbs from fallen antlers is an effective treatment for insomnia.",
     "description_pt": "Its strangely shaped antlers have the power to bewitch those who see them. Medicine made by grinding up the black orbs from fallen antlers is an effective treatment for insomnia.",

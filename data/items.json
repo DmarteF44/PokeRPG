@@ -1067,5 +1067,141 @@
     "description_en": "Raises Speed by one stage for the rest of the battle only.",
     "description_pt": "Aumenta Velocidade em um estagio, apenas durante esta batalha.",
     "icon_path": "res://assets/items/potions/x_speed.png"
+  },
+  {
+    "id": "ice_stone",
+    "name_en": "Ice Stone",
+    "name_pt": "Pedra de Gelo",
+    "category": "evolution",
+    "price": 2100,
+    "min_level": 15,
+    "min_badges": 2,
+    "effect_type": "evolve_stone",
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "A frozen stone used for certain evolutions.",
+    "description_pt": "Uma pedra congelada usada em certas evolucoes.",
+    "icon_path": "res://assets/items/evolution/ice_stone.png"
+  },
+  {
+    "id": "metal_coat",
+    "name_en": "Metal Coat",
+    "name_pt": "Revestimento de Metal",
+    "category": "evolution",
+    "price": 2500,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "evolve_stone",
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "A metallic film used for certain evolutions.",
+    "description_pt": "Uma pelicula metalica usada em certas evolucoes.",
+    "icon_path": "res://assets/items/evolution/metal_coat.png"
+  },
+  {
+    "id": "kings_rock",
+    "name_en": "King's Rock",
+    "name_pt": "Pedra do Rei",
+    "category": "evolution",
+    "price": 2500,
+    "min_level": 20,
+    "min_badges": 3,
+    "effect_type": "evolve_stone",
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "A regal rock used for certain evolutions.",
+    "description_pt": "Uma pedra real usada em certas evolucoes.",
+    "icon_path": "res://assets/items/evolution/kings_rock.png"
+  },
+  {
+    "id": "dragon_scale",
+    "name_en": "Dragon Scale",
+    "name_pt": "Escama de Dragao",
+    "category": "evolution",
+    "price": 2800,
+    "min_level": 22,
+    "min_badges": 3,
+    "effect_type": "evolve_stone",
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "A tough scale used for certain evolutions.",
+    "description_pt": "Uma escama resistente usada em certas evolucoes.",
+    "icon_path": "res://assets/items/evolution/dragon_scale.png"
+  },
+  {
+    "id": "prism_scale",
+    "name_en": "Prism Scale",
+    "name_pt": "Escama Prisma",
+    "category": "evolution",
+    "price": 2000,
+    "min_level": 15,
+    "min_badges": 2,
+    "effect_type": "evolve_stone",
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "A shimmering scale used for certain evolutions.",
+    "description_pt": "Uma escama brilhante usada em certas evolucoes.",
+    "icon_path": "res://assets/items/evolution/prism_scale.png"
+  },
+  {
+    "id": "deep_sea_tooth",
+    "name_en": "Deep Sea Tooth",
+    "name_pt": "Dente do Mar Profundo",
+    "category": "evolution",
+    "price": 2200,
+    "min_level": 18,
+    "min_badges": 2,
+    "effect_type": "evolve_stone",
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "A sharp tooth used for certain evolutions.",
+    "description_pt": "Um dente afiado usado em certas evolucoes.",
+    "icon_path": "res://assets/items/evolution/deep_sea_tooth.png"
+  },
+  {
+    "id": "deep_sea_scale",
+    "name_en": "Deep Sea Scale",
+    "name_pt": "Escama do Mar Profundo",
+    "category": "evolution",
+    "price": 2200,
+    "min_level": 18,
+    "min_badges": 2,
+    "effect_type": "evolve_stone",
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "A shining scale used for certain evolutions.",
+    "description_pt": "Uma escama brilhante usada em certas evolucoes.",
+    "icon_path": "res://assets/items/evolution/deep_sea_scale.png"
+  },
+  {
+    "id": "up_grade",
+    "name_en": "Up-Grade",
+    "name_pt": "Aprimoramento",
+    "category": "evolution",
+    "price": 2000,
+    "min_level": 15,
+    "min_badges": 2,
+    "effect_type": "evolve_stone",
+    "use_contexts": [
+      "field",
+      "pokemon_selection"
+    ],
+    "description_en": "A mysterious device used for certain evolutions.",
+    "description_pt": "Um dispositivo misterioso usado em certas evolucoes.",
+    "icon_path": "res://assets/items/evolution/up_grade.png"
   }
 ]

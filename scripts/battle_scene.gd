@@ -1020,10 +1020,18 @@ func _victory_trainer_xp() -> int:
 	return amount
 
 
+# Player-progress facts a PokeRPG-adapted evolution condition (badge count,
+# etc.) might need - see PokemonHelpers.PLAYER_PROGRESS_METHODS. Threaded
+# into grant_xp() so evolution checks can see them without PokemonHelpers
+# itself depending on SaveManager.
+func _evolution_context() -> Dictionary:
+	return {"badges": int(save_data.get("badges", 0))}
+
+
 func _grant_victory_xp() -> String:
 	var player_name := str(player_pokemon.get("name", "Pokemon"))
 	var training_bonus := 1.0 + float(SaveManager.specialization_points("treinamento")) * 0.02
-	var xp_result := PokemonHelpers.grant_xp(player_pokemon, int(round(25 * training_bonus)))
+	var xp_result := PokemonHelpers.grant_xp(player_pokemon, int(round(25 * training_bonus)), _evolution_context())
 	player_pokemon = xp_result.get("pokemon", player_pokemon)
 	var lines := [_text("xp_gain") % player_name]
 	var level_ups: Array = xp_result.get("level_ups", [])

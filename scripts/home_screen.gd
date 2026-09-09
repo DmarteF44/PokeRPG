@@ -604,6 +604,14 @@ func _open_pending_home_popup() -> void:
 			_show_options()
 
 
+# Player-progress facts a PokeRPG-adapted evolution condition (badge count,
+# etc.) might need - see PokemonHelpers.PLAYER_PROGRESS_METHODS. Threaded
+# into grant_xp() so evolution checks can see them without PokemonHelpers
+# itself depending on SaveManager.
+func _evolution_context() -> Dictionary:
+	return {"badges": int(save_data.get("badges", 0))}
+
+
 func _refresh_save_data() -> void:
 	save_data = SaveManager.get_current_save()
 	if save_data.is_empty() and SaveManager.has_save(1):
@@ -1305,7 +1313,7 @@ func _use_grant_xp_item(item: Dictionary, team_index: int) -> void:
 
 	var pokemon: Dictionary = PokemonHelpers.normalize_pokemon(team[team_index])
 	var amount := maxi(1, int(item.get("effect_value", 100)))
-	var result := PokemonHelpers.grant_xp(pokemon, amount)
+	var result := PokemonHelpers.grant_xp(pokemon, amount, _evolution_context())
 	team[team_index] = result.get("pokemon", pokemon)
 	SaveManager.update_current_save({"team": team})
 	_refresh_save_data()
@@ -3177,7 +3185,7 @@ func _debug_level_up_team_member(index: int) -> void:
 	if required <= 0:
 		UI.show_message_popup(self, _text("debug_level_up"), _text("debug_no_change"))
 		return
-	var result := PokemonHelpers.grant_xp(pokemon, required)
+	var result := PokemonHelpers.grant_xp(pokemon, required, _evolution_context())
 	team[index] = result.get("pokemon", pokemon)
 	_update_debug_save({"team": team})
 
