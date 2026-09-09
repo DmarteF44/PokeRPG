@@ -92,6 +92,7 @@ const TEXT = {
 		"z_move_name": "Z-%s",
 		"terastallize": "Terastallize",
 		"terastallized_message": "%s Terastallized into the %s type!",
+		"battle_bond_message": "%s's Battle Bond awakened! It transformed into Ash-Greninja!",
 		"hp": "HP",
 		"level": "Lv.",
 		"wild_appeared": "Wild %s appeared!",
@@ -178,6 +179,7 @@ const TEXT = {
 		"z_move_name": "Z-%s",
 		"terastallize": "Teracristalizar",
 		"terastallized_message": "%s Teracristalizou para o tipo %s!",
+		"battle_bond_message": "O Vínculo de Batalha de %s despertou! Transformou-se em Greninja de Ash!",
 		"hp": "HP",
 		"level": "Nv.",
 		"wild_appeared": "%s selvagem apareceu!",
@@ -600,6 +602,7 @@ func _use_move_index(move_index: int, use_z: bool = false) -> void:
 
 	if player_first:
 		_execute_attack(true, move, lines)
+		_check_battle_bond_trigger(lines)
 		if _finish_battle_if_needed(lines):
 			return
 		_execute_enemy_turn(lines)
@@ -610,10 +613,35 @@ func _use_move_index(move_index: int, use_z: bool = false) -> void:
 		if _finish_battle_if_needed(lines):
 			return
 		_execute_attack(true, move, lines)
+		_check_battle_bond_trigger(lines)
 		if _finish_battle_if_needed(lines):
 			return
 
 	_finish_round(lines)
+
+
+# Battle Bond is the one real Pokemon mechanic with no held item or player
+# button - Greninja transforms into Ash-Greninja automatically the instant
+# it KOs an opposing Pokemon, once per battle (a Greninja that's already
+# bonded, or one that never learned Battle Bond at all per
+# PokemonHelpers.battle_bond_ids_for_species, is a no-op here).
+func _check_battle_bond_trigger(lines: Array) -> void:
+	if str(player_pokemon.get("battle_bond_id", "")) != "":
+		return
+	if int(enemy_pokemon.get("hp", 0)) > 0:
+		return
+	var bond_ids := PokemonHelpers.battle_bond_ids_for_species(str(player_pokemon.get("id", "")))
+	if bond_ids.is_empty():
+		return
+	var before_name := str(player_pokemon.get("name", player_pokemon.get("species", "Pokemon")))
+	player_pokemon["battle_bond_id"] = str(bond_ids[0])
+	var stats := PokemonHelpers.stats_for_level(str(player_pokemon.get("id", "")), int(player_pokemon.get("level", 1)), bool(player_pokemon.get("black", false)), bool(player_pokemon.get("alpha", false)), bool(player_pokemon.get("purified", false)), str(player_pokemon.get("mega", "")) != "", true)
+	for stat_key in ["max_hp", "attack", "defense", "sp_attack", "sp_defense", "speed"]:
+		player_pokemon[stat_key] = int(stats.get(stat_key, player_pokemon.get(stat_key, 1)))
+	player_pokemon = PokemonHelpers.normalize_pokemon(player_pokemon)
+	battle_team[player_team_index] = _battle_pokemon_copy(player_pokemon)
+	_refresh_player_sprite()
+	lines.append(_text("battle_bond_message") % before_name)
 
 
 func _player_moves() -> Array:
@@ -1193,7 +1221,7 @@ func _battle_pokemon_copy(pokemon: Dictionary, strip_battle_only: bool = false) 
 	# ever reaches SaveManager, is what makes it safe to let them live
 	# freely on the in-memory player_pokemon/battle_team for the rest of
 	# the actual battle.
-	if strip_battle_only and typeof(pokemon) == TYPE_DICTIONARY and (str(pokemon.get("mega", "")) != "" or bool(pokemon.get("dynamax", false)) or bool(pokemon.get("terastallized", false)) or bool(pokemon.get("z_move_used", false))):
+	if strip_battle_only and typeof(pokemon) == TYPE_DICTIONARY and (str(pokemon.get("mega", "")) != "" or bool(pokemon.get("dynamax", false)) or bool(pokemon.get("terastallized", false)) or bool(pokemon.get("z_move_used", false)) or str(pokemon.get("battle_bond_id", "")) != ""):
 		source = pokemon.duplicate(true)
 		if str(source.get("mega", "")) != "":
 			var stats := PokemonHelpers.stats_for_level(str(source.get("id", "")), int(source.get("level", 1)), bool(source.get("black", false)), bool(source.get("alpha", false)), bool(source.get("purified", false)), false)
@@ -1203,6 +1231,12 @@ func _battle_pokemon_copy(pokemon: Dictionary, strip_battle_only: bool = false) 
 			source["mega"] = ""
 		if bool(source.get("dynamax", false)):
 			_revert_dynamax(source)
+		if str(source.get("battle_bond_id", "")) != "":
+			var bond_stats := PokemonHelpers.stats_for_level(str(source.get("id", "")), int(source.get("level", 1)), bool(source.get("black", false)), bool(source.get("alpha", false)), bool(source.get("purified", false)), str(source.get("mega", "")) != "", false)
+			for stat_key in ["max_hp", "attack", "defense", "sp_attack", "sp_defense", "speed"]:
+				source[stat_key] = int(bond_stats.get(stat_key, source.get(stat_key, 1)))
+			source["hp"] = mini(int(source.get("hp", 1)), int(source["max_hp"]))
+			source["battle_bond_id"] = ""
 		source["terastallized"] = false
 		source["z_move_used"] = false
 	return PokemonHelpers.normalize_pokemon(source).duplicate(true)
