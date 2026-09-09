@@ -37,7 +37,7 @@ from PIL import Image, ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 ROOT = Path(__file__).resolve().parents[2]
-MAX_FRAMES = 4
+MAX_FRAMES = 8
 ICON_SIZE = 96
 
 NAME_RE = re.compile(r"^imgi_(\d+)_(.+)\.(gif|png|jpg|jpeg|svg)$", re.IGNORECASE)
@@ -110,12 +110,43 @@ def gif_frames(data: bytes, max_frames: int) -> list[Image.Image]:
         return frames
 
 
+def _save_optimized(image: Image.Image, out_path: Path) -> None:
+    """Pixel art like these sprites almost always uses well under 256
+    distinct colors, so an indexed-palette PNG (1 byte/pixel) loses nothing
+    visually while running noticeably smaller than RGBA (4 bytes/pixel) -
+    that headroom is what lets more frames per species fit under GitHub's
+    push-size limit without cutting animation smoothness to compensate.
+    Builds the palette directly from the image's own exact colors (not a
+    quantizer) so this is lossless whenever the color count allows it;
+    only an icon's LANCZOS-resampled edge antialiasing can occasionally
+    exceed 256 colors, so this falls back to a (still near-lossless,
+    dithered) quantized palette rather than dropping to full RGBA."""
+    rgba = image.convert("RGBA")
+    colors = rgba.getcolors(maxcolors=100000)
+    if colors is not None and len(colors) <= 256:
+        color_list = [c[1] for c in colors]
+        color_to_index = {c: i for i, c in enumerate(color_list)}
+        indexed = Image.new("P", rgba.size)
+        flat_palette = []
+        alpha_values = []
+        for c in color_list:
+            flat_palette.extend(c[:3])
+            alpha_values.append(c[3])
+        flat_palette += [0] * (256 * 3 - len(flat_palette))
+        indexed.putpalette(flat_palette)
+        indexed.putdata([color_to_index[px] for px in rgba.getdata()])
+        indexed.save(out_path, optimize=True, compress_level=9, transparency=bytes(alpha_values))
+    else:
+        quantized = rgba.quantize(colors=256, method=Image.FASTOCTREE, dither=Image.FLOYDSTEINBERG)
+        quantized.save(out_path, optimize=True, compress_level=9)
+
+
 def save_frames(frames: list[Image.Image], out_dir: Path) -> int:
     out_dir.mkdir(parents=True, exist_ok=True)
     for old in out_dir.glob("*.png"):
         old.unlink()
     for i, frame in enumerate(frames):
-        frame.save(out_dir / f"{i:03d}.png")
+        _save_optimized(frame, out_dir / f"{i:03d}.png")
     return len(frames)
 
 
@@ -128,7 +159,7 @@ def make_icon(frame: Image.Image, out_path: Path) -> None:
     x = (ICON_SIZE - cropped.width) // 2
     y = (ICON_SIZE - cropped.height) // 2
     canvas.paste(cropped, (x, y), cropped)
-    canvas.save(out_path)
+    _save_optimized(canvas, out_path)
 
 
 def main() -> None:
