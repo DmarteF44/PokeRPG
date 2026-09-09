@@ -11010,22 +11010,6 @@
         "trigger": "level-up",
         "item_id": "moon_stone",
         "min_level": 25
-      },
-      {
-        "target": "leafeon",
-        "target_dex_number": 470,
-        "method": "stone",
-        "trigger": "use-item",
-        "item": "Leaf Stone",
-        "item_id": "leaf_stone"
-      },
-      {
-        "target": "glaceon",
-        "target_dex_number": 471,
-        "method": "stone",
-        "trigger": "use-item",
-        "item": "Ice Stone",
-        "item_id": "ice_stone"
       }
     ],
     "starter": false,
