@@ -35,7 +35,9 @@ const STARTER_IDS = [
 	"sprigatito", "fuecoco", "quaxly",
 ]
 const DEFAULT_STARTER_ID = "charmander"
-const ANIMATION_FPS = 30.0
+# How long one full idle-animation loop takes, regardless of how many
+# frames the species' sprite actually has (see AnimatedTextureRect.set_frames).
+const ANIMATION_LOOP_SECONDS = 1.2
 const DEFAULT_XP_TO_NEXT_LEVEL = 100
 const DEFAULT_FRIENDSHIP = 70
 const MAX_MOVE_SLOTS = 4
@@ -671,7 +673,7 @@ static func add_animated_sprite(parent: Node, pokemon: Dictionary, pos: Vector2,
 	parent.add_child(texture_rect)
 
 	var frames := frame_textures(str(pokemon.get("id", DEFAULT_STARTER_ID)), use_back)
-	texture_rect.set_frames(frames, _fallback_texture(pokemon), ANIMATION_FPS)
+	texture_rect.set_frames(frames, _fallback_texture(pokemon), ANIMATION_LOOP_SECONDS)
 	texture_rect.material = variant_material(pokemon)
 	return texture_rect
 
