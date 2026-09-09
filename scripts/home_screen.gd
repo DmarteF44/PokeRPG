@@ -17,9 +17,20 @@ const TEXT = {
 		"hello": "Hello %s,",
 		"player_default": "Player",
 		"welcome_to": "Welcome to",
-		"tutorial_prompt": "New here? See the tutorial:",
-		"tutorial": "Tutorial / Web Page",
-		"tutorial_soon": "Tutorial page coming soon.",
+		"tutorial_prompt": "New here? See how to play:",
+		"tutorial": "How to Play",
+		"tutorial_sections": [
+			["Goal", "Pick a starter, explore the world map, battle and catch wild Pokemon, level them up, evolve them, and earn Gym badges to unlock new maps."],
+			["Exploring", "\"Explore Map\" costs Energy and can trigger a wild Pokemon encounter. Which species can appear depends on that map's types/generation. Energy refills over time - check the energy bar on the Home screen."],
+			["Battling", "Fight uses one of your Pokemon's 4 moves (each has a type, power and PP). Bag lets you use items (Potions, stat boosts, capture items) without wasting your Pokemon's turn. Pokemon lets you switch your active Pokemon. Run ends a wild encounter (not available against trainers). Matching your move's type against the enemy's weakness deals extra damage; a resisted type deals less."],
+			["Catching", "Wearing an enemy's HP down (and inflicting status like Sleep or Paralysis) raises your catch chance. Great/Ultra/Master Balls catch more reliably than a basic Poke Ball - check the Shop and your Bag."],
+			["XP and Leveling", "Winning battles grants XP. Leveling up raises stats and can teach new moves - if all 4 move slots are full you'll be asked which move to replace."],
+			["Evolution", "Different Pokemon evolve differently: by level, by using an evolution item, by badge count, and other conditions. Open a Pokemon's details (Collection/Storage) to see exactly what it still needs."],
+			["Pokemon Center", "Heals your whole team for a small fee; recovery time scales with how much HP is missing and your Pokemon's level. Storage there lets you manage Pokemon beyond your 6-team limit."],
+			["Money and Progress", "Battling and capturing pays trainer XP and money; leveling your trainer grants specialization points (Profile screen) that boost things like capture rate or exploration. Gym badges unlock new maps and tougher trainers."],
+			["Pokedex", "Tracks every species you've seen and captured, with numbers, types and descriptions. You can pay to research a seen-but-not-caught species for more details."],
+			["Shiny and Black", "Extremely rare recolored variants that can appear on any wild encounter - Black Pokemon also get a small stat bonus. Certain items can raise the odds for a while, but never guarantee one."],
+		],
 		"money": "Money",
 		"level": "Lv.",
 		"energy": "Energy",
@@ -283,9 +294,20 @@ const TEXT = {
 		"hello": "Olá %s,",
 		"player_default": "Jogador",
 		"welcome_to": "Bem-vindo ao",
-		"tutorial_prompt": "Novo por aqui? Veja o tutorial:",
-		"tutorial": "Tutorial / Página Web",
-		"tutorial_soon": "Página de tutorial em breve.",
+		"tutorial_prompt": "Novo por aqui? Veja como jogar:",
+		"tutorial": "Como Jogar",
+		"tutorial_sections": [
+			["Objetivo", "Escolha um inicial, explore o mapa mundial, batalhe e capture Pokémon selvagens, suba o nível deles, evolua-os e conquiste insígnias de ginásio para liberar novos mapas."],
+			["Explorando", "\"Explorar Mapa\" gasta Energia e pode gerar um encontro com Pokémon selvagem. Quais espécies aparecem depende dos tipos/geração daquele mapa. A energia recarrega com o tempo - veja a barra de energia na Tela Inicial."],
+			["Batalha", "Lutar usa um dos 4 golpes do seu Pokémon (cada um tem tipo, poder e PP). Mochila permite usar itens (Poções, aumentos de atributo, itens de captura) sem gastar o turno do seu Pokémon. Pokémon troca seu Pokémon ativo. Fugir encerra um encontro selvagem (indisponível contra treinadores). Usar um golpe do tipo que é fraqueza do inimigo causa dano extra; um tipo resistido causa menos dano."],
+			["Captura", "Reduzir o HP do selvagem (e causar status como Sono ou Paralisia) aumenta sua chance de captura. Great/Ultra/Master Ball capturam com mais confiança que a Pokébola básica - veja a Loja e sua Mochila."],
+			["XP e Nível", "Vencer batalhas concede XP. Subir de nível aumenta os atributos e pode ensinar novos golpes - se os 4 espaços de golpe estiverem cheios, você escolhe qual substituir."],
+			["Evolução", "Cada Pokémon evolui de um jeito: por nível, usando um item de evolução, por número de insígnias, entre outras condições. Abra os detalhes de um Pokémon (Coleção/Armazenamento) para ver exatamente o que falta."],
+			["Centro Pokémon", "Cura todo o time por uma taxa; o tempo de recuperação varia conforme o HP faltando e o nível do Pokémon. O Armazenamento lá permite gerenciar Pokémon além do limite de 6 no time."],
+			["Dinheiro e Progresso", "Batalhar e capturar rende XP de treinador e dinheiro; subir o nível do treinador concede pontos de especialização (tela de Perfil) que melhoram coisas como taxa de captura ou exploração. Insígnias de ginásio liberam novos mapas e treinadores mais fortes."],
+			["Pokédex", "Registra toda espécie que você já viu e capturou, com número, tipos e descrição. Você pode pagar para pesquisar uma espécie vista mas não capturada e ver mais detalhes."],
+			["Shiny e Black", "Variantes recoloridas extremamente raras que podem aparecer em qualquer encontro selvagem - Pokémon Black também ganham um pequeno bônus de atributos. Certos itens aumentam a chance por um tempo, mas nunca garantem uma."],
+		],
 		"money": "Dinheiro",
 		"level": "Nv.",
 		"energy": "Energia",
@@ -732,7 +754,44 @@ func _refresh_home_stats() -> void:
 
 
 func _show_tutorial() -> void:
-	UI.show_message_popup(self, _text("tutorial"), _text("tutorial_soon"))
+	var existing := get_node_or_null("TutorialPopup")
+	if existing != null:
+		existing.queue_free()
+
+	var popup := _create_popup(_text("tutorial"), "TutorialPopup", 34.0, 580.0)
+	var scroll := TouchScrollContainer.new()
+	scroll.name = "TutorialScroll"
+	scroll.position = Vector2(28, 100)
+	scroll.size = Vector2(304, 460)
+	popup.add_child(scroll)
+
+	var content := Control.new()
+	content.name = "TutorialContent"
+	scroll.add_child(content)
+
+	var y := 0.0
+	for section in _tutorial_sections():
+		if typeof(section) != TYPE_ARRAY or section.size() < 2:
+			continue
+		var title_label := UI.add_panel_label(content, str(section[0]), Vector2(0, y), Vector2(296, 24), 15, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Title%d" % y)
+		title_label.add_theme_color_override("font_color", Color(0.72, 0.34, 0.06))
+		y += 26.0
+		var body_label := UI.add_panel_label(content, str(section[1]), Vector2(0, y), Vector2(296, 20), 12, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_TOP, "Body%d" % y)
+		body_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		# A wrapped Label's own height doesn't reflow to fit multi-line text
+		# until it's actually in the tree and the theme font is resolved -
+		# get_theme_default_font() only comes back valid at that point, so
+		# reading the wrapped line count has to wait a frame instead of
+		# happening inline right after the label is created.
+		await get_tree().process_frame
+		if not is_instance_valid(body_label):
+			return
+		var line_count := body_label.get_line_count()
+		var body_height := maxf(20.0, float(line_count) * 17.0)
+		body_label.size = Vector2(296, body_height)
+		y += body_height + 18.0
+
+	content.custom_minimum_size = Vector2(304, y + 12.0)
 
 
 func _show_profile() -> void:
@@ -2316,8 +2375,25 @@ func _show_pokedex() -> void:
 	var researched_ids := _researched_species_ids()
 	var owned_shiny_ids := _owned_shiny_pokemon_ids()
 	var owned_black_ids := _owned_black_pokemon_ids()
+
+	var row_style := StyleBoxFlat.new()
+	row_style.bg_color = Color(0.86, 0.92, 0.96)
+	row_style.border_color = Color(0.34, 0.50, 0.62)
+	row_style.set_border_width_all(2)
+	row_style.set_corner_radius_all(6)
+
+	# Building all ~900 rows in one unbroken loop is exactly the kind of
+	# single-frame-blocking work that reads as the Pokedex "freezing" to
+	# open, now that the roster is 2x+ larger than when this screen was
+	# last sized up. Yielding a frame every batch lets the engine actually
+	# render/respond in between instead of hanging until every row exists.
+	const ROWS_PER_BATCH := 60
 	for i in range(species_ids.size()):
-		_add_pokedex_entry(content, str(species_ids[i]), i, seen_ids, owned_ids, researched_ids, owned_shiny_ids, owned_black_ids)
+		_add_pokedex_entry(content, str(species_ids[i]), i, seen_ids, owned_ids, researched_ids, owned_shiny_ids, owned_black_ids, row_style)
+		if i % ROWS_PER_BATCH == ROWS_PER_BATCH - 1:
+			await get_tree().process_frame
+			if not is_instance_valid(content):
+				return
 
 
 func _show_pokedex_filters() -> void:
@@ -2555,7 +2631,7 @@ func _add_empty_team_slot(parent: Control, slot: int, y: float, slot_height: flo
 	UI.add_panel_label(panel, "%s %d" % [_text("empty_slot"), slot], Vector2(12, 0), Vector2(252, slot_height), 15, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Empty")
 
 
-func _add_pokedex_entry(parent: Control, pokemon_id: String, index: int, seen_ids: Array, owned_ids: Array, researched_ids: Array, owned_shiny_ids: Array = [], owned_black_ids: Array = []) -> void:
+func _add_pokedex_entry(parent: Control, pokemon_id: String, index: int, seen_ids: Array, owned_ids: Array, researched_ids: Array, owned_shiny_ids: Array, owned_black_ids: Array, row_style: StyleBoxFlat) -> void:
 	var seen := seen_ids.has(pokemon_id)
 	var owned := owned_ids.has(pokemon_id)
 	var registered := seen or owned
@@ -2566,7 +2642,15 @@ func _add_pokedex_entry(parent: Control, pokemon_id: String, index: int, seen_id
 	panel.position = Vector2(0, float(index) * 168.0)
 	panel.size = Vector2(296, 158)
 	parent.add_child(panel)
-	UI.style_panel_button(panel, Color(0.86, 0.92, 0.96), Color(0.34, 0.50, 0.62), 2)
+	# A plain Panel (not a Button) only ever reads its "panel" stylebox slot -
+	# UI.style_panel_button also writes normal/hover/pressed/focus slots that
+	# a Panel never queries, allocating 4 new StyleBoxFlat resources per row
+	# for nothing. Every row here shares the identical fill/border anyway
+	# (no per-row selected/hover state), so building one stylebox up front
+	# and reusing the same resource by reference across all ~900 rows - one
+	# allocation instead of thousands - is most of what made opening the
+	# Pokedex freeze once the roster grew past a few hundred species.
+	panel.add_theme_stylebox_override("panel", row_style)
 
 	var dex_number := int(definition.get("dex_number", 0))
 	var pokemon_name := str(definition.get("name", "Pokemon")) if registered else "????"
@@ -3839,3 +3923,9 @@ func _text(key: String) -> String:
 	var language_text: Dictionary = TEXT[_language()]
 	var english_text: Dictionary = TEXT["en"]
 	return str(language_text.get(key, english_text.get(key, key)))
+
+
+func _tutorial_sections() -> Array:
+	var language_text: Dictionary = TEXT[_language()]
+	var english_text: Dictionary = TEXT["en"]
+	return language_text.get("tutorial_sections", english_text.get("tutorial_sections", []))
