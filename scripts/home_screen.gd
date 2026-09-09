@@ -2311,8 +2311,10 @@ func _show_pokedex() -> void:
 	var seen_ids := _seen_pokemon_ids()
 	var owned_ids := _owned_pokemon_ids()
 	var researched_ids := _researched_species_ids()
+	var owned_shiny_ids := _owned_shiny_pokemon_ids()
+	var owned_black_ids := _owned_black_pokemon_ids()
 	for i in range(species_ids.size()):
-		_add_pokedex_entry(content, str(species_ids[i]), i, seen_ids, owned_ids, researched_ids)
+		_add_pokedex_entry(content, str(species_ids[i]), i, seen_ids, owned_ids, researched_ids, owned_shiny_ids, owned_black_ids)
 
 
 func _show_pokedex_filters() -> void:
@@ -2550,7 +2552,7 @@ func _add_empty_team_slot(parent: Control, slot: int, y: float, slot_height: flo
 	UI.add_panel_label(panel, "%s %d" % [_text("empty_slot"), slot], Vector2(12, 0), Vector2(252, slot_height), 15, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Empty")
 
 
-func _add_pokedex_entry(parent: Control, pokemon_id: String, index: int, seen_ids: Array, owned_ids: Array, researched_ids: Array) -> void:
+func _add_pokedex_entry(parent: Control, pokemon_id: String, index: int, seen_ids: Array, owned_ids: Array, researched_ids: Array, owned_shiny_ids: Array = [], owned_black_ids: Array = []) -> void:
 	var seen := seen_ids.has(pokemon_id)
 	var owned := owned_ids.has(pokemon_id)
 	var registered := seen or owned
@@ -2585,7 +2587,12 @@ func _add_pokedex_entry(parent: Control, pokemon_id: String, index: int, seen_id
 	_fit_label(name_label, false)
 	var type_text := _pokemon_types_text(definition) if owned else "???"
 	var status_key := "owned" if owned else ("seen" if seen else "unknown")
-	var info_label := UI.add_panel_label(panel, "%s: %s\n%s: %s" % [_text("type"), type_text, _text("status"), _text(status_key)], Vector2(84, 38), Vector2(190, 42), 11, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Info")
+	var status_text := _text(status_key)
+	if owned_black_ids.has(pokemon_id):
+		status_text += " ◆Black"
+	elif owned_shiny_ids.has(pokemon_id):
+		status_text += " ✨"
+	var info_label := UI.add_panel_label(panel, "%s: %s\n%s: %s" % [_text("type"), type_text, _text("status"), status_text], Vector2(84, 38), Vector2(190, 42), 11, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Info")
 	_fit_label(info_label, true)
 
 	var researched := researched_ids.has(pokemon_id)
@@ -2689,6 +2696,18 @@ func _seen_pokemon_ids() -> Array:
 	if typeof(seen_value) == TYPE_ARRAY:
 		return seen_value
 	return []
+
+
+func _owned_shiny_pokemon_ids() -> Array:
+	_refresh_save_data()
+	var value = save_data.get("owned_shiny_pokemon", [])
+	return value if typeof(value) == TYPE_ARRAY else []
+
+
+func _owned_black_pokemon_ids() -> Array:
+	_refresh_save_data()
+	var value = save_data.get("owned_black_pokemon", [])
+	return value if typeof(value) == TYPE_ARRAY else []
 
 
 func _heal_team() -> void:

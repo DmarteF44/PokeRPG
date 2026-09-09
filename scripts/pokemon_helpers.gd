@@ -687,6 +687,47 @@ static func variant_tag(pokemon: Dictionary) -> String:
 const SHINY_REWARD_BONUS := 0.10
 const BLACK_REWARD_BONUS := 0.25
 
+static func _merge_id_list(value, pokemon_id: String) -> Array:
+	var ids := []
+	if typeof(value) == TYPE_ARRAY:
+		for entry in value:
+			var safe_id := str(entry)
+			if safe_id != "" and not ids.has(safe_id):
+				ids.append(safe_id)
+	if pokemon_id != "" and not ids.has(pokemon_id):
+		ids.append(pokemon_id)
+	return ids
+
+
+# Shared by every "a Pokemon was just seen/captured" code path (exploration,
+# fishing, capture) so a Shiny/Black sighting or catch is tracked the same
+# way as a normal one everywhere, without each caller re-deriving the
+# variant-specific list names. Returns only the save_data keys that
+# actually changed, ready to hand straight to SaveManager.update_current_save().
+static func pokedex_seen_updates(pokemon: Dictionary, save_data: Dictionary) -> Dictionary:
+	var pokemon_id := str(pokemon.get("id", ""))
+	if pokemon_id == "":
+		return {}
+	var updates := {"seen_pokemon": _merge_id_list(save_data.get("seen_pokemon", []), pokemon_id)}
+	if bool(pokemon.get("shiny", false)):
+		updates["seen_shiny_pokemon"] = _merge_id_list(save_data.get("seen_shiny_pokemon", []), pokemon_id)
+	if bool(pokemon.get("black", false)):
+		updates["seen_black_pokemon"] = _merge_id_list(save_data.get("seen_black_pokemon", []), pokemon_id)
+	return updates
+
+
+static func pokedex_owned_updates(pokemon: Dictionary, save_data: Dictionary) -> Dictionary:
+	var pokemon_id := str(pokemon.get("id", ""))
+	if pokemon_id == "":
+		return {}
+	var updates := {"owned_pokemon": _merge_id_list(save_data.get("owned_pokemon", []), pokemon_id)}
+	if bool(pokemon.get("shiny", false)):
+		updates["owned_shiny_pokemon"] = _merge_id_list(save_data.get("owned_shiny_pokemon", []), pokemon_id)
+	if bool(pokemon.get("black", false)):
+		updates["owned_black_pokemon"] = _merge_id_list(save_data.get("owned_black_pokemon", []), pokemon_id)
+	return updates
+
+
 static func variant_reward_multiplier(pokemon: Dictionary) -> float:
 	if bool(pokemon.get("black", false)):
 		return 1.0 + BLACK_REWARD_BONUS
