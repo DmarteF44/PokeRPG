@@ -1179,11 +1179,16 @@ func _play_damage_flash(target_sprite: TextureRect) -> void:
 	if target_sprite == null or not is_instance_valid(target_sprite):
 		return
 	AudioManager.play_sfx("hit")
-	var original_modulate := target_sprite.modulate
+	# Always restores to fully opaque, never to "whatever modulate happened
+	# to be" - a sprite can be mid-fade-in from a just-completed switch when
+	# its very first turn's damage flash fires (both tweens touch modulate
+	# on the same node), and capturing that transient low-alpha value here
+	# would permanently strand the sprite at partial opacity once this
+	# flash's own tween finishes.
 	var tween := create_tween()
 	for i in range(3):
 		tween.tween_property(target_sprite, "modulate", Color(1, 1, 1, 0.18), 0.055)
-		tween.tween_property(target_sprite, "modulate", original_modulate, 0.055)
+		tween.tween_property(target_sprite, "modulate", Color(1, 1, 1, 1), 0.055)
 
 
 func _effect_path_for_move(move: Dictionary) -> String:
@@ -1690,9 +1695,9 @@ func _battle_team() -> Array:
 
 
 func _refresh_player_sprite() -> void:
-	if player_sprite != null and is_instance_valid(player_sprite):
-		player_sprite.queue_free()
+	var outgoing_sprite := player_sprite
 	player_sprite = PokemonHelpers.add_animated_sprite(self, player_pokemon, Vector2(36, 266), Vector2(112, 112), true, "PlayerSprite")
+	MoveAnimation.play_switch_transition(outgoing_sprite, player_sprite)
 
 
 func _item_name(item_id: String) -> String:
