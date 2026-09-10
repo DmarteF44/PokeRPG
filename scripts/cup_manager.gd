@@ -306,6 +306,7 @@ static func _encounter_for(cup: Dictionary, round_index: int, team_index: int) -
 	pokemon["cup_round_index"] = round_index
 	pokemon["cup_team_index"] = team_index
 	pokemon["cup_trainer_id"] = str(trainer.get("id", ""))
+	pokemon["ai_strategy"] = str(trainer.get("ai_strategy", ""))
 
 	return PokemonHelpers.normalize_pokemon(pokemon, pokemon_id)
 

@@ -454,6 +454,7 @@ func _normalize_enemy_pokemon(value: Dictionary) -> Dictionary:
 		"cup_team_index": int(value.get("cup_team_index", 0)),
 		"cup_trainer_id": str(value.get("cup_trainer_id", "")),
 		"tutorial_battle": bool(value.get("tutorial_battle", false)),
+		"ai_strategy": str(value.get("ai_strategy", "")),
 	}
 
 
@@ -1508,15 +1509,117 @@ func _consume_enemy_move() -> Dictionary:
 	var pp_current = enemy_pokemon.get("pp_current", [])
 	if typeof(pp_current) != TYPE_ARRAY:
 		pp_current = []
+	var available_indices := []
 	for i in range(moves.size()):
 		var current := int(pp_current[i]) if i < pp_current.size() else 1
 		if current > 0:
-			while pp_current.size() <= i:
-				pp_current.append(1)
-			pp_current[i] = maxi(0, current - 1)
-			enemy_pokemon["pp_current"] = pp_current
-			return moves[i]
-	return PokemonHelpers.move_by_name("Tackle")
+			available_indices.append(i)
+	if available_indices.is_empty():
+		return PokemonHelpers.move_by_name("Tackle")
+
+	var chosen_index: int = _choose_enemy_move_index(available_indices, moves)
+	while pp_current.size() <= chosen_index:
+		pp_current.append(1)
+	pp_current[chosen_index] = maxi(0, int(pp_current[chosen_index]) - 1)
+	enemy_pokemon["pp_current"] = pp_current
+	return moves[chosen_index]
+
+
+# Which "personality" this opponent's move choices should follow - set on
+# the trainer in cup_trainers.json (threaded through by cup_manager.gd) or
+# inferred for gyms/wild encounters that don't declare one. "type_specialist"
+# plays like "offensive" (their team's real specialization already comes
+# from which moves/species they carry, not from a different scoring curve).
+func _enemy_ai_strategy() -> String:
+	var declared := str(enemy_pokemon.get("ai_strategy", ""))
+	if declared == "type_specialist":
+		return "offensive"
+	if declared != "":
+		return declared
+	if _is_trainer_battle() and str(enemy_pokemon.get("trainer_role", "")) == "leader":
+		return "defensive"
+	return "balanced"
+
+
+# Only uses information a trainer could legitimately see mid-battle (both
+# Pokemon's current HP/status/types/stats, and the move's own printed data) -
+# no peeking at the player's queued action or future RNG rolls. Picks among
+# the (possibly tied) best-scoring available moves at random so the same
+# strategy doesn't play 100% identically every time, without ever picking a
+# move that isn't actually a reasonable choice.
+func _choose_enemy_move_index(available_indices: Array, moves: Array) -> int:
+	var strategy := _enemy_ai_strategy()
+	var best_score := -INF
+	var best_indices := []
+	for i in available_indices:
+		var score: float = _score_enemy_move(moves[i], strategy)
+		if score > best_score + 0.01:
+			best_score = score
+			best_indices = [i]
+		elif score > best_score - 0.01:
+			best_indices.append(i)
+	if best_indices.is_empty():
+		return available_indices[0]
+	return best_indices[randi() % best_indices.size()]
+
+
+func _score_enemy_move(move: Dictionary, strategy: String) -> float:
+	var power := maxi(0, int(move.get("power", 0)))
+	var accuracy := clampi(int(move.get("accuracy", 100)), 1, 100) / 100.0
+
+	if power > 0:
+		var estimated := _estimated_damage(enemy_pokemon, player_pokemon, move)
+		var score := estimated * accuracy
+		if estimated >= float(maxi(1, int(player_pokemon.get("hp", 1)))):
+			# A believable trainer goes for the kill when they see one -
+			# this only uses the target's visible current HP, not any
+			# hidden information.
+			score += 1000.0
+		match strategy:
+			"offensive", "champion":
+				score *= 1.25
+			"defensive":
+				score *= 0.85
+		return score
+
+	# Status/support move (buffs, debuffs, inflicting a status condition,
+	# and so on - real effects, see _apply_move_effects).
+	var base_score := 12.0
+	var own_hp_ratio := float(enemy_pokemon.get("hp", 1)) / float(maxi(1, int(enemy_pokemon.get("max_hp", 1))))
+	match strategy:
+		"defensive":
+			base_score += 35.0 if own_hp_ratio < 0.6 else 10.0
+		"champion":
+			base_score += 18.0
+		"offensive":
+			base_score -= 6.0
+	return base_score * accuracy
+
+
+# Side-effect-free estimate for the AI to compare moves with (no RNG spread,
+# no crit roll) - deliberately reuses the same stat/type-effectiveness/STAB
+# building blocks _calculate_damage_result() uses for the real roll, so the
+# AI's notion of "strong move" always matches how damage is actually
+# resolved instead of drifting into a second, subtly different formula.
+func _estimated_damage(attacker: Dictionary, defender: Dictionary, move: Dictionary) -> float:
+	var power := maxi(0, int(move.get("power", 0)))
+	if power <= 0:
+		return 0.0
+	var effectiveness := _type_effectiveness(str(move.get("type", "Normal")), defender.get("types", []))
+	if effectiveness <= 0.0:
+		return 0.0
+	var level := maxi(1, int(attacker.get("level", 1)))
+	var category := str(move.get("category", "Physical"))
+	var attack_key := "sp_attack" if category == "Special" else "attack"
+	var defense_key := "sp_defense" if category == "Special" else "defense"
+	# _estimated_damage is only ever called as (enemy_pokemon, player_pokemon, move) -
+	# comparing Dictionary contents (attacker == player_pokemon) would misfire on a
+	# mirror match where both sides share the same species/stats, so key off the
+	# caller's known roles instead of value equality.
+	var attack_stat := _modified_stat(attacker, attack_key, false)
+	var defense_stat := _modified_stat(defender, defense_key, true)
+	var base := (((2.0 * float(level) / 5.0 + 2.0) * float(power) * maxf(1.0, attack_stat) / maxf(1.0, defense_stat)) / 50.0) + 2.0
+	return base * 0.925 * _stab_multiplier(attacker, str(move.get("type", "Normal"))) * effectiveness
 
 
 func _persist_player_pokemon(extra_changes: Dictionary = {}) -> void:
