@@ -300,6 +300,12 @@ var player_seeded := false
 var enemy_seeded := false
 var awaiting_forced_switch := false
 var capture_in_progress := false
+# team_index -> total damage dealt to the enemy this encounter (a fresh
+# BattleScene instance is loaded per encounter, so this never needs an
+# explicit reset). Used to split the encounter's XP across every one of
+# the player's Pokemon that actually fought in it, not just whichever is
+# active when it ends - see _grant_encounter_xp().
+var battle_participants: Dictionary = {}
 
 var message_label: Label
 var action_panel: Control
@@ -453,6 +459,7 @@ func _normalize_enemy_pokemon(value: Dictionary) -> Dictionary:
 		"cup_trainer_id": str(value.get("cup_trainer_id", "")),
 		"tutorial_battle": bool(value.get("tutorial_battle", false)),
 		"ai_strategy": str(value.get("ai_strategy", "")),
+		"xp_yield": maxi(1, int(value.get("xp_yield", value.get("base_experience", 64)))),
 	}
 
 
@@ -929,6 +936,7 @@ func _execute_attack(attacker_is_player: bool, move: Dictionary, lines: Array) -
 		defender["hp"] = maxi(0, int(defender.get("hp", 0)) - damage)
 		if attacker_is_player:
 			enemy_pokemon = defender
+			battle_participants[player_team_index] = float(battle_participants.get(player_team_index, 0.0)) + float(damage)
 		else:
 			player_pokemon = defender
 
@@ -1455,29 +1463,44 @@ func _evolution_context() -> Dictionary:
 	}
 
 
-# Base "participation XP" a wild/trainer encounter is worth to the
-# player's own active Pokemon - the same amount whether the encounter ends
-# in a faint or a successful capture (see _grant_player_pokemon_xp's two
-# call sites), matching the real games granting XP for either outcome.
-func _participation_xp_amount() -> int:
+# Total XP this encounter is worth, before splitting it across
+# participants - depends on the DEFEATED/CAUGHT Pokemon's own species
+# (xp_yield, a real per-species stat every species already carries - see
+# PokemonHelpers.normalize_pokemon) and level, the same shape as the real
+# games' formula (base_exp * level / 7), scaled by the same trainer-battle
+# and variant-rarity multipliers already used for trainer XP/rewards, plus
+# the "treinamento" specialization bonus. Replaces the old flat 25-per-
+# battle amount, which paid the same for a Magikarp and a Legendary.
+func _total_encounter_xp() -> int:
+	var base_yield := maxi(1, int(enemy_pokemon.get("xp_yield", enemy_pokemon.get("base_experience", 64))))
+	var level := maxi(1, int(enemy_pokemon.get("level", 1)))
+	var trainer_multiplier := 1.5 if _is_trainer_battle() else 1.0
+	var variant_multiplier := PokemonHelpers.variant_reward_multiplier(enemy_pokemon)
 	var training_bonus := 1.0 + float(SaveManager.specialization_points("treinamento")) * 0.02
-	return int(round(25 * training_bonus))
+	return maxi(1, int(round((float(base_yield) * float(level) / 7.0) * trainer_multiplier * variant_multiplier * training_bonus)))
 
 
-# Grants `amount` XP to the player's active Pokemon and returns the message
-# lines describing what happened (actual amount gained, any level-ups,
-# evolutions, and queued move-learn popups) - shared by both ways a battle
-# can end in the player's favor: the enemy fainting (_grant_victory_xp) and
-# the enemy being caught instead (_use_capture_item), which used to grant
-# this Pokemon nothing at all.
-func _grant_player_pokemon_xp(amount: int) -> Array:
-	var player_name := str(player_pokemon.get("name", "Pokemon"))
-	var xp_result := PokemonHelpers.grant_xp(player_pokemon, amount, _evolution_context())
-	player_pokemon = xp_result.get("pokemon", player_pokemon)
-	var lines := [_text("xp_gain") % [player_name, int(xp_result.get("xp_gained", 0))]]
+# Grants `amount` XP to battle_team[team_index] (which may or may not be
+# the currently active player_pokemon - see _grant_encounter_xp) and
+# returns the message lines describing what happened for that one Pokemon:
+# the actual amount gained, any level-ups, evolutions, and queued move-
+# learn popups (correctly targeted at team_index, not assumed to be
+# whichever Pokemon is on the field - see _show_move_learn_popup).
+func _grant_xp_to_team_slot(team_index: int, amount: int) -> Array:
+	if amount <= 0:
+		return []
+	var mon := _team_slot_pokemon(team_index)
+	if mon.is_empty():
+		return []
+	var mon_name := str(mon.get("name", "Pokemon"))
+	var xp_result := PokemonHelpers.grant_xp(mon, amount, _evolution_context())
+	var updated: Dictionary = xp_result.get("pokemon", mon)
+	_write_team_slot_pokemon(team_index, updated)
+
+	var lines := [_text("xp_gain") % [mon_name, int(xp_result.get("xp_gained", 0))]]
 	var level_ups: Array = xp_result.get("level_ups", [])
 	for level in level_ups:
-		lines.append(_text("level_up") % [player_name, int(level)])
+		lines.append(_text("level_up") % [mon_name, int(level)])
 	if not level_ups.is_empty():
 		AudioManager.play_sfx("level_up")
 
@@ -1487,8 +1510,8 @@ func _grant_player_pokemon_xp(amount: int) -> Array:
 			continue
 		var before: Dictionary = evolution.get("from", {})
 		var after: Dictionary = evolution.get("to", {})
-		var before_name := str(before.get("species", before.get("name", player_name)))
-		var after_name := str(after.get("species", after.get("name", player_name)))
+		var before_name := str(before.get("species", before.get("name", mon_name)))
+		var after_name := str(after.get("species", after.get("name", mon_name)))
 		lines.append(_text("evolution_start") % before_name)
 		lines.append(_text("evolution_done") % [before_name, after_name])
 		call_deferred("_show_evolution_popup", before, after)
@@ -1497,7 +1520,49 @@ func _grant_player_pokemon_xp(amount: int) -> Array:
 	for pending in pending_move_learns:
 		if typeof(pending) != TYPE_DICTIONARY:
 			continue
-		call_deferred("_show_move_learn_popup", str(pending.get("move_name", "")))
+		call_deferred("_show_move_learn_popup", str(pending.get("move_name", "")), team_index)
+	return lines
+
+
+# Splits this encounter's total XP (_total_encounter_xp) across every one
+# of the player's team members that actually dealt damage in it
+# (battle_participants: team_index -> damage dealt), proportional to each
+# one's share of the total damage - a Pokemon that lands the finishing
+# blow after an earlier one fainted or was swapped out still only gets
+# its own share, and the one that did the early work isn't left with
+# nothing, matching how the real games split participation XP. Falls back
+# to granting the whole amount to the currently active Pokemon alone if no
+# damage was tracked at all this encounter (e.g. a first-turn Master Ball
+# catch with no move ever used).
+func _grant_encounter_xp() -> Array:
+	var total_xp := _total_encounter_xp()
+	var participants: Dictionary = battle_participants.duplicate()
+	if not participants.has(player_team_index):
+		participants[player_team_index] = 0.0
+
+	var total_damage := 0.0
+	for damage in participants.values():
+		total_damage += float(damage)
+	if total_damage <= 0.0:
+		return _grant_xp_to_team_slot(player_team_index, total_xp)
+
+	var eligible: Array = []
+	for index in participants.keys():
+		if float(participants[index]) > 0.0 or index == player_team_index:
+			eligible.append(index)
+	eligible.sort()
+
+	var lines := []
+	var distributed := 0
+	for i in range(eligible.size()):
+		var index: int = eligible[i]
+		var share: int
+		if i == eligible.size() - 1:
+			share = maxi(0, total_xp - distributed)
+		else:
+			share = int(round(total_xp * (float(participants[index]) / total_damage)))
+			distributed += share
+		lines.append_array(_grant_xp_to_team_slot(index, share))
 	return lines
 
 
@@ -1519,7 +1584,7 @@ func _trainer_xp_lines(trainer_xp_result: Dictionary) -> Array:
 
 
 func _grant_victory_xp() -> String:
-	var lines := _grant_player_pokemon_xp(_participation_xp_amount())
+	var lines := _grant_encounter_xp()
 	var trainer_xp_result := SaveManager.grant_trainer_xp(_victory_trainer_xp())
 	lines.append_array(_trainer_xp_lines(trainer_xp_result))
 	return _join_lines(lines)
@@ -2095,13 +2160,13 @@ func _use_capture_item(item_id: String) -> void:
 	await _play_capture_feedback(item_id, int(capture_result.get("shakes", 0)), caught)
 	if caught:
 		# A capture ends the battle in the player's favor exactly as much as
-		# a faint does - the active Pokemon should earn the same
-		# participation XP either way. Granting it (and syncing battle_team)
-		# before _capture_enemy() runs is what actually gets it into the
-		# save, since _capture_enemy()'s own team snapshot reads from
-		# battle_team, not the loose player_pokemon var this updates.
-		var xp_lines := _grant_player_pokemon_xp(_participation_xp_amount())
-		battle_team[player_team_index] = _battle_pokemon_copy(player_pokemon)
+		# a faint does - every Pokemon that fought should earn its share of
+		# the same participation XP either way (see _grant_encounter_xp).
+		# Granting it before _capture_enemy() runs is what actually gets it
+		# into the save, since that function's own team snapshot reads from
+		# battle_team (which _grant_encounter_xp already keeps in sync),
+		# not the loose player_pokemon var alone.
+		var xp_lines := _grant_encounter_xp()
 		var capture_data := _capture_enemy()
 		var destination := str(capture_data.get("destination", "team"))
 		battle_over = true
@@ -2655,10 +2720,33 @@ func _show_evolution_popup(before: Dictionary, after: Dictionary) -> void:
 	EvolutionAnimation.play(before_sprite, after_sprite, flash, reveal)
 
 
-func _show_move_learn_popup(move_name: String) -> void:
-	var pokemon_name := str(player_pokemon.get("name", "Pokemon"))
+func _team_slot_pokemon(team_index: int) -> Dictionary:
+	if team_index == player_team_index:
+		return player_pokemon
+	if team_index >= 0 and team_index < battle_team.size() and typeof(battle_team[team_index]) == TYPE_DICTIONARY:
+		return battle_team[team_index]
+	return {}
+
+
+func _write_team_slot_pokemon(team_index: int, mon: Dictionary) -> void:
+	if team_index == player_team_index:
+		player_pokemon = mon
+	if team_index >= 0 and team_index < battle_team.size():
+		battle_team[team_index] = _battle_pokemon_copy(mon)
+	SaveManager.update_current_save({"team": _battle_team_snapshot()})
+
+
+# A shared-XP win can level up a team member other than the one currently
+# on the field (see _grant_encounter_xp) - team_index says which one this
+# popup and its resolution actually apply to, instead of always assuming
+# the active player_pokemon like this used to.
+func _show_move_learn_popup(move_name: String, team_index: int = -1) -> void:
+	if team_index < 0:
+		team_index = player_team_index
+	var mon := _team_slot_pokemon(team_index)
+	var pokemon_name := str(mon.get("name", "Pokemon"))
 	var new_move := PokemonHelpers.move_by_name(move_name)
-	var current_moves: Array = player_pokemon.get("moves", [])
+	var current_moves: Array = mon.get("moves", [])
 
 	var overlay := Control.new()
 	overlay.name = "MoveLearnPopup"
@@ -2691,7 +2779,7 @@ func _show_move_learn_popup(move_name: String) -> void:
 		var move_text := "%s | %s | PP %d" % [str(move.get("name", "Move")), str(move.get("type", "Normal")), int(move.get("pp", 35))]
 		var label := UI.add_panel_label(row, move_text, Vector2(10, 0), Vector2(264, 46), 12, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "MoveText")
 		label.clip_text = true
-		row.pressed.connect(Callable(self, "_resolve_move_learn").bind(overlay, i, new_move))
+		row.pressed.connect(Callable(self, "_resolve_move_learn").bind(overlay, i, new_move, team_index))
 
 	var cancel_callback = func():
 		message_label.text = "%s\n%s" % [message_label.text, _text("move_learn_cancelled") % [pokemon_name, move_name]]
@@ -2699,8 +2787,11 @@ func _show_move_learn_popup(move_name: String) -> void:
 	UI.add_orange_button(overlay, _text("give_up_learning"), Vector2(70, 452), Vector2(220, 48), cancel_callback, "GiveUpLearning")
 
 
-func _resolve_move_learn(overlay: Control, slot: int, new_move: Dictionary) -> void:
-	var moves: Array = player_pokemon.get("moves", [])
+func _resolve_move_learn(overlay: Control, slot: int, new_move: Dictionary, team_index: int = -1) -> void:
+	if team_index < 0:
+		team_index = player_team_index
+	var mon := _team_slot_pokemon(team_index)
+	var moves: Array = mon.get("moves", [])
 	if slot < 0 or slot >= moves.size():
 		overlay.queue_free()
 		return
@@ -2713,16 +2804,16 @@ func _resolve_move_learn(overlay: Control, slot: int, new_move: Dictionary) -> v
 			# The same move was already learned into another slot (e.g. queued
 			# twice by grant_xp across two level-ups before either was resolved) -
 			# never write a second copy of an identical move.
-			message_label.text = "%s\n%s" % [message_label.text, _text("move_learn_already_known") % [str(player_pokemon.get("name", "Pokemon")), new_name]]
+			message_label.text = "%s\n%s" % [message_label.text, _text("move_learn_already_known") % [str(mon.get("name", "Pokemon")), new_name]]
 			overlay.queue_free()
 			return
 	var old_move: Dictionary = moves[slot] if typeof(moves[slot]) == TYPE_DICTIONARY else {}
 	var old_name := str(old_move.get("name", "Move"))
 	moves[slot] = new_move
-	player_pokemon["moves"] = moves
+	mon["moves"] = moves
 
-	var pp_max = player_pokemon.get("pp_max", [])
-	var pp_current = player_pokemon.get("pp_current", [])
+	var pp_max = mon.get("pp_max", [])
+	var pp_current = mon.get("pp_current", [])
 	if typeof(pp_max) != TYPE_ARRAY:
 		pp_max = []
 	if typeof(pp_current) != TYPE_ARRAY:
@@ -2733,11 +2824,11 @@ func _resolve_move_learn(overlay: Control, slot: int, new_move: Dictionary) -> v
 		pp_current.append(1)
 	pp_max[slot] = int(new_move.get("pp", 35))
 	pp_current[slot] = int(new_move.get("pp", 35))
-	player_pokemon["pp_max"] = pp_max
-	player_pokemon["pp_current"] = pp_current
+	mon["pp_max"] = pp_max
+	mon["pp_current"] = pp_current
 
-	_persist_player_pokemon()
-	message_label.text = "%s\n%s" % [message_label.text, _text("move_learn_replaced") % [str(player_pokemon.get("name", "Pokemon")), old_name, str(new_move.get("name", "Move"))]]
+	_write_team_slot_pokemon(team_index, mon)
+	message_label.text = "%s\n%s" % [message_label.text, _text("move_learn_replaced") % [str(mon.get("name", "Pokemon")), old_name, str(new_move.get("name", "Move"))]]
 	overlay.queue_free()
 
 

@@ -1,4 +1,10 @@
 extends Node
+# Regression suite for the XP message text and the capture-XP fix.
+# See test_encounter_xp_split.gd for the total-XP formula and multi-
+# participant split themselves - this file covers the surrounding wiring:
+# the message text is never a hardcoded literal amount, trainer XP is
+# shown even without a level-up, and a capture's XP gain actually reaches
+# the persisted save (not just the in-memory Pokemon).
 
 const PokemonHelpers = preload("res://scripts/pokemon_helpers.gd")
 
@@ -17,27 +23,25 @@ func _run() -> void:
 		"player_name": "Tester",
 		"team": [PokemonHelpers.normalize_pokemon({"id": "charmander", "level": 5, "xp": 0})],
 	})
-	# specialization_allocations isn't part of create_save()'s own field
-	# list (same as the Pokedex variant lists) - set it the way real
-	# gameplay does, via update_current_save.
-	SaveManager.update_current_save({"specialization_allocations": {"treinamento": 5}})
 
 	var battle_scene = load("res://scenes/BattleScene.tscn").instantiate()
 	get_tree().root.add_child.call_deferred(battle_scene)
 	await get_tree().process_frame
 	await get_tree().process_frame
 
-	# --- The victory message must show the REAL amount, which varies with
-	# the "treinamento" specialization (5 points -> +10%), not a hardcoded
-	# "25".
-	var expected_amount := int(round(25 * (1.0 + 5 * 0.02)))
-	_check("treinamento specialization actually raises the participation XP above the base 25",
-		expected_amount > 25, expected_amount)
-	var xp_lines: Array = battle_scene._grant_player_pokemon_xp(battle_scene._participation_xp_amount())
+	# --- The XP-gain message must never be a hardcoded literal amount
+	# (the old "%s gained 25 XP!" bug) - it has to reflect whatever
+	# _total_encounter_xp() actually computed for this specific encounter.
+	battle_scene.enemy_pokemon = {"xp_yield": 140, "level": 20, "trainer_battle": false}
+	battle_scene.player_team_index = 0
+	battle_scene.battle_participants = {0: 10.0}
+	var expected_amount: int = battle_scene._total_encounter_xp()
+	var xp_lines: Array = battle_scene._grant_encounter_xp()
 	var first_line := str(xp_lines[0])
-	_check("the XP-gain message shows the real amount, not a hardcoded '25'",
-		first_line.find(str(expected_amount)) != -1 and first_line.find("25 XP") == -1,
-		first_line)
+	_check("the XP-gain message shows the real computed amount",
+		first_line.find(str(expected_amount)) != -1, [first_line, expected_amount])
+	_check("the XP-gain message is never the old hardcoded '25 XP' literal",
+		first_line.find("gained 25 XP") == -1, first_line)
 
 	# --- Trainer XP gained must be shown even when no trainer level-up
 	# happens (previously nothing was shown at all in that case).
@@ -47,19 +51,16 @@ func _run() -> void:
 		not trainer_lines.is_empty() and str(trainer_lines[0]).find("7") != -1, trainer_lines)
 
 	# --- Capturing a wild Pokemon must grant participation XP to the
-	# player's own active Pokemon, exactly like defeating it does - and
-	# that gain must actually reach the persisted save, not just the
-	# in-memory player_pokemon.
+	# player's own active Pokemon (via the same _grant_encounter_xp path
+	# _use_capture_item now calls before _capture_enemy() runs), and that
+	# gain must actually reach the persisted save, not just the in-memory
+	# player_pokemon.
 	var before_xp := int(battle_scene.player_pokemon.get("xp", 0))
 	battle_scene.enemy_pokemon = PokemonHelpers.normalize_pokemon({
 		"id": "rattata", "level": 3, "hp": 1, "max_hp": 20, "catch_rate": 255,
 	})
-	# Replicates the exact sequence _use_capture_item now performs on a
-	# successful catch: grant participation XP, sync battle_team (since
-	# _capture_enemy()'s own snapshot reads from battle_team, not the loose
-	# player_pokemon var), then capture.
-	battle_scene._grant_player_pokemon_xp(battle_scene._participation_xp_amount())
-	battle_scene.battle_team[battle_scene.player_team_index] = battle_scene._battle_pokemon_copy(battle_scene.player_pokemon)
+	battle_scene.battle_participants = {0: 5.0}
+	battle_scene._grant_encounter_xp()
 	battle_scene._capture_enemy()
 	var saved := SaveManager.get_current_save()
 	var saved_team: Array = saved.get("team", [])
