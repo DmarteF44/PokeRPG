@@ -78,7 +78,6 @@ const TYPE_CHART = {
 const TEXT = {
 	"en": {
 		"battle": "Battle",
-		"attack": "Attack",
 		"fight": "Fight",
 		"bag": "Bag",
 		"pokemon": "Pokemon",
@@ -143,7 +142,6 @@ const TEXT = {
 		"seeded": "%s was seeded!",
 		"drained": "%s had energy drained!",
 		"cannot_switch": "Cannot switch to that Pokemon.",
-		"run_success": "Got away safely!",
 		"run_failed": "Could not escape!",
 		"trainer_appeared": "%s sent out %s!",
 		"cannot_capture_trainer": "You cannot capture a trainer's Pokemon.",
@@ -183,7 +181,6 @@ const TEXT = {
 	},
 	"pt": {
 		"battle": "Batalha",
-		"attack": "Atacar",
 		"fight": "Lutar",
 		"bag": "Mochila",
 		"pokemon": "Pokemon",
@@ -248,7 +245,6 @@ const TEXT = {
 		"seeded": "%s foi semeado!",
 		"drained": "%s teve energia drenada!",
 		"cannot_switch": "Não é possível trocar para esse Pokémon.",
-		"run_success": "Fugiu com segurança!",
 		"run_failed": "Não conseguiu fugir!",
 		"trainer_appeared": "%s enviou %s!",
 		"cannot_capture_trainer": "Você não pode capturar Pokémon de treinador.",

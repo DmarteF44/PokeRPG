@@ -37,7 +37,6 @@ const TEXT = {
 		"lava": "Lava Fields",
 		"reel": "Reel!",
 		"fishing_hint": "Tap Reel when the marker is in the zone!",
-		"fish_hooked": "Something's biting!",
 		"fish_escaped": "The fish got away...",
 	},
 	"pt": {
@@ -72,7 +71,6 @@ const TEXT = {
 		"lava": "Campos de Lava",
 		"reel": "Puxar!",
 		"fishing_hint": "Toque em Puxar quando o marcador estiver na zona!",
-		"fish_hooked": "Algo está mordendo a isca!",
 		"fish_escaped": "O peixe escapou...",
 	},
 }
