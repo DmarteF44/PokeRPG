@@ -326,6 +326,13 @@ const TEXT = {
 		"gym_locked": "Requires %d badges / Lv. %d",
 		"gym_intro": "%s Gym\nLeader: %s\nType: %s",
 		"gym_no_ready": "No Pokemon is ready for this gym.",
+		"tournament_hub_title": "Tournaments",
+		"tournament_hub_subtitle": "Choose a category.",
+		"tournament_cat_gyms": "Gyms",
+		"tournament_cat_regional": "Regional Cups",
+		"tournament_cat_special": "Special Tournaments",
+		"tournament_cat_champions": "Champions Tournament",
+		"tournament_cat_black": "Black Tournament",
 		"cups": "Tournaments",
 		"cup_locked": "Locked",
 		"cup_available": "Available",
@@ -673,6 +680,13 @@ const TEXT = {
 		"gym_locked": "Requer %d insígnias / Nv. %d",
 		"gym_intro": "Ginásio de %s\nLíder: %s\nTipo: %s",
 		"gym_no_ready": "Nenhum Pokémon está pronto para este ginásio.",
+		"tournament_hub_title": "Torneios",
+		"tournament_hub_subtitle": "Escolha uma categoria.",
+		"tournament_cat_gyms": "Ginásios",
+		"tournament_cat_regional": "Copas Regionais",
+		"tournament_cat_special": "Torneios Especiais",
+		"tournament_cat_champions": "Torneio dos Campeões",
+		"tournament_cat_black": "Torneio Negro",
 		"cups": "Torneios",
 		"cup_locked": "Bloqueado",
 		"cup_available": "Disponível",
@@ -1031,7 +1045,7 @@ func _show_profile() -> void:
 	UI.add_orange_button(popup, _text("change_avatar"), Vector2(28, 420), Vector2(150, 44), Callable(self, "_show_avatar_editor"), "ChangeAvatar")
 	var specialization_label := _text("specialization_points_short") % int(save_data.get("specialization_points_available", 0)) if int(save_data.get("specialization_points_available", 0)) > 0 else _text("specialization")
 	UI.add_orange_button(popup, specialization_label, Vector2(182, 420), Vector2(150, 44), Callable(self, "_show_specialization"), "Specialization")
-	UI.add_orange_button(popup, _text("cups"), Vector2(28, 472), Vector2(304, 44), Callable(self, "_show_cups"), "Cups")
+	UI.add_orange_button(popup, _text("cups"), Vector2(28, 472), Vector2(304, 44), Callable(self, "_show_tournament"), "Cups")
 
 
 func _show_specialization() -> void:
@@ -1910,18 +1924,48 @@ func _buy_item(item: Dictionary) -> void:
 	UI.show_message_popup(self, _text("shop"), _text("bought") % _item_name(item))
 
 
+# Entry point for the trophy/gym topbar icon - a category hub (Gyms /
+# Regional Cups / Special Tournaments / Champions Tournament / Black
+# Tournament) rather than dropping straight into the gym list, so all the
+# Cup content added later has a real home instead of being buried inside
+# the Profile screen. Each category button drills into its own filtered
+# list screen; that screen's back button returns here.
 func _show_tournament() -> void:
 	if tournament_popup != null and is_instance_valid(tournament_popup):
+		remove_child(tournament_popup)
 		tournament_popup.queue_free()
 	_refresh_save_data()
 
-	tournament_popup = _create_popup(_text("tournament"), "TournamentPopup", 34.0, 580.0)
-	UI.add_panel_label(tournament_popup, _text("tournament_soon"), Vector2(42, 92), Vector2(276, 26), 14, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Message")
+	tournament_popup = _create_popup(_text("tournament_hub_title"), "TournamentPopup", 34.0, 420.0)
+	UI.add_panel_label(tournament_popup, _text("tournament_hub_subtitle"), Vector2(42, 92), Vector2(276, 26), 14, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Message")
+
+	var categories := [
+		[_text("tournament_cat_gyms"), Callable(self, "_show_gyms_list")],
+		[_text("tournament_cat_regional"), Callable(self, "_show_cups").bind("regional")],
+		[_text("tournament_cat_special"), Callable(self, "_show_cups").bind("special")],
+		[_text("tournament_cat_champions"), Callable(self, "_show_cups").bind("champions")],
+		[_text("tournament_cat_black"), Callable(self, "_show_cups").bind("black")],
+	]
+	for i in range(categories.size()):
+		var label: String = categories[i][0]
+		var callback: Callable = categories[i][1]
+		UI.add_orange_button(tournament_popup, label, Vector2(28, 130.0 + float(i) * 58.0), Vector2(304, 48), callback, "Category%d" % i)
+
+
+func _show_gyms_list() -> void:
+	var existing := get_node_or_null("GymsListPopup")
+	if existing != null:
+		remove_child(existing)
+		existing.queue_free()
+	_refresh_save_data()
+
+	var popup := _create_popup(_text("tournament_cat_gyms"), "GymsListPopup", 34.0, 580.0, Callable(self, "_show_tournament"))
+	UI.add_panel_label(popup, _text("tournament_soon"), Vector2(42, 92), Vector2(276, 26), 14, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "Message")
 	var scroll := TouchScrollContainer.new()
 	scroll.name = "GymScroll"
 	scroll.position = Vector2(28, 126)
 	scroll.size = Vector2(304, 446)
-	tournament_popup.add_child(scroll)
+	popup.add_child(scroll)
 
 	var gyms := GymData.gyms()
 	var content := Control.new()
@@ -2007,14 +2051,32 @@ func _begin_gym_challenge(gym_id: String) -> void:
 	get_tree().change_scene_to_file("res://scenes/BattleScene.tscn")
 
 
-func _show_cups() -> void:
+# category: "" shows every cup (kept for callers that want the flat list);
+# "regional"/"special"/"champions"/"black" filters to that section of the
+# trophy-icon hub (see _show_tournament) and matches data/cups.json's
+# "category" field.
+func _cup_category_title(category: String) -> String:
+	match category:
+		"regional":
+			return _text("tournament_cat_regional")
+		"special":
+			return _text("tournament_cat_special")
+		"champions":
+			return _text("tournament_cat_champions")
+		"black":
+			return _text("tournament_cat_black")
+		_:
+			return _text("cups")
+
+
+func _show_cups(category: String = "") -> void:
 	var existing := get_node_or_null("CupsPopup")
 	if existing != null:
 		remove_child(existing)
 		existing.queue_free()
 	_refresh_save_data()
 
-	var popup := _create_popup(_text("cups"), "CupsPopup", 34.0, 580.0)
+	var popup := _create_popup(_cup_category_title(category), "CupsPopup", 34.0, 580.0, Callable(self, "_show_tournament"))
 	var scroll := TouchScrollContainer.new()
 	scroll.name = "CupsScroll"
 	scroll.position = Vector2(28, 92)
@@ -2022,12 +2084,14 @@ func _show_cups() -> void:
 	popup.add_child(scroll)
 
 	var cups := CupManager.cups()
+	if category != "":
+		cups = cups.filter(func(cup): return str(cup.get("category", "")) == category)
 	var content := Control.new()
 	content.name = "CupsContent"
 	content.custom_minimum_size = Vector2(304, cups.size() * 132.0)
 	scroll.add_child(content)
 	for i in range(cups.size()):
-		_add_cup_card(content, cups[i], float(i) * 132.0)
+		_add_cup_card(content, cups[i], float(i) * 132.0, category)
 
 
 func _cup_display_name(cup: Dictionary) -> String:
@@ -2086,7 +2150,7 @@ func _cup_team_rules_lines(cup: Dictionary) -> Array:
 	return lines
 
 
-func _add_cup_card(parent: Control, cup: Dictionary, y: float) -> void:
+func _add_cup_card(parent: Control, cup: Dictionary, y: float, category: String = "") -> void:
 	var panel := Panel.new()
 	var cup_id := str(cup.get("id", "cup"))
 	panel.name = cup_id.capitalize()
@@ -2114,13 +2178,13 @@ func _add_cup_card(parent: Control, cup: Dictionary, y: float) -> void:
 		return
 
 	var button_text := _text("cup_resume") if status == "in_progress" else (_text("cup_participate_again") if status == "completed" else (_text("cup_participate") if status == "available" else _text("cup_locked")))
-	var button := _add_small_button(panel, button_text, Vector2(196, 90), Vector2(90, 30), Callable(self, "_show_cup_detail").bind(cup_id), "Open")
+	var button := _add_small_button(panel, button_text, Vector2(196, 90), Vector2(90, 30), Callable(self, "_show_cup_detail").bind(cup_id, category), "Open")
 	if status == "locked":
 		button.disabled = true
 		button.modulate = Color(0.58, 0.62, 0.66, 0.9)
 
 
-func _show_cup_detail(cup_id: String) -> void:
+func _show_cup_detail(cup_id: String, category: String = "") -> void:
 	_refresh_save_data()
 	var cup := CupManager.cup_for_id(cup_id)
 	if cup.is_empty():
@@ -2131,14 +2195,14 @@ func _show_cup_detail(cup_id: String) -> void:
 		remove_child(existing)
 		existing.queue_free()
 
-	var popup := _create_popup(_cup_display_name(cup), "CupDetailPopup", 60.0, 500.0, Callable(self, "_show_cups"))
+	var popup := _create_popup(_cup_display_name(cup), "CupDetailPopup", 60.0, 500.0, Callable(self, "_show_cups").bind(category))
 	var status := CupManager.status_for(save_data, cup)
 	var final_round := CupManager.round_for_index(cup, CupManager.round_count(cup) - 1)
 	var final_rewards = final_round.get("rewards", {})
 
 	var requirements = cup.get("requirements", {})
 	var min_badges := int(requirements.get("min_badges", 0)) if typeof(requirements) == TYPE_DICTIONARY else 0
-	var info := "%s\n\n%s: %d\n%s\n\n%s: %s | %s: $%d\n%s: $%d | %s: %d XP" % [
+	var info := "%s\n\n%s: %d\n%s\n\n%s: %s | %s: $%d\n%s: $%d | %d XP" % [
 		str(cup.get("description_pt", cup.get("description_en", ""))) if _language() == "pt" else str(cup.get("description_en", "")),
 		_text("cup_requirement_level"), int(cup.get("min_trainer_level", 1)),
 		(_text("cup_requirement_badges") % min_badges) if min_badges > 0 else "",
@@ -2155,7 +2219,7 @@ func _show_cup_detail(cup_id: String) -> void:
 
 	UI.add_panel_label(popup, "%s: %s" % [_text("cup_status"), _cup_status_text(status)], Vector2(28, 360), Vector2(304, 24), 12, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "StatusLine")
 
-	_add_small_button(popup, _text("cup_view_bracket"), Vector2(28, 392), Vector2(304, 40), Callable(self, "_show_cup_bracket").bind(cup_id), "ViewBracket")
+	_add_small_button(popup, _text("cup_view_bracket"), Vector2(28, 392), Vector2(304, 40), Callable(self, "_show_cup_bracket").bind(cup_id, category), "ViewBracket")
 
 	var action_y := 444.0
 	if status == "in_progress":
@@ -2221,7 +2285,7 @@ func _resume_cup_run(cup_id: String) -> void:
 	get_tree().change_scene_to_file("res://scenes/BattleScene.tscn")
 
 
-func _show_cup_bracket(cup_id: String) -> void:
+func _show_cup_bracket(cup_id: String, category: String = "") -> void:
 	_refresh_save_data()
 	var cup := CupManager.cup_for_id(cup_id)
 	if cup.is_empty():
@@ -2232,7 +2296,7 @@ func _show_cup_bracket(cup_id: String) -> void:
 		remove_child(existing)
 		existing.queue_free()
 
-	var popup := _create_popup(_text("cup_view_bracket"), "CupBracketPopup", 60.0, 460.0, Callable(self, "_show_cup_detail").bind(cup_id))
+	var popup := _create_popup(_text("cup_view_bracket"), "CupBracketPopup", 60.0, 460.0, Callable(self, "_show_cup_detail").bind(cup_id, category))
 	var rounds := CupManager.rounds_for(cup)
 	var challenge := CupManager.active_challenge(save_data)
 	var current_round_index := int(challenge.get("round_index", -1)) if str(challenge.get("cup_id", "")) == cup_id else -1
