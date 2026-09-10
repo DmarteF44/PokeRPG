@@ -42,7 +42,10 @@ const STARTER_IDS = [
 const DEFAULT_STARTER_ID = "charmander"
 # How long one full idle-animation loop takes, regardless of how many
 # frames the species' sprite actually has (see AnimatedTextureRect.set_frames).
-const ANIMATION_LOOP_SECONDS = 1.2
+# 1.2s read as way too fast on a real device (first real-device test this
+# project has had, since every earlier APK build failed to install) - slowed
+# to a calmer, more natural idle cadence.
+const ANIMATION_LOOP_SECONDS = 2.2
 const DEFAULT_XP_TO_NEXT_LEVEL = 100
 const DEFAULT_FRIENDSHIP = 70
 const MAX_MOVE_SLOTS = 4
