@@ -3,6 +3,7 @@ extends Control
 const UI = preload("res://scripts/ui_factory.gd")
 const PokemonHelpers = preload("res://scripts/pokemon_helpers.gd")
 const GymData = preload("res://scripts/gym_data.gd")
+const CupManager = preload("res://scripts/cup_manager.gd")
 
 const EFFECT_PATH_BY_TYPE = {
 	"Bug": "res://assets/battle/effects/bug_slash.png",
@@ -150,6 +151,12 @@ const TEXT = {
 		"gym_next": "Next gym battle: %s.",
 		"gym_completed": "%s defeated! %s earned.",
 		"gym_reward": "Reward: $%d",
+		"cup_next_pokemon": "%s sends out its next Pokemon!",
+		"cup_round_won": "Round won! +$%d, +%d XP.",
+		"cup_champion": "You are the champion of the %s!",
+		"cup_badge_earned": "%s earned!",
+		"cup_rewards": "Rewards: +$%d, +%d XP.",
+		"cup_eliminated": "Eliminated from the tournament. You can try again.",
 		"next_battle": "Next Battle",
 		"back": "Back",
 		"return_home": "Return Home",
@@ -237,6 +244,12 @@ const TEXT = {
 		"gym_next": "Próxima batalha do ginásio: %s.",
 		"gym_completed": "%s derrotado! %s recebida.",
 		"gym_reward": "Recompensa: $%d",
+		"cup_next_pokemon": "%s enviou seu próximo Pokémon!",
+		"cup_round_won": "Rodada vencida! +$%d, +%d XP.",
+		"cup_champion": "Você é o campeão da %s!",
+		"cup_badge_earned": "%s recebida!",
+		"cup_rewards": "Recompensas: +$%d, +%d XP.",
+		"cup_eliminated": "Eliminado do torneio. Você pode tentar de novo.",
 		"next_battle": "Próxima batalha",
 		"back": "Voltar",
 		"return_home": "Voltar para Home",
@@ -409,11 +422,20 @@ func _normalize_enemy_pokemon(value: Dictionary) -> Dictionary:
 		"gym_id": str(value.get("gym_id", "")),
 		"gym_opponent_index": int(value.get("gym_opponent_index", 0)),
 		"gym_badge": str(value.get("gym_badge", "")),
+		"cup_battle": bool(value.get("cup_battle", false)),
+		"cup_id": str(value.get("cup_id", "")),
+		"cup_round_index": int(value.get("cup_round_index", 0)),
+		"cup_team_index": int(value.get("cup_team_index", 0)),
+		"cup_trainer_id": str(value.get("cup_trainer_id", "")),
 	}
 
 
 func _is_trainer_battle() -> bool:
 	return bool(enemy_pokemon.get("trainer_battle", false))
+
+
+func _is_cup_battle() -> bool:
+	return bool(enemy_pokemon.get("cup_battle", false))
 
 
 func _first_battle_ready_index(team_value: Array, preferred_index: int) -> int:
@@ -1045,6 +1067,20 @@ func _finish_battle_if_needed(lines: Array) -> bool:
 		_refresh_tera_button()
 		lines.append(_text("enemy_fainted"))
 		lines.append(_grant_victory_xp())
+		if _is_cup_battle():
+			var cup_result := _cup_victory_result()
+			if cup_result.is_empty():
+				_persist_player_pokemon({"pending_encounter": {}})
+			else:
+				for line in cup_result.get("lines", []):
+					lines.append(str(line))
+				_persist_player_pokemon(cup_result.get("changes", {}))
+			message_label.text = _join_lines(lines)
+			if bool(cup_result.get("continue", false)):
+				_add_cup_next_button()
+			else:
+				_add_return_button()
+			return true
 		var gym_result := _gym_victory_result()
 		if gym_result.is_empty():
 			_persist_player_pokemon({"pending_encounter": {}})
@@ -1070,10 +1106,64 @@ func _finish_battle_if_needed(lines: Array) -> bool:
 		_refresh_mega_button()
 		_refresh_dynamax_button()
 		_refresh_tera_button()
+		if _is_cup_battle():
+			lines.append(_text("cup_eliminated"))
+			var defeat_result := CupManager.defeat_state(SaveManager.get_current_save())
+			_persist_player_pokemon(defeat_result.get("changes", {}))
 		message_label.text = _join_lines(lines)
 		_add_return_button()
 		return true
 	return false
+
+
+func _cup_victory_result() -> Dictionary:
+	var state := CupManager.next_victory_state(SaveManager.get_current_save())
+	if state.is_empty():
+		return {}
+
+	var changes: Dictionary = state.get("changes", {}).duplicate(true)
+	var result := str(state.get("result", ""))
+
+	if result == "next_team_member" or result == "next_round":
+		# CupManager only hands back the new cup_challenge pointer (round/team
+		# position), not a built Pokemon encounter - build it the same way
+		# _setup_battle_data() will read it back, against a save_data snapshot
+		# with these changes already merged in, so it matches exactly.
+		var preview_save := SaveManager.get_current_save().duplicate(true)
+		for key in changes.keys():
+			preview_save[key] = changes[key]
+		changes["pending_encounter"] = CupManager.current_encounter(preview_save)
+
+		var lines := []
+		if result == "next_team_member":
+			var trainer_name := str(enemy_pokemon.get("trainer_name", "Trainer"))
+			lines.append(_text("cup_next_pokemon") % trainer_name)
+		else:
+			lines.append(_text("cup_round_won") % [int(state.get("money_gain", 0)), int(state.get("xp_gain", 0))])
+		return {"continue": true, "changes": changes, "lines": lines}
+
+	# result == "cup_completed"
+	changes["pending_encounter"] = {}
+	var already_completed := bool(state.get("already_completed", false))
+	var badge_name := str(state.get("badge_name", ""))
+	var cup := CupManager.cup_for_id(str(enemy_pokemon.get("cup_id", "")))
+	var cup_name := str(cup.get("name_pt", cup.get("name_en", "Cup"))) if _language() == "pt" else str(cup.get("name_en", "Cup"))
+	var lines := [_text("cup_champion") % cup_name]
+	if not already_completed:
+		lines.append(_text("cup_badge_earned") % badge_name)
+	lines.append(_text("cup_rewards") % [int(state.get("money_gain", 0)), int(state.get("xp_gain", 0))])
+	return {"continue": false, "changes": changes, "lines": lines}
+
+
+func _add_cup_next_button() -> void:
+	if action_panel != null and is_instance_valid(action_panel):
+		action_panel.queue_free()
+	_hide_attack_panel()
+	UI.add_orange_button(self, _text("next_battle"), Vector2(70, 540), Vector2(220, 48), Callable(self, "_continue_cup_battle"), "NextCupBattle")
+
+
+func _continue_cup_battle() -> void:
+	get_tree().change_scene_to_file("res://scenes/BattleScene.tscn")
 
 
 func _gym_victory_result() -> Dictionary:
@@ -1133,7 +1223,23 @@ func _victory_trainer_xp() -> int:
 # into grant_xp() so evolution checks can see them without PokemonHelpers
 # itself depending on SaveManager.
 func _evolution_context() -> Dictionary:
-	return {"badges": int(save_data.get("badges", 0))}
+	var cups_progress = save_data.get("cups", {})
+	var participated_cup_ids := []
+	var won_cup_ids := []
+	if typeof(cups_progress) == TYPE_DICTIONARY:
+		for cup_id in cups_progress.keys():
+			var entry = cups_progress[cup_id]
+			if typeof(entry) != TYPE_DICTIONARY:
+				continue
+			if bool(entry.get("participated", false)):
+				participated_cup_ids.append(str(cup_id))
+			if bool(entry.get("won", false)):
+				won_cup_ids.append(str(cup_id))
+	return {
+		"badges": int(save_data.get("badges", 0)),
+		"participated_tournament_ids": participated_cup_ids,
+		"won_tournament_ids": won_cup_ids,
+	}
 
 
 func _grant_victory_xp() -> String:

@@ -4,6 +4,7 @@ const UI = preload("res://scripts/ui_factory.gd")
 const PokemonHelpers = preload("res://scripts/pokemon_helpers.gd")
 const WorldMapData = preload("res://scripts/world_map_data.gd")
 const GymData = preload("res://scripts/gym_data.gd")
+const CupManager = preload("res://scripts/cup_manager.gd")
 
 const ITEMS_PATH = "res://data/items.json"
 const CATEGORIES = ["pokeballs", "cura", "evolution", "atributos", "xp", "buffs", "pesca", "key_items", "outros"]
@@ -144,6 +145,11 @@ const TEXT = {
 		"debug_gold": "Gold",
 		"debug_account_xp": "Account XP",
 		"debug_badges": "Badges",
+		"debug_cups": "Tournaments",
+		"debug_cup_start": "Start Kanto Cup",
+		"debug_cup_skip_final": "Skip to Final",
+		"debug_cup_force_win": "Force Win",
+		"debug_cup_reset": "Reset Progress",
 		"debug_energy": "Energy",
 		"debug_pokemon": "Pokemon",
 		"debug_team": "Team",
@@ -317,6 +323,26 @@ const TEXT = {
 		"gym_locked": "Requires %d badges / Lv. %d",
 		"gym_intro": "%s Gym\nLeader: %s\nType: %s",
 		"gym_no_ready": "No Pokemon is ready for this gym.",
+		"cups": "Tournaments",
+		"cup_locked": "Locked",
+		"cup_available": "Available",
+		"cup_in_progress": "In Progress",
+		"cup_completed": "Completed",
+		"cup_coming_soon": "Coming Soon",
+		"cup_participate": "Participate",
+		"cup_participate_again": "Play Again",
+		"cup_resume": "Resume",
+		"cup_status": "Status",
+		"cup_view_bracket": "View Bracket",
+		"cup_requirement_level": "Trainer level",
+		"cup_requirement_badges": "Requires %d gym badges",
+		"cup_format": "Format",
+		"cup_entry_cost": "Entry cost",
+		"cup_final_reward": "Champion reward",
+		"cup_locked_message": "You don't meet this tournament's requirements yet.",
+		"cup_round_won_status": "Won",
+		"cup_round_current_status": "Current match",
+		"cup_round_pending_status": "Not reached yet",
 	},
 	"pt": {
 		"hello": "Olá %s,",
@@ -449,6 +475,11 @@ const TEXT = {
 		"debug_gold": "Gold",
 		"debug_account_xp": "XP da conta",
 		"debug_badges": "Insígnias",
+		"debug_cups": "Torneios",
+		"debug_cup_start": "Iniciar Copa Kanto",
+		"debug_cup_skip_final": "Pular para a Final",
+		"debug_cup_force_win": "Forçar Vitória",
+		"debug_cup_reset": "Resetar Progresso",
 		"debug_energy": "Energia",
 		"debug_pokemon": "Pokemon",
 		"debug_team": "Time",
@@ -622,6 +653,26 @@ const TEXT = {
 		"gym_locked": "Requer %d insígnias / Nv. %d",
 		"gym_intro": "Ginásio de %s\nLíder: %s\nTipo: %s",
 		"gym_no_ready": "Nenhum Pokémon está pronto para este ginásio.",
+		"cups": "Torneios",
+		"cup_locked": "Bloqueado",
+		"cup_available": "Disponível",
+		"cup_in_progress": "Em andamento",
+		"cup_completed": "Concluído",
+		"cup_coming_soon": "Em breve",
+		"cup_participate": "Participar",
+		"cup_participate_again": "Jogar de novo",
+		"cup_resume": "Continuar",
+		"cup_status": "Status",
+		"cup_view_bracket": "Ver Chave",
+		"cup_requirement_level": "Nível de treinador",
+		"cup_requirement_badges": "Requer %d insígnias de ginásio",
+		"cup_format": "Formato",
+		"cup_entry_cost": "Custo de entrada",
+		"cup_final_reward": "Recompensa de campeão",
+		"cup_locked_message": "Você ainda não cumpre os requisitos deste torneio.",
+		"cup_round_won_status": "Vencida",
+		"cup_round_current_status": "Confronto atual",
+		"cup_round_pending_status": "Ainda não alcançada",
 	},
 }
 
@@ -875,7 +926,7 @@ func _show_profile() -> void:
 
 	_refresh_save_data()
 	var player_name := str(save_data.get("player_name", _text("player_default")))
-	var popup := _create_popup(_text("profile"), "ProfilePopup", 60.0, 460.0)
+	var popup := _create_popup(_text("profile"), "ProfilePopup", 60.0, 500.0)
 	var avatar_path := _avatar_texture_path(save_data)
 	if avatar_path != "":
 		UI.add_texture(popup, avatar_path, Vector2(117, 128), Vector2(96, 96), "Avatar", TextureRect.STRETCH_KEEP_ASPECT_CENTERED)
@@ -893,6 +944,7 @@ func _show_profile() -> void:
 	UI.add_orange_button(popup, _text("change_avatar"), Vector2(28, 420), Vector2(150, 44), Callable(self, "_show_avatar_editor"), "ChangeAvatar")
 	var specialization_label := _text("specialization_points_short") % int(save_data.get("specialization_points_available", 0)) if int(save_data.get("specialization_points_available", 0)) > 0 else _text("specialization")
 	UI.add_orange_button(popup, specialization_label, Vector2(182, 420), Vector2(150, 44), Callable(self, "_show_specialization"), "Specialization")
+	UI.add_orange_button(popup, _text("cups"), Vector2(28, 472), Vector2(304, 44), Callable(self, "_show_cups"), "Cups")
 
 
 func _show_specialization() -> void:
@@ -1866,6 +1918,209 @@ func _begin_gym_challenge(gym_id: String) -> void:
 		"current_scene": "BattleScene",
 	})
 	get_tree().change_scene_to_file("res://scenes/BattleScene.tscn")
+
+
+func _show_cups() -> void:
+	var existing := get_node_or_null("CupsPopup")
+	if existing != null:
+		remove_child(existing)
+		existing.queue_free()
+	_refresh_save_data()
+
+	var popup := _create_popup(_text("cups"), "CupsPopup", 34.0, 580.0)
+	var scroll := TouchScrollContainer.new()
+	scroll.name = "CupsScroll"
+	scroll.position = Vector2(28, 92)
+	scroll.size = Vector2(304, 480)
+	popup.add_child(scroll)
+
+	var cups := CupManager.cups()
+	var content := Control.new()
+	content.name = "CupsContent"
+	content.custom_minimum_size = Vector2(304, cups.size() * 132.0)
+	scroll.add_child(content)
+	for i in range(cups.size()):
+		_add_cup_card(content, cups[i], float(i) * 132.0)
+
+
+func _cup_display_name(cup: Dictionary) -> String:
+	return str(cup.get("name_pt", cup.get("name_en", "Cup"))) if _language() == "pt" else str(cup.get("name_en", "Cup"))
+
+
+func _cup_status_text(status: String) -> String:
+	match status:
+		"available":
+			return _text("cup_available")
+		"in_progress":
+			return _text("cup_in_progress")
+		"completed":
+			return _text("cup_completed")
+		_:
+			return _text("cup_locked")
+
+
+func _add_cup_card(parent: Control, cup: Dictionary, y: float) -> void:
+	var panel := Panel.new()
+	var cup_id := str(cup.get("id", "cup"))
+	panel.name = cup_id.capitalize()
+	panel.position = Vector2(0, y)
+	panel.size = Vector2(296, 122)
+	parent.add_child(panel)
+	UI.style_panel_button(panel, Color(0.86, 0.92, 0.96), Color(0.34, 0.50, 0.62), 2)
+
+	var implemented := bool(cup.get("implemented", false))
+	var status := CupManager.status_for(save_data, cup) if implemented else "locked"
+	var title_label := UI.add_panel_label(panel, _cup_display_name(cup), Vector2(10, 6), Vector2(200, 22), 15, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Title")
+	_fit_label(title_label, false)
+
+	var description := str(cup.get("description_pt", cup.get("description_en", ""))) if _language() == "pt" else str(cup.get("description_en", ""))
+	var desc_label := UI.add_panel_label(panel, description, Vector2(10, 30), Vector2(276, 46), 9, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_TOP, "Description")
+	_fit_label(desc_label, true)
+
+	var status_label := UI.add_panel_label(panel, _cup_status_text(status), Vector2(10, 96), Vector2(180, 20), 10, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Status")
+	_fit_label(status_label, false)
+
+	if not implemented:
+		panel.modulate = Color(0.8, 0.8, 0.8, 1)
+		var soon_label := UI.add_panel_label(panel, _text("cup_coming_soon"), Vector2(190, 96), Vector2(96, 20), 10, HORIZONTAL_ALIGNMENT_RIGHT, VERTICAL_ALIGNMENT_CENTER, "Soon")
+		_fit_label(soon_label, false)
+		return
+
+	var button_text := _text("cup_resume") if status == "in_progress" else (_text("cup_participate_again") if status == "completed" else (_text("cup_participate") if status == "available" else _text("cup_locked")))
+	var button := _add_small_button(panel, button_text, Vector2(196, 90), Vector2(90, 30), Callable(self, "_show_cup_detail").bind(cup_id), "Open")
+	if status == "locked":
+		button.disabled = true
+		button.modulate = Color(0.58, 0.62, 0.66, 0.9)
+
+
+func _show_cup_detail(cup_id: String) -> void:
+	_refresh_save_data()
+	var cup := CupManager.cup_for_id(cup_id)
+	if cup.is_empty():
+		return
+
+	var existing := get_node_or_null("CupDetailPopup")
+	if existing != null:
+		remove_child(existing)
+		existing.queue_free()
+
+	var popup := _create_popup(_cup_display_name(cup), "CupDetailPopup", 60.0, 500.0, Callable(self, "_show_cups"))
+	var status := CupManager.status_for(save_data, cup)
+	var final_round := CupManager.round_for_index(cup, CupManager.round_count(cup) - 1)
+	var final_rewards = final_round.get("rewards", {})
+
+	var requirements = cup.get("requirements", {})
+	var min_badges := int(requirements.get("min_badges", 0)) if typeof(requirements) == TYPE_DICTIONARY else 0
+	var info := "%s\n\n%s: %d\n%s\n\n%s: %s | %s: $%d\n%s: $%d | %s: %d XP" % [
+		str(cup.get("description_pt", cup.get("description_en", ""))) if _language() == "pt" else str(cup.get("description_en", "")),
+		_text("cup_requirement_level"), int(cup.get("min_trainer_level", 1)),
+		(_text("cup_requirement_badges") % min_badges) if min_badges > 0 else "",
+		_text("cup_format"), str(cup.get("battle_format", "single")).capitalize(),
+		_text("cup_entry_cost"), int(cup.get("entry_cost", 0)),
+		_text("cup_final_reward"), int(final_rewards.get("money", 0)) if typeof(final_rewards) == TYPE_DICTIONARY else 0,
+		int(final_rewards.get("xp", 0)) if typeof(final_rewards) == TYPE_DICTIONARY else 0,
+	]
+	var info_label := UI.add_panel_label(popup, info, Vector2(28, 92), Vector2(304, 220), 12, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_TOP, "Info")
+	_fit_label(info_label, true)
+
+	UI.add_panel_label(popup, "%s: %s" % [_text("cup_status"), _cup_status_text(status)], Vector2(28, 320), Vector2(304, 24), 12, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "StatusLine")
+
+	_add_small_button(popup, _text("cup_view_bracket"), Vector2(28, 352), Vector2(304, 40), Callable(self, "_show_cup_bracket").bind(cup_id), "ViewBracket")
+
+	var action_y := 404.0
+	if status == "in_progress":
+		UI.add_orange_button(popup, _text("cup_resume"), Vector2(28, action_y), Vector2(304, 48), Callable(self, "_resume_cup_run").bind(cup_id), "Resume")
+	elif status == "available" or status == "completed":
+		var label := _text("cup_participate_again") if status == "completed" else _text("cup_participate")
+		UI.add_orange_button(popup, label, Vector2(28, action_y), Vector2(304, 48), Callable(self, "_confirm_begin_cup_run").bind(cup_id), "Begin")
+
+
+func _confirm_begin_cup_run(cup_id: String) -> void:
+	_refresh_save_data()
+	var cup := CupManager.cup_for_id(cup_id)
+	if cup.is_empty():
+		return
+	if not CupManager.is_unlocked(save_data, cup):
+		UI.show_message_popup(self, _cup_display_name(cup), _text("cup_locked_message"))
+		return
+	if not _has_ready_team_pokemon():
+		UI.show_message_popup(self, _cup_display_name(cup), _text("gym_no_ready"))
+		return
+	var entry_cost := int(cup.get("entry_cost", 0))
+	if int(save_data.get("money", 0)) < entry_cost:
+		UI.show_message_popup(self, _cup_display_name(cup), _text("not_enough_money"))
+		return
+	_begin_cup_run(cup_id, entry_cost)
+
+
+func _begin_cup_run(cup_id: String, entry_cost: int) -> void:
+	var cup := CupManager.cup_for_id(cup_id)
+	if cup.is_empty():
+		return
+	var challenge := CupManager.challenge_for(cup_id, 0, 0)
+	var preview_save := save_data.duplicate(true)
+	preview_save["cup_challenge"] = challenge
+	var encounter := CupManager.current_encounter(preview_save)
+	if encounter.is_empty():
+		return
+	SaveManager.update_current_save({
+		"money": int(save_data.get("money", 0)) - entry_cost,
+		"cup_challenge": challenge,
+		"pending_encounter": encounter,
+		"current_scene": "BattleScene",
+	})
+	get_tree().change_scene_to_file("res://scenes/BattleScene.tscn")
+
+
+func _resume_cup_run(cup_id: String) -> void:
+	_refresh_save_data()
+	var challenge := CupManager.active_challenge(save_data)
+	if challenge.is_empty() or str(challenge.get("cup_id", "")) != cup_id:
+		return
+	var encounter := CupManager.current_encounter(save_data)
+	if encounter.is_empty():
+		return
+	SaveManager.update_current_save({
+		"pending_encounter": encounter,
+		"current_scene": "BattleScene",
+	})
+	get_tree().change_scene_to_file("res://scenes/BattleScene.tscn")
+
+
+func _show_cup_bracket(cup_id: String) -> void:
+	_refresh_save_data()
+	var cup := CupManager.cup_for_id(cup_id)
+	if cup.is_empty():
+		return
+
+	var existing := get_node_or_null("CupBracketPopup")
+	if existing != null:
+		remove_child(existing)
+		existing.queue_free()
+
+	var popup := _create_popup(_text("cup_view_bracket"), "CupBracketPopup", 60.0, 460.0, Callable(self, "_show_cup_detail").bind(cup_id))
+	var rounds := CupManager.rounds_for(cup)
+	var challenge := CupManager.active_challenge(save_data)
+	var current_round_index := int(challenge.get("round_index", -1)) if str(challenge.get("cup_id", "")) == cup_id else -1
+	var progress := CupManager.progress_for(save_data, cup_id)
+	var cup_completed := bool(progress.get("completed", false))
+
+	var y := 100.0
+	for i in range(rounds.size()):
+		var round_data: Dictionary = rounds[i]
+		var trainer := CupManager.trainer_for_id(str(round_data.get("trainer_id", "")))
+		var round_name := str(round_data.get("name_pt", round_data.get("name_en", "Round"))) if _language() == "pt" else str(round_data.get("name_en", "Round"))
+		var trainer_name := str(trainer.get("name", "Trainer"))
+		var row_status: String
+		if cup_completed or i < current_round_index:
+			row_status = _text("cup_round_won_status")
+		elif i == current_round_index:
+			row_status = _text("cup_round_current_status")
+		else:
+			row_status = _text("cup_round_pending_status")
+		var row_label := UI.add_panel_label(popup, "%d. %s - %s\n%s" % [i + 1, round_name, trainer_name, row_status], Vector2(28, y), Vector2(304, 50), 12, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_TOP, "Round%d" % i)
+		_fit_label(row_label, true)
+		y += 58.0
 
 
 func _show_pokemon_menu() -> void:
@@ -3447,6 +3702,7 @@ func _show_debug_menu() -> void:
 		{"key": "gold", "title": _text("debug_gold"), "build": Callable(self, "_debug_build_gold_rows")},
 		{"key": "account_xp", "title": _text("debug_account_xp"), "build": Callable(self, "_debug_build_account_xp_rows")},
 		{"key": "badges", "title": _text("debug_badges"), "build": Callable(self, "_debug_build_badges_rows")},
+		{"key": "cups", "title": _text("debug_cups"), "build": Callable(self, "_debug_build_cups_rows")},
 		{"key": "energy", "title": _text("debug_energy"), "build": Callable(self, "_debug_build_energy_rows")},
 		{"key": "pokemon", "title": _text("debug_pokemon"), "build": Callable(self, "_debug_build_pokemon_rows")},
 		{"key": "add_any", "title": _text("debug_add_any_pokemon"), "build": Callable(self, "_add_debug_pokemon_id_input")},
@@ -3525,6 +3781,83 @@ func _debug_build_badges_rows(parent: Control, y: float) -> float:
 	return _add_debug_button_row(parent, y, [
 		[_text("debug_remove_badges"), Callable(self, "_debug_set_badges").bind(0)],
 	])
+
+
+# Only kanto_cup is implemented so far (see data/cups.json) - this section is
+# hardcoded to it rather than iterating cups() like the real UI does, same as
+# how other debug sections use fixed amounts. Extend it once more cups ship.
+func _debug_build_cups_rows(parent: Control, y: float) -> float:
+	y = _add_debug_button_row(parent, y, [
+		[_text("debug_cup_start"), Callable(self, "_debug_start_cup").bind("kanto_cup")],
+		[_text("debug_cup_skip_final"), Callable(self, "_debug_skip_cup_to_final").bind("kanto_cup")],
+	])
+	return _add_debug_button_row(parent, y, [
+		[_text("debug_cup_force_win"), Callable(self, "_debug_force_win_cup").bind("kanto_cup")],
+		[_text("debug_cup_reset"), Callable(self, "_debug_reset_cup").bind("kanto_cup")],
+	])
+
+
+func _debug_start_cup(cup_id: String) -> void:
+	if not _has_active_save():
+		return
+	_close_debug_popup()
+	_begin_cup_run(cup_id, 0)
+
+
+func _debug_skip_cup_to_final(cup_id: String) -> void:
+	var cup := CupManager.cup_for_id(cup_id)
+	if cup.is_empty():
+		return
+	var final_index := maxi(0, CupManager.round_count(cup) - 1)
+	var challenge := CupManager.challenge_for(cup_id, final_index, 0)
+	var preview_save := save_data.duplicate(true)
+	preview_save["cup_challenge"] = challenge
+	var encounter := CupManager.current_encounter(preview_save)
+	if encounter.is_empty():
+		return
+	_close_debug_popup()
+	SaveManager.update_current_save({
+		"cup_challenge": challenge,
+		"pending_encounter": encounter,
+		"current_scene": "BattleScene",
+	})
+	get_tree().change_scene_to_file("res://scenes/BattleScene.tscn")
+
+
+func _debug_force_win_cup(cup_id: String) -> void:
+	var cup := CupManager.cup_for_id(cup_id)
+	if cup.is_empty():
+		return
+	var progress := CupManager.progress_for(save_data, cup_id)
+	var already_completed: bool = progress.get("completed", false)
+	var rewards = cup.get("repeat_rewards", {}) if already_completed else cup.get("first_completion_rewards", {})
+	var cups_progress: Dictionary = save_data.get("cups", {}).duplicate(true) if typeof(save_data.get("cups", {})) == TYPE_DICTIONARY else {}
+	cups_progress[cup_id] = {
+		"participated": true,
+		"completed": true,
+		"won": true,
+		"completed_count": int(progress.get("completed_count", 0)) + 1,
+	}
+	var badge_name := str(cup.get("badge_name_pt", cup.get("badge_name_en", "Cup Badge")))
+	var cup_badges: Array = save_data.get("cup_badges_obtained", []).duplicate(true) if typeof(save_data.get("cup_badges_obtained", [])) == TYPE_ARRAY else []
+	if not already_completed and not cup_badges.has(badge_name):
+		cup_badges.append(badge_name)
+	_update_debug_save({
+		"cups": cups_progress,
+		"cup_badges_obtained": cup_badges,
+		"cup_challenge": {},
+		"money": int(save_data.get("money", 0)) + int(rewards.get("money", 0)),
+	})
+
+
+func _debug_reset_cup(cup_id: String) -> void:
+	var cups_progress: Dictionary = save_data.get("cups", {}).duplicate(true) if typeof(save_data.get("cups", {})) == TYPE_DICTIONARY else {}
+	cups_progress.erase(cup_id)
+	var changes := {"cups": cups_progress}
+	var challenge := CupManager.active_challenge(save_data)
+	if str(challenge.get("cup_id", "")) == cup_id:
+		changes["cup_challenge"] = {}
+	_update_debug_save(changes)
 
 
 func _debug_build_energy_rows(parent: Control, y: float) -> float:

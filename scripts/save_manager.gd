@@ -129,6 +129,9 @@ func create_save(slot: int, data: Dictionary) -> Dictionary:
 		"gym_leaders_defeated": _normalized_string_array(data.get("gym_leaders_defeated", [])),
 		"badges_obtained": _normalized_string_array(data.get("badges_obtained", [])),
 		"gym_challenge": _normalized_gym_challenge(data.get("gym_challenge", {})),
+		"cups": _normalized_cups_progress(data.get("cups", {})),
+		"cup_badges_obtained": _normalized_string_array(data.get("cup_badges_obtained", [])),
+		"cup_challenge": _normalized_cup_challenge(data.get("cup_challenge", {})),
 		"current_scene": str(data.get("current_scene", "HomeScreen")),
 		"current_map": str(data.get("current_map", "")),
 		"settings_language": str(_settings.get("language", "en")),
@@ -364,6 +367,9 @@ func _normalized_save(save_data: Dictionary) -> Dictionary:
 	normalized["gym_leaders_defeated"] = _normalized_string_array(normalized.get("gym_leaders_defeated", []))
 	normalized["badges_obtained"] = _normalized_string_array(normalized.get("badges_obtained", []))
 	normalized["gym_challenge"] = _normalized_gym_challenge(normalized.get("gym_challenge", {}))
+	normalized["cups"] = _normalized_cups_progress(normalized.get("cups", {}))
+	normalized["cup_badges_obtained"] = _normalized_string_array(normalized.get("cup_badges_obtained", []))
+	normalized["cup_challenge"] = _normalized_cup_challenge(normalized.get("cup_challenge", {}))
 	normalized["current_scene"] = str(normalized.get("current_scene", "HomeScreen"))
 	normalized["current_map"] = str(normalized.get("current_map", ""))
 	normalized["settings_language"] = str(normalized.get("settings_language", _settings.get("language", "en")))
@@ -455,6 +461,40 @@ func _normalized_gym_challenge(value) -> Dictionary:
 		"gym_id": gym_id,
 		"opponent_index": maxi(0, int(source.get("opponent_index", 0))),
 	}
+
+
+func _normalized_cup_challenge(value) -> Dictionary:
+	if typeof(value) != TYPE_DICTIONARY:
+		return {}
+	var source: Dictionary = value
+	if not bool(source.get("active", false)):
+		return {}
+	var cup_id := str(source.get("cup_id", ""))
+	if cup_id == "":
+		return {}
+	return {
+		"active": true,
+		"cup_id": cup_id,
+		"round_index": maxi(0, int(source.get("round_index", 0))),
+		"team_index": maxi(0, int(source.get("team_index", 0))),
+	}
+
+
+func _normalized_cups_progress(value) -> Dictionary:
+	var progress := {}
+	if typeof(value) != TYPE_DICTIONARY:
+		return progress
+	for cup_id in value.keys():
+		var entry = value[cup_id]
+		if typeof(entry) != TYPE_DICTIONARY:
+			continue
+		progress[str(cup_id)] = {
+			"participated": bool(entry.get("participated", false)),
+			"completed": bool(entry.get("completed", false)),
+			"won": bool(entry.get("won", false)),
+			"completed_count": maxi(0, int(entry.get("completed_count", 0))),
+		}
+	return progress
 
 
 func _normalized_team(value, starter_id: String = PokemonHelpers.DEFAULT_STARTER_ID) -> Array:
