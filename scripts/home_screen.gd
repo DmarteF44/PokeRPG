@@ -2584,9 +2584,19 @@ func _add_collection_storage(parent: Control, y: float, rows: Array) -> void:
 	if rows.is_empty():
 		UI.add_panel_label(parent, _text("storage_empty"), Vector2(0, y + 116.0), Vector2(296, 44), 14, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "EmptyStorage")
 		return
+	# Storage holds up to SaveManager.MAX_STORAGE_SIZE (500) Pokemon - building
+	# every row (each with its own animated sprite) in one unbroken loop is
+	# the same single-frame-blocking freeze _show_pokedex() was already fixed
+	# for, just with an even higher ceiling. Same fix: yield a frame every
+	# batch so the engine can actually render/respond in between.
+	const ROWS_PER_BATCH := 40
 	for i in range(rows.size()):
 		var row: Dictionary = rows[i]
 		_add_collection_row(parent, row.get("pokemon", {}), "storage", int(row.get("index", 0)), Vector2(0, y + 106.0 + float(i) * 62.0))
+		if i % ROWS_PER_BATCH == ROWS_PER_BATCH - 1:
+			await get_tree().process_frame
+			if not is_instance_valid(parent):
+				return
 
 
 func _sanitize_collection_selection() -> void:
@@ -3611,12 +3621,20 @@ func _show_storage() -> void:
 	scroll.add_child(content)
 	if rows.is_empty():
 		UI.add_panel_label(content, _text("storage_empty"), Vector2(16, 80), Vector2(272, 40), 15, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "EmptyStorage")
+	# Same single-frame-blocking risk (and same fix) as
+	# _add_collection_storage()/_show_pokedex() - storage can hold up to
+	# SaveManager.MAX_STORAGE_SIZE (500) Pokemon.
+	const ROWS_PER_BATCH := 40
 	for i in range(rows.size()):
 		var row: Dictionary = rows[i]
 		var pokemon: Dictionary = row.get("pokemon", {})
 		var source_index := int(row.get("index", 0))
 		_add_pokemon_card(content, pokemon, Vector2(0, float(i) * 78.0), Vector2(220, 70), false, false)
 		_add_small_button(content, _text("withdraw"), Vector2(226, float(i) * 78.0 + 18.0), Vector2(68, 30), Callable(self, "_withdraw_storage_pokemon").bind(source_index), "Withdraw%d" % i)
+		if i % ROWS_PER_BATCH == ROWS_PER_BATCH - 1:
+			await get_tree().process_frame
+			if not is_instance_valid(content):
+				return
 
 
 func _set_storage_sort(sort_mode: String) -> void:

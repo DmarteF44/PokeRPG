@@ -44,8 +44,10 @@ const DEFAULT_STARTER_ID = "charmander"
 # frames the species' sprite actually has (see AnimatedTextureRect.set_frames).
 # 1.2s read as way too fast on a real device (first real-device test this
 # project has had, since every earlier APK build failed to install) - slowed
-# to a calmer, more natural idle cadence.
-const ANIMATION_LOOP_SECONDS = 2.2
+# to 2.2s for a calmer cadence, which then read as a bit too slow on the
+# next real-device round - nudged back partway rather than to either
+# extreme.
+const ANIMATION_LOOP_SECONDS = 1.8
 const DEFAULT_XP_TO_NEXT_LEVEL = 100
 const DEFAULT_FRIENDSHIP = 70
 const MAX_MOVE_SLOTS = 4
@@ -86,6 +88,16 @@ static var _megas_cache := {}
 static var _gmax_cache := {}
 static var _battle_bond_cache := {}
 static var _item_forms_cache := {}
+# folder path -> Array of loaded frame Texture2Ds (see _textures_from_folder).
+# Every screen that shows several Pokemon at once (Pokedex, Storage, Team
+# collection) calls add_animated_sprite once per Pokemon, and without this
+# each one re-ran up to MAX_FRAMES existence-checks-plus-loads per
+# direction from scratch - fine for one sprite, a visible hitch for a
+# screenful of them. Godot's own ResourceLoader already caches a load() by
+# path, but the per-frame ResourceLoader.exists()/FileAccess.file_exists()
+# probing to find out how many frames even exist doesn't skip just because
+# the files were probed a moment ago for a different Pokemon.
+static var _frame_textures_cache := {}
 
 const FALLBACK_MOVES = {
 	"Tackle": {"id": "tackle", "name": "Tackle", "type": "Normal", "category": "Physical", "power": 40, "accuracy": 100, "pp": 35, "priority": 0, "target": "enemy", "effects": []},
@@ -1178,21 +1190,23 @@ static func _resource_path_exists(path: String) -> bool:
 
 
 static func _textures_from_folder(folder: String) -> Array:
-	var textures := []
 	if folder == "":
-		return textures
+		return []
+	if _frame_textures_cache.has(folder):
+		return _frame_textures_cache[folder]
+
+	var textures := []
 	# Loop breaks on the first missing frame index, so this cap only needs to
 	# exceed the longest animation on disk (weezing's front animation has 239
 	# frames) - it is not a per-species budget.
 	for index in range(0, 256):
 		var path := "%s%03d.png" % [folder, index]
 		if not _resource_path_exists(path):
-			if index == 0:
-				return textures
 			break
 		var texture := _texture_from_png(path)
 		if texture != null:
 			textures.append(texture)
+	_frame_textures_cache[folder] = textures
 	return textures
 
 
