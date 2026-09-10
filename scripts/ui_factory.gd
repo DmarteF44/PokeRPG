@@ -311,17 +311,25 @@ static func show_options_popup(parent: Node, title: String, labels: Dictionary, 
 	var sfx_check := CheckBox.new()
 	sfx_check.name = "SfxCheck"
 	sfx_check.text = str(labels.get("sfx", "Sound Effects"))
-	sfx_check.position = Vector2(46, 214)
+	# CheckBox enforces its own minimum size (its check icon + this font
+	# size's label) as a hard floor on .size - unlike a plain Button, this
+	# can't be fought by re-asserting .size after add_child (Control's size
+	# setter always clamps up to get_combined_minimum_size()), so this row
+	# actually renders ~56px tall regardless of the 40px requested. The row
+	# spacing below has to give it that real height or the two checkboxes
+	# visually overlap.
+	sfx_check.position = Vector2(46, 164 + maxf(40.0, music_check.get_combined_minimum_size().y))
 	sfx_check.size = Vector2(268, 40)
 	sfx_check.button_pressed = bool(settings.get("sfx_enabled", true))
 	_style_panel_check(sfx_check)
 	overlay.add_child(sfx_check)
 
-	add_panel_label(overlay, str(labels.get("language", "Language")), Vector2(46, 276), Vector2(120, 30), 16, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "LanguageLabel")
+	var language_y: float = sfx_check.position.y + maxf(40.0, sfx_check.get_combined_minimum_size().y) + 6.0
+	add_panel_label(overlay, str(labels.get("language", "Language")), Vector2(46, language_y), Vector2(120, 30), 16, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "LanguageLabel")
 
 	var language_option := OptionButton.new()
 	language_option.name = "LanguageOption"
-	language_option.position = Vector2(166, 274)
+	language_option.position = Vector2(166, language_y - 2.0)
 	language_option.size = Vector2(148, 36)
 	language_option.add_item("English", 0)
 	language_option.add_item("Portugues", 1)
