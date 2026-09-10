@@ -41,8 +41,8 @@
         "is_final": true
       }
     ],
-    "first_completion_rewards": {"money": 2500, "xp": 500, "items": {"rare_candy": 2}},
-    "repeat_rewards": {"money": 2000, "xp": 300, "items": {"rare_candy": 1}}
+    "first_completion_rewards": {"money": 2500, "xp": 500, "items": {"xp_potion": 2}},
+    "repeat_rewards": {"money": 2000, "xp": 300, "items": {"xp_potion": 1}}
   },
   "johto_cup": {
     "order": 2,
@@ -86,44 +86,143 @@
         "is_final": true
       }
     ],
-    "first_completion_rewards": {"money": 6000, "xp": 1200, "items": {"rare_candy": 3}},
-    "repeat_rewards": {"money": 4500, "xp": 700, "items": {"rare_candy": 2}}
+    "first_completion_rewards": {"money": 6000, "xp": 1200, "items": {"xp_potion": 3}},
+    "repeat_rewards": {"money": 4500, "xp": 700, "items": {"xp_potion": 2}}
   },
   "hoenn_cup": {
     "order": 3,
-    "implemented": false,
+    "implemented": true,
     "name_en": "Hoenn Cup",
     "name_pt": "Copa Hoenn",
-    "description_en": "Coming soon - unlocks after progressing through Hoenn.",
-    "description_pt": "Em breve - desbloqueia com o progresso em Hoenn.",
+    "description_en": "The Hoenn field is faster and sharper than Johto's - only trainers who've truly grown make it to Steven.",
+    "description_pt": "O nível em Hoenn é mais rápido e afiado que em Johto - só treinadores que realmente evoluíram chegam até o Steven.",
     "region": "Hoenn",
-    "tier": "silver",
+    "tier": "gold",
     "min_trainer_level": 45,
-    "requirements": {"min_badges": 8, "cups_completed": ["johto_cup"]}
+    "requirements": {"min_badges": 8, "cups_completed": ["johto_cup"]},
+    "entry_cost": 3000,
+    "participant_count": 8,
+    "battle_format": "single",
+    "max_team_size": 6,
+    "items_allowed": true,
+    "heal_between_rounds": "full",
+    "repeatable": true,
+    "badge_id": "hoenn_cup_badge",
+    "badge_name_en": "Hoenn Cup Badge",
+    "badge_name_pt": "Insígnia da Copa Hoenn",
+    "rounds": [
+      {
+        "name_en": "Quarterfinal",
+        "name_pt": "Quartas de Final",
+        "trainer_id": "cup_rival_may",
+        "rewards": {"money": 2000, "xp": 400}
+      },
+      {
+        "name_en": "Semifinal",
+        "name_pt": "Semifinal",
+        "trainer_id": "cup_specialist_luna",
+        "rewards": {"money": 4000, "xp": 800}
+      },
+      {
+        "name_en": "Final",
+        "name_pt": "Final",
+        "trainer_id": "cup_champion_steven",
+        "rewards": {"money": 9000, "xp": 1800},
+        "is_final": true
+      }
+    ],
+    "first_completion_rewards": {"money": 9000, "xp": 1800, "items": {"xp_potion": 4}},
+    "repeat_rewards": {"money": 7000, "xp": 1000, "items": {"xp_potion": 2}}
   },
   "international_cup": {
     "order": 4,
-    "implemented": false,
+    "implemented": true,
     "name_en": "International Cup",
     "name_pt": "Copa Internacional",
-    "description_en": "Coming soon - a mixed-region tournament.",
-    "description_pt": "Em breve - um torneio com treinadores de várias regiões.",
+    "description_en": "Regional champions don't stay home - trainers from Kanto, Johto and beyond all come to test themselves here.",
+    "description_pt": "Campeões regionais não ficam parados - treinadores de Kanto, Johto e além vêm se testar aqui.",
     "region": "",
     "tier": "gold",
-    "min_trainer_level": 50,
-    "requirements": {"cups_completed": ["kanto_cup", "johto_cup", "hoenn_cup"]}
+    "min_trainer_level": 52,
+    "requirements": {"cups_completed": ["kanto_cup", "johto_cup", "hoenn_cup"]},
+    "entry_cost": 5000,
+    "participant_count": 8,
+    "battle_format": "single",
+    "max_team_size": 6,
+    "items_allowed": true,
+    "heal_between_rounds": "full",
+    "repeatable": true,
+    "badge_id": "international_cup_badge",
+    "badge_name_en": "International Cup Badge",
+    "badge_name_pt": "Insígnia da Copa Internacional",
+    "rounds": [
+      {
+        "name_en": "Quarterfinal",
+        "name_pt": "Quartas de Final",
+        "trainer_id": "cup_veteran_kanto",
+        "rewards": {"money": 3000, "xp": 600}
+      },
+      {
+        "name_en": "Semifinal",
+        "name_pt": "Semifinal",
+        "trainer_id": "cup_veteran_johto",
+        "rewards": {"money": 5500, "xp": 1100}
+      },
+      {
+        "name_en": "Final",
+        "name_pt": "Final",
+        "trainer_id": "cup_champion_worldly",
+        "rewards": {"money": 12000, "xp": 2400},
+        "is_final": true
+      }
+    ],
+    "first_completion_rewards": {"money": 12000, "xp": 2400, "items": {"xp_potion": 5}},
+    "repeat_rewards": {"money": 9000, "xp": 1400, "items": {"xp_potion": 3}}
   },
   "champions_tournament": {
     "order": 5,
-    "implemented": false,
+    "implemented": true,
     "name_en": "Champions Tournament",
     "name_pt": "Torneio dos Campeões",
-    "description_en": "Coming soon - face champions from every region.",
-    "description_pt": "Em breve - enfrente campeões de todas as regiões.",
+    "description_en": "No rising stars here - every opponent has already been a regional champion. The final is the toughest fight in the game so far.",
+    "description_pt": "Nada de promessas aqui - todo adversário já foi campeão regional. A final é a luta mais dura do jogo até agora.",
     "region": "",
     "tier": "elite",
     "min_trainer_level": 60,
-    "requirements": {"cups_completed": ["international_cup"]}
+    "requirements": {"cups_completed": ["international_cup"]},
+    "entry_cost": 8000,
+    "participant_count": 8,
+    "battle_format": "single",
+    "max_team_size": 6,
+    "items_allowed": true,
+    "heal_between_rounds": "full",
+    "repeatable": true,
+    "badge_id": "champions_tournament_badge",
+    "badge_name_en": "Champions Tournament Badge",
+    "badge_name_pt": "Insígnia do Torneio dos Campeões",
+    "rounds": [
+      {
+        "name_en": "Quarterfinal",
+        "name_pt": "Quartas de Final",
+        "trainer_id": "cup_champion_red",
+        "rewards": {"money": 5000, "xp": 1000}
+      },
+      {
+        "name_en": "Semifinal",
+        "name_pt": "Semifinal",
+        "trainer_id": "cup_champion_steven",
+        "rewards": {"money": 8000, "xp": 1600}
+      },
+      {
+        "name_en": "Final",
+        "name_pt": "Final",
+        "trainer_id": "cup_master_elena",
+        "rewards": {"money": 18000, "xp": 3600},
+        "is_final": true
+      }
+    ],
+    "first_completion_rewards": {"money": 18000, "xp": 3600, "items": {"xp_potion": 8}},
+    "repeat_rewards": {"money": 14000, "xp": 2200, "items": {"xp_potion": 4}}
   },
   "special_tournaments": {
     "order": 6,
@@ -139,14 +238,47 @@
   },
   "black_tournament": {
     "order": 7,
-    "implemented": false,
+    "implemented": true,
     "name_en": "Black Tournament",
     "name_pt": "Torneio Negro",
-    "description_en": "Coming soon - an extreme late-game challenge.",
-    "description_pt": "Em breve - um desafio extremo de fim de jogo.",
+    "description_en": "An extreme late-game challenge. Every opponent here fields Black Pokemon - rare, unnervingly strong, and not for the unprepared.",
+    "description_pt": "Um desafio extremo de fim de jogo. Todo adversário aqui usa Pokémon Black - raros, perturbadoramente fortes, e não é pra quem não está preparado.",
     "region": "",
     "tier": "master",
     "min_trainer_level": 70,
-    "requirements": {"cups_completed": ["champions_tournament"]}
+    "requirements": {"cups_completed": ["champions_tournament"]},
+    "entry_cost": 15000,
+    "participant_count": 8,
+    "battle_format": "single",
+    "max_team_size": 6,
+    "items_allowed": true,
+    "heal_between_rounds": "full",
+    "repeatable": true,
+    "badge_id": "black_tournament_badge",
+    "badge_name_en": "Black Tournament Badge",
+    "badge_name_pt": "Insígnia do Torneio Negro",
+    "rounds": [
+      {
+        "name_en": "Quarterfinal",
+        "name_pt": "Quartas de Final",
+        "trainer_id": "cup_shadow_acolyte",
+        "rewards": {"money": 8000, "xp": 1600}
+      },
+      {
+        "name_en": "Semifinal",
+        "name_pt": "Semifinal",
+        "trainer_id": "cup_shadow_herald",
+        "rewards": {"money": 14000, "xp": 2800}
+      },
+      {
+        "name_en": "Final",
+        "name_pt": "Final",
+        "trainer_id": "cup_champion_umbra",
+        "rewards": {"money": 30000, "xp": 6000},
+        "is_final": true
+      }
+    ],
+    "first_completion_rewards": {"money": 30000, "xp": 6000, "items": {"xp_potion": 12, "master_ball": 1, "black_charm": 1}},
+    "repeat_rewards": {"money": 22000, "xp": 3500, "items": {"xp_potion": 6}}
   }
 }

@@ -97,5 +97,175 @@
       {"species": "dragonite", "level": 64},
       {"species": "dragonite", "level": 64}
     ]
+  },
+  "cup_rival_may": {
+    "name": "May",
+    "title_en": "Rival Challenger",
+    "title_pt": "Rival Desafiante",
+    "region": "Hoenn",
+    "specialty": "",
+    "trainer_level": 46,
+    "difficulty": "intermediate",
+    "ai_strategy": "balanced",
+    "team": [
+      {"species": "combusken", "level": 44},
+      {"species": "grovyle", "level": 44},
+      {"species": "marshtomp", "level": 45},
+      {"species": "linoone", "level": 46}
+    ]
+  },
+  "cup_specialist_luna": {
+    "name": "Luna",
+    "title_en": "Ghost Specialist",
+    "title_pt": "Especialista em Fantasma",
+    "region": "Hoenn",
+    "specialty": "Ghost",
+    "trainer_level": 54,
+    "difficulty": "advanced",
+    "ai_strategy": "type_specialist",
+    "team": [
+      {"species": "sableye", "level": 51},
+      {"species": "banette", "level": 52, "variant": {"shiny": true}},
+      {"species": "dusclops", "level": 53},
+      {"species": "absol", "level": 54}
+    ]
+  },
+  "cup_champion_steven": {
+    "name": "Steven",
+    "title_en": "Champion",
+    "title_pt": "Campeão",
+    "region": "Hoenn",
+    "specialty": "Steel",
+    "trainer_level": 62,
+    "difficulty": "champion",
+    "ai_strategy": "champion",
+    "team": [
+      {"species": "skarmory", "level": 58},
+      {"species": "claydol", "level": 58},
+      {"species": "cradily", "level": 59},
+      {"species": "armaldo", "level": 59},
+      {"species": "aggron", "level": 60},
+      {"species": "metagross", "level": 62}
+    ]
+  },
+  "cup_veteran_kanto": {
+    "name": "Owen",
+    "title_en": "Kanto Veteran",
+    "title_pt": "Veterano de Kanto",
+    "region": "Kanto",
+    "specialty": "",
+    "trainer_level": 52,
+    "difficulty": "advanced",
+    "ai_strategy": "balanced",
+    "team": [
+      {"species": "alakazam", "level": 49},
+      {"species": "machamp", "level": 50},
+      {"species": "gengar", "level": 50},
+      {"species": "golem", "level": 51}
+    ]
+  },
+  "cup_veteran_johto": {
+    "name": "Hana",
+    "title_en": "Johto Veteran",
+    "title_pt": "Veterana de Johto",
+    "region": "Johto",
+    "specialty": "",
+    "trainer_level": 58,
+    "difficulty": "advanced",
+    "ai_strategy": "balanced",
+    "team": [
+      {"species": "tyranitar", "level": 55},
+      {"species": "steelix", "level": 55},
+      {"species": "scizor", "level": 56},
+      {"species": "crobat", "level": 56},
+      {"species": "feraligatr", "level": 57}
+    ]
+  },
+  "cup_champion_worldly": {
+    "name": "Adrian",
+    "title_en": "World Champion",
+    "title_pt": "Campeão Mundial",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 65,
+    "difficulty": "champion",
+    "ai_strategy": "champion",
+    "team": [
+      {"species": "charizard", "level": 62},
+      {"species": "feraligatr", "level": 62},
+      {"species": "sceptile", "level": 63},
+      {"species": "salamence", "level": 64},
+      {"species": "milotic", "level": 64, "variant": {"shiny": true}},
+      {"species": "metagross", "level": 65}
+    ]
+  },
+  "cup_master_elena": {
+    "name": "Elena",
+    "title_en": "Grand Master",
+    "title_pt": "Grande Mestra",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 75,
+    "difficulty": "champion",
+    "ai_strategy": "champion",
+    "team": [
+      {"species": "tyranitar", "level": 72},
+      {"species": "gengar", "level": 72},
+      {"species": "milotic", "level": 73},
+      {"species": "salamence", "level": 74},
+      {"species": "metagross", "level": 74},
+      {"species": "dragonite", "level": 75}
+    ]
+  },
+  "cup_shadow_acolyte": {
+    "name": "Vex",
+    "title_en": "Shadow Acolyte",
+    "title_pt": "Acólito das Sombras",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 68,
+    "difficulty": "advanced",
+    "ai_strategy": "offensive",
+    "team": [
+      {"species": "salamence", "level": 65},
+      {"species": "metagross", "level": 66},
+      {"species": "tyranitar", "level": 67, "variant": {"black": true}},
+      {"species": "dragonite", "level": 68}
+    ]
+  },
+  "cup_shadow_herald": {
+    "name": "Nyx",
+    "title_en": "Shadow Herald",
+    "title_pt": "Arauto das Sombras",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 76,
+    "difficulty": "advanced",
+    "ai_strategy": "offensive",
+    "team": [
+      {"species": "gengar", "level": 73, "variant": {"black": true}},
+      {"species": "salamence", "level": 74},
+      {"species": "tyranitar", "level": 75, "variant": {"black": true}},
+      {"species": "metagross", "level": 75},
+      {"species": "dragonite", "level": 76}
+    ]
+  },
+  "cup_champion_umbra": {
+    "name": "Umbra",
+    "title_en": "Black Champion",
+    "title_pt": "Campeão Negro",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 90,
+    "difficulty": "black_champion",
+    "ai_strategy": "champion",
+    "team": [
+      {"species": "tyranitar", "level": 86, "variant": {"black": true}},
+      {"species": "salamence", "level": 87, "variant": {"black": true}},
+      {"species": "metagross", "level": 87, "variant": {"black": true}},
+      {"species": "gengar", "level": 88, "variant": {"black": true}},
+      {"species": "dragonite", "level": 89, "variant": {"black": true}},
+      {"species": "milotic", "level": 90, "variant": {"black": true}}
+    ]
   }
 }

@@ -156,6 +156,7 @@ const TEXT = {
 		"cup_champion": "You are the champion of the %s!",
 		"cup_badge_earned": "%s earned!",
 		"cup_rewards": "Rewards: +$%d, +%d XP.",
+		"cup_items_received": "Items received: %s.",
 		"cup_eliminated": "Eliminated from the tournament. You can try again.",
 		"tutorial_battle_step_fight": "These are your moves. Tap FIGHT to pick an attack.",
 		"tutorial_battle_step_bag": "This is your Bag. Use Potions to heal your Pokemon, or a Poke Ball to try to catch the wild one.",
@@ -259,6 +260,7 @@ const TEXT = {
 		"cup_champion": "Você é o campeão da %s!",
 		"cup_badge_earned": "%s recebida!",
 		"cup_rewards": "Recompensas: +$%d, +%d XP.",
+		"cup_items_received": "Itens recebidos: %s.",
 		"cup_eliminated": "Eliminado do torneio. Você pode tentar de novo.",
 		"tutorial_battle_step_fight": "Estes são seus golpes. Toque em LUTAR para escolher um ataque.",
 		"tutorial_battle_step_bag": "Aqui fica sua Mochila. Use Poções pra curar seu Pokémon, ou uma Poké Bola pra tentar capturar o selvagem.",
@@ -1321,6 +1323,9 @@ func _cup_victory_result() -> Dictionary:
 			lines.append(_text("cup_next_pokemon") % trainer_name)
 		else:
 			lines.append(_text("cup_round_won") % [int(state.get("money_gain", 0)), int(state.get("xp_gain", 0))])
+			var round_item_line := _grant_cup_items(state.get("item_gains", {}))
+			if round_item_line != "":
+				lines.append(round_item_line)
 		return {"continue": true, "changes": changes, "lines": lines}
 
 	# result == "cup_completed"
@@ -1333,7 +1338,29 @@ func _cup_victory_result() -> Dictionary:
 	if not already_completed:
 		lines.append(_text("cup_badge_earned") % badge_name)
 	lines.append(_text("cup_rewards") % [int(state.get("money_gain", 0)), int(state.get("xp_gain", 0))])
+	var item_line := _grant_cup_items(state.get("item_gains", {}))
+	if item_line != "":
+		lines.append(item_line)
 	return {"continue": false, "changes": changes, "lines": lines}
+
+
+# Actually adds the round/completion "items" reward to the player's real bag
+# (CupManager only computes what's owed - it has no InventoryManager access
+# of its own) and returns a human-readable summary line, or "" if nothing
+# was granted.
+func _grant_cup_items(item_gains) -> String:
+	if typeof(item_gains) != TYPE_DICTIONARY or item_gains.is_empty():
+		return ""
+	var parts := []
+	for item_id in item_gains.keys():
+		var amount := int(item_gains[item_id])
+		if amount <= 0:
+			continue
+		InventoryManager.add_item(str(item_id), amount)
+		parts.append("%s x%d" % [_item_name(str(item_id)), amount])
+	if parts.is_empty():
+		return ""
+	return _text("cup_items_received") % ", ".join(parts)
 
 
 func _add_cup_next_button() -> void:
