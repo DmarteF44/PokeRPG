@@ -1249,9 +1249,7 @@ func _finish_battle_if_needed(lines: Array) -> bool:
 	_persist_player_pokemon()
 	if int(enemy_pokemon.get("hp", 0)) <= 0:
 		battle_over = true
-		_refresh_mega_button()
-		_refresh_dynamax_button()
-		_refresh_tera_button()
+		_refresh_special_action_buttons()
 		lines.append(_text("enemy_fainted"))
 		lines.append(_grant_victory_xp())
 		if _is_tutorial_battle():
@@ -1296,9 +1294,7 @@ func _finish_battle_if_needed(lines: Array) -> bool:
 			_show_pokemon()
 			return true
 		battle_over = true
-		_refresh_mega_button()
-		_refresh_dynamax_button()
-		_refresh_tera_button()
+		_refresh_special_action_buttons()
 		if _is_cup_battle():
 			lines.append(_text("cup_eliminated"))
 			var defeat_result := CupManager.defeat_state(SaveManager.get_current_save())
@@ -1693,9 +1689,7 @@ func _update_status() -> void:
 	player_hp_label.text = "%s %d/%d" % [_text("hp"), int(player_pokemon.get("hp", 0)), int(player_pokemon.get("max_hp", 1))]
 	_resize_hp_fill(enemy_hp_fill, enemy_pokemon)
 	_resize_hp_fill(player_hp_fill, player_pokemon)
-	_refresh_mega_button()
-	_refresh_dynamax_button()
-	_refresh_tera_button()
+	_refresh_special_action_buttons()
 
 
 func _resize_hp_fill(fill: ColorRect, pokemon: Dictionary) -> void:
@@ -2067,9 +2061,7 @@ func _use_capture_item(item_id: String) -> void:
 		var capture_data := _capture_enemy()
 		var destination := str(capture_data.get("destination", "team"))
 		battle_over = true
-		_refresh_mega_button()
-		_refresh_dynamax_button()
-		_refresh_tera_button()
+		_refresh_special_action_buttons()
 		var lines := [_text("capture_click"), _text("caught") % enemy_name]
 		if destination == "storage":
 			lines.append(_text("sent_storage"))
@@ -2315,6 +2307,21 @@ func _available_mega_for_player() -> Dictionary:
 	return {}
 
 
+# Mega/Dynamax/Tera eligibility is independent of each other (see
+# _can_dynamax/_can_terastallize - they only block on an ALREADY-active
+# transformation, not on each other's buttons merely being offered), so up
+# to 3 of these can be visible together before the player picks one. Always
+# refresh all three together through this one entry point, then lay out
+# whichever ended up visible - calling the individual _refresh_X_button
+# functions separately can leave _layout_special_action_buttons() reading a
+# stale button reference that hasn't been freed yet this cycle.
+func _refresh_special_action_buttons() -> void:
+	_refresh_mega_button()
+	_refresh_dynamax_button()
+	_refresh_tera_button()
+	_layout_special_action_buttons()
+
+
 func _refresh_mega_button() -> void:
 	if mega_button != null and is_instance_valid(mega_button):
 		mega_button.queue_free()
@@ -2327,7 +2334,7 @@ func _refresh_mega_button() -> void:
 	if mega_def.is_empty():
 		return
 	var button_label := _text("primal_revert") if str(mega_def.get("category", "mega")) == "primal" else _text("mega_evolve")
-	mega_button = UI.add_orange_button(self, button_label, Vector2(166, 322), Vector2(120, 26), Callable(self, "_mega_evolve"), "MegaEvolveButton")
+	mega_button = UI.add_orange_button(self, button_label, Vector2(166, 354), Vector2(120, 26), Callable(self, "_mega_evolve"), "MegaEvolveButton")
 
 
 # Mega Evolving is "free" the same way it is in the real games - it doesn't
@@ -2383,7 +2390,7 @@ func _refresh_dynamax_button() -> void:
 		return
 	if not _can_dynamax():
 		return
-	dynamax_button = UI.add_orange_button(self, _text("dynamax"), Vector2(166, 350), Vector2(120, 26), Callable(self, "_dynamax"), "DynamaxButton")
+	dynamax_button = UI.add_orange_button(self, _text("dynamax"), Vector2(166, 354), Vector2(120, 26), Callable(self, "_dynamax"), "DynamaxButton")
 
 
 # Lasts 3 rounds (see the countdown in _apply_end_turn_effects), same as the
@@ -2445,7 +2452,41 @@ func _refresh_tera_button() -> void:
 		return
 	if not _can_terastallize():
 		return
-	tera_button = UI.add_orange_button(self, _text("terastallize"), Vector2(166, 378), Vector2(120, 26), Callable(self, "_terastallize"), "TeraButton")
+	tera_button = UI.add_orange_button(self, _text("terastallize"), Vector2(166, 354), Vector2(120, 26), Callable(self, "_terastallize"), "TeraButton")
+
+
+# Mega/Dynamax/Tera are each independently eligible before the player picks
+# one (e.g. carrying a Mega Stone AND owning a Dynamax Band AND having a Tera
+# Type all at once), so up to 3 of these buttons can be visible together.
+# They used to sit at fixed positions stacked vertically starting at y=322 -
+# that column is also where _add_player_area() draws the player's name/HP
+# bar/HP text (down to y=348), so the Mega button always rendered directly
+# on top of the HP text whenever it was showing. The strip between the
+# player's HP text (y=348) and the message box (y=404) is only 56px tall,
+# not enough for 3 stacked 26px buttons - so lay out whichever buttons are
+# currently visible as a single row instead, splitting the width between
+# however many there are.
+func _layout_special_action_buttons() -> void:
+	var buttons: Array = []
+	for candidate in [mega_button, dynamax_button, tera_button]:
+		if candidate != null and is_instance_valid(candidate):
+			buttons.append(candidate)
+	if buttons.is_empty():
+		return
+	var total_width := 178.0
+	var gap := 4.0
+	var button_width := (total_width - gap * float(buttons.size() - 1)) / float(buttons.size())
+	var button_size := Vector2(button_width, 26.0)
+	for i in range(buttons.size()):
+		var button: TextureButton = buttons[i]
+		button.position = Vector2(166.0 + float(i) * (button_width + gap), 354.0)
+		button.size = button_size
+		var label = button.get_node_or_null("Text")
+		if label is Label:
+			label.position = Vector2.ZERO
+			label.size = button_size
+			label.add_theme_font_size_override("font_size", 13 if buttons.size() == 1 else 9)
+			_fit_label_if_available(label)
 
 
 func _terastallize() -> void:
