@@ -20,6 +20,9 @@ const TEXT = {
 		"welcome_to": "Welcome to",
 		"tutorial_prompt": "New here? See how to play:",
 		"tutorial": "How to Play",
+		"tutorial_battle_intro": "Optional: play a short guided battle that walks you through the screen, step by step. Completing it (win or catch) gives a one-time reward: a Mew, money, 5 Poke Balls, 5 Potions and a Tutorial Badge.",
+		"tutorial_battle_start": "Start Tutorial Battle",
+		"tutorial_battle_replay": "Replay Tutorial Battle",
 		"tutorial_sections": [
 			["Goal", "Pick a starter, explore the world map, battle and catch wild Pokemon, level them up, evolve them, and earn Gym badges to unlock new maps.", "res://assets/ui/icons/icon_world_48.png"],
 			["Exploring", "\"Explore Map\" costs Energy and can trigger a wild Pokemon encounter. Which species can appear depends on that map's types/generation. Energy refills over time - check the energy bar on the Home screen.", "res://assets/ui/icons/icon_world_48.png"],
@@ -350,6 +353,9 @@ const TEXT = {
 		"welcome_to": "Bem-vindo ao",
 		"tutorial_prompt": "Novo por aqui? Veja como jogar:",
 		"tutorial": "Como Jogar",
+		"tutorial_battle_intro": "Opcional: jogue uma batalha guiada curta que te mostra a tela passo a passo. Ao completar (vencendo ou capturando), você ganha uma recompensa única: um Mew, dinheiro, 5 Poké Bolas, 5 Poções e a Insígnia do Tutorial.",
+		"tutorial_battle_start": "Iniciar Batalha de Tutorial",
+		"tutorial_battle_replay": "Jogar Batalha de Tutorial de Novo",
 		"tutorial_sections": [
 			["Objetivo", "Escolha um inicial, explore o mapa mundial, batalhe e capture Pokémon selvagens, suba o nível deles, evolua-os e conquiste insígnias de ginásio para liberar novos mapas.", "res://assets/ui/icons/icon_world_48.png"],
 			["Explorando", "\"Explorar Mapa\" gasta Energia e pode gerar um encontro com Pokémon selvagem. Quais espécies aparecem depende dos tipos/geração daquele mapa. A energia recarrega com o tempo - veja a barra de energia na Tela Inicial.", "res://assets/ui/icons/icon_world_48.png"],
@@ -915,7 +921,60 @@ func _show_tutorial() -> void:
 		body_label.size = Vector2(296, body_height)
 		y += body_height + 18.0
 
+	y += 8.0
+	var tutorial_completed := bool(save_data.get("tutorial_battle_completed", false))
+	var battle_intro_label := UI.add_panel_label(content, _text("tutorial_battle_intro"), Vector2(0, y), Vector2(296, 60), 12, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_TOP, "TutorialBattleIntro")
+	_fit_label(battle_intro_label, true)
+	y += 66.0
+	var battle_button_label := _text("tutorial_battle_replay") if tutorial_completed else _text("tutorial_battle_start")
+	UI.add_orange_button(content, battle_button_label, Vector2(0, y), Vector2(296, 44), Callable(self, "_start_tutorial_battle"), "StartTutorialBattle")
+	y += 52.0
+
 	content.custom_minimum_size = Vector2(304, y + 12.0)
+
+
+func _start_tutorial_battle() -> void:
+	_refresh_save_data()
+	if not _has_ready_team_pokemon():
+		UI.show_message_popup(self, _text("tutorial"), _text("gym_no_ready"))
+		return
+
+	var pokemon_id := "rattata"
+	var level := 3
+	var pokemon := PokemonHelpers.starter_save_data(pokemon_id)
+	var stats := PokemonHelpers.stats_for_level(pokemon_id, level)
+	var moves := PokemonHelpers.moves_for(pokemon_id, level)
+	var pp_max := []
+	for move in moves:
+		if typeof(move) == TYPE_DICTIONARY:
+			pp_max.append(maxi(1, int(move.get("pp", 35))))
+
+	pokemon["level"] = level
+	pokemon["xp"] = 0
+	pokemon["xp_to_next_level"] = PokemonHelpers.xp_to_next_level_for(level)
+	var max_hp := int(stats.get("max_hp", pokemon.get("max_hp", 1)))
+	pokemon["max_hp"] = max_hp
+	# Starts already weakened so the "lower HP = easier catch" step is
+	# immediately actionable instead of requiring a long grind first.
+	pokemon["hp"] = maxi(1, int(max_hp * 0.2))
+	pokemon["attack"] = int(stats.get("attack", pokemon.get("attack", 1)))
+	pokemon["defense"] = int(stats.get("defense", pokemon.get("defense", 1)))
+	pokemon["sp_attack"] = int(stats.get("sp_attack", pokemon.get("sp_attack", 1)))
+	pokemon["sp_defense"] = int(stats.get("sp_defense", pokemon.get("sp_defense", 1)))
+	pokemon["speed"] = int(stats.get("speed", pokemon.get("speed", 1)))
+	pokemon["moves"] = moves
+	pokemon["pp_max"] = pp_max
+	pokemon["pp_current"] = pp_max.duplicate(true)
+	pokemon["starter"] = false
+	pokemon["tutorial_battle"] = true
+	pokemon["catch_rate"] = 255
+	var encounter := PokemonHelpers.normalize_pokemon(pokemon, pokemon_id)
+
+	SaveManager.update_current_save({
+		"pending_encounter": encounter,
+		"current_scene": "BattleScene",
+	})
+	get_tree().change_scene_to_file("res://scenes/BattleScene.tscn")
 
 
 func _show_profile() -> void:

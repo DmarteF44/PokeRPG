@@ -132,6 +132,7 @@ func create_save(slot: int, data: Dictionary) -> Dictionary:
 		"cups": _normalized_cups_progress(data.get("cups", {})),
 		"cup_badges_obtained": _normalized_string_array(data.get("cup_badges_obtained", [])),
 		"cup_challenge": _normalized_cup_challenge(data.get("cup_challenge", {})),
+		"tutorial_battle_completed": bool(data.get("tutorial_battle_completed", false)),
 		"current_scene": str(data.get("current_scene", "HomeScreen")),
 		"current_map": str(data.get("current_map", "")),
 		"settings_language": str(_settings.get("language", "en")),
@@ -370,6 +371,7 @@ func _normalized_save(save_data: Dictionary) -> Dictionary:
 	normalized["cups"] = _normalized_cups_progress(normalized.get("cups", {}))
 	normalized["cup_badges_obtained"] = _normalized_string_array(normalized.get("cup_badges_obtained", []))
 	normalized["cup_challenge"] = _normalized_cup_challenge(normalized.get("cup_challenge", {}))
+	normalized["tutorial_battle_completed"] = bool(normalized.get("tutorial_battle_completed", false))
 	normalized["current_scene"] = str(normalized.get("current_scene", "HomeScreen"))
 	normalized["current_map"] = str(normalized.get("current_map", ""))
 	normalized["settings_language"] = str(normalized.get("settings_language", _settings.get("language", "en")))

@@ -157,6 +157,16 @@ const TEXT = {
 		"cup_badge_earned": "%s earned!",
 		"cup_rewards": "Rewards: +$%d, +%d XP.",
 		"cup_eliminated": "Eliminated from the tournament. You can try again.",
+		"tutorial_battle_step_fight": "These are your moves. Tap FIGHT to pick an attack.",
+		"tutorial_battle_step_bag": "This is your Bag. Use Potions to heal your Pokemon, or a Poke Ball to try to catch the wild one.",
+		"tutorial_battle_step_pokemon": "Here you can switch your active Pokemon for another one on your team.",
+		"tutorial_battle_step_run": "Here you can run from the battle (not available against trainers).",
+		"tutorial_battle_step_catch": "This wild Pokemon is already low on HP! The lower its HP, the better your catch chance - open the Bag and throw a Poke Ball now, or keep attacking to win instead.",
+		"tutorial_next": "Next",
+		"tutorial_got_it": "Got it!",
+		"tutorial_reward_intro": "Tutorial complete! Thanks for learning the ropes.",
+		"tutorial_reward_mew": "You received a Mew!",
+		"tutorial_reward_extras": "+$%d, 5 Poke Balls, 5 Potions, and a Tutorial Badge!",
 		"next_battle": "Next Battle",
 		"back": "Back",
 		"return_home": "Return Home",
@@ -250,6 +260,16 @@ const TEXT = {
 		"cup_badge_earned": "%s recebida!",
 		"cup_rewards": "Recompensas: +$%d, +%d XP.",
 		"cup_eliminated": "Eliminado do torneio. Você pode tentar de novo.",
+		"tutorial_battle_step_fight": "Estes são seus golpes. Toque em LUTAR para escolher um ataque.",
+		"tutorial_battle_step_bag": "Aqui fica sua Mochila. Use Poções pra curar seu Pokémon, ou uma Poké Bola pra tentar capturar o selvagem.",
+		"tutorial_battle_step_pokemon": "Aqui você troca seu Pokémon ativo por outro do seu time.",
+		"tutorial_battle_step_run": "Aqui você foge da batalha (não disponível contra treinadores).",
+		"tutorial_battle_step_catch": "Esse Pokémon selvagem já está com pouca vida! Quanto mais baixo o HP, maior a chance de captura - abra a Mochila e jogue uma Poké Bola agora, ou continue atacando pra vencer.",
+		"tutorial_next": "Próximo",
+		"tutorial_got_it": "Entendi!",
+		"tutorial_reward_intro": "Tutorial concluído! Obrigado por aprender o básico.",
+		"tutorial_reward_mew": "Você recebeu um Mew!",
+		"tutorial_reward_extras": "+$%d, 5 Poké Bolas, 5 Poções, e a Insígnia do Tutorial!",
 		"next_battle": "Próxima batalha",
 		"back": "Voltar",
 		"return_home": "Voltar para Home",
@@ -325,6 +345,8 @@ func _ready() -> void:
 		_text("go") % str(player_pokemon.get("name", "Pokemon")),
 		_text("what_do") % str(player_pokemon.get("name", "Pokemon")),
 	]
+	if _is_tutorial_battle():
+		_start_tutorial_walkthrough()
 
 
 # A battle over a generic gray background looked the same no matter where in
@@ -427,6 +449,7 @@ func _normalize_enemy_pokemon(value: Dictionary) -> Dictionary:
 		"cup_round_index": int(value.get("cup_round_index", 0)),
 		"cup_team_index": int(value.get("cup_team_index", 0)),
 		"cup_trainer_id": str(value.get("cup_trainer_id", "")),
+		"tutorial_battle": bool(value.get("tutorial_battle", false)),
 	}
 
 
@@ -436,6 +459,158 @@ func _is_trainer_battle() -> bool:
 
 func _is_cup_battle() -> bool:
 	return bool(enemy_pokemon.get("cup_battle", false))
+
+
+func _is_tutorial_battle() -> bool:
+	return bool(enemy_pokemon.get("tutorial_battle", false))
+
+
+var _tutorial_step_index := 0
+
+
+# Purely narrational, not a forced/blocking flow: each callout just points at
+# a real UI element already on screen (nothing is disabled or hidden while
+# it's up) and advances on tap, so the player can also just play normally at
+# any point - the last step doesn't gate anything, it just explains that a
+# low-HP wild Pokemon is easier to catch and lets them try it for real.
+func _tutorial_steps() -> Array:
+	return [
+		{"text": _text("tutorial_battle_step_fight"), "rect": Rect2(28, 512, 140, 44)},
+		{"text": _text("tutorial_battle_step_bag"), "rect": Rect2(192, 512, 140, 44)},
+		{"text": _text("tutorial_battle_step_pokemon"), "rect": Rect2(28, 570, 140, 44)},
+		{"text": _text("tutorial_battle_step_run"), "rect": Rect2(192, 570, 140, 44)},
+		{"text": _text("tutorial_battle_step_catch"), "rect": Rect2(14, 58, 316, 68)},
+	]
+
+
+func _start_tutorial_walkthrough() -> void:
+	_tutorial_step_index = 0
+	_show_tutorial_step()
+
+
+func _show_tutorial_step() -> void:
+	var existing := get_node_or_null("TutorialStepOverlay")
+	if existing != null:
+		remove_child(existing)
+		existing.queue_free()
+
+	var steps := _tutorial_steps()
+	if _tutorial_step_index >= steps.size():
+		return
+
+	var step: Dictionary = steps[_tutorial_step_index]
+	var target: Rect2 = step.get("rect", Rect2())
+
+	var overlay := Control.new()
+	overlay.name = "TutorialStepOverlay"
+	overlay.position = Vector2.ZERO
+	overlay.size = UI.SCREEN_SIZE
+	overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(overlay)
+
+	var highlight := Panel.new()
+	highlight.name = "Highlight"
+	highlight.position = target.position - Vector2(4, 4)
+	highlight.size = target.size + Vector2(8, 8)
+	highlight.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	overlay.add_child(highlight)
+	var highlight_style := StyleBoxFlat.new()
+	highlight_style.bg_color = Color(0, 0, 0, 0)
+	highlight_style.border_color = Color(1.0, 0.82, 0.2, 1.0)
+	highlight_style.set_border_width_all(3)
+	highlight_style.set_corner_radius_all(8)
+	highlight.add_theme_stylebox_override("panel", highlight_style)
+
+	# Callout box sits above the target unless that would run it off the top
+	# of the screen, in which case it goes below instead.
+	var callout_height := 108.0
+	var callout_y := target.position.y - callout_height - 12.0
+	if callout_y < 46.0:
+		callout_y = target.position.y + target.size.y + 12.0
+	var callout := Panel.new()
+	callout.name = "Callout"
+	callout.position = Vector2(20, callout_y)
+	callout.size = Vector2(320, callout_height)
+	callout.mouse_filter = Control.MOUSE_FILTER_STOP
+	overlay.add_child(callout)
+	UI.style_panel_button(callout, Color(0.98, 0.95, 0.85), Color(0.55, 0.42, 0.10), 2)
+	var text_label := UI.add_panel_label(callout, str(step.get("text", "")), Vector2(12, 8), Vector2(296, 62), 12, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_TOP, "StepText")
+	_fit_label_if_available(text_label)
+	var is_last := _tutorial_step_index >= steps.size() - 1
+	var next_label := _text("tutorial_got_it") if is_last else _text("tutorial_next")
+	UI.add_orange_button(callout, next_label, Vector2(184, 74), Vector2(124, 28), Callable(self, "_advance_tutorial_step"), "NextStep")
+
+
+func _fit_label_if_available(label: Label) -> void:
+	if label == null:
+		return
+	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	label.clip_text = true
+
+
+func _advance_tutorial_step() -> void:
+	_tutorial_step_index += 1
+	_show_tutorial_step()
+
+
+const TUTORIAL_REWARD_MONEY = 1000
+
+
+# One-time reward (first completion only, tracked by tutorial_battle_completed)
+# for finishing the guided tutorial battle, win or catch - either outcome
+# means the player made it through the walkthrough. Returns message lines to
+# append to the battle-end text; empty if already granted before.
+func _grant_tutorial_reward() -> Array:
+	var current_save := SaveManager.get_current_save()
+	if bool(current_save.get("tutorial_battle_completed", false)):
+		return []
+
+	InventoryManager.add_item("poke_ball", 5)
+	InventoryManager.add_item("potion", 5)
+
+	var mew := PokemonHelpers.starter_save_data("mew")
+	var mew_level := 10
+	var mew_stats := PokemonHelpers.stats_for_level("mew", mew_level)
+	mew["level"] = mew_level
+	mew["xp"] = 0
+	mew["xp_to_next_level"] = PokemonHelpers.xp_to_next_level_for(mew_level)
+	mew["max_hp"] = int(mew_stats.get("max_hp", mew.get("max_hp", 1)))
+	mew["hp"] = int(mew["max_hp"])
+	mew["attack"] = int(mew_stats.get("attack", mew.get("attack", 1)))
+	mew["defense"] = int(mew_stats.get("defense", mew.get("defense", 1)))
+	mew["sp_attack"] = int(mew_stats.get("sp_attack", mew.get("sp_attack", 1)))
+	mew["sp_defense"] = int(mew_stats.get("sp_defense", mew.get("sp_defense", 1)))
+	mew["speed"] = int(mew_stats.get("speed", mew.get("speed", 1)))
+	mew["moves"] = PokemonHelpers.moves_for("mew", mew_level)
+	mew = PokemonHelpers.normalize_pokemon(mew, "mew")
+
+	var latest_save := SaveManager.get_current_save()
+	var team_value = latest_save.get("team", [])
+	var team: Array = team_value if typeof(team_value) == TYPE_ARRAY else []
+	var storage_value = latest_save.get("storage", [])
+	var storage: Array = storage_value if typeof(storage_value) == TYPE_ARRAY else []
+	var team_capacity := SaveManager.team_capacity_for_level(int(latest_save.get("level", 1)))
+	var went_to_team := team.size() < team_capacity
+	if went_to_team:
+		team.append(mew)
+	else:
+		storage.append(mew)
+
+	var pokedex_updates := PokemonHelpers.pokedex_seen_updates(mew, latest_save)
+	var owned_updates := PokemonHelpers.pokedex_owned_updates(mew, latest_save)
+	for key in owned_updates:
+		pokedex_updates[key] = owned_updates[key]
+	pokedex_updates["team"] = team
+	pokedex_updates["storage"] = storage
+	pokedex_updates["money"] = int(latest_save.get("money", 0)) + TUTORIAL_REWARD_MONEY
+	pokedex_updates["tutorial_battle_completed"] = true
+	SaveManager.update_current_save(pokedex_updates)
+
+	return [
+		_text("tutorial_reward_intro"),
+		_text("tutorial_reward_mew"),
+		_text("tutorial_reward_extras") % [TUTORIAL_REWARD_MONEY],
+	]
 
 
 func _first_battle_ready_index(team_value: Array, preferred_index: int) -> int:
@@ -1067,6 +1242,12 @@ func _finish_battle_if_needed(lines: Array) -> bool:
 		_refresh_tera_button()
 		lines.append(_text("enemy_fainted"))
 		lines.append(_grant_victory_xp())
+		if _is_tutorial_battle():
+			lines.append_array(_grant_tutorial_reward())
+			_persist_player_pokemon({"pending_encounter": {}})
+			message_label.text = _join_lines(lines)
+			_add_return_button()
+			return true
 		if _is_cup_battle():
 			var cup_result := _cup_victory_result()
 			if cup_result.is_empty():
@@ -1756,6 +1937,8 @@ func _use_capture_item(item_id: String) -> void:
 		var trainer_level_ups: Array = trainer_xp_result.get("level_ups", [])
 		for level in trainer_level_ups:
 			lines.append(_text("trainer_level_up") % int(level))
+		if _is_tutorial_battle():
+			lines.append_array(_grant_tutorial_reward())
 		message_label.text = _join_lines(lines)
 		capture_in_progress = false
 		_add_return_button()
