@@ -28,6 +28,7 @@ const TEXT = {
 			["Evolution", "Different Pokemon evolve differently: by level, by using an evolution item, by badge count, and other conditions. Open a Pokemon's details (Collection/Storage) to see exactly what it still needs.", ""],
 			["Pokemon Center", "Heals your whole team for a small fee; recovery time scales with how much HP is missing and your Pokemon's level. Storage there lets you manage Pokemon beyond your 6-team limit.", "res://assets/ui/icons/icon_shop_48.png"],
 			["Money and Progress", "Battling and capturing pays trainer XP and money; leveling your trainer grants specialization points (Profile screen) that boost things like capture rate or exploration. Gym badges unlock new maps and tougher trainers.", "res://assets/ui/icons/icon_coin_48.png"],
+			["Specializations", "Every trainer level-up grants specialization points - spend them on Profile > Specialize. Five attributes are active right now: Encounter (+1% wild encounter chance/point), Capture (+1% catch chance/point), Max Energy (+2 max energy/point), Training (+2% Pokemon XP/point) and Efficiency (+5% off Pokemon Center healing/point). The rest are reserved for a future update - points spent there are saved and start working once implemented, but do nothing yet. Each attribute's own screen shows its exact bonus.", ""],
 			["Pokedex", "Tracks every species you've seen and captured, with numbers, types and descriptions. You can pay to research a seen-but-not-caught species for more details.", "res://assets/ui/icons/icon_pokemon.png"],
 			["Shiny and Black", "Extremely rare recolored variants that can appear on any wild encounter - Black Pokemon also get a small stat bonus. Certain items can raise the odds for a while, but never guarantee one.", ""],
 		],
@@ -125,6 +126,20 @@ const TEXT = {
 			"spec_tecnica": "Technique",
 			"spec_sorte": "Luck",
 			"spec_pesquisa": "Research",
+			"spec_desc_encontro": "+1% wild encounter chance per point.",
+			"spec_desc_captura": "+1% catch chance per point.",
+			"spec_desc_exploracao": "Planned: exploration bonus. Not active yet.",
+			"spec_desc_energia_maxima": "+2 max energy per point (refills that amount too).",
+			"spec_desc_regeneracao": "Planned: passive HP regen over time. Not active yet.",
+			"spec_desc_pesca": "Planned: fishing bonus. Not active yet.",
+			"spec_desc_treinamento": "+2% Pokemon XP gained per point.",
+			"spec_desc_eficiencia": "+5% discount on Pokemon Center healing per point.",
+			"spec_desc_inventario": "Planned: bag capacity bonus. Not active yet.",
+			"spec_desc_cura": "Planned: item healing potency bonus. Not active yet.",
+			"spec_desc_pv_batalha": "Planned: battle HP bonus. Not active yet.",
+			"spec_desc_tecnica": "Planned: move accuracy/crit bonus. Not active yet.",
+			"spec_desc_sorte": "Planned: luck-based bonus (rare items, etc). Not active yet.",
+			"spec_desc_pesquisa": "Planned: Pokedex research speed bonus. Not active yet.",
 		"debug_menu": "Debug Menu",
 		"debug_gold": "Gold",
 		"debug_account_xp": "Account XP",
@@ -318,6 +333,7 @@ const TEXT = {
 			["Evolução", "Cada Pokémon evolui de um jeito: por nível, usando um item de evolução, por número de insígnias, entre outras condições. Abra os detalhes de um Pokémon (Coleção/Armazenamento) para ver exatamente o que falta.", ""],
 			["Centro Pokémon", "Cura todo o time por uma taxa; o tempo de recuperação varia conforme o HP faltando e o nível do Pokémon. O Armazenamento lá permite gerenciar Pokémon além do limite de 6 no time.", "res://assets/ui/icons/icon_shop_48.png"],
 			["Dinheiro e Progresso", "Batalhar e capturar rende XP de treinador e dinheiro; subir o nível do treinador concede pontos de especialização (tela de Perfil) que melhoram coisas como taxa de captura ou exploração. Insígnias de ginásio liberam novos mapas e treinadores mais fortes.", "res://assets/ui/icons/icon_coin_48.png"],
+			["Especializações", "Cada nível de treinador concede pontos de especialização - gaste-os em Perfil > Especializar. Cinco atributos já estão ativos: Encontro (+1% de chance de encontro selvagem/ponto), Captura (+1% de chance de captura/ponto), Energia Máxima (+2 de energia máxima/ponto), Treinamento (+2% de XP de Pokémon/ponto) e Eficiência (-5% no custo de cura do Centro Pokémon/ponto). Os demais estão reservados para uma atualização futura - pontos gastos neles ficam salvos e passam a funcionar quando forem implementados, mas ainda não fazem nada. A tela de cada atributo mostra o bônus exato dele.", ""],
 			["Pokédex", "Registra toda espécie que você já viu e capturou, com número, tipos e descrição. Você pode pagar para pesquisar uma espécie vista mas não capturada e ver mais detalhes.", "res://assets/ui/icons/icon_pokemon.png"],
 			["Shiny e Black", "Variantes recoloridas extremamente raras que podem aparecer em qualquer encontro selvagem - Pokémon Black também ganham um pequeno bônus de atributos. Certos itens aumentam a chance por um tempo, mas nunca garantem uma.", ""],
 		],
@@ -415,6 +431,20 @@ const TEXT = {
 			"spec_tecnica": "Técnica",
 			"spec_sorte": "Sorte",
 			"spec_pesquisa": "Pesquisa",
+			"spec_desc_encontro": "+1% de chance de encontro selvagem por ponto.",
+			"spec_desc_captura": "+1% de chance de captura por ponto.",
+			"spec_desc_exploracao": "Planejado: bônus de exploração. Ainda não ativo.",
+			"spec_desc_energia_maxima": "+2 de energia máxima por ponto (e recupera esse tanto na hora).",
+			"spec_desc_regeneracao": "Planejado: regeneração passiva de HP com o tempo. Ainda não ativo.",
+			"spec_desc_pesca": "Planejado: bônus de pesca. Ainda não ativo.",
+			"spec_desc_treinamento": "+2% de XP de Pokémon ganho por ponto.",
+			"spec_desc_eficiencia": "+5% de desconto na cura do Centro Pokémon por ponto.",
+			"spec_desc_inventario": "Planejado: bônus de capacidade da mochila. Ainda não ativo.",
+			"spec_desc_cura": "Planejado: bônus de potência de cura de itens. Ainda não ativo.",
+			"spec_desc_pv_batalha": "Planejado: bônus de HP em batalha. Ainda não ativo.",
+			"spec_desc_tecnica": "Planejado: bônus de precisão/crítico de golpes. Ainda não ativo.",
+			"spec_desc_sorte": "Planejado: bônus de sorte (itens raros, etc). Ainda não ativo.",
+			"spec_desc_pesquisa": "Planejado: bônus de velocidade de pesquisa da Pokédex. Ainda não ativo.",
 		"debug_menu": "Menu Debug",
 		"debug_gold": "Gold",
 		"debug_account_xp": "XP da conta",
@@ -782,6 +812,7 @@ func _refresh_home_stats() -> void:
 func _show_tutorial() -> void:
 	var existing := get_node_or_null("TutorialPopup")
 	if existing != null:
+		remove_child(existing)
 		existing.queue_free()
 
 	var popup := _create_popup(_text("tutorial"), "TutorialPopup", 34.0, 580.0)
@@ -839,6 +870,7 @@ func _show_tutorial() -> void:
 func _show_profile() -> void:
 	var existing := get_node_or_null("ProfilePopup")
 	if existing != null:
+		remove_child(existing)
 		existing.queue_free()
 
 	_refresh_save_data()
@@ -866,6 +898,12 @@ func _show_profile() -> void:
 func _show_specialization() -> void:
 	var existing := get_node_or_null("SpecializationPopup")
 	if existing != null:
+		# queue_free() alone doesn't detach the node until the frame ends, so
+		# tapping "+1" fast (which calls back into this same function) used to
+		# stack up a fresh, still-visible SpecializationPopup on top of the
+		# old one every tap before it was actually gone - remove_child first
+		# so the name is free and the old popup stops rendering immediately.
+		remove_child(existing)
 		existing.queue_free()
 
 	_refresh_save_data()
@@ -882,22 +920,34 @@ func _show_specialization() -> void:
 	var content := Control.new()
 	content.name = "SpecializationContent"
 	var attributes: Array = SaveManager.SPECIALIZATION_ATTRIBUTES
-	content.custom_minimum_size = Vector2(304, attributes.size() * 56.0)
+	var row_height := 84.0
+	content.custom_minimum_size = Vector2(304, attributes.size() * row_height)
 	scroll.add_child(content)
+
+	# Which attributes actually do something today vs. are reserved for a
+	# future update - see the effects listed at scripts/save_manager.gd's
+	# SPECIALIZATION_ATTRIBUTES doc comment. Points spent on an inactive one
+	# are still saved (not wasted forever), just dormant until it's wired up.
+	var active_attributes := ["encontro", "captura", "energia_maxima", "treinamento", "eficiencia"]
 
 	var allocations := SaveManager.specialization_allocations()
 	for i in range(attributes.size()):
 		var attribute: String = attributes[i]
+		var is_active := active_attributes.has(attribute)
 		var row := Panel.new()
 		row.name = "SpecRow%s" % attribute.capitalize()
-		row.position = Vector2(0, float(i) * 56.0)
-		row.size = Vector2(296, 50)
+		row.position = Vector2(0, float(i) * row_height)
+		row.size = Vector2(296, row_height - 6.0)
 		content.add_child(row)
 		UI.style_panel_button(row, Color(0.88, 0.94, 0.98), Color(0.34, 0.50, 0.62), 2)
-		UI.add_panel_label(row, _text("spec_%s" % attribute), Vector2(12, 6), Vector2(200, 20), 13, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Name")
+		if not is_active:
+			row.modulate = Color(0.82, 0.82, 0.82, 1)
+		UI.add_panel_label(row, _text("spec_%s" % attribute), Vector2(12, 4), Vector2(200, 18), 13, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Name")
+		var desc_label := UI.add_panel_label(row, _text("spec_desc_%s" % attribute), Vector2(12, 22), Vector2(210, 38), 9, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_TOP, "Description")
+		_fit_label(desc_label, true)
 		var points := int(allocations.get(attribute, 0))
-		UI.add_panel_label(row, _text("spec_points") % points, Vector2(12, 26), Vector2(180, 18), 10, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Points")
-		var add_button := _add_small_button(row, "+1", Vector2(230, 9), Vector2(56, 32), Callable(self, "_allocate_specialization").bind(attribute), "Add")
+		UI.add_panel_label(row, _text("spec_points") % points, Vector2(12, 58), Vector2(180, 16), 10, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "Points")
+		var add_button := _add_small_button(row, "+1", Vector2(230, 23), Vector2(56, 32), Callable(self, "_allocate_specialization").bind(attribute), "Add")
 		if available <= 0:
 			add_button.disabled = true
 			add_button.modulate = Color(0.62, 0.62, 0.62, 0.9)
@@ -1007,6 +1057,7 @@ func _add_profile_avatar_button(parent: Control, avatar_id: int, pos: Vector2, s
 func _apply_profile_avatar(avatar_id: int) -> void:
 	var editor := get_node_or_null("AvatarEditorPopup")
 	if editor != null:
+		remove_child(editor)
 		editor.queue_free()
 	SaveManager.update_current_save({"avatar_id": avatar_id, "avatar_type": "preset"})
 	_refresh_save_data()
@@ -1097,6 +1148,10 @@ func _show_bag() -> void:
 	InventoryManager.ensure_default_inventory()
 	_refresh_save_data()
 	if bag_popup != null and is_instance_valid(bag_popup):
+		# remove_child before queue_free: using an item calls back into this
+		# same function in the same frame (see e.g. the evolution-item flow),
+		# so a fast second use can't land on a stale, about-to-be-freed popup.
+		remove_child(bag_popup)
 		bag_popup.queue_free()
 
 	selected_bag_item = {}
@@ -1298,6 +1353,7 @@ func _show_stat_boost_targets(item: Dictionary) -> void:
 
 	var existing := get_node_or_null("StatBoostTargetPopup")
 	if existing != null:
+		remove_child(existing)
 		existing.queue_free()
 
 	var popup := _create_popup(_text("choose_pokemon"), "StatBoostTargetPopup", 92.0, 420.0)
@@ -1388,6 +1444,7 @@ func _show_cure_status_targets(item: Dictionary) -> void:
 
 	var existing := get_node_or_null("CureStatusPopup")
 	if existing != null:
+		remove_child(existing)
 		existing.queue_free()
 	var popup := _create_popup(_text("choose_pokemon"), "CureStatusPopup", 92.0, 420.0)
 	UI.add_panel_label(popup, _item_name(item), Vector2(42, 154), Vector2(276, 30), 15, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "CureInfo")
@@ -1436,6 +1493,7 @@ func _show_grant_xp_targets(item: Dictionary) -> void:
 
 	var existing := get_node_or_null("GrantXpPopup")
 	if existing != null:
+		remove_child(existing)
 		existing.queue_free()
 	var popup := _create_popup(_text("choose_pokemon"), "GrantXpPopup", 92.0, 420.0)
 	UI.add_panel_label(popup, "%s\n+%d XP" % [_item_name(item), int(item.get("effect_value", 100))], Vector2(42, 154), Vector2(276, 44), 15, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "XpInfo")
@@ -1551,6 +1609,7 @@ func _show_evolution_stone_targets(item: Dictionary) -> void:
 
 	var existing := get_node_or_null("EvolutionStonePopup")
 	if existing != null:
+		remove_child(existing)
 		existing.queue_free()
 
 	var popup := _create_popup(_text("choose_pokemon"), "EvolutionStonePopup", 92.0, 420.0)
@@ -1608,6 +1667,10 @@ func _use_evolution_stone(item: Dictionary, team_index: int) -> void:
 func _show_shop() -> void:
 	_refresh_save_data()
 	if shop_popup != null and is_instance_valid(shop_popup):
+		# Buying an item calls back into this same function in the same frame
+		# (see _buy_item) - remove_child first so a fast second purchase can't
+		# land on a stale, about-to-be-freed copy of the shop popup.
+		remove_child(shop_popup)
 		shop_popup.queue_free()
 
 	shop_popup = _create_popup(_text("shop"), "ShopPopup", 34.0, 580.0)
@@ -2430,6 +2493,7 @@ func _change_collection_move(source: String, index: int, move_slot: int, move_na
 	_save_collection_pokemon(source, index, pokemon)
 	var editor := get_node_or_null("MoveEditorPopup")
 	if editor != null:
+		remove_child(editor)
 		editor.queue_free()
 	_show_pokemon_detail(source, index)
 
@@ -2498,6 +2562,7 @@ func _show_pokedex() -> void:
 	_close_pokemon_popup()
 	var existing_dex := get_node_or_null("PokeDexPopup")
 	if existing_dex != null:
+		remove_child(existing_dex)
 		existing_dex.queue_free()
 	var popup := _create_popup(_text("pokedex"), "PokeDexPopup", 34.0, 580.0, Callable(self, "_show_pokemon_collection"))
 	var all_species_ids := PokemonHelpers.available_species_ids()
@@ -3085,6 +3150,7 @@ func _withdraw_storage_pokemon(storage_index: int) -> void:
 
 func _show_storage() -> void:
 	if storage_popup != null and is_instance_valid(storage_popup):
+		remove_child(storage_popup)
 		storage_popup.queue_free()
 	storage_popup = _create_popup(_text("storage"), "StoragePopup", 34.0, 580.0)
 
@@ -3288,11 +3354,17 @@ func _set_center_heal_enabled(enabled: bool) -> void:
 
 
 func _close_pokemon_popup() -> void:
+	# remove_child before queue_free: _heal_team() re-enters _show_pokemon_center()
+	# (which calls this) in the same frame, so a stale, about-to-be-freed popup
+	# could otherwise still be sitting in the tree under the same node name.
 	if pokemon_popup != null and is_instance_valid(pokemon_popup):
+		remove_child(pokemon_popup)
 		pokemon_popup.queue_free()
 	if pokemon_center_popup != null and is_instance_valid(pokemon_center_popup):
+		remove_child(pokemon_center_popup)
 		pokemon_center_popup.queue_free()
 	if storage_popup != null and is_instance_valid(storage_popup):
+		remove_child(storage_popup)
 		storage_popup.queue_free()
 	pokemon_popup = null
 	pokemon_center_popup = null
@@ -3345,6 +3417,13 @@ func _show_debug_menu() -> void:
 		return
 
 	if debug_popup != null and is_instance_valid(debug_popup):
+		# remove_child before queue_free: every debug action (e.g. tapping "+1"
+		# on badges repeatedly) calls back into this same function in the same
+		# frame via _update_debug_save(). queue_free() alone doesn't detach the
+		# node until the frame ends, so a fast second tap could land on a
+		# stale, about-to-be-freed popup instead of the live one - looking like
+		# the action silently did nothing.
+		remove_child(debug_popup)
 		debug_popup.queue_free()
 
 	debug_popup = _create_popup(_text("debug_menu"), "DebugPopup", 34.0, 580.0)
