@@ -1191,9 +1191,16 @@ func _apply_profile_avatar(avatar_id: int) -> void:
 
 func _show_world_map() -> void:
 	if bag_popup != null and is_instance_valid(bag_popup):
+		remove_child(bag_popup)
 		bag_popup.queue_free()
 
 	if world_popup != null and is_instance_valid(world_popup):
+		# remove_child before queue_free: queue_free() alone doesn't detach
+		# the node until end of frame, so a fast double-tap on the map icon
+		# could land a second WorldMapPopup on top of the still-not-yet-freed
+		# first one (the same popup-stacking bug fixed elsewhere this
+		# session) instead of replacing it.
+		remove_child(world_popup)
 		world_popup.queue_free()
 
 	world_popup = _create_popup(_text("world_map"), "WorldMapPopup", 34.0, 580.0)

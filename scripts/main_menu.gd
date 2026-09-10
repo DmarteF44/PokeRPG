@@ -195,6 +195,10 @@ func _update_menu_texts() -> void:
 
 func _show_load_game() -> void:
 	if load_popup != null and is_instance_valid(load_popup):
+		# remove_child before queue_free: a fast double-tap on the Load Game
+		# button would otherwise land a second popup on top of the first
+		# one (queue_free() doesn't detach the node until end of frame).
+		remove_child(load_popup)
 		load_popup.queue_free()
 
 	load_popup = _create_popup(_text("load_game"), 60.0, 520.0)
@@ -496,6 +500,13 @@ func _starters_for_generation(generation: int) -> Array:
 func _refresh_starter_buttons() -> void:
 	for button in starter_buttons:
 		if is_instance_valid(button):
+			# remove_child before queue_free: a fast double-tap switching
+			# generation tabs would otherwise leave the previous
+			# generation's starter buttons still in the tree (queue_free()
+			# doesn't detach until end of frame), stacked exactly on top of
+			# the new generation's buttons at the same positions.
+			if button.get_parent() != null:
+				button.get_parent().remove_child(button)
 			button.queue_free()
 	starter_buttons.clear()
 	if new_game_content == null or not is_instance_valid(new_game_content):

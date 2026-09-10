@@ -1367,6 +1367,7 @@ func _grant_cup_items(item_gains) -> String:
 
 func _add_cup_next_button() -> void:
 	if action_panel != null and is_instance_valid(action_panel):
+		remove_child(action_panel)
 		action_panel.queue_free()
 	_hide_attack_panel()
 	UI.add_orange_button(self, _text("next_battle"), Vector2(70, 540), Vector2(220, 48), Callable(self, "_continue_cup_battle"), "NextCupBattle")
@@ -1750,6 +1751,12 @@ func _effect_path_for_move(move: Dictionary) -> String:
 
 func _hide_attack_panel() -> void:
 	if attack_panel != null and is_instance_valid(attack_panel):
+		# remove_child before queue_free: called at the start of every
+		# Fight/Bag/Pokemon panel switch, all directly tappable - without
+		# this, rapidly tapping e.g. Bag then Pokemon could leave the old
+		# panel's buttons still in the tree (queue_free() doesn't detach
+		# until end of frame) rendering underneath the new one.
+		remove_child(attack_panel)
 		attack_panel.queue_free()
 	attack_panel = null
 
@@ -2320,6 +2327,7 @@ func _refresh_special_action_buttons() -> void:
 
 func _refresh_mega_button() -> void:
 	if mega_button != null and is_instance_valid(mega_button):
+		remove_child(mega_button)
 		mega_button.queue_free()
 		mega_button = null
 	if battle_over or capture_in_progress:
@@ -2378,6 +2386,7 @@ func _can_dynamax() -> bool:
 
 func _refresh_dynamax_button() -> void:
 	if dynamax_button != null and is_instance_valid(dynamax_button):
+		remove_child(dynamax_button)
 		dynamax_button.queue_free()
 		dynamax_button = null
 	if battle_over or capture_in_progress:
@@ -2440,6 +2449,7 @@ func _can_terastallize() -> bool:
 
 func _refresh_tera_button() -> void:
 	if tera_button != null and is_instance_valid(tera_button):
+		remove_child(tera_button)
 		tera_button.queue_free()
 		tera_button = null
 	if battle_over or capture_in_progress:
@@ -2538,6 +2548,7 @@ func _item_name(item_id: String) -> String:
 
 func _add_return_button() -> void:
 	if action_panel != null and is_instance_valid(action_panel):
+		remove_child(action_panel)
 		action_panel.queue_free()
 	_hide_attack_panel()
 	UI.add_orange_button(self, _text("return_home"), Vector2(70, 540), Vector2(220, 48), Callable(self, "_return_home"), "ReturnHome")
@@ -2545,6 +2556,7 @@ func _add_return_button() -> void:
 
 func _add_gym_next_button() -> void:
 	if action_panel != null and is_instance_valid(action_panel):
+		remove_child(action_panel)
 		action_panel.queue_free()
 	_hide_attack_panel()
 	UI.add_orange_button(self, _text("next_battle"), Vector2(70, 540), Vector2(220, 48), Callable(self, "_continue_gym_battle"), "NextGymBattle")
