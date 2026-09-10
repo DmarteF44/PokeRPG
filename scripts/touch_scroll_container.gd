@@ -19,6 +19,20 @@ var _suppress_next_release := false
 const DRAG_CANCEL_THRESHOLD := 14.0
 
 
+func _ready() -> void:
+	# Every screen in this app uses this container for a purely vertical
+	# list - nothing here ever intends horizontal scrolling. Disabling the
+	# axis outright (not just refraining from driving it below) is what
+	# actually stops it: if some row's content is even a couple pixels
+	# wider than the container (an oversized child, a border, autowrap
+	# rounding), Godot still creates a real - if tiny - horizontal scroll
+	# range on its own, and a vertical drag's natural left/right wobble was
+	# enough to visibly nudge into it on exactly those screens (never on
+	# ones with no such overflow), reading as "some screens drift sideways
+	# when I scroll down and others don't".
+	horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+
+
 func _input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
 		if event.pressed and get_global_rect().has_point(event.position):
@@ -38,7 +52,6 @@ func _input(event: InputEvent) -> void:
 			_suppress_next_release = false
 	elif event is InputEventScreenDrag and _drag_active:
 		scroll_vertical -= int(event.relative.y)
-		scroll_horizontal -= int(event.relative.x)
 		_total_drag_distance += event.relative.length()
 		if _total_drag_distance > DRAG_CANCEL_THRESHOLD:
 			_suppress_next_release = true
