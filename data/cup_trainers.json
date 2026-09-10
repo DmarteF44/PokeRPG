@@ -510,4 +510,387 @@
       {"species": "metagross", "level": 56}
     ]
   }
+,
+  "cup_fire_specialist_ren": {
+    "name": "Ren",
+    "title_en": "Fire Specialist",
+    "title_pt": "Especialista em Fogo",
+    "region": "",
+    "specialty": "Fire",
+    "trainer_level": 24,
+    "difficulty": "intermediate",
+    "ai_strategy": "type_specialist",
+    "team": [
+      {"species": "charmeleon", "level": 22},
+      {"species": "ninetales", "level": 24},
+      {"species": "rapidash", "level": 23}
+    ]
+  },
+  "cup_fire_specialist_yara": {
+    "name": "Yara",
+    "title_en": "Fire Specialist",
+    "title_pt": "Especialista em Fogo",
+    "region": "",
+    "specialty": "Fire",
+    "trainer_level": 31,
+    "difficulty": "advanced",
+    "ai_strategy": "type_specialist",
+    "team": [
+      {"species": "arcanine", "level": 28},
+      {"species": "magmortar", "level": 29},
+      {"species": "typhlosion", "level": 30},
+      {"species": "houndoom", "level": 31}
+    ]
+  },
+  "cup_champion_ember": {
+    "name": "Ember",
+    "title_en": "Blaze Champion",
+    "title_pt": "Campeão da Chama",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 37,
+    "difficulty": "champion",
+    "ai_strategy": "champion",
+    "team": [
+      {"species": "charizard", "level": 34},
+      {"species": "blaziken", "level": 35},
+      {"species": "infernape", "level": 36},
+      {"species": "talonflame", "level": 34},
+      {"species": "incineroar", "level": 37}
+    ]
+  },
+  "cup_water_specialist_noa": {
+    "name": "Noa",
+    "title_en": "Water Specialist",
+    "title_pt": "Especialista em Água",
+    "region": "",
+    "specialty": "Water",
+    "trainer_level": 23,
+    "difficulty": "intermediate",
+    "ai_strategy": "type_specialist",
+    "team": [
+      {"species": "wartortle", "level": 22},
+      {"species": "poliwhirl", "level": 23},
+      {"species": "seaking", "level": 24}
+    ]
+  },
+  "cup_water_specialist_marisol": {
+    "name": "Marisol",
+    "title_en": "Water Specialist",
+    "title_pt": "Especialista em Água",
+    "region": "",
+    "specialty": "Water",
+    "trainer_level": 30,
+    "difficulty": "advanced",
+    "ai_strategy": "type_specialist",
+    "team": [
+      {"species": "gyarados", "level": 28},
+      {"species": "starmie", "level": 29},
+      {"species": "feraligatr", "level": 30},
+      {"species": "kingdra", "level": 31}
+    ]
+  },
+  "cup_champion_tide": {
+    "name": "Tide",
+    "title_en": "Deep Sea Champion",
+    "title_pt": "Campeão das Profundezas",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 37,
+    "difficulty": "champion",
+    "ai_strategy": "champion",
+    "team": [
+      {"species": "blastoise", "level": 34},
+      {"species": "swampert", "level": 35},
+      {"species": "empoleon", "level": 36},
+      {"species": "milotic", "level": 36},
+      {"species": "greninja", "level": 37}
+    ]
+  },
+  "cup_grass_specialist_finn": {
+    "name": "Finn",
+    "title_en": "Grass Specialist",
+    "title_pt": "Especialista em Planta",
+    "region": "",
+    "specialty": "Grass",
+    "trainer_level": 22,
+    "difficulty": "intermediate",
+    "ai_strategy": "type_specialist",
+    "team": [
+      {"species": "ivysaur", "level": 22},
+      {"species": "gloom", "level": 23},
+      {"species": "exeggcute", "level": 22}
+    ]
+  },
+  "cup_grass_specialist_willow": {
+    "name": "Willow",
+    "title_en": "Grass Specialist",
+    "title_pt": "Especialista em Planta",
+    "region": "",
+    "specialty": "Grass",
+    "trainer_level": 30,
+    "difficulty": "advanced",
+    "ai_strategy": "type_specialist",
+    "team": [
+      {"species": "victreebel", "level": 28},
+      {"species": "tangrowth", "level": 29},
+      {"species": "meganium", "level": 30},
+      {"species": "roserade", "level": 31}
+    ]
+  },
+  "cup_champion_bloom": {
+    "name": "Bloom",
+    "title_en": "Verdant Champion",
+    "title_pt": "Campeão Verdejante",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 37,
+    "difficulty": "champion",
+    "ai_strategy": "champion",
+    "team": [
+      {"species": "venusaur", "level": 34},
+      {"species": "sceptile", "level": 35},
+      {"species": "torterra", "level": 36},
+      {"species": "serperior", "level": 36},
+      {"species": "decidueye", "level": 37}
+    ]
+  },
+  "cup_electric_specialist_dax": {
+    "name": "Dax",
+    "title_en": "Electric Specialist",
+    "title_pt": "Especialista em Elétrico",
+    "region": "",
+    "specialty": "Electric",
+    "trainer_level": 23,
+    "difficulty": "intermediate",
+    "ai_strategy": "type_specialist",
+    "team": [
+      {"species": "pikachu", "level": 22},
+      {"species": "voltorb", "level": 23},
+      {"species": "magneton", "level": 24}
+    ]
+  },
+  "cup_electric_specialist_shizu": {
+    "name": "Shizu",
+    "title_en": "Electric Specialist",
+    "title_pt": "Especialista em Elétrico",
+    "region": "",
+    "specialty": "Electric",
+    "trainer_level": 30,
+    "difficulty": "advanced",
+    "ai_strategy": "type_specialist",
+    "team": [
+      {"species": "electabuzz", "level": 28},
+      {"species": "ampharos", "level": 29},
+      {"species": "manectric", "level": 30},
+      {"species": "luxray", "level": 31}
+    ]
+  },
+  "cup_champion_volt": {
+    "name": "Volt",
+    "title_en": "Thunder Champion",
+    "title_pt": "Campeão do Trovão",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 37,
+    "difficulty": "champion",
+    "ai_strategy": "champion",
+    "team": [
+      {"species": "raichu", "level": 34},
+      {"species": "electivire", "level": 35},
+      {"species": "magnezone", "level": 36},
+      {"species": "zebstrika", "level": 36},
+      {"species": "galvantula", "level": 37}
+    ]
+  },
+  "cup_dragon_specialist_kova": {
+    "name": "Kova",
+    "title_en": "Dragon Specialist",
+    "title_pt": "Especialista em Dragão",
+    "region": "",
+    "specialty": "Dragon",
+    "trainer_level": 31,
+    "difficulty": "advanced",
+    "ai_strategy": "type_specialist",
+    "team": [
+      {"species": "dragonair", "level": 30},
+      {"species": "shelgon", "level": 31},
+      {"species": "gible", "level": 32}
+    ]
+  },
+  "cup_dragon_specialist_oren": {
+    "name": "Oren",
+    "title_en": "Dragon Specialist",
+    "title_pt": "Especialista em Dragão",
+    "region": "",
+    "specialty": "Dragon",
+    "trainer_level": 39,
+    "difficulty": "expert",
+    "ai_strategy": "type_specialist",
+    "team": [
+      {"species": "flygon", "level": 37},
+      {"species": "altaria", "level": 38},
+      {"species": "druddigon", "level": 39},
+      {"species": "dragalge", "level": 40}
+    ]
+  },
+  "cup_champion_wyrm": {
+    "name": "Wyrm",
+    "title_en": "Dragon Champion",
+    "title_pt": "Campeão Dragão",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 50,
+    "difficulty": "champion",
+    "ai_strategy": "champion",
+    "team": [
+      {"species": "dragonite", "level": 46},
+      {"species": "salamence", "level": 47},
+      {"species": "garchomp", "level": 48},
+      {"species": "hydreigon", "level": 49},
+      {"species": "haxorus", "level": 50}
+    ]
+  },
+  "cup_shadowhunter_vex": {
+    "name": "Vex",
+    "title_en": "Shadow Hunter",
+    "title_pt": "Caçador das Sombras",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 29,
+    "difficulty": "intermediate",
+    "ai_strategy": "offensive",
+    "team": [
+      {"species": "houndoom", "level": 28},
+      {"species": "absol", "level": 29},
+      {"species": "sableye", "level": 27}
+    ]
+  },
+  "cup_shadowhunter_morrigan": {
+    "name": "Morrigan",
+    "title_en": "Shadow Hunter",
+    "title_pt": "Caçadora das Sombras",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 35,
+    "difficulty": "advanced",
+    "ai_strategy": "offensive",
+    "team": [
+      {"species": "umbreon", "level": 33},
+      {"species": "honchkrow", "level": 34},
+      {"species": "bisharp", "level": 35}
+    ]
+  },
+  "cup_champion_eclipse": {
+    "name": "Eclipse",
+    "title_en": "Black Cup Champion",
+    "title_pt": "Campeão da Copa Negra",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 42,
+    "difficulty": "champion",
+    "ai_strategy": "champion",
+    "team": [
+      {"species": "tyranitar", "level": 38},
+      {"species": "weavile", "level": 39},
+      {"species": "hydreigon", "level": 40},
+      {"species": "spiritomb", "level": 41},
+      {"species": "grimmsnarl", "level": 42}
+    ]
+  },
+  "cup_legendary_guardian_north": {
+    "name": "Guardian of the North",
+    "title_en": "Legendary Birds",
+    "title_pt": "Aves Lendárias",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 57,
+    "difficulty": "expert",
+    "ai_strategy": "champion",
+    "team": [
+      {"species": "articuno", "level": 55},
+      {"species": "zapdos", "level": 56},
+      {"species": "moltres", "level": 57}
+    ]
+  },
+  "cup_legendary_guardian_beasts": {
+    "name": "Keeper of the Beasts",
+    "title_en": "Legendary Beasts",
+    "title_pt": "Feras Lendárias",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 65,
+    "difficulty": "expert",
+    "ai_strategy": "champion",
+    "team": [
+      {"species": "raikou", "level": 62},
+      {"species": "entei", "level": 63},
+      {"species": "suicune", "level": 64},
+      {"species": "latios", "level": 65}
+    ]
+  },
+  "cup_champion_ancient": {
+    "name": "The Ancient One",
+    "title_en": "Legendary Cup Champion",
+    "title_pt": "Campeão da Copa Lendária",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 74,
+    "difficulty": "champion",
+    "ai_strategy": "champion",
+    "team": [
+      {"species": "mewtwo", "level": 68},
+      {"species": "lugia", "level": 70},
+      {"species": "ho_oh", "level": 71},
+      {"species": "rayquaza", "level": 72},
+      {"species": "dialga", "level": 73},
+      {"species": "palkia", "level": 74}
+    ]
+  },
+  "cup_random_wanderer_pip": {
+    "name": "Pip",
+    "title_en": "Wandering Trainer",
+    "title_pt": "Treinador Andarilho",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 14,
+    "difficulty": "beginner",
+    "ai_strategy": "balanced",
+    "team": [
+      {"species": "rattata", "level": 12},
+      {"species": "pidgey", "level": 13},
+      {"species": "zubat", "level": 14}
+    ]
+  },
+  "cup_random_wanderer_dez": {
+    "name": "Dez",
+    "title_en": "Wandering Trainer",
+    "title_pt": "Treinador Andarilho",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 20,
+    "difficulty": "intermediate",
+    "ai_strategy": "balanced",
+    "team": [
+      {"species": "furret", "level": 18},
+      {"species": "linoone", "level": 19},
+      {"species": "bibarel", "level": 20}
+    ]
+  },
+  "cup_champion_wildcard": {
+    "name": "Wildcard",
+    "title_en": "Random Cup Champion",
+    "title_pt": "Campeão da Copa Aleatória",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 25,
+    "difficulty": "champion",
+    "ai_strategy": "champion",
+    "team": [
+      {"species": "snorlax", "level": 23},
+      {"species": "tauros", "level": 24},
+      {"species": "kangaskhan", "level": 25},
+      {"species": "ditto", "level": 22}
+    ]
+  }
 }

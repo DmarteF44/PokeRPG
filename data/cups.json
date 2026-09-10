@@ -509,4 +509,459 @@
     "first_completion_rewards": {"money": 30000, "xp": 6000, "items": {"xp_potion": 12, "master_ball": 1, "black_charm": 1}},
     "repeat_rewards": {"money": 22000, "xp": 3500, "items": {"xp_potion": 6}}
   }
+,
+  "fire_cup": {
+    "order": 12,
+    "implemented": true,
+    "name_en": "Fire Cup",
+    "name_pt": "Copa Fogo",
+    "description_en": "Special rule: every Pokemon on your team must be Fire type. Bring the heat or don't bother entering.",
+    "description_pt": "Regra especial: todo Pokémon do seu time precisa ser do tipo Fogo. Traga o calor ou nem entre.",
+    "region": "",
+    "tier": "special",
+    "category": "special",
+    "min_trainer_level": 28,
+    "requirements": {
+      "cups_completed": ["kanto_cup"]
+    },
+    "team_rules": {"required_type": "Fire"},
+    "entry_cost": 1200,
+    "participant_count": 8,
+    "battle_format": "single",
+    "max_team_size": 6,
+    "items_allowed": true,
+    "heal_between_rounds": "full",
+    "repeatable": true,
+    "badge_id": "fire_cup_badge",
+    "badge_name_en": "Fire Cup Badge",
+    "badge_name_pt": "Insígnia da Copa Fogo",
+    "rounds": [
+      {
+        "name_en": "Quarterfinal",
+        "name_pt": "Quartas de Final",
+        "trainer_id": "cup_fire_specialist_ren",
+        "rewards": {"money": 900, "xp": 180}
+      },
+      {
+        "name_en": "Semifinal",
+        "name_pt": "Semifinal",
+        "trainer_id": "cup_fire_specialist_yara",
+        "rewards": {"money": 1800, "xp": 360}
+      },
+      {
+        "name_en": "Final",
+        "name_pt": "Final",
+        "trainer_id": "cup_champion_ember",
+        "rewards": {"money": 4000, "xp": 800},
+        "is_final": true
+      }
+    ],
+    "first_completion_rewards": {
+      "money": 4000,
+      "xp": 800,
+      "items": {"flame_plate": 1}
+    },
+    "repeat_rewards": {
+      "money": 3000,
+      "xp": 500,
+      "items": {"xp_potion": 1}
+    }
+  },
+  "water_cup": {
+    "order": 13,
+    "implemented": true,
+    "name_en": "Water Cup",
+    "name_pt": "Copa Água",
+    "description_en": "Special rule: every Pokemon on your team must be Water type. Only true water tamers make it to the final.",
+    "description_pt": "Regra especial: todo Pokémon do seu time precisa ser do tipo Água. Só verdadeiros domadores das águas chegam à final.",
+    "region": "",
+    "tier": "special",
+    "category": "special",
+    "min_trainer_level": 28,
+    "requirements": {
+      "cups_completed": ["kanto_cup"]
+    },
+    "team_rules": {"required_type": "Water"},
+    "entry_cost": 1200,
+    "participant_count": 8,
+    "battle_format": "single",
+    "max_team_size": 6,
+    "items_allowed": true,
+    "heal_between_rounds": "full",
+    "repeatable": true,
+    "badge_id": "water_cup_badge",
+    "badge_name_en": "Water Cup Badge",
+    "badge_name_pt": "Insígnia da Copa Água",
+    "rounds": [
+      {
+        "name_en": "Quarterfinal",
+        "name_pt": "Quartas de Final",
+        "trainer_id": "cup_water_specialist_noa",
+        "rewards": {"money": 900, "xp": 180}
+      },
+      {
+        "name_en": "Semifinal",
+        "name_pt": "Semifinal",
+        "trainer_id": "cup_water_specialist_marisol",
+        "rewards": {"money": 1800, "xp": 360}
+      },
+      {
+        "name_en": "Final",
+        "name_pt": "Final",
+        "trainer_id": "cup_champion_tide",
+        "rewards": {"money": 4000, "xp": 800},
+        "is_final": true
+      }
+    ],
+    "first_completion_rewards": {
+      "money": 4000,
+      "xp": 800,
+      "items": {"splash_plate": 1}
+    },
+    "repeat_rewards": {
+      "money": 3000,
+      "xp": 500,
+      "items": {"xp_potion": 1}
+    }
+  },
+  "grass_cup": {
+    "order": 14,
+    "implemented": true,
+    "name_en": "Grass Cup",
+    "name_pt": "Copa Planta",
+    "description_en": "Special rule: every Pokemon on your team must be Grass type. Roots run deep in this tournament.",
+    "description_pt": "Regra especial: todo Pokémon do seu time precisa ser do tipo Planta. As raízes são profundas neste torneio.",
+    "region": "",
+    "tier": "special",
+    "category": "special",
+    "min_trainer_level": 28,
+    "requirements": {
+      "cups_completed": ["kanto_cup"]
+    },
+    "team_rules": {"required_type": "Grass"},
+    "entry_cost": 1200,
+    "participant_count": 8,
+    "battle_format": "single",
+    "max_team_size": 6,
+    "items_allowed": true,
+    "heal_between_rounds": "full",
+    "repeatable": true,
+    "badge_id": "grass_cup_badge",
+    "badge_name_en": "Grass Cup Badge",
+    "badge_name_pt": "Insígnia da Copa Planta",
+    "rounds": [
+      {
+        "name_en": "Quarterfinal",
+        "name_pt": "Quartas de Final",
+        "trainer_id": "cup_grass_specialist_finn",
+        "rewards": {"money": 900, "xp": 180}
+      },
+      {
+        "name_en": "Semifinal",
+        "name_pt": "Semifinal",
+        "trainer_id": "cup_grass_specialist_willow",
+        "rewards": {"money": 1800, "xp": 360}
+      },
+      {
+        "name_en": "Final",
+        "name_pt": "Final",
+        "trainer_id": "cup_champion_bloom",
+        "rewards": {"money": 4000, "xp": 800},
+        "is_final": true
+      }
+    ],
+    "first_completion_rewards": {
+      "money": 4000,
+      "xp": 800,
+      "items": {"meadow_plate": 1}
+    },
+    "repeat_rewards": {
+      "money": 3000,
+      "xp": 500,
+      "items": {"xp_potion": 1}
+    }
+  },
+  "electric_cup": {
+    "order": 15,
+    "implemented": true,
+    "name_en": "Electric Cup",
+    "name_pt": "Copa Elétrica",
+    "description_en": "Special rule: every Pokemon on your team must be Electric type. Bring the spark or get grounded early.",
+    "description_pt": "Regra especial: todo Pokémon do seu time precisa ser do tipo Elétrico. Traga a faísca ou seja eliminado cedo.",
+    "region": "",
+    "tier": "special",
+    "category": "special",
+    "min_trainer_level": 28,
+    "requirements": {
+      "cups_completed": ["kanto_cup"]
+    },
+    "team_rules": {"required_type": "Electric"},
+    "entry_cost": 1200,
+    "participant_count": 8,
+    "battle_format": "single",
+    "max_team_size": 6,
+    "items_allowed": true,
+    "heal_between_rounds": "full",
+    "repeatable": true,
+    "badge_id": "electric_cup_badge",
+    "badge_name_en": "Electric Cup Badge",
+    "badge_name_pt": "Insígnia da Copa Elétrica",
+    "rounds": [
+      {
+        "name_en": "Quarterfinal",
+        "name_pt": "Quartas de Final",
+        "trainer_id": "cup_electric_specialist_dax",
+        "rewards": {"money": 900, "xp": 180}
+      },
+      {
+        "name_en": "Semifinal",
+        "name_pt": "Semifinal",
+        "trainer_id": "cup_electric_specialist_shizu",
+        "rewards": {"money": 1800, "xp": 360}
+      },
+      {
+        "name_en": "Final",
+        "name_pt": "Final",
+        "trainer_id": "cup_champion_volt",
+        "rewards": {"money": 4000, "xp": 800},
+        "is_final": true
+      }
+    ],
+    "first_completion_rewards": {
+      "money": 4000,
+      "xp": 800,
+      "items": {"zap_plate": 1}
+    },
+    "repeat_rewards": {
+      "money": 3000,
+      "xp": 500,
+      "items": {"xp_potion": 1}
+    }
+  },
+  "dragon_cup": {
+    "order": 16,
+    "implemented": true,
+    "name_en": "Dragon Cup",
+    "name_pt": "Copa Dragão",
+    "description_en": "Special rule: every Pokemon on your team must be Dragon type. A late-game test only serious dragon tamers should attempt.",
+    "description_pt": "Regra especial: todo Pokémon do seu time precisa ser do tipo Dragão. Um teste avançado só para domadores de dragões experientes.",
+    "region": "",
+    "tier": "special",
+    "category": "special",
+    "min_trainer_level": 42,
+    "requirements": {
+      "cups_completed": ["johto_cup"]
+    },
+    "team_rules": {"required_type": "Dragon"},
+    "entry_cost": 3500,
+    "participant_count": 8,
+    "battle_format": "single",
+    "max_team_size": 6,
+    "items_allowed": true,
+    "heal_between_rounds": "full",
+    "repeatable": true,
+    "badge_id": "dragon_cup_badge",
+    "badge_name_en": "Dragon Cup Badge",
+    "badge_name_pt": "Insígnia da Copa Dragão",
+    "rounds": [
+      {
+        "name_en": "Quarterfinal",
+        "name_pt": "Quartas de Final",
+        "trainer_id": "cup_dragon_specialist_kova",
+        "rewards": {"money": 2200, "xp": 440}
+      },
+      {
+        "name_en": "Semifinal",
+        "name_pt": "Semifinal",
+        "trainer_id": "cup_dragon_specialist_oren",
+        "rewards": {"money": 4200, "xp": 850}
+      },
+      {
+        "name_en": "Final",
+        "name_pt": "Final",
+        "trainer_id": "cup_champion_wyrm",
+        "rewards": {"money": 9000, "xp": 1800},
+        "is_final": true
+      }
+    ],
+    "first_completion_rewards": {
+      "money": 9000,
+      "xp": 1800,
+      "items": {"draco_plate": 1}
+    },
+    "repeat_rewards": {
+      "money": 6500,
+      "xp": 1200,
+      "items": {"xp_potion": 2}
+    }
+  },
+  "black_cup": {
+    "order": 17,
+    "implemented": true,
+    "name_en": "Black Cup",
+    "name_pt": "Copa Negra",
+    "description_en": "Special rule: every Pokemon on your team must be Black. As rare as Shiny, but only the boldest hunt them.",
+    "description_pt": "Regra especial: todo Pokémon do seu time precisa ser Black. Tão raro quanto Shiny, mas só os mais ousados os caçam.",
+    "region": "",
+    "tier": "special",
+    "category": "special",
+    "min_trainer_level": 34,
+    "requirements": {
+      "cups_completed": ["shiny_cup"]
+    },
+    "team_rules": {"required_variant": "black"},
+    "entry_cost": 2000,
+    "participant_count": 8,
+    "battle_format": "single",
+    "max_team_size": 6,
+    "items_allowed": true,
+    "heal_between_rounds": "full",
+    "repeatable": true,
+    "badge_id": "black_cup_badge",
+    "badge_name_en": "Black Cup Badge",
+    "badge_name_pt": "Insígnia da Copa Negra",
+    "rounds": [
+      {
+        "name_en": "Quarterfinal",
+        "name_pt": "Quartas de Final",
+        "trainer_id": "cup_shadowhunter_vex",
+        "rewards": {"money": 1500, "xp": 300}
+      },
+      {
+        "name_en": "Semifinal",
+        "name_pt": "Semifinal",
+        "trainer_id": "cup_shadowhunter_morrigan",
+        "rewards": {"money": 3000, "xp": 600}
+      },
+      {
+        "name_en": "Final",
+        "name_pt": "Final",
+        "trainer_id": "cup_champion_eclipse",
+        "rewards": {"money": 6500, "xp": 1300},
+        "is_final": true
+      }
+    ],
+    "first_completion_rewards": {
+      "money": 6500,
+      "xp": 1300,
+      "items": {"black_charm": 1}
+    },
+    "repeat_rewards": {
+      "money": 5000,
+      "xp": 800,
+      "items": {"xp_potion": 2}
+    }
+  },
+  "legendary_cup": {
+    "order": 18,
+    "implemented": true,
+    "name_en": "Legendary Cup",
+    "name_pt": "Copa Lendária",
+    "description_en": "The true endgame gauntlet - every opponent fields Legendary Pokemon. No team restrictions, but bring your absolute best.",
+    "description_pt": "O verdadeiro desafio final - todo oponente usa Pokémon Lendários. Sem restrição de time, mas traga o seu melhor absoluto.",
+    "region": "",
+    "tier": "master",
+    "category": "special",
+    "min_trainer_level": 65,
+    "requirements": {
+      "cups_completed": ["champions_tournament"]
+    },
+    "entry_cost": 8000,
+    "participant_count": 8,
+    "battle_format": "single",
+    "max_team_size": 6,
+    "items_allowed": true,
+    "heal_between_rounds": "full",
+    "repeatable": true,
+    "badge_id": "legendary_cup_badge",
+    "badge_name_en": "Legendary Cup Badge",
+    "badge_name_pt": "Insígnia da Copa Lendária",
+    "rounds": [
+      {
+        "name_en": "Quarterfinal",
+        "name_pt": "Quartas de Final",
+        "trainer_id": "cup_legendary_guardian_north",
+        "rewards": {"money": 6000, "xp": 1200}
+      },
+      {
+        "name_en": "Semifinal",
+        "name_pt": "Semifinal",
+        "trainer_id": "cup_legendary_guardian_beasts",
+        "rewards": {"money": 12000, "xp": 2400}
+      },
+      {
+        "name_en": "Final",
+        "name_pt": "Final",
+        "trainer_id": "cup_champion_ancient",
+        "rewards": {"money": 30000, "xp": 6000},
+        "is_final": true
+      }
+    ],
+    "first_completion_rewards": {
+      "money": 30000,
+      "xp": 6000,
+      "items": {"master_ball": 1}
+    },
+    "repeat_rewards": {
+      "money": 20000,
+      "xp": 3500,
+      "items": {"xp_potion": 4}
+    }
+  },
+  "random_cup": {
+    "order": 19,
+    "implemented": true,
+    "name_en": "Random Cup",
+    "name_pt": "Copa Aleatória",
+    "description_en": "No team restrictions, no theme - just a casual, anything-goes bracket. A relaxed way to earn Cup badges early.",
+    "description_pt": "Sem restrição de time, sem tema - só um chaveamento casual, vale tudo. Uma forma tranquila de ganhar insígnias de Copa cedo.",
+    "region": "",
+    "tier": "bronze",
+    "category": "special",
+    "min_trainer_level": 15,
+    "requirements": {
+      "cups_completed": ["kanto_cup"]
+    },
+    "entry_cost": 300,
+    "participant_count": 8,
+    "battle_format": "single",
+    "max_team_size": 6,
+    "items_allowed": true,
+    "heal_between_rounds": "full",
+    "repeatable": true,
+    "badge_id": "random_cup_badge",
+    "badge_name_en": "Random Cup Badge",
+    "badge_name_pt": "Insígnia da Copa Aleatória",
+    "rounds": [
+      {
+        "name_en": "Quarterfinal",
+        "name_pt": "Quartas de Final",
+        "trainer_id": "cup_random_wanderer_pip",
+        "rewards": {"money": 400, "xp": 80}
+      },
+      {
+        "name_en": "Semifinal",
+        "name_pt": "Semifinal",
+        "trainer_id": "cup_random_wanderer_dez",
+        "rewards": {"money": 800, "xp": 160}
+      },
+      {
+        "name_en": "Final",
+        "name_pt": "Final",
+        "trainer_id": "cup_champion_wildcard",
+        "rewards": {"money": 1800, "xp": 360},
+        "is_final": true
+      }
+    ],
+    "first_completion_rewards": {
+      "money": 1800,
+      "xp": 360,
+      "items": {"xp_potion": 2}
+    },
+    "repeat_rewards": {
+      "money": 1200,
+      "xp": 250,
+      "items": {"xp_potion": 1}
+    }
+  }
 }
