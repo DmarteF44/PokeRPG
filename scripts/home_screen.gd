@@ -9,6 +9,7 @@ const CupManager = preload("res://scripts/cup_manager.gd")
 const ITEMS_PATH = "res://data/items.json"
 const CATEGORIES = ["pokeballs", "cura", "evolution", "atributos", "xp", "buffs", "pesca", "key_items", "outros"]
 const CATEGORY_TABS_PER_ROW = 3
+const DEBUG_TAB_ORDER = ["pokemon", "battle", "encounters", "capture", "evolution", "state", "logs", "system"]
 const TEAM_LIMIT = SaveManager.MAX_TEAM_SIZE
 const POKEMON_CENTER_COST = 250
 const POKEMON_CENTER_SECONDS = 3
@@ -145,6 +146,15 @@ const TEXT = {
 			"spec_desc_sorte": "Planned: luck-based bonus (rare items, etc). Not active yet.",
 			"spec_desc_pesquisa": "Planned: Pokedex research speed bonus. Not active yet.",
 		"debug_menu": "Debug Menu",
+		"debug_tab_pokemon": "Pokemon",
+		"debug_tab_battle": "Battle",
+		"debug_tab_encounters": "Encounters",
+		"debug_tab_capture": "Capture",
+		"debug_tab_evolution": "Evolution",
+		"debug_tab_state": "State",
+		"debug_tab_logs": "Logs",
+		"debug_tab_system": "System",
+		"debug_tab_empty": "No debug tools here yet.",
 		"debug_gold": "Gold",
 		"debug_account_xp": "Account XP",
 		"debug_badges": "Badges",
@@ -499,6 +509,15 @@ const TEXT = {
 			"spec_desc_sorte": "Planejado: bônus de sorte (itens raros, etc). Ainda não ativo.",
 			"spec_desc_pesquisa": "Planejado: bônus de velocidade de pesquisa da Pokédex. Ainda não ativo.",
 		"debug_menu": "Menu Debug",
+		"debug_tab_pokemon": "Pokémon",
+		"debug_tab_battle": "Batalha",
+		"debug_tab_encounters": "Encontros",
+		"debug_tab_capture": "Captura",
+		"debug_tab_evolution": "Evolução",
+		"debug_tab_state": "Estado",
+		"debug_tab_logs": "Logs",
+		"debug_tab_system": "Sistema",
+		"debug_tab_empty": "Nenhuma ferramenta de debug aqui ainda.",
 		"debug_gold": "Gold",
 		"debug_account_xp": "XP da conta",
 		"debug_badges": "Insígnias",
@@ -756,6 +775,9 @@ var debug_click_count := 0
 var debug_click_deadline_msec := 0
 var debug_enabled := true
 var debug_popup: Control
+# Top-level debug tab (Pokemon/Battle/Encounters/Capture/Evolution/State/
+# Logs/System) - only this tab's sections are shown below the tab bar.
+var debug_active_tab := "pokemon"
 # Which debug section is expanded (accordion - only one open at a time, the
 # rest collapse to just their header). "" means all collapsed.
 var debug_expanded_section := ""
@@ -3880,10 +3902,33 @@ func _show_debug_menu() -> void:
 		debug_popup.queue_free()
 
 	debug_popup = _create_popup(_text("debug_menu"), "DebugPopup", 34.0, 580.0)
+
+	# Top-level tab bar (2 rows of 4) - which tab is active narrows the
+	# accordion below to just that tab's categories, instead of one long
+	# scroll through everything at once.
+	var tab_titles := {
+		"pokemon": _text("debug_tab_pokemon"),
+		"battle": _text("debug_tab_battle"),
+		"encounters": _text("debug_tab_encounters"),
+		"capture": _text("debug_tab_capture"),
+		"evolution": _text("debug_tab_evolution"),
+		"state": _text("debug_tab_state"),
+		"logs": _text("debug_tab_logs"),
+		"system": _text("debug_tab_system"),
+	}
+	for i in range(DEBUG_TAB_ORDER.size()):
+		var tab_key: String = DEBUG_TAB_ORDER[i]
+		var col := i % 4
+		var row := i / 4
+		var pos := Vector2(20.0 + float(col) * 74.0, 90.0 + float(row) * 34.0)
+		var tab_button := _add_small_button(debug_popup, str(tab_titles[tab_key]), pos, Vector2(70, 30), Callable(self, "_debug_select_tab").bind(tab_key), "DebugTab%s" % tab_key.capitalize())
+		var selected := debug_active_tab == tab_key
+		UI.style_panel_button(tab_button, Color(0.95, 0.78, 0.32) if selected else Color(0.82, 0.88, 0.94), Color(0.92, 0.46, 0.08) if selected else Color(0.36, 0.50, 0.62), 2)
+
 	var scroll := TouchScrollContainer.new()
 	scroll.name = "DebugScroll"
-	scroll.position = Vector2(28, 100)
-	scroll.size = Vector2(304, 438)
+	scroll.position = Vector2(28, 164)
+	scroll.size = Vector2(304, 374)
 	debug_popup.add_child(scroll)
 
 	var content := Control.new()
@@ -3891,28 +3936,32 @@ func _show_debug_menu() -> void:
 	content.custom_minimum_size = Vector2(304, 806)
 	scroll.add_child(content)
 
-	# Accordion: every category always shows its header, but only the
-	# expanded one (debug_expanded_section) actually builds its rows below
-	# it - the rest collapse to just their header line. Keeps a menu this
-	# large (10+ categories) from being one long wall of buttons to scroll
-	# through, and makes which category is open unambiguous.
+	# Accordion: every category in the active tab always shows its header,
+	# but only the expanded one (debug_expanded_section) actually builds its
+	# rows below it - the rest collapse to just their header line. Keeps a
+	# menu this large from being one long wall of buttons to scroll through,
+	# and makes which category is open unambiguous.
 	var categories := [
-		{"key": "gold", "title": _text("debug_gold"), "build": Callable(self, "_debug_build_gold_rows")},
-		{"key": "account_xp", "title": _text("debug_account_xp"), "build": Callable(self, "_debug_build_account_xp_rows")},
-		{"key": "badges", "title": _text("debug_badges"), "build": Callable(self, "_debug_build_badges_rows")},
-		{"key": "cups", "title": _text("debug_cups"), "build": Callable(self, "_debug_build_cups_rows")},
-		{"key": "energy", "title": _text("debug_energy"), "build": Callable(self, "_debug_build_energy_rows")},
-		{"key": "pokemon", "title": _text("debug_pokemon"), "build": Callable(self, "_debug_build_pokemon_rows")},
-		{"key": "add_any", "title": _text("debug_add_any_pokemon"), "build": Callable(self, "_add_debug_pokemon_id_input")},
-		{"key": "specialization", "title": _text("debug_specialization"), "build": Callable(self, "_debug_build_specialization_rows")},
-		{"key": "team", "title": _text("debug_team"), "build": Callable(self, "_debug_build_team_rows")},
-		{"key": "level_up_team", "title": _text("debug_level_up_team"), "build": Callable(self, "_add_debug_team_level_rows")},
-		{"key": "variants", "title": _text("debug_variants"), "build": Callable(self, "_debug_build_variants_rows")},
-		{"key": "storage", "title": _text("debug_storage"), "build": Callable(self, "_debug_build_storage_rows")},
+		{"key": "gold", "tab": "state", "title": _text("debug_gold"), "build": Callable(self, "_debug_build_gold_rows")},
+		{"key": "account_xp", "tab": "state", "title": _text("debug_account_xp"), "build": Callable(self, "_debug_build_account_xp_rows")},
+		{"key": "badges", "tab": "state", "title": _text("debug_badges"), "build": Callable(self, "_debug_build_badges_rows")},
+		{"key": "energy", "tab": "state", "title": _text("debug_energy"), "build": Callable(self, "_debug_build_energy_rows")},
+		{"key": "cups", "tab": "system", "title": _text("debug_cups"), "build": Callable(self, "_debug_build_cups_rows")},
+		{"key": "pokemon", "tab": "pokemon", "title": _text("debug_pokemon"), "build": Callable(self, "_debug_build_pokemon_rows")},
+		{"key": "add_any", "tab": "pokemon", "title": _text("debug_add_any_pokemon"), "build": Callable(self, "_add_debug_pokemon_id_input")},
+		{"key": "specialization", "tab": "pokemon", "title": _text("debug_specialization"), "build": Callable(self, "_debug_build_specialization_rows")},
+		{"key": "team", "tab": "pokemon", "title": _text("debug_team"), "build": Callable(self, "_debug_build_team_rows")},
+		{"key": "level_up_team", "tab": "pokemon", "title": _text("debug_level_up_team"), "build": Callable(self, "_add_debug_team_level_rows")},
+		{"key": "variants", "tab": "pokemon", "title": _text("debug_variants"), "build": Callable(self, "_debug_build_variants_rows")},
+		{"key": "storage", "tab": "pokemon", "title": _text("debug_storage"), "build": Callable(self, "_debug_build_storage_rows")},
 	]
 
 	var y := 0.0
+	var shown_any := false
 	for category in categories:
+		if str(category.get("tab", "")) != debug_active_tab:
+			continue
+		shown_any = true
 		var key: String = category["key"]
 		var expanded := debug_expanded_section == key
 		y = _add_debug_accordion_header(content, str(category["title"]), y, expanded, key)
@@ -3920,7 +3969,16 @@ func _show_debug_menu() -> void:
 			var build: Callable = category["build"]
 			y = build.call(content, y)
 			y += 6.0
+	if not shown_any:
+		UI.add_panel_label(content, _text("debug_tab_empty"), Vector2(10, 10), Vector2(276, 40), 13, HORIZONTAL_ALIGNMENT_CENTER, VERTICAL_ALIGNMENT_CENTER, "EmptyTabMessage")
+		y = 60.0
 	content.custom_minimum_size = Vector2(304, y + 12.0)
+
+
+func _debug_select_tab(key: String) -> void:
+	debug_active_tab = key
+	debug_expanded_section = ""
+	_show_debug_menu()
 
 
 func _add_debug_accordion_header(parent: Control, title: String, y: float, expanded: bool, key: String) -> float:
