@@ -224,20 +224,237 @@
     "first_completion_rewards": {"money": 18000, "xp": 3600, "items": {"xp_potion": 8}},
     "repeat_rewards": {"money": 14000, "xp": 2200, "items": {"xp_potion": 4}}
   },
-  "special_tournaments": {
+  "monotype_cup": {
     "order": 6,
-    "implemented": false,
-    "name_en": "Special Tournaments",
-    "name_pt": "Torneios Especiais",
-    "description_en": "Coming soon - themed cups (Monotype, Shiny, No Items, and more).",
-    "description_pt": "Em breve - copas temáticas (Monotipo, Shiny, Sem Itens, e mais).",
+    "implemented": true,
+    "name_en": "Monotype Cup",
+    "name_pt": "Copa Monotipo",
+    "description_en": "Special rule: every Pokemon on your team must share at least one type in common. Bring a real single-type squad or you won't get past the entrance.",
+    "description_pt": "Regra especial: todo Pokémon do seu time precisa compartilhar pelo menos um tipo em comum. Traga um time realmente monotipo ou nem passa da entrada.",
     "region": "",
-    "tier": "elite",
-    "min_trainer_level": 40,
-    "requirements": {"cups_completed": ["kanto_cup"]}
+    "tier": "special",
+    "min_trainer_level": 25,
+    "requirements": {"cups_completed": ["kanto_cup"]},
+    "team_rules": {"monotype": true},
+    "entry_cost": 800,
+    "participant_count": 8,
+    "battle_format": "single",
+    "max_team_size": 6,
+    "items_allowed": true,
+    "heal_between_rounds": "full",
+    "repeatable": true,
+    "badge_id": "monotype_cup_badge",
+    "badge_name_en": "Monotype Cup Badge",
+    "badge_name_pt": "Insígnia da Copa Monotipo",
+    "rounds": [
+      {
+        "name_en": "Quarterfinal",
+        "name_pt": "Quartas de Final",
+        "trainer_id": "cup_water_specialist_elin",
+        "rewards": {"money": 700, "xp": 150}
+      },
+      {
+        "name_en": "Semifinal",
+        "name_pt": "Semifinal",
+        "trainer_id": "cup_psychic_specialist_farid",
+        "rewards": {"money": 1400, "xp": 300}
+      },
+      {
+        "name_en": "Final",
+        "name_pt": "Final",
+        "trainer_id": "cup_champion_typemaster",
+        "rewards": {"money": 3000, "xp": 600},
+        "is_final": true
+      }
+    ],
+    "first_completion_rewards": {"money": 3000, "xp": 600, "items": {"xp_potion": 2}},
+    "repeat_rewards": {"money": 2200, "xp": 400, "items": {"xp_potion": 1}}
+  },
+  "shiny_cup": {
+    "order": 7,
+    "implemented": true,
+    "name_en": "Shiny Cup",
+    "name_pt": "Copa Shiny",
+    "description_en": "Special rule: every Pokemon on your team must be Shiny. Only the luckiest (or most dedicated) trainers can even enter.",
+    "description_pt": "Regra especial: todo Pokémon do seu time precisa ser Shiny. Só os treinadores mais sortudos (ou dedicados) conseguem nem entrar.",
+    "region": "",
+    "tier": "special",
+    "min_trainer_level": 30,
+    "requirements": {"cups_completed": ["kanto_cup"]},
+    "team_rules": {"required_variant": "shiny"},
+    "entry_cost": 2000,
+    "participant_count": 8,
+    "battle_format": "single",
+    "max_team_size": 6,
+    "items_allowed": true,
+    "heal_between_rounds": "full",
+    "repeatable": true,
+    "badge_id": "shiny_cup_badge",
+    "badge_name_en": "Shiny Cup Badge",
+    "badge_name_pt": "Insígnia da Copa Shiny",
+    "rounds": [
+      {
+        "name_en": "Quarterfinal",
+        "name_pt": "Quartas de Final",
+        "trainer_id": "cup_shiny_trainer_gale",
+        "rewards": {"money": 1500, "xp": 300}
+      },
+      {
+        "name_en": "Semifinal",
+        "name_pt": "Semifinal",
+        "trainer_id": "cup_shiny_trainer_hollis",
+        "rewards": {"money": 3000, "xp": 600}
+      },
+      {
+        "name_en": "Final",
+        "name_pt": "Final",
+        "trainer_id": "cup_champion_prism",
+        "rewards": {"money": 6500, "xp": 1300},
+        "is_final": true
+      }
+    ],
+    "first_completion_rewards": {"money": 6500, "xp": 1300, "items": {"shiny_charm": 1}},
+    "repeat_rewards": {"money": 5000, "xp": 800, "items": {"xp_potion": 2}}
+  },
+  "no_items_cup": {
+    "order": 8,
+    "implemented": true,
+    "name_en": "No Items Cup",
+    "name_pt": "Copa Sem Itens",
+    "description_en": "Special rule: no items during battle - not even a Potion. Pure Pokemon, pure skill.",
+    "description_pt": "Regra especial: nenhum item durante a batalha - nem uma Poção. Só Pokémon puro contra Pokémon puro.",
+    "region": "",
+    "tier": "special",
+    "min_trainer_level": 25,
+    "requirements": {"cups_completed": ["kanto_cup"]},
+    "entry_cost": 800,
+    "participant_count": 8,
+    "battle_format": "single",
+    "max_team_size": 6,
+    "items_allowed": false,
+    "heal_between_rounds": "full",
+    "repeatable": true,
+    "badge_id": "no_items_cup_badge",
+    "badge_name_en": "No Items Cup Badge",
+    "badge_name_pt": "Insígnia da Copa Sem Itens",
+    "rounds": [
+      {
+        "name_en": "Quarterfinal",
+        "name_pt": "Quartas de Final",
+        "trainer_id": "cup_purist_jonas",
+        "rewards": {"money": 750, "xp": 150}
+      },
+      {
+        "name_en": "Semifinal",
+        "name_pt": "Semifinal",
+        "trainer_id": "cup_purist_kira",
+        "rewards": {"money": 1500, "xp": 300}
+      },
+      {
+        "name_en": "Final",
+        "name_pt": "Final",
+        "trainer_id": "cup_champion_purist",
+        "rewards": {"money": 3200, "xp": 650},
+        "is_final": true
+      }
+    ],
+    "first_completion_rewards": {"money": 3200, "xp": 650, "items": {"xp_potion": 2}},
+    "repeat_rewards": {"money": 2400, "xp": 400, "items": {"xp_potion": 1}}
+  },
+  "low_level_cup": {
+    "order": 9,
+    "implemented": true,
+    "name_en": "Low Level Cup",
+    "name_pt": "Copa Nível Baixo",
+    "description_en": "Special rule: every Pokemon on your team must be level 20 or under. A tournament for teams that are still growing up.",
+    "description_pt": "Regra especial: todo Pokémon do seu time precisa ser nível 20 ou menos. Um torneio pra times que ainda estão crescendo.",
+    "region": "",
+    "tier": "special",
+    "min_trainer_level": 12,
+    "requirements": {"cups_completed": ["kanto_cup"]},
+    "team_rules": {"max_level": 20},
+    "entry_cost": 300,
+    "participant_count": 8,
+    "battle_format": "single",
+    "max_team_size": 6,
+    "items_allowed": true,
+    "heal_between_rounds": "full",
+    "repeatable": true,
+    "badge_id": "low_level_cup_badge",
+    "badge_name_en": "Low Level Cup Badge",
+    "badge_name_pt": "Insígnia da Copa Nível Baixo",
+    "rounds": [
+      {
+        "name_en": "Quarterfinal",
+        "name_pt": "Quartas de Final",
+        "trainer_id": "cup_novice_mira",
+        "rewards": {"money": 400, "xp": 100}
+      },
+      {
+        "name_en": "Semifinal",
+        "name_pt": "Semifinal",
+        "trainer_id": "cup_novice_nico",
+        "rewards": {"money": 800, "xp": 200}
+      },
+      {
+        "name_en": "Final",
+        "name_pt": "Final",
+        "trainer_id": "cup_champion_prodigy",
+        "rewards": {"money": 1600, "xp": 400},
+        "is_final": true
+      }
+    ],
+    "first_completion_rewards": {"money": 1600, "xp": 400, "items": {"xp_potion": 1}},
+    "repeat_rewards": {"money": 1200, "xp": 250, "items": {}}
+  },
+  "three_pokemon_cup": {
+    "order": 10,
+    "implemented": true,
+    "name_en": "Three Pokemon Cup",
+    "name_pt": "Copa Três Pokémon",
+    "description_en": "Special rule: at most 3 Pokemon on your team. No bench to fall back on - every choice matters.",
+    "description_pt": "Regra especial: no máximo 3 Pokémon no seu time. Sem banco pra recorrer - cada escolha importa.",
+    "region": "",
+    "tier": "special",
+    "min_trainer_level": 35,
+    "requirements": {"cups_completed": ["kanto_cup"]},
+    "team_rules": {"max_team_size": 3},
+    "entry_cost": 1200,
+    "participant_count": 8,
+    "battle_format": "single",
+    "max_team_size": 3,
+    "items_allowed": true,
+    "heal_between_rounds": "full",
+    "repeatable": true,
+    "badge_id": "three_pokemon_cup_badge",
+    "badge_name_en": "Three Pokemon Cup Badge",
+    "badge_name_pt": "Insígnia da Copa Três Pokémon",
+    "rounds": [
+      {
+        "name_en": "Quarterfinal",
+        "name_pt": "Quartas de Final",
+        "trainer_id": "cup_trio_paula",
+        "rewards": {"money": 1100, "xp": 220}
+      },
+      {
+        "name_en": "Semifinal",
+        "name_pt": "Semifinal",
+        "trainer_id": "cup_trio_quill",
+        "rewards": {"money": 2200, "xp": 450}
+      },
+      {
+        "name_en": "Final",
+        "name_pt": "Final",
+        "trainer_id": "cup_champion_trio",
+        "rewards": {"money": 4500, "xp": 900},
+        "is_final": true
+      }
+    ],
+    "first_completion_rewards": {"money": 4500, "xp": 900, "items": {"xp_potion": 3}},
+    "repeat_rewards": {"money": 3400, "xp": 550, "items": {"xp_potion": 1}}
   },
   "black_tournament": {
-    "order": 7,
+    "order": 11,
     "implemented": true,
     "name_en": "Black Tournament",
     "name_pt": "Torneio Negro",

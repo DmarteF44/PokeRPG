@@ -129,6 +129,77 @@ static func is_unlocked(save_data: Dictionary, cup: Dictionary) -> bool:
 	return true
 
 
+# Checks the player's actual current team (save_data.team) against a cup's
+# optional "team_rules" - the entry conditions Special Tournaments use for
+# real restrictions (Monotype/Shiny/Black/No Items/Level Cap/Team Size),
+# not just flavor text. Returns one Dictionary per broken rule
+# ({"rule": ..., ...extra info for the message}), empty if the team is
+# eligible or the cup declares no team_rules at all. "No items" isn't
+# checked here - that's enforced live during the battle (see
+# battle_scene.gd's _cup_items_allowed()), not as an entry gate, since it's
+# a battle-time restriction, not a team-composition one.
+static func team_rule_violations(save_data: Dictionary, cup: Dictionary) -> Array:
+	var violations := []
+	var rules = cup.get("team_rules", {})
+	if typeof(rules) != TYPE_DICTIONARY or rules.is_empty():
+		return violations
+
+	var team_value = save_data.get("team", [])
+	var team: Array = team_value if typeof(team_value) == TYPE_ARRAY else []
+
+	if rules.has("max_team_size"):
+		var cap := int(rules["max_team_size"])
+		if team.size() > cap:
+			violations.append({"rule": "max_team_size", "cap": cap, "actual": team.size()})
+
+	if rules.has("max_level"):
+		var cap := int(rules["max_level"])
+		for mon in team:
+			if typeof(mon) == TYPE_DICTIONARY and int(mon.get("level", 1)) > cap:
+				violations.append({"rule": "max_level", "cap": cap})
+				break
+
+	if bool(rules.get("monotype", false)) and not team.is_empty():
+		var common: Array = []
+		var first := true
+		for mon in team:
+			if typeof(mon) != TYPE_DICTIONARY:
+				continue
+			var types_value = mon.get("types", [])
+			var types: Array = types_value if typeof(types_value) == TYPE_ARRAY else []
+			if first:
+				common = types.duplicate()
+				first = false
+			else:
+				var next_common := []
+				for t in common:
+					if types.has(t):
+						next_common.append(t)
+				common = next_common
+		if common.is_empty():
+			violations.append({"rule": "monotype"})
+
+	if rules.has("required_type"):
+		var required := str(rules["required_type"])
+		for mon in team:
+			if typeof(mon) != TYPE_DICTIONARY:
+				continue
+			var types_value = mon.get("types", [])
+			var types: Array = types_value if typeof(types_value) == TYPE_ARRAY else []
+			if not types.has(required):
+				violations.append({"rule": "required_type", "type": required})
+				break
+
+	if rules.has("required_variant"):
+		var variant := str(rules["required_variant"])
+		for mon in team:
+			if typeof(mon) == TYPE_DICTIONARY and not bool(mon.get(variant, false)):
+				violations.append({"rule": "required_variant", "variant": variant})
+				break
+
+	return violations
+
+
 # "locked" / "available" / "in_progress" / "completed"
 static func status_for(save_data: Dictionary, cup: Dictionary) -> String:
 	if not is_unlocked(save_data, cup):

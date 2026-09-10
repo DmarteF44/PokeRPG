@@ -157,6 +157,7 @@ const TEXT = {
 		"cup_badge_earned": "%s earned!",
 		"cup_rewards": "Rewards: +$%d, +%d XP.",
 		"cup_items_received": "Items received: %s.",
+		"cup_items_forbidden": "Items are not allowed in this tournament!",
 		"cup_eliminated": "Eliminated from the tournament. You can try again.",
 		"tutorial_battle_step_fight": "These are your moves. Tap FIGHT to pick an attack.",
 		"tutorial_battle_step_bag": "This is your Bag. Use Potions to heal your Pokemon, or a Poke Ball to try to catch the wild one.",
@@ -261,6 +262,7 @@ const TEXT = {
 		"cup_badge_earned": "%s recebida!",
 		"cup_rewards": "Recompensas: +$%d, +%d XP.",
 		"cup_items_received": "Itens recebidos: %s.",
+		"cup_items_forbidden": "Itens não são permitidos neste torneio!",
 		"cup_eliminated": "Eliminado do torneio. Você pode tentar de novo.",
 		"tutorial_battle_step_fight": "Estes são seus golpes. Toque em LUTAR para escolher um ataque.",
 		"tutorial_battle_step_bag": "Aqui fica sua Mochila. Use Poções pra curar seu Pokémon, ou uma Poké Bola pra tentar capturar o selvagem.",
@@ -465,6 +467,13 @@ func _is_cup_battle() -> bool:
 
 func _is_tutorial_battle() -> bool:
 	return bool(enemy_pokemon.get("tutorial_battle", false))
+
+
+func _cup_items_allowed() -> bool:
+	var cup := CupManager.cup_for_id(str(enemy_pokemon.get("cup_id", "")))
+	if cup.is_empty():
+		return true
+	return bool(cup.get("items_allowed", true))
 
 
 var _tutorial_step_index := 0
@@ -1733,6 +1742,9 @@ func _show_bag() -> void:
 	if battle_over or capture_in_progress:
 		return
 	if _require_forced_switch():
+		return
+	if _is_cup_battle() and not _cup_items_allowed():
+		message_label.text = _text("cup_items_forbidden")
 		return
 	_hide_attack_panel()
 	attack_panel = _new_bottom_panel("BagPanel", 128.0)

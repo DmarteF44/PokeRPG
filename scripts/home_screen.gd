@@ -343,6 +343,20 @@ const TEXT = {
 		"cup_entry_cost": "Entry cost",
 		"cup_final_reward": "Champion reward",
 		"cup_locked_message": "You don't meet this tournament's requirements yet.",
+		"cup_special_rules": "Special Rules",
+		"cup_rule_max_team_size": "This tournament allows at most %d Pokemon on your team (you have %d). Send some to Storage first.",
+		"cup_rule_max_level": "Every Pokemon on your team must be level %d or under to enter.",
+		"cup_rule_monotype": "Every Pokemon on your team must share at least one type in common.",
+		"cup_rule_required_type": "Every Pokemon on your team must be %s type.",
+		"cup_rule_required_shiny": "Every Pokemon on your team must be Shiny.",
+		"cup_rule_required_black": "Every Pokemon on your team must be Black.",
+		"cup_rule_summary_max_team_size": "Max %d Pokemon on your team",
+		"cup_rule_summary_max_level": "Every Pokemon level %d or under",
+		"cup_rule_summary_monotype": "Your team must share a type",
+		"cup_rule_summary_required_type": "%s type only",
+		"cup_rule_summary_required_shiny": "Shiny Pokemon only",
+		"cup_rule_summary_required_black": "Black Pokemon only",
+		"cup_rule_summary_no_items": "No items allowed in battle",
 		"cup_round_won_status": "Won",
 		"cup_round_current_status": "Current match",
 		"cup_round_pending_status": "Not reached yet",
@@ -676,6 +690,20 @@ const TEXT = {
 		"cup_entry_cost": "Custo de entrada",
 		"cup_final_reward": "Recompensa de campeão",
 		"cup_locked_message": "Você ainda não cumpre os requisitos deste torneio.",
+		"cup_special_rules": "Regras Especiais",
+		"cup_rule_max_team_size": "Este torneio permite no máximo %d Pokémon no seu time (você tem %d). Mande alguns pro Armazenamento primeiro.",
+		"cup_rule_max_level": "Todo Pokémon do seu time precisa ser nível %d ou menos pra entrar.",
+		"cup_rule_monotype": "Todo Pokémon do seu time precisa compartilhar pelo menos um tipo em comum.",
+		"cup_rule_required_type": "Todo Pokémon do seu time precisa ser do tipo %s.",
+		"cup_rule_required_shiny": "Todo Pokémon do seu time precisa ser Shiny.",
+		"cup_rule_required_black": "Todo Pokémon do seu time precisa ser Black.",
+		"cup_rule_summary_max_team_size": "No máximo %d Pokémon no time",
+		"cup_rule_summary_max_level": "Todo Pokémon nível %d ou menos",
+		"cup_rule_summary_monotype": "Seu time precisa compartilhar um tipo",
+		"cup_rule_summary_required_type": "Somente tipo %s",
+		"cup_rule_summary_required_shiny": "Somente Pokémon Shiny",
+		"cup_rule_summary_required_black": "Somente Pokémon Black",
+		"cup_rule_summary_no_items": "Itens não permitidos em batalha",
 		"cup_round_won_status": "Vencida",
 		"cup_round_current_status": "Confronto atual",
 		"cup_round_pending_status": "Ainda não alcançada",
@@ -2018,6 +2046,46 @@ func _cup_status_text(status: String) -> String:
 			return _text("cup_locked")
 
 
+func _cup_rule_violation_message(violation: Dictionary) -> String:
+	match str(violation.get("rule", "")):
+		"max_team_size":
+			return _text("cup_rule_max_team_size") % [int(violation.get("cap", 0)), int(violation.get("actual", 0))]
+		"max_level":
+			return _text("cup_rule_max_level") % int(violation.get("cap", 0))
+		"monotype":
+			return _text("cup_rule_monotype")
+		"required_type":
+			return _text("cup_rule_required_type") % _text("type_%s" % str(violation.get("type", "")).to_lower())
+		"required_variant":
+			var variant := str(violation.get("variant", ""))
+			return _text("cup_rule_required_shiny") if variant == "shiny" else _text("cup_rule_required_black")
+		_:
+			return _text("cup_locked_message")
+
+
+# One short line per team_rules entry, for the cup detail screen - so a
+# player learns the requirement before getting turned away at the door.
+func _cup_team_rules_lines(cup: Dictionary) -> Array:
+	var rules = cup.get("team_rules", {})
+	if typeof(rules) != TYPE_DICTIONARY or rules.is_empty():
+		return []
+	var lines := []
+	if rules.has("max_team_size"):
+		lines.append(_text("cup_rule_summary_max_team_size") % int(rules["max_team_size"]))
+	if rules.has("max_level"):
+		lines.append(_text("cup_rule_summary_max_level") % int(rules["max_level"]))
+	if bool(rules.get("monotype", false)):
+		lines.append(_text("cup_rule_summary_monotype"))
+	if rules.has("required_type"):
+		lines.append(_text("cup_rule_summary_required_type") % _text("type_%s" % str(rules["required_type"]).to_lower()))
+	if rules.has("required_variant"):
+		var variant := str(rules["required_variant"])
+		lines.append(_text("cup_rule_summary_required_shiny") if variant == "shiny" else _text("cup_rule_summary_required_black"))
+	if not bool(cup.get("items_allowed", true)):
+		lines.append(_text("cup_rule_summary_no_items"))
+	return lines
+
+
 func _add_cup_card(parent: Control, cup: Dictionary, y: float) -> void:
 	var panel := Panel.new()
 	var cup_id := str(cup.get("id", "cup"))
@@ -2079,14 +2147,17 @@ func _show_cup_detail(cup_id: String) -> void:
 		_text("cup_final_reward"), int(final_rewards.get("money", 0)) if typeof(final_rewards) == TYPE_DICTIONARY else 0,
 		int(final_rewards.get("xp", 0)) if typeof(final_rewards) == TYPE_DICTIONARY else 0,
 	]
-	var info_label := UI.add_panel_label(popup, info, Vector2(28, 92), Vector2(304, 220), 12, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_TOP, "Info")
+	var rule_lines := _cup_team_rules_lines(cup)
+	if not rule_lines.is_empty():
+		info += "\n\n%s:\n- %s" % [_text("cup_special_rules"), "\n- ".join(rule_lines)]
+	var info_label := UI.add_panel_label(popup, info, Vector2(28, 92), Vector2(304, 260), 12, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_TOP, "Info")
 	_fit_label(info_label, true)
 
-	UI.add_panel_label(popup, "%s: %s" % [_text("cup_status"), _cup_status_text(status)], Vector2(28, 320), Vector2(304, 24), 12, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "StatusLine")
+	UI.add_panel_label(popup, "%s: %s" % [_text("cup_status"), _cup_status_text(status)], Vector2(28, 360), Vector2(304, 24), 12, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_CENTER, "StatusLine")
 
-	_add_small_button(popup, _text("cup_view_bracket"), Vector2(28, 352), Vector2(304, 40), Callable(self, "_show_cup_bracket").bind(cup_id), "ViewBracket")
+	_add_small_button(popup, _text("cup_view_bracket"), Vector2(28, 392), Vector2(304, 40), Callable(self, "_show_cup_bracket").bind(cup_id), "ViewBracket")
 
-	var action_y := 404.0
+	var action_y := 444.0
 	if status == "in_progress":
 		UI.add_orange_button(popup, _text("cup_resume"), Vector2(28, action_y), Vector2(304, 48), Callable(self, "_resume_cup_run").bind(cup_id), "Resume")
 	elif status == "available" or status == "completed":
@@ -2104,6 +2175,10 @@ func _confirm_begin_cup_run(cup_id: String) -> void:
 		return
 	if not _has_ready_team_pokemon():
 		UI.show_message_popup(self, _cup_display_name(cup), _text("gym_no_ready"))
+		return
+	var violations := CupManager.team_rule_violations(save_data, cup)
+	if not violations.is_empty():
+		UI.show_message_popup(self, _cup_display_name(cup), _cup_rule_violation_message(violations[0]))
 		return
 	var entry_cost := int(cup.get("entry_cost", 0))
 	if int(save_data.get("money", 0)) < entry_cost:

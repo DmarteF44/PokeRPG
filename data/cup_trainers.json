@@ -267,5 +267,247 @@
       {"species": "dragonite", "level": 89, "variant": {"black": true}},
       {"species": "milotic", "level": 90, "variant": {"black": true}}
     ]
+  },
+  "cup_water_specialist_elin": {
+    "name": "Elin",
+    "title_en": "Water Specialist",
+    "title_pt": "Especialista em Água",
+    "region": "",
+    "specialty": "Water",
+    "trainer_level": 27,
+    "difficulty": "intermediate",
+    "ai_strategy": "type_specialist",
+    "team": [
+      {"species": "golduck", "level": 24},
+      {"species": "seaking", "level": 25},
+      {"species": "starmie", "level": 26},
+      {"species": "gyarados", "level": 27}
+    ]
+  },
+  "cup_psychic_specialist_farid": {
+    "name": "Farid",
+    "title_en": "Psychic Specialist",
+    "title_pt": "Especialista em Psíquico",
+    "region": "",
+    "specialty": "Psychic",
+    "trainer_level": 33,
+    "difficulty": "advanced",
+    "ai_strategy": "type_specialist",
+    "team": [
+      {"species": "kadabra", "level": 30},
+      {"species": "slowbro", "level": 31},
+      {"species": "exeggutor", "level": 32},
+      {"species": "alakazam", "level": 33}
+    ]
+  },
+  "cup_champion_typemaster": {
+    "name": "Tyrone",
+    "title_en": "Type Master",
+    "title_pt": "Mestre dos Tipos",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 40,
+    "difficulty": "champion",
+    "ai_strategy": "champion",
+    "team": [
+      {"species": "dragonite", "level": 36},
+      {"species": "tyranitar", "level": 37},
+      {"species": "metagross", "level": 38},
+      {"species": "salamence", "level": 39},
+      {"species": "gengar", "level": 39},
+      {"species": "milotic", "level": 40}
+    ]
+  },
+  "cup_shiny_trainer_gale": {
+    "name": "Gale",
+    "title_en": "Shiny Collector",
+    "title_pt": "Colecionadora Shiny",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 31,
+    "difficulty": "intermediate",
+    "ai_strategy": "balanced",
+    "team": [
+      {"species": "raichu", "level": 28, "variant": {"shiny": true}},
+      {"species": "ninetales", "level": 29, "variant": {"shiny": true}},
+      {"species": "arcanine", "level": 30, "variant": {"shiny": true}},
+      {"species": "gyarados", "level": 31, "variant": {"shiny": true}}
+    ]
+  },
+  "cup_shiny_trainer_hollis": {
+    "name": "Hollis",
+    "title_en": "Shiny Collector",
+    "title_pt": "Colecionador Shiny",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 37,
+    "difficulty": "advanced",
+    "ai_strategy": "balanced",
+    "team": [
+      {"species": "alakazam", "level": 34, "variant": {"shiny": true}},
+      {"species": "machamp", "level": 35, "variant": {"shiny": true}},
+      {"species": "gengar", "level": 36, "variant": {"shiny": true}},
+      {"species": "dragonair", "level": 37, "variant": {"shiny": true}}
+    ]
+  },
+  "cup_champion_prism": {
+    "name": "Iris",
+    "title_en": "Prism Champion",
+    "title_pt": "Campeã Prisma",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 44,
+    "difficulty": "champion",
+    "ai_strategy": "champion",
+    "team": [
+      {"species": "charizard", "level": 40, "variant": {"shiny": true}},
+      {"species": "blastoise", "level": 41, "variant": {"shiny": true}},
+      {"species": "venusaur", "level": 41, "variant": {"shiny": true}},
+      {"species": "snorlax", "level": 42, "variant": {"shiny": true}},
+      {"species": "lapras", "level": 43, "variant": {"shiny": true}},
+      {"species": "dragonite", "level": 44, "variant": {"shiny": true}}
+    ]
+  },
+  "cup_purist_jonas": {
+    "name": "Jonas",
+    "title_en": "Purist",
+    "title_pt": "Purista",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 29,
+    "difficulty": "intermediate",
+    "ai_strategy": "balanced",
+    "team": [
+      {"species": "fearow", "level": 26},
+      {"species": "arbok", "level": 27},
+      {"species": "sandslash", "level": 28},
+      {"species": "persian", "level": 29}
+    ]
+  },
+  "cup_purist_kira": {
+    "name": "Kira",
+    "title_en": "Purist",
+    "title_pt": "Purista",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 35,
+    "difficulty": "advanced",
+    "ai_strategy": "balanced",
+    "team": [
+      {"species": "exeggutor", "level": 32},
+      {"species": "rapidash", "level": 33},
+      {"species": "kingler", "level": 33},
+      {"species": "electrode", "level": 34},
+      {"species": "cloyster", "level": 35}
+    ]
+  },
+  "cup_champion_purist": {
+    "name": "Leon",
+    "title_en": "Purist Champion",
+    "title_pt": "Campeão Purista",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 42,
+    "difficulty": "champion",
+    "ai_strategy": "champion",
+    "team": [
+      {"species": "gengar", "level": 38},
+      {"species": "alakazam", "level": 39},
+      {"species": "machamp", "level": 39},
+      {"species": "golem", "level": 40},
+      {"species": "starmie", "level": 41},
+      {"species": "dragonair", "level": 42}
+    ]
+  },
+  "cup_novice_mira": {
+    "name": "Mira",
+    "title_en": "Novice Challenger",
+    "title_pt": "Desafiante Novata",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 14,
+    "difficulty": "beginner",
+    "ai_strategy": "balanced",
+    "team": [
+      {"species": "pidgeotto", "level": 12},
+      {"species": "growlithe", "level": 13},
+      {"species": "bellsprout", "level": 14}
+    ]
+  },
+  "cup_novice_nico": {
+    "name": "Nico",
+    "title_en": "Novice Challenger",
+    "title_pt": "Desafiante Novato",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 17,
+    "difficulty": "intermediate",
+    "ai_strategy": "balanced",
+    "team": [
+      {"species": "haunter", "level": 15},
+      {"species": "graveler", "level": 16},
+      {"species": "magneton", "level": 17}
+    ]
+  },
+  "cup_champion_prodigy": {
+    "name": "Ollie",
+    "title_en": "Prodigy",
+    "title_pt": "Prodígio",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 20,
+    "difficulty": "champion",
+    "ai_strategy": "champion",
+    "team": [
+      {"species": "gyarados", "level": 18},
+      {"species": "electabuzz", "level": 19},
+      {"species": "magmar", "level": 19},
+      {"species": "dragonair", "level": 20}
+    ]
+  },
+  "cup_trio_paula": {
+    "name": "Paula",
+    "title_en": "Trio Challenger",
+    "title_pt": "Desafiante do Trio",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 40,
+    "difficulty": "advanced",
+    "ai_strategy": "offensive",
+    "team": [
+      {"species": "nidoking", "level": 38},
+      {"species": "rhydon", "level": 39},
+      {"species": "dodrio", "level": 40}
+    ]
+  },
+  "cup_trio_quill": {
+    "name": "Quill",
+    "title_en": "Trio Challenger",
+    "title_pt": "Desafiante do Trio",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 48,
+    "difficulty": "advanced",
+    "ai_strategy": "offensive",
+    "team": [
+      {"species": "gengar", "level": 46},
+      {"species": "alakazam", "level": 47},
+      {"species": "machamp", "level": 48}
+    ]
+  },
+  "cup_champion_trio": {
+    "name": "Rex",
+    "title_en": "Trio Champion",
+    "title_pt": "Campeão do Trio",
+    "region": "",
+    "specialty": "",
+    "trainer_level": 56,
+    "difficulty": "champion",
+    "ai_strategy": "champion",
+    "team": [
+      {"species": "dragonite", "level": 52},
+      {"species": "tyranitar", "level": 54},
+      {"species": "metagross", "level": 56}
+    ]
   }
 }
