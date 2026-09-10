@@ -106,9 +106,10 @@ const TEXT = {
 		"switch_active_tag": "In battle",
 		"choose_next": "Choose another Pokemon.",
 		"no_ready_pokemon": "No Pokemon is ready to battle.",
-		"xp_gain": "%s gained 25 XP!",
+		"xp_gain": "%s gained %d XP!",
 		"level_up": "%s grew to level %d!",
 		"trainer_level_up": "You reached trainer level %d!",
+		"trainer_xp_gain": "You gained %d trainer XP!",
 		"evolution_start": "What? %s is evolving!",
 		"evolution_done": "Congratulations! Your %s evolved into %s!",
 		"move_learn_wants": "%s wants to learn %s!",
@@ -209,9 +210,10 @@ const TEXT = {
 		"switch_active_tag": "Em batalha",
 		"choose_next": "Escolha outro Pokémon.",
 		"no_ready_pokemon": "Nenhum Pokémon está pronto para batalhar.",
-		"xp_gain": "%s ganhou 25 XP!",
+		"xp_gain": "%s ganhou %d XP!",
 		"level_up": "%s subiu para o nível %d!",
 		"trainer_level_up": "Você alcançou o nível de treinador %d!",
+		"trainer_xp_gain": "Você ganhou %d XP de treinador!",
 		"evolution_start": "O quê? %s está evoluindo!",
 		"evolution_done": "Parabéns! Seu %s evoluiu para %s!",
 		"move_learn_wants": "%s quer aprender %s!",
@@ -1453,23 +1455,30 @@ func _evolution_context() -> Dictionary:
 	}
 
 
-func _grant_victory_xp() -> String:
-	var player_name := str(player_pokemon.get("name", "Pokemon"))
+# Base "participation XP" a wild/trainer encounter is worth to the
+# player's own active Pokemon - the same amount whether the encounter ends
+# in a faint or a successful capture (see _grant_player_pokemon_xp's two
+# call sites), matching the real games granting XP for either outcome.
+func _participation_xp_amount() -> int:
 	var training_bonus := 1.0 + float(SaveManager.specialization_points("treinamento")) * 0.02
-	var xp_result := PokemonHelpers.grant_xp(player_pokemon, int(round(25 * training_bonus)), _evolution_context())
+	return int(round(25 * training_bonus))
+
+
+# Grants `amount` XP to the player's active Pokemon and returns the message
+# lines describing what happened (actual amount gained, any level-ups,
+# evolutions, and queued move-learn popups) - shared by both ways a battle
+# can end in the player's favor: the enemy fainting (_grant_victory_xp) and
+# the enemy being caught instead (_use_capture_item), which used to grant
+# this Pokemon nothing at all.
+func _grant_player_pokemon_xp(amount: int) -> Array:
+	var player_name := str(player_pokemon.get("name", "Pokemon"))
+	var xp_result := PokemonHelpers.grant_xp(player_pokemon, amount, _evolution_context())
 	player_pokemon = xp_result.get("pokemon", player_pokemon)
-	var lines := [_text("xp_gain") % player_name]
+	var lines := [_text("xp_gain") % [player_name, int(xp_result.get("xp_gained", 0))]]
 	var level_ups: Array = xp_result.get("level_ups", [])
 	for level in level_ups:
 		lines.append(_text("level_up") % [player_name, int(level)])
 	if not level_ups.is_empty():
-		AudioManager.play_sfx("level_up")
-
-	var trainer_xp_result := SaveManager.grant_trainer_xp(_victory_trainer_xp())
-	var trainer_level_ups: Array = trainer_xp_result.get("level_ups", [])
-	for trainer_level in trainer_level_ups:
-		lines.append(_text("trainer_level_up") % int(trainer_level))
-	if not trainer_level_ups.is_empty():
 		AudioManager.play_sfx("level_up")
 
 	var evolutions: Array = xp_result.get("evolutions", [])
@@ -1489,6 +1498,30 @@ func _grant_victory_xp() -> String:
 		if typeof(pending) != TYPE_DICTIONARY:
 			continue
 		call_deferred("_show_move_learn_popup", str(pending.get("move_name", "")))
+	return lines
+
+
+# Message lines for a granted trainer_xp_result (see SaveManager.
+# grant_trainer_xp) - the actual XP amount, not just level-ups, so a
+# battle/capture screen never silently shows nothing when no level-up
+# happened to trigger.
+func _trainer_xp_lines(trainer_xp_result: Dictionary) -> Array:
+	var lines := []
+	var gained := int(trainer_xp_result.get("xp_gained", 0))
+	if gained > 0:
+		lines.append(_text("trainer_xp_gain") % gained)
+	var trainer_level_ups: Array = trainer_xp_result.get("level_ups", [])
+	for trainer_level in trainer_level_ups:
+		lines.append(_text("trainer_level_up") % int(trainer_level))
+	if not trainer_level_ups.is_empty():
+		AudioManager.play_sfx("level_up")
+	return lines
+
+
+func _grant_victory_xp() -> String:
+	var lines := _grant_player_pokemon_xp(_participation_xp_amount())
+	var trainer_xp_result := SaveManager.grant_trainer_xp(_victory_trainer_xp())
+	lines.append_array(_trainer_xp_lines(trainer_xp_result))
 	return _join_lines(lines)
 
 
@@ -2061,6 +2094,14 @@ func _use_capture_item(item_id: String) -> void:
 	var caught := bool(capture_result.get("caught", false))
 	await _play_capture_feedback(item_id, int(capture_result.get("shakes", 0)), caught)
 	if caught:
+		# A capture ends the battle in the player's favor exactly as much as
+		# a faint does - the active Pokemon should earn the same
+		# participation XP either way. Granting it (and syncing battle_team)
+		# before _capture_enemy() runs is what actually gets it into the
+		# save, since _capture_enemy()'s own team snapshot reads from
+		# battle_team, not the loose player_pokemon var this updates.
+		var xp_lines := _grant_player_pokemon_xp(_participation_xp_amount())
+		battle_team[player_team_index] = _battle_pokemon_copy(player_pokemon)
 		var capture_data := _capture_enemy()
 		var destination := str(capture_data.get("destination", "team"))
 		battle_over = true
@@ -2070,10 +2111,9 @@ func _use_capture_item(item_id: String) -> void:
 			lines.append(_text("sent_storage"))
 		else:
 			lines.append(_text("sent_team") % enemy_name)
+		lines.append_array(xp_lines)
 		var trainer_xp_result: Dictionary = capture_data.get("trainer_xp", {})
-		var trainer_level_ups: Array = trainer_xp_result.get("level_ups", [])
-		for level in trainer_level_ups:
-			lines.append(_text("trainer_level_up") % int(level))
+		lines.append_array(_trainer_xp_lines(trainer_xp_result))
 		if _is_tutorial_battle():
 			lines.append_array(_grant_tutorial_reward())
 		message_label.text = _join_lines(lines)
