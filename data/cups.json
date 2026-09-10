@@ -46,15 +46,48 @@
   },
   "johto_cup": {
     "order": 2,
-    "implemented": false,
+    "implemented": true,
     "name_en": "Johto Cup",
     "name_pt": "Copa Johto",
-    "description_en": "Coming soon - unlocks after progressing through Johto.",
-    "description_pt": "Em breve - desbloqueia com o progresso em Johto.",
+    "description_en": "A tougher tournament for trainers who have proven themselves in Johto - the field only gets stronger here.",
+    "description_pt": "Um torneio mais duro para treinadores que já provaram seu valor em Johto - o nível só aumenta por aqui.",
     "region": "Johto",
     "tier": "silver",
     "min_trainer_level": 35,
-    "requirements": {"min_badges": 8, "cups_completed": ["kanto_cup"]}
+    "requirements": {"min_badges": 8, "cups_completed": ["kanto_cup"]},
+    "entry_cost": 1500,
+    "participant_count": 8,
+    "battle_format": "single",
+    "max_team_size": 6,
+    "items_allowed": true,
+    "heal_between_rounds": "full",
+    "repeatable": true,
+    "badge_id": "johto_cup_badge",
+    "badge_name_en": "Johto Cup Badge",
+    "badge_name_pt": "Insígnia da Copa Johto",
+    "rounds": [
+      {
+        "name_en": "Quarterfinal",
+        "name_pt": "Quartas de Final",
+        "trainer_id": "cup_rival_silver",
+        "rewards": {"money": 1200, "xp": 250}
+      },
+      {
+        "name_en": "Semifinal",
+        "name_pt": "Semifinal",
+        "trainer_id": "cup_specialist_mika",
+        "rewards": {"money": 2500, "xp": 500}
+      },
+      {
+        "name_en": "Final",
+        "name_pt": "Final",
+        "trainer_id": "cup_champion_lance",
+        "rewards": {"money": 6000, "xp": 1200},
+        "is_final": true
+      }
+    ],
+    "first_completion_rewards": {"money": 6000, "xp": 1200, "items": {"rare_candy": 3}},
+    "repeat_rewards": {"money": 4500, "xp": 700, "items": {"rare_candy": 2}}
   },
   "hoenn_cup": {
     "order": 3,

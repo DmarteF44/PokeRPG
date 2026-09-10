@@ -47,5 +47,55 @@
       {"species": "lapras", "level": 60},
       {"species": "charizard", "level": 60}
     ]
+  },
+  "cup_rival_silver": {
+    "name": "Silver",
+    "title_en": "Rival Challenger",
+    "title_pt": "Rival Desafiante",
+    "region": "Johto",
+    "specialty": "",
+    "trainer_level": 40,
+    "difficulty": "intermediate",
+    "ai_strategy": "balanced",
+    "team": [
+      {"species": "magneton", "level": 37},
+      {"species": "gengar", "level": 38},
+      {"species": "crobat", "level": 39},
+      {"species": "feraligatr", "level": 41}
+    ]
+  },
+  "cup_specialist_mika": {
+    "name": "Mika",
+    "title_en": "Steel Specialist",
+    "title_pt": "Especialista em Aço",
+    "region": "Johto",
+    "specialty": "Steel",
+    "trainer_level": 48,
+    "difficulty": "advanced",
+    "ai_strategy": "type_specialist",
+    "team": [
+      {"species": "forretress", "level": 45},
+      {"species": "skarmory", "level": 46, "variant": {"shiny": true}},
+      {"species": "scizor", "level": 47},
+      {"species": "steelix", "level": 49}
+    ]
+  },
+  "cup_champion_lance": {
+    "name": "Lance",
+    "title_en": "Champion",
+    "title_pt": "Campeão",
+    "region": "Johto",
+    "specialty": "Dragon",
+    "trainer_level": 64,
+    "difficulty": "champion",
+    "ai_strategy": "champion",
+    "team": [
+      {"species": "gyarados", "level": 60},
+      {"species": "aerodactyl", "level": 60},
+      {"species": "charizard", "level": 62},
+      {"species": "kingdra", "level": 62},
+      {"species": "dragonite", "level": 64},
+      {"species": "dragonite", "level": 64}
+    ]
   }
 }
