@@ -27,6 +27,14 @@ narrowed the safe ceiling to MAX_FRAMES=12 (~55k entries, real margin under
 the cap). Raise this only after re-deriving that math for the current asset
 count, and rebuild+verify entry count BEFORE handing off an APK.
 
+Re-measured for this asset set on 2026-09-15: MAX_FRAMES=24 -> 80,167 pokemon
+asset files (way over budget, confirmed unsafe again); MAX_FRAMES=16 ->
+62,933 (only ~2.6k below the 65535 cap project-wide - no real margin);
+MAX_FRAMES=14 -> 58,601 pokemon files / 59,511 total project asset files,
+leaving ~6k (~10%) margin under the cap, comparable to the original
+MAX_FRAMES=12 baseline's margin - that's the value currently checked in.
+Don't raise it again without redoing this same file-count measurement.
+
 LOWERING MAX_FRAMES after a higher-count run has already been extracted
 leaves orphaned res://....png.import sidecars behind for the now-deleted
 higher-numbered frames (save_frames() only clears frames it's about to
@@ -60,7 +68,7 @@ from PIL import Image, ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 ROOT = Path(__file__).resolve().parents[2]
-MAX_FRAMES = 12
+MAX_FRAMES = 14
 ICON_SIZE = 96
 
 NAME_RE = re.compile(r"^imgi_(\d+)_(.+)\.(gif|png|jpg|jpeg|svg)$", re.IGNORECASE)
