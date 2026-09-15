@@ -36,7 +36,7 @@ name: PokeRPG Android release build
 jobs:
   build_android_apk:
     name: Export, sign and package the Android APK
-    image: ubuntu-22.04
+    image: ubuntu-22.04-jdk-17-ndk-r26b
     runs_on: linux-large
     environment: production
     env:
