@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "PokeRPG",
+    "slug": "pokerpg",
+    "extra": {
+      "eas": {
+        "projectId": "e90bd102-48e1-4616-8edd-7d14e17ec9d4"
+      }
+    }
+  }
+}
