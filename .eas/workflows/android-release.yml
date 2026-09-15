@@ -37,7 +37,7 @@ jobs:
   build_android_apk:
     name: Export, sign and package the Android APK
     image: ubuntu-22.04-jdk-17-ndk-r26b
-    runs_on: linux-large
+    runs_on: linux-medium
     environment: production
     env:
       GODOT_VERSION: "4.3-stable"
