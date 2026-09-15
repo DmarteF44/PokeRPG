@@ -538,9 +538,18 @@ func _show_tutorial_step() -> void:
 	highlight_style.set_corner_radius_all(8)
 	highlight.add_theme_stylebox_override("panel", highlight_style)
 
-	# Callout box sits above the target unless that would run it off the top
-	# of the screen, in which case it goes below instead.
-	var callout_height := 108.0
+	# Callout height grows with the step text instead of a one-size-fits-all
+	# box, so longer strings (Bag/Catch steps, or longer translations) get the
+	# vertical room they need instead of being clipped by UI.add_label's
+	# clip_text safeguard.
+	var step_text := str(step.get("text", ""))
+	var text_width := 296.0
+	var font := ThemeDB.fallback_font
+	var wrapped_size: Vector2 = font.get_multiline_string_size(step_text, HORIZONTAL_ALIGNMENT_LEFT, text_width, 12)
+	var text_height := maxf(24.0, wrapped_size.y + 4.0)
+	var button_gap := 12.0
+	var button_height := 28.0
+	var callout_height := 8.0 + text_height + button_gap + button_height + 8.0
 	var callout_y := target.position.y - callout_height - 12.0
 	if callout_y < 46.0:
 		callout_y = target.position.y + target.size.y + 12.0
@@ -551,11 +560,11 @@ func _show_tutorial_step() -> void:
 	callout.mouse_filter = Control.MOUSE_FILTER_STOP
 	overlay.add_child(callout)
 	UI.style_panel_button(callout, Color(0.98, 0.95, 0.85), Color(0.55, 0.42, 0.10), 2)
-	var text_label := UI.add_panel_label(callout, str(step.get("text", "")), Vector2(12, 8), Vector2(296, 62), 12, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_TOP, "StepText")
+	var text_label := UI.add_panel_label(callout, step_text, Vector2(12, 8), Vector2(text_width, text_height), 12, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_TOP, "StepText")
 	_fit_label_if_available(text_label)
 	var is_last := _tutorial_step_index >= steps.size() - 1
 	var next_label := _text("tutorial_got_it") if is_last else _text("tutorial_next")
-	UI.add_orange_button(callout, next_label, Vector2(184, 74), Vector2(124, 28), Callable(self, "_advance_tutorial_step"), "NextStep")
+	UI.add_orange_button(callout, next_label, Vector2(184, 8.0 + text_height + button_gap), Vector2(124, button_height), Callable(self, "_advance_tutorial_step"), "NextStep")
 
 
 func _fit_label_if_available(label: Label) -> void:

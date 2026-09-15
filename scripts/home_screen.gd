@@ -937,9 +937,12 @@ func _show_tutorial() -> void:
 
 	y += 8.0
 	var tutorial_completed := bool(save_data.get("tutorial_battle_completed", false))
-	var battle_intro_label := UI.add_panel_label(content, _text("tutorial_battle_intro"), Vector2(0, y), Vector2(296, 60), 12, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_TOP, "TutorialBattleIntro")
+	var battle_intro_text := _text("tutorial_battle_intro")
+	var battle_intro_wrapped: Vector2 = ThemeDB.fallback_font.get_multiline_string_size(battle_intro_text, HORIZONTAL_ALIGNMENT_LEFT, 296.0, 12)
+	var battle_intro_height := maxf(60.0, battle_intro_wrapped.y + 4.0)
+	var battle_intro_label := UI.add_panel_label(content, battle_intro_text, Vector2(0, y), Vector2(296, battle_intro_height), 12, HORIZONTAL_ALIGNMENT_LEFT, VERTICAL_ALIGNMENT_TOP, "TutorialBattleIntro")
 	_fit_label(battle_intro_label, true)
-	y += 66.0
+	y += battle_intro_height + 6.0
 	var battle_button_label := _text("tutorial_battle_replay") if tutorial_completed else _text("tutorial_battle_start")
 	UI.add_orange_button(content, battle_button_label, Vector2(0, y), Vector2(296, 44), Callable(self, "_start_tutorial_battle"), "StartTutorialBattle")
 	y += 52.0
@@ -4588,7 +4591,12 @@ func _on_options_applied(new_settings: Dictionary) -> void:
 
 
 func _rebuild_screen() -> void:
+	# remove_child before queue_free: queue_free() doesn't detach a node
+	# until end of frame, so _build_screen() below would otherwise add a
+	# whole second UI on top of the still-attached old one for one frame,
+	# letting a tap land on a stale, about-to-be-freed button.
 	for child in get_children():
+		remove_child(child)
 		child.queue_free()
 	_refresh_save_data()
 	_build_screen()
