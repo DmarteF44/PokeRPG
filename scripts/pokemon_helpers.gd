@@ -20,6 +20,7 @@ const MEGAS_PATH = "res://data/pokemon_megas.json"
 const GMAX_PATH = "res://data/pokemon_gmax.json"
 const BATTLE_BOND_PATH = "res://data/pokemon_battle_bond.json"
 const ITEM_FORMS_PATH = "res://data/pokemon_item_forms.json"
+const SPRITESHEET_FILE_NAME = "spritesheet.png"
 const SPECIES_IDS = ["bulbasaur", "ivysaur", "venusaur", "charmander", "charmeleon", "charizard", "squirtle", "wartortle", "blastoise"]
 # Every generation's canonical starter trio, Gen 1-9 - not just Gen 1's,
 # so is_starter_id()/starter_ids() (used by the debug menu and by
@@ -1077,9 +1078,11 @@ static func frame_textures(pokemon_id: String, use_back: bool = false, form_id: 
 		if not item_form_def.is_empty():
 			var item_form_folder_key := "back_frames_path" if use_back else "front_frames_path"
 			var item_form_fallback_key := "front_frames_path" if use_back else "back_frames_path"
-			var item_form_frames := _textures_from_folder(str(item_form_def.get(item_form_folder_key, "")))
+			var item_form_count_key := "back_frame_count" if use_back else "front_frame_count"
+			var item_form_fallback_count_key := "front_frame_count" if use_back else "back_frame_count"
+			var item_form_frames := _textures_from_folder(str(item_form_def.get(item_form_folder_key, "")), int(item_form_def.get(item_form_count_key, 0)))
 			if item_form_frames.is_empty():
-				item_form_frames = _textures_from_folder(str(item_form_def.get(item_form_fallback_key, "")))
+				item_form_frames = _textures_from_folder(str(item_form_def.get(item_form_fallback_key, "")), int(item_form_def.get(item_form_fallback_count_key, 0)))
 			if not item_form_frames.is_empty():
 				return item_form_frames
 	if mega_id != "":
@@ -1087,9 +1090,11 @@ static func frame_textures(pokemon_id: String, use_back: bool = false, form_id: 
 		if not mega_def.is_empty():
 			var mega_folder_key := "back_frames_path" if use_back else "front_frames_path"
 			var mega_fallback_key := "front_frames_path" if use_back else "back_frames_path"
-			var mega_frames := _textures_from_folder(str(mega_def.get(mega_folder_key, "")))
+			var mega_count_key := "back_frame_count" if use_back else "front_frame_count"
+			var mega_fallback_count_key := "front_frame_count" if use_back else "back_frame_count"
+			var mega_frames := _textures_from_folder(str(mega_def.get(mega_folder_key, "")), int(mega_def.get(mega_count_key, 0)))
 			if mega_frames.is_empty():
-				mega_frames = _textures_from_folder(str(mega_def.get(mega_fallback_key, "")))
+				mega_frames = _textures_from_folder(str(mega_def.get(mega_fallback_key, "")), int(mega_def.get(mega_fallback_count_key, 0)))
 			if not mega_frames.is_empty():
 				return mega_frames
 	if gmax_id != "":
@@ -1097,9 +1102,11 @@ static func frame_textures(pokemon_id: String, use_back: bool = false, form_id: 
 		if not gmax_def.is_empty():
 			var gmax_folder_key := "back_frames_path" if use_back else "front_frames_path"
 			var gmax_fallback_key := "front_frames_path" if use_back else "back_frames_path"
-			var gmax_frames := _textures_from_folder(str(gmax_def.get(gmax_folder_key, "")))
+			var gmax_count_key := "back_frame_count" if use_back else "front_frame_count"
+			var gmax_fallback_count_key := "front_frame_count" if use_back else "back_frame_count"
+			var gmax_frames := _textures_from_folder(str(gmax_def.get(gmax_folder_key, "")), int(gmax_def.get(gmax_count_key, 0)))
 			if gmax_frames.is_empty():
-				gmax_frames = _textures_from_folder(str(gmax_def.get(gmax_fallback_key, "")))
+				gmax_frames = _textures_from_folder(str(gmax_def.get(gmax_fallback_key, "")), int(gmax_def.get(gmax_fallback_count_key, 0)))
 			if not gmax_frames.is_empty():
 				return gmax_frames
 	if battle_bond_id != "":
@@ -1107,9 +1114,11 @@ static func frame_textures(pokemon_id: String, use_back: bool = false, form_id: 
 		if not bond_def.is_empty():
 			var bond_folder_key := "back_frames_path" if use_back else "front_frames_path"
 			var bond_fallback_key := "front_frames_path" if use_back else "back_frames_path"
-			var bond_frames := _textures_from_folder(str(bond_def.get(bond_folder_key, "")))
+			var bond_count_key := "back_frame_count" if use_back else "front_frame_count"
+			var bond_fallback_count_key := "front_frame_count" if use_back else "back_frame_count"
+			var bond_frames := _textures_from_folder(str(bond_def.get(bond_folder_key, "")), int(bond_def.get(bond_count_key, 0)))
 			if bond_frames.is_empty():
-				bond_frames = _textures_from_folder(str(bond_def.get(bond_fallback_key, "")))
+				bond_frames = _textures_from_folder(str(bond_def.get(bond_fallback_key, "")), int(bond_def.get(bond_fallback_count_key, 0)))
 			if not bond_frames.is_empty():
 				return bond_frames
 	if form_id != "":
@@ -1117,9 +1126,11 @@ static func frame_textures(pokemon_id: String, use_back: bool = false, form_id: 
 		if not form_def.is_empty():
 			var form_folder_key := "back_frames_path" if use_back else "front_frames_path"
 			var form_fallback_key := "front_frames_path" if use_back else "back_frames_path"
-			var form_frames := _textures_from_folder(str(form_def.get(form_folder_key, "")))
+			var form_count_key := "back_frame_count" if use_back else "front_frame_count"
+			var form_fallback_count_key := "front_frame_count" if use_back else "back_frame_count"
+			var form_frames := _textures_from_folder(str(form_def.get(form_folder_key, "")), int(form_def.get(form_count_key, 0)))
 			if form_frames.is_empty():
-				form_frames = _textures_from_folder(str(form_def.get(form_fallback_key, "")))
+				form_frames = _textures_from_folder(str(form_def.get(form_fallback_key, "")), int(form_def.get(form_fallback_count_key, 0)))
 			if not form_frames.is_empty():
 				return form_frames
 	if not has_definition(pokemon_id):
@@ -1127,10 +1138,12 @@ static func frame_textures(pokemon_id: String, use_back: bool = false, form_id: 
 	var definition := get_definition(pokemon_id)
 	var folder_key := "back_frames_path" if use_back else "front_frames_path"
 	var fallback_key := "front_frames_path" if use_back else "back_frames_path"
+	var count_key := "back_frame_count" if use_back else "front_frame_count"
+	var fallback_count_key := "front_frame_count" if use_back else "back_frame_count"
 	var folder := str(definition.get(folder_key, ""))
-	var frames := _textures_from_folder(folder)
+	var frames := _textures_from_folder(folder, int(definition.get(count_key, 0)))
 	if frames.is_empty():
-		frames = _textures_from_folder(str(definition.get(fallback_key, "")))
+		frames = _textures_from_folder(str(definition.get(fallback_key, "")), int(definition.get(fallback_count_key, 0)))
 	return frames
 
 
@@ -1189,24 +1202,31 @@ static func _resource_path_exists(path: String) -> bool:
 	return path != "" and (ResourceLoader.exists(path) or FileAccess.file_exists(path))
 
 
-static func _textures_from_folder(folder: String) -> Array:
-	if folder == "":
+static func _textures_from_folder(folder: String, frame_count: int) -> Array:
+	if folder == "" or frame_count <= 0:
 		return []
-	if _frame_textures_cache.has(folder):
-		return _frame_textures_cache[folder]
+	var cache_key := "%s|%d" % [folder, frame_count]
+	if _frame_textures_cache.has(cache_key):
+		return _frame_textures_cache[cache_key]
 
+	# Every frame for this animation is packed into one spritesheet.png strip
+	# (see scripts/tools/extract_generation_sprites.py's save_frames()) -
+	# sliced back into one AtlasTexture region per frame here instead of
+	# loading a separate file per frame, which is what keeps the Android
+	# export's ZIP entry count from scaling with frame count.
 	var textures := []
-	# Loop breaks on the first missing frame index, so this cap only needs to
-	# exceed the longest animation on disk (weezing's front animation has 239
-	# frames) - it is not a per-species budget.
-	for index in range(0, 256):
-		var path := "%s%03d.png" % [folder, index]
-		if not _resource_path_exists(path):
-			break
-		var texture := _texture_from_png(path)
-		if texture != null:
-			textures.append(texture)
-	_frame_textures_cache[folder] = textures
+	var sheet_path := "%s%s" % [folder, SPRITESHEET_FILE_NAME]
+	if _resource_path_exists(sheet_path):
+		var sheet := _texture_from_png(sheet_path)
+		if sheet != null and sheet.get_width() > 0:
+			var frame_width := sheet.get_width() / frame_count
+			var frame_height := sheet.get_height()
+			for index in range(frame_count):
+				var atlas := AtlasTexture.new()
+				atlas.atlas = sheet
+				atlas.region = Rect2(index * frame_width, 0, frame_width, frame_height)
+				textures.append(atlas)
+	_frame_textures_cache[cache_key] = textures
 	return textures
 
 
@@ -1474,11 +1494,11 @@ static func _with_asset_paths(definition: Dictionary) -> Dictionary:
 				break
 	if str(definition.get("front_frames_path", "")) == "":
 		var front_path := "res://assets/pokemon/battle/animated/gen_%d/front/%s/" % [generation, pokemon_id]
-		if _resource_path_exists("%s000.png" % front_path):
+		if _resource_path_exists("%s%s" % [front_path, SPRITESHEET_FILE_NAME]):
 			definition["front_frames_path"] = front_path
 	if str(definition.get("back_frames_path", "")) == "":
 		var back_path := "res://assets/pokemon/battle/animated/gen_%d/back/%s/" % [generation, pokemon_id]
-		if _resource_path_exists("%s000.png" % back_path):
+		if _resource_path_exists("%s%s" % [back_path, SPRITESHEET_FILE_NAME]):
 			definition["back_frames_path"] = back_path
 	return definition
 

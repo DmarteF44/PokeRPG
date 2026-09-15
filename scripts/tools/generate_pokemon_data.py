@@ -404,8 +404,13 @@ def build_species_entry(dex_number: int, pokemon: dict, species: dict, existing:
         "description_en": description,
         "description_pt": description,
         "description_source": "pokeapi_flavor_text",
-        "sprite_front": f"{assets['front_frames_path']}000.png" if assets["front_frames_path"] else "",
-        "sprite_back": f"{assets['back_frames_path']}000.png" if assets["back_frames_path"] else "",
+        # Frames are packed into one spritesheet.png strip per species/
+        # direction (see extract_generation_sprites.py's save_frames()), not
+        # a standalone first-frame file, so these informational fields point
+        # at the one real single-frame image instead of a path that would
+        # never resolve.
+        "sprite_front": assets["icon_path"],
+        "sprite_back": assets["icon_path"],
         "front_frames_path": assets["front_frames_path"],
         "back_frames_path": assets["back_frames_path"],
         "icon_path": assets["icon_path"],

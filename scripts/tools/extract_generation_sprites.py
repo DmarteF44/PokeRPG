@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Extract battle-animation sprites + icons for a whole generation from the
 bundled "3D Models_ Generation N Pokemon - Sprite Index - Project Pokemon
-Forums.zip" archives, following the exact layout established for Gen 1
-(assets/pokemon/battle/animated/gen_N/<front|back>/<species_id>/NNN.png).
+Forums.zip" archives, following the layout established for Gen 1
+(assets/pokemon/battle/animated/gen_N/<front|back>/<species_id>/spritesheet.png
+- every frame for that species/direction packed into one horizontal strip).
 
 Each archive lists two GIFs per species per direction (a near-duplicate
 pair), with the "front" block and "back" block offset by a constant number
@@ -12,41 +13,24 @@ confirmed to hold for Gen 2 (310) and Gen 3 (362) with the same detection
 method used here (mode of front/back index deltas per species).
 
 Frame counts in the source GIFs run 20-90+ frames per direction. MAX_FRAMES
-is NOT just a quality/size dial - it's capped by a hard technical ceiling in
-this environment's Android build pipeline. Godot's non-gradle Android export
-mode gives each imported PNG two ZIP entries (a compiled assets/.godot/
-imported/*.ctex plus a required assets/*.png.import remap sidecar - see
-scripts/tools/build_android_release.sh for why the sidecar can't be
-stripped), and the whole APK's ZIP entry count must stay under the classic
-65535 cap: past that, Zip64 format kicks in, and every apksigner available
-here - and, it turns out, Android's own on-device package parser, which
-shares the same Zip64-handling code - fails to read the file at all ("As
-the package appears to be invalid" on install, no signing scheme fixes it).
-MAX_FRAMES=24 produced ~107k total entries and every install failed; testing
-narrowed the safe ceiling to MAX_FRAMES=12 (~55k entries, real margin under
-the cap). Raise this only after re-deriving that math for the current asset
-count, and rebuild+verify entry count BEFORE handing off an APK.
+USED to be capped hard at 12-16 by the Android build pipeline: Godot's
+non-gradle export gave every imported PNG 2 ZIP entries (compiled .ctex +
+*.png.import sidecar), and the whole APK's ZIP entry count had to stay
+under the classic 65535 cap or apksigner and Android's own installer both
+rejected the file outright (see git history / build_android_release.sh for
+the full story - MAX_FRAMES=24 alone produced ~107k entries and every
+install failed).
 
-Re-measured for this asset set on 2026-09-15: MAX_FRAMES=24 -> 80,167 pokemon
-asset files (way over budget, confirmed unsafe again); MAX_FRAMES=16 ->
-62,933 (only ~2.6k below the 65535 cap project-wide - no real margin);
-MAX_FRAMES=14 -> 58,601 pokemon files / 59,511 total project asset files,
-leaving ~6k (~10%) margin under the cap, comparable to the original
-MAX_FRAMES=12 baseline's margin - that's the value currently checked in.
-Don't raise it again without redoing this same file-count measurement.
-
-LOWERING MAX_FRAMES after a higher-count run has already been extracted
-leaves orphaned res://....png.import sidecars behind for the now-deleted
-higher-numbered frames (save_frames() only clears frames it's about to
-rewrite in that same run, and Godot never wrote those .import files itself -
-they're the editor's own artifacts from a prior import pass, so it's the
-only thing that can prune them). Before re-exporting, delete every
-*.import file under assets/ whose corresponding source file no longer
-exists, then delete .godot/imported/ and run a headless editor pass
-(`godot --headless --editor --quit-after 480`, adjust the timeout for the
-asset count) to force a clean reimport - otherwise the orphaned files get
-bundled into the APK for nothing, right back over the entry-count cap this
-constant exists to stay under.
+That ceiling scaled with FILE COUNT, not frame count, and save_frames()
+below no longer writes one PNG per frame - every animation's frames are
+packed into a single spritesheet.png strip (sliced back into per-frame
+AtlasTexture regions at runtime by PokemonHelpers._textures_from_folder,
+using frame_count to divide the sheet's width). One imported resource per
+animation regardless of frame count means the ZIP-entry budget is no
+longer the limiting factor, so MAX_FRAMES is set high enough to just take
+every native frame for effectively every species instead of subsampling.
+The remaining constraint is just total asset size, which is soft (this
+project ships its APK via GitHub Releases, not a Play Store size cap).
 
 Usage: python3 extract_generation_sprites.py <gen_number>
 """
@@ -68,7 +52,7 @@ from PIL import Image, ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 ROOT = Path(__file__).resolve().parents[2]
-MAX_FRAMES = 14
+MAX_FRAMES = 128
 ICON_SIZE = 96
 
 NAME_RE = re.compile(r"^imgi_(\d+)_(.+)\.(gif|png|jpg|jpeg|svg)$", re.IGNORECASE)
@@ -172,12 +156,30 @@ def _save_optimized(image: Image.Image, out_path: Path) -> None:
         quantized.save(out_path, optimize=True, compress_level=9)
 
 
+SPRITESHEET_NAME = "spritesheet.png"
+
+
 def save_frames(frames: list[Image.Image], out_dir: Path) -> int:
+    # Packed as a single horizontal strip (one file) instead of one PNG per
+    # frame - this is what actually lifts the MAX_FRAMES ceiling documented
+    # above: the Android APK's ZIP-entry budget scales with file count, not
+    # frame count, once every animation is one imported resource regardless
+    # of how many frames it has. Godot slices it back into per-frame regions
+    # at runtime via AtlasTexture (see PokemonHelpers._textures_from_folder),
+    # using frame_count (already tracked per-species in the manifests) to
+    # divide the sheet's width - frame_count must keep being written/read
+    # accurately for that slicing to land on frame boundaries.
     out_dir.mkdir(parents=True, exist_ok=True)
     for old in out_dir.glob("*.png"):
         old.unlink()
+    if not frames:
+        return 0
+    frame_width = max(f.width for f in frames)
+    frame_height = max(f.height for f in frames)
+    sheet = Image.new("RGBA", (frame_width * len(frames), frame_height), (0, 0, 0, 0))
     for i, frame in enumerate(frames):
-        _save_optimized(frame, out_dir / f"{i:03d}.png")
+        sheet.paste(frame.convert("RGBA"), (i * frame_width, 0))
+    _save_optimized(sheet, out_dir / SPRITESHEET_NAME)
     return len(frames)
 
 
@@ -274,8 +276,12 @@ def main() -> None:
                 "has_animation": True,
             }
             species["icon_path"] = rel_icon
-            species["sprite_front"] = rel_front_dir + "000.png"
-            species["sprite_back"] = rel_back_dir + "000.png"
+            # Frames are packed into one spritesheet.png strip now (see
+            # save_frames()), not a standalone first-frame file, so these
+            # informational fields point at the one real single-frame image
+            # that still exists instead of a path nothing would resolve.
+            species["sprite_front"] = rel_icon
+            species["sprite_back"] = rel_icon
             species["front_frames_path"] = rel_front_dir
             species["back_frames_path"] = rel_back_dir
             species["has_animation"] = True

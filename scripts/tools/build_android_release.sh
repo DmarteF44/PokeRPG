@@ -30,17 +30,26 @@
 # installable here (its installer needs dl.google.com, blocked), and a
 # Gradle-based export would need Google's Maven (also blocked).
 #
-# So MAX_FRAMES (scripts/tools/extract_generation_sprites.py) has to stay
-# low enough that total entries stay under 65535 - see that file's own
-# comment for the current safe value and the math behind it. When that
-# holds, Godot's own bundled apksigner works fine and produces a real
-# v1+v2+v3 signature; this script uses that directly. As a safety net for
-# ever going over the cap again, it falls back to apk_v2_sign.py (a
-# from-scratch APK Signature Scheme v2 implementation, self-verified against
-# openssl) - but that fallback should be treated as a red flag that
-# MAX_FRAMES needs lowering again, not a long-term solution, since it's
-# ONLY the signing step that fallback fixes and the on-device parser
-# rejection described above suggests installs would still fail past the cap.
+# Pokemon battle animations used to be the main driver of this entry count
+# (one PNG per frame, MAX_FRAMES capped low to keep the total under budget).
+# They're now packed into one spritesheet.png strip per species/direction
+# (see extract_generation_sprites.py's save_frames()) - one imported
+# resource regardless of frame count - so that's no longer the constraint it
+# was; full-length animations are back. The entry-count cap and the
+# apksigner fallback below are still real and still apply to whatever total
+# resource count the project has at build time, so this script still checks
+# and reports the final count - just don't assume Pokemon frame count is
+# what would push it over now.
+#
+# When the total stays under the cap, Godot's own bundled apksigner works
+# fine and produces a real v1+v2+v3 signature; this script uses that
+# directly. As a safety net for ever going over the cap again, it falls back
+# to apk_v2_sign.py (a from-scratch APK Signature Scheme v2 implementation,
+# self-verified against openssl) - but that fallback should be treated as a
+# red flag that something pushed total resource count too high, not a
+# long-term solution, since it's ONLY the signing step that fallback fixes
+# and the on-device parser rejection described above suggests installs
+# would still fail past the cap.
 #
 # Usage: GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD=... scripts/tools/build_android_release.sh
 set -euo pipefail

@@ -24,12 +24,14 @@ func _run() -> void:
 	# must return the exact cached array (not rebuild it from disk again).
 	var charizard_def := PokemonHelpers.get_definition("charizard")
 	var folder := str(charizard_def.get("front_frames_path", ""))
+	var frame_count := int(charizard_def.get("front_frame_count", 0))
 	_check("setup: charizard has a real front_frames_path to test caching with", folder != "", folder)
-	var first_call: Array = PokemonHelpers._textures_from_folder(folder)
+	var first_call: Array = PokemonHelpers._textures_from_folder(folder, frame_count)
 	_check("first call actually loads frames", not first_call.is_empty(), first_call.size())
-	var second_call: Array = PokemonHelpers._textures_from_folder(folder)
+	var second_call: Array = PokemonHelpers._textures_from_folder(folder, frame_count)
+	var cache_key := "%s|%d" % [folder, frame_count]
 	_check("second call for the same folder returns the cached array (not a fresh rebuild)",
-		first_call == second_call and PokemonHelpers._frame_textures_cache.has(folder), [first_call.size(), second_call.size()])
+		first_call == second_call and PokemonHelpers._frame_textures_cache.has(cache_key), [first_call.size(), second_call.size()])
 
 	# --- Large storage batching: build a save with a large storage (well
 	# past one ROWS_PER_BATCH) and confirm every row still gets built once
