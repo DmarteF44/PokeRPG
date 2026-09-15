@@ -30,7 +30,7 @@ name: PokeRPG Android release build
 
 "on":
   push:
-    branches: ["main"]
+    branches: ["claude/explore-repository-k5uoho"]
   workflow_dispatch: {}
 
 jobs:
