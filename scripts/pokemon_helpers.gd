@@ -1243,7 +1243,13 @@ static func _fallback_texture(pokemon: Dictionary) -> Texture2D:
 		str(definition.get("icon_path", "")),
 		"res://assets/sprites/sprite_%s_96.png" % str(definition.get("id", DEFAULT_STARTER_ID)),
 		"res://assets/sprites/sprite_%s_96.png" % str(pokemon.get("id", DEFAULT_STARTER_ID)),
-		"res://assets/sprites/sprite_charmander_96.png",
+		# Last resort for species with no art at all yet (e.g. some Gen 8
+		# additions - see data/pokemon_species.json's empty icon_path/
+		# sprite_front for those ids). This used to fall back to Charmander's
+		# own sprite, which reads as "this Meltan is secretly a Charmander"
+		# instead of "no art available" - a generic placeholder says the
+		# latter honestly.
+		"res://assets/sprites/sprite_unknown_96.png",
 	]
 	for path in candidates:
 		if _resource_path_exists(path):

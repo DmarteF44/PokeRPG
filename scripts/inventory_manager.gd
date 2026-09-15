@@ -8,23 +8,46 @@ const DEFAULT_INVENTORY = {
 
 var _inventory: Dictionary = {}
 
+# Which save slot _inventory currently reflects, so ensure_default_inventory()
+# - called on every single read (get_item_amount(), get_inventory()), often
+# many times per screen (once per Bag row, once per owned-item check) - can
+# skip re-deriving from the save and, critically, skip writing back to disk
+# when nothing actually changed. InventoryManager is the sole writer of the
+# save's "inventory" field (see save_inventory_to_current_save()), so once
+# synced to a given slot, the in-memory copy stays authoritative for it.
+var _synced_slot := -1
+var _has_synced := false
+
 
 func ensure_default_inventory() -> void:
 	var save_data := SaveManager.get_current_save()
 	if save_data.is_empty():
-		_inventory = DEFAULT_INVENTORY.duplicate(true)
+		if not _has_synced or _synced_slot != -1:
+			_inventory = DEFAULT_INVENTORY.duplicate(true)
+			_synced_slot = -1
+			_has_synced = true
 		return
 
+	var slot := int(save_data.get("slot", 0))
+	if _has_synced and slot == _synced_slot:
+		return
+
+	var needs_write := false
 	var source = save_data.get("inventory", {})
 	if typeof(source) == TYPE_DICTIONARY:
 		_inventory = _sanitize_inventory(source)
 	else:
 		_inventory = {}
+		needs_write = true
 
 	if _inventory.is_empty():
 		_inventory = DEFAULT_INVENTORY.duplicate(true)
+		needs_write = true
 
-	save_inventory_to_current_save()
+	_synced_slot = slot
+	_has_synced = true
+	if needs_write:
+		save_inventory_to_current_save()
 
 
 func get_inventory() -> Dictionary:

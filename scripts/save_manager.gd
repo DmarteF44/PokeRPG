@@ -155,10 +155,15 @@ func get_save(slot: int) -> Dictionary:
 
 	var file := FileAccess.open(path, FileAccess.READ)
 	if file == null:
+		push_error("SaveManager: failed to open save slot %d at %s (error %d)" % [slot, path, FileAccess.get_open_error()])
 		return {}
 
 	var parsed = JSON.parse_string(file.get_as_text())
 	if typeof(parsed) != TYPE_DICTIONARY:
+		# A save that fails to parse (corrupt/truncated) silently reads back as
+		# "no save" otherwise - this is the only signal a corrupt save leaves
+		# for whoever debugs a "my save just disappeared" report.
+		push_error("SaveManager: save slot %d at %s is not valid JSON - treating as no save" % [slot, path])
 		return {}
 
 	var save_data: Dictionary = parsed
@@ -382,9 +387,35 @@ func _normalized_save(save_data: Dictionary) -> Dictionary:
 
 func _write_save(slot: int, save_data: Dictionary) -> void:
 	_ensure_saves_dir()
-	var file := FileAccess.open(_save_path(slot), FileAccess.WRITE)
-	if file != null:
-		file.store_string(JSON.stringify(save_data, "\t"))
+	var final_path := _save_path(slot)
+	var tmp_path := final_path + ".tmp"
+	var json_text := JSON.stringify(save_data, "\t")
+
+	# Write to a temp file and rename it over the real save, rather than
+	# writing the real path directly - a direct write leaves a half-written,
+	# corrupt save file if the app is killed (backgrounded, battery, crash)
+	# mid-write, and update_current_save() calls this on nearly every player
+	# action, so that window is wide. A rename is atomic: readers only ever
+	# see the old complete file or the new complete file, never a partial one.
+	var file := FileAccess.open(tmp_path, FileAccess.WRITE)
+	if file == null:
+		push_error("SaveManager: failed to open %s for writing (error %d) - save NOT written for slot %d" % [tmp_path, FileAccess.get_open_error(), slot])
+		return
+	file.store_string(json_text)
+	file.close()
+
+	var dir := DirAccess.open("user://")
+	if dir == null or dir.rename(tmp_path, final_path) != OK:
+		# Rename failed (rare: e.g. no rename support on this filesystem) -
+		# fall back to a direct write so the save isn't silently lost, even
+		# though this path loses the atomicity guarantee above.
+		push_error("SaveManager: atomic rename failed for slot %d, falling back to a direct write" % slot)
+		var fallback := FileAccess.open(final_path, FileAccess.WRITE)
+		if fallback == null:
+			push_error("SaveManager: failed to write save for slot %d (error %d)" % [slot, FileAccess.get_open_error()])
+			return
+		fallback.store_string(json_text)
+		fallback.close()
 
 
 func _ensure_saves_dir() -> void:

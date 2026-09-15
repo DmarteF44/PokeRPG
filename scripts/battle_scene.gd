@@ -930,7 +930,7 @@ func _execute_attack(attacker_is_player: bool, move: Dictionary, lines: Array) -
 		lines.append(_text("miss"))
 		return
 
-	var damage_result := _calculate_damage_result(attacker, defender, move)
+	var damage_result := _calculate_damage_result(attacker, defender, move, attacker_is_player)
 	var damage := int(damage_result.get("damage", 0))
 	if int(move.get("power", 0)) > 0:
 		defender["hp"] = maxi(0, int(defender.get("hp", 0)) - damage)
@@ -1002,7 +1002,7 @@ func _write_back_pokemon(is_player: bool, pokemon: Dictionary) -> void:
 		enemy_pokemon = pokemon
 
 
-func _calculate_damage_result(attacker: Dictionary, defender: Dictionary, move: Dictionary) -> Dictionary:
+func _calculate_damage_result(attacker: Dictionary, defender: Dictionary, move: Dictionary, attacker_is_player: bool) -> Dictionary:
 	var power := maxi(0, int(move.get("power", 40)))
 	var effectiveness := _type_effectiveness(str(move.get("type", "Normal")), defender.get("types", []))
 	var critical := randf() < 0.0625
@@ -1013,7 +1013,11 @@ func _calculate_damage_result(attacker: Dictionary, defender: Dictionary, move: 
 	var category := str(move.get("category", "Physical"))
 	var attack_key := "sp_attack" if category == "Special" else "attack"
 	var defense_key := "sp_defense" if category == "Special" else "defense"
-	var attacker_is_player := attacker == player_pokemon
+	# attacker_is_player is passed in by the caller (which already knows it)
+	# rather than derived here via `attacker == player_pokemon` - a Dictionary
+	# content comparison, which would misfire on a mirror match where both
+	# sides share the same species/stats. See _estimated_damage() below for
+	# the AI-scoring counterpart that already does it this way.
 	var attack_stat := int(_modified_stat(attacker, attack_key, attacker_is_player))
 	if category != "Special" and _normalized_status_key(attacker.get("status_condition", "")) == "burn":
 		attack_stat = maxi(1, int(attack_stat / 2))

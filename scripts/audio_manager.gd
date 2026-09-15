@@ -42,7 +42,11 @@ func _ready() -> void:
 
 
 func refresh_settings() -> void:
-	var settings := SaveManager.load_settings()
+	# get_settings() (in-memory, kept current by every SaveManager.save_settings()
+	# call) rather than load_settings() (re-reads and re-parses settings.json from
+	# disk) - refresh_settings() only needs to react to a settings change that
+	# already went through save_settings(), so the cache is always fresh here.
+	var settings := SaveManager.get_settings()
 	var music_on := bool(settings.get("music_enabled", true))
 	if music_on:
 		if _music_player.stream != null and not _music_player.playing:
@@ -52,7 +56,10 @@ func refresh_settings() -> void:
 
 
 func play_sfx(id: String) -> void:
-	var settings := SaveManager.load_settings()
+	# get_settings(), not load_settings(): this fires on every single button
+	# press in the game (see ui_factory.gd's buttons) - hitting disk that often
+	# was turning every tap into a file read for no behavioral benefit.
+	var settings := SaveManager.get_settings()
 	if not bool(settings.get("sfx_enabled", true)):
 		return
 	var path := str(SFX_PATHS.get(id, ""))
