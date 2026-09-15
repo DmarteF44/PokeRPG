@@ -1,0 +1,105 @@
+# Builds and signs the Android release APK on EAS infrastructure and
+# delivers it as a downloadable workflow artifact.
+#
+# PokeRPG is a Godot 4 project, not an Expo/React Native app - there is no
+# "expo export" or managed build for it, so this is a "custom job" (no
+# `type:` field): a plain shell pipeline that runs on an EAS-hosted Linux VM,
+# the same way it would on any other CI. It installs the Godot editor +
+# export templates itself, then calls scripts/tools/build_android_release.sh
+# unchanged - that script (see its own header comment) already encodes the
+# hard-won fix for this project's Zip64/apksigner signing issue, so this
+# workflow does not duplicate that logic.
+#
+# One-time setup (run these yourself - see EAS_SETUP.md for the full list):
+#   1. `eas login` and `eas init` in this repo, to link it to your Expo account/project.
+#   2. Create these as EAS *secret* environment variables (dashboard or
+#      `eas env:create`), scoped to the "production" environment so they
+#      match the `environment: production` line below:
+#        - ANDROID_RELEASE_KEYSTORE_BASE64  (the .keystore file, base64-encoded)
+#        - GODOT_ANDROID_KEYSTORE_RELEASE_USER      (keystore alias)
+#        - GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD  (keystore password)
+#   3. Trigger with `eas workflow:run .eas/workflows/android-release.yml`,
+#      or push to a branch matching the `on:` trigger below.
+#
+# NOTE: this file is hand-written against Expo's published EAS Workflows
+# docs, not verified against a real run (this environment has no Expo
+# account to test one against) - double-check step names/fields in the EAS
+# dashboard the first time you run it, in case the schema has moved on.
+
+name: PokeRPG Android release build
+
+"on":
+  push:
+    branches: ["main"]
+  workflow_dispatch: {}
+
+jobs:
+  build_android_apk:
+    name: Export, sign and package the Android APK
+    image: ubuntu-22.04
+    runs_on: linux-large
+    environment: production
+    env:
+      GODOT_VERSION: "4.3-stable"
+      GODOT_BIN: /opt/godot/Godot_v4.3-stable_linux.x86_64
+      ANDROID_BUILD_TOOLS: /opt/android-sdk/build-tools/29.0.3
+    steps:
+      - uses: eas/checkout
+
+      - name: Install the Godot 4.3 editor (headless export needs the real editor, not just a runtime)
+        run: |
+          set -euo pipefail
+          mkdir -p /opt/godot
+          cd /opt/godot
+          curl -fL -o godot.zip \
+            "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_linux.x86_64.zip"
+          unzip -q godot.zip
+          chmod +x Godot_v${GODOT_VERSION}_linux.x86_64
+          "$GODOT_BIN" --version
+
+      - name: Install Godot's Android export templates (must match the editor version exactly)
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/godot_templates
+          cd /tmp/godot_templates
+          curl -fL -o templates.tpz \
+            "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_export_templates.tpz"
+          unzip -q templates.tpz
+          mkdir -p "$HOME/.local/share/godot/export_templates"
+          mv templates "$HOME/.local/share/godot/export_templates/${GODOT_VERSION}"
+
+      - name: Point Godot at the release keystore for this project's Android export preset
+        run: |
+          set -euo pipefail
+          echo "$ANDROID_RELEASE_KEYSTORE_BASE64" | base64 -d > /tmp/pokerpg-release.keystore
+          # export_presets.cfg's [preset.0.options] section (keystore/release
+          # path + user) already points Godot's own export step at exactly
+          # this path - see that file if it ever changes.
+          mkdir -p /root/.android
+          cp /tmp/pokerpg-release.keystore /root/.android/pokerpg-release.keystore
+
+      - name: Ensure the pinned Android build-tools version is installed (see build_android_release.sh header for why 29.0.3 specifically)
+        run: |
+          set -euo pipefail
+          if [ ! -x "$ANDROID_BUILD_TOOLS/apksigner" ]; then
+            yes | sdkmanager --install "build-tools;29.0.3" || {
+              echo "sdkmanager unavailable/failed - if this image doesn't ship the Android SDK, install it here first.";
+              exit 1;
+            }
+          fi
+
+      - id: build
+        name: Run the project's own signed-APK build script
+        run: |
+          set -euo pipefail
+          export GODOT_BIN ANDROID_BUILD_TOOLS
+          export GODOT_ANDROID_KEYSTORE_RELEASE=/root/.android/pokerpg-release.keystore
+          # Relative to the repo root, which is this step's working directory
+          # after eas/checkout - matches the "path:" below.
+          scripts/tools/build_android_release.sh build/pokerpg.apk
+
+      - uses: eas/upload_artifact
+        with:
+          type: other
+          name: pokerpg-release.apk
+          path: build/pokerpg.apk
