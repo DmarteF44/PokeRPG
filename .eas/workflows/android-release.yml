@@ -69,7 +69,12 @@ jobs:
             "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_export_templates.tpz"
           unzip -q templates.tpz
           mkdir -p "$HOME/.local/share/godot/export_templates"
-          mv templates "$HOME/.local/share/godot/export_templates/${GODOT_VERSION}"
+          # A first real run failed here: "No export template found at
+          # .../export_templates/4.3.stable/..." - Godot's release download
+          # URLs use a hyphen (v4.3-stable), but the local export_templates
+          # directory Godot's editor actually looks under uses a dot before
+          # "stable" (4.3.stable), not the URL's version string verbatim.
+          mv templates "$HOME/.local/share/godot/export_templates/${GODOT_VERSION/-/.}"
 
       - name: Point Godot at the release keystore for this project's Android export preset
         run: |
