@@ -41,21 +41,24 @@ jobs:
     environment: production
     env:
       GODOT_VERSION: "4.3-stable"
-      GODOT_BIN: /opt/godot/Godot_v4.3-stable_linux.x86_64
-      ANDROID_BUILD_TOOLS: /opt/android-sdk/build-tools/29.0.3
     steps:
       - uses: eas/checkout
 
+      # The worker runs as a non-root user (its own $HOME, not /root or
+      # /opt - a first real run here hit "mkdir: cannot create directory
+      # '/opt/godot': Permission denied"), so everything below installs
+      # under $HOME or the checked-out project directory instead of
+      # assuming root-owned paths.
       - name: Install the Godot 4.3 editor (headless export needs the real editor, not just a runtime)
         run: |
           set -euo pipefail
-          mkdir -p /opt/godot
-          cd /opt/godot
+          mkdir -p "$HOME/godot"
+          cd "$HOME/godot"
           curl -fL -o godot.zip \
             "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_linux.x86_64.zip"
           unzip -q godot.zip
           chmod +x Godot_v${GODOT_VERSION}_linux.x86_64
-          "$GODOT_BIN" --version
+          "$HOME/godot/Godot_v${GODOT_VERSION}_linux.x86_64" --version
 
       - name: Install Godot's Android export templates (must match the editor version exactly)
         run: |
@@ -71,29 +74,28 @@ jobs:
       - name: Point Godot at the release keystore for this project's Android export preset
         run: |
           set -euo pipefail
-          echo "$ANDROID_RELEASE_KEYSTORE_BASE64" | base64 -d > /tmp/pokerpg-release.keystore
-          # export_presets.cfg's [preset.0.options] section (keystore/release
-          # path + user) already points Godot's own export step at exactly
-          # this path - see that file if it ever changes.
-          mkdir -p /root/.android
-          cp /tmp/pokerpg-release.keystore /root/.android/pokerpg-release.keystore
-
-      - name: Ensure the pinned Android build-tools version is installed (see build_android_release.sh header for why 29.0.3 specifically)
-        run: |
-          set -euo pipefail
-          if [ ! -x "$ANDROID_BUILD_TOOLS/apksigner" ]; then
-            yes | sdkmanager --install "build-tools;29.0.3" || {
-              echo "sdkmanager unavailable/failed - if this image doesn't ship the Android SDK, install it here first.";
-              exit 1;
-            }
-          fi
+          # export_presets.cfg's [preset.0.options] keystore/release is
+          # "res://build/pokerpg-release.keystore" - a res:// path so it
+          # resolves the same way regardless of which user/home directory
+          # actually runs the build (this worker's $HOME, a local root
+          # build, or this sandbox's own $HOME - all different). build/ is
+          # gitignored, so the decoded keystore never gets committed.
+          mkdir -p build
+          echo "$ANDROID_RELEASE_KEYSTORE_BASE64" | base64 -d > build/pokerpg-release.keystore
 
       - id: build
         name: Run the project's own signed-APK build script
         run: |
           set -euo pipefail
-          export GODOT_BIN ANDROID_BUILD_TOOLS
-          export GODOT_ANDROID_KEYSTORE_RELEASE=/root/.android/pokerpg-release.keystore
+          # This image already ships an Android SDK with build-tools 29.0.3
+          # at $ANDROID_SDK_ROOT (a runner-provided env var - confirmed on a
+          # real run) - build_android_release.sh's own default (/opt/...)
+          # assumes a root-owned path this worker doesn't have, so this
+          # points it at the real installed location instead of trying to
+          # install a second copy.
+          export GODOT_BIN="$HOME/godot/Godot_v${GODOT_VERSION}_linux.x86_64"
+          export ANDROID_BUILD_TOOLS="$ANDROID_SDK_ROOT/build-tools/29.0.3"
+          export GODOT_ANDROID_KEYSTORE_RELEASE="$PWD/build/pokerpg-release.keystore"
           # Relative to the repo root, which is this step's working directory
           # after eas/checkout - matches the "path:" below.
           scripts/tools/build_android_release.sh build/pokerpg.apk

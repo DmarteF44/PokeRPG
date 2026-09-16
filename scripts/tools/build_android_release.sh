@@ -57,7 +57,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 GODOT="${GODOT_BIN:-/opt/godot43/Godot_v4.3-stable_linux.x86_64}"
 BUILD_TOOLS="${ANDROID_BUILD_TOOLS:-/opt/android-sdk/build-tools/29.0.3}"
-KEYSTORE="${GODOT_ANDROID_KEYSTORE_RELEASE:-/root/.android/pokerpg-release.keystore}"
+KEYSTORE="${GODOT_ANDROID_KEYSTORE_RELEASE:-$ROOT/build/pokerpg-release.keystore}"
 KEYSTORE_ALIAS="${GODOT_ANDROID_KEYSTORE_RELEASE_USER:-pokerpg}"
 : "${GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD:?set GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD to the release keystore password}"
 
